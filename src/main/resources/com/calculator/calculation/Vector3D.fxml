@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="730.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.VectorController">
+    <children>
+        <Label layoutX="14.0" layoutY="101.0" text="第一个向量" />
+        <Label layoutX="14.0" layoutY="175.0" text="第二个向量" />
+        <Label layoutX="14.0" layoutY="137.0" text="x1：" />
+        <TextField fx:id="inputX1" layoutX="59.0" layoutY="131.0" prefHeight="36.0" prefWidth="105.0" />
+        <Label layoutX="182.0" layoutY="137.0" text="y1：" />
+        <TextField fx:id="inputY1" layoutX="217.0" layoutY="131.0" prefHeight="36.0" prefWidth="105.0" />
+        <Label layoutX="14.0" layoutY="208.0" text="x2：" />
+        <Label layoutX="178.0" layoutY="208.0" text="y2：" />
+        <TextField fx:id="inputX2" layoutX="59.0" layoutY="202.0" prefHeight="36.0" prefWidth="105.0" />
+        <TextField fx:id="inputY2" layoutX="217.0" layoutY="202.0" prefHeight="36.0" prefWidth="105.0" />
+        <Button layoutX="201.0" layoutY="246.0" mnemonicParsing="false" onAction="#setNewVector3" prefHeight="36.0" prefWidth="78.0" text="计算" />
+        <Label layoutX="340.0" layoutY="137.0" text="z1：" />
+        <TextField fx:id="inputZ1" layoutX="378.0" layoutY="131.0" prefHeight="36.0" prefWidth="105.0" />
+        <Label layoutX="340.0" layoutY="208.0" text="z2：" />
+        <TextField fx:id="inputZ2" layoutX="378.0" layoutY="202.0" prefHeight="36.0" prefWidth="105.0" />
+        <ImageView fx:id="add3D" layoutX="17.0" layoutY="528.0" visible="false">
+            <image>
+                <Image url="@images/vectorAdd3D.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="dot3D" layoutX="12.0" layoutY="564.0" visible="false">
+            <image>
+                <Image url="@images/vectorDot3D.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="cross3D" layoutX="17.0" layoutY="610.0" visible="false">
+            <image>
+                <Image url="@images/vectorCross3D.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="angle3D" layoutX="9.0" layoutY="653.0" visible="false">
+            <image>
+                <Image url="@images/vectorAngle3D.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="addResult" layoutX="138.0" layoutY="521.0" prefHeight="48.0" prefWidth="345.0" style="-fx-font-size: 28px;" />
+        <Label fx:id="dotResult" layoutX="110.0" layoutY="567.0" prefHeight="37.0" prefWidth="383.0" style="-fx-font-size: 28px;" />
+        <Label fx:id="crossResult" layoutX="136.0" layoutY="613.0" prefHeight="37.0" prefWidth="356.0" style="-fx-font-size: 28px;" />
+        <Label fx:id="angleResult" layoutX="194.0" layoutY="656.0" prefHeight="37.0" prefWidth="289.0" style="-fx-font-size: 28px;" />
+        <Label fx:id="error" layoutX="85.0" layoutY="296.0" prefHeight="90.0" prefWidth="330.0" style="-fx-font-size: 40px;" text="输入了非法字符！" visible="false" />
+        <SubScene fx:id="subScene" height="240.0" layoutX="5.0" layoutY="286.0" width="500.0" visible="false">
+            <root>
+                <Region />
+            </root>
+        </SubScene>
+    </children>
+</AnchorPane>

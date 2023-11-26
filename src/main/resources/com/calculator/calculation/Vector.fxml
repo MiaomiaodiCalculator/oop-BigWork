@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.calculator.calculation.VectorController">
+    <StackPane fx:id="cardContainer"/>
+    <ImageView fx:id="historyImg" fitHeight="36.0" fitWidth="35.0" layoutX="448.0" layoutY="14.0"
+               onMouseClicked="#handleHisImageClick" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/history.png"/>
+    </ImageView>
+    <Text layoutX="188.0" layoutY="41.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Vector"
+          wrappingWidth="128.0">
+        <font>
+            <Font size="28.0"/>
+        </font>
+    </Text>
+    <GridPane layoutX="101.0" layoutY="49.0" prefHeight="59.0" prefWidth="328.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <children>
+            <Button fx:id="Button2D" mnemonicParsing="false" prefHeight="36.0" onAction="#Vector2DShift" prefWidth="110.0"
+                    text="二维向量"/>
+            <Button fx:id="Button3D" mnemonicParsing="false" prefHeight="36.0" onAction="#Vector3DShift" prefWidth="111.0"
+                    text="三维向量" GridPane.columnIndex="1"/>
+        </children>
+    </GridPane>
+</AnchorPane>
