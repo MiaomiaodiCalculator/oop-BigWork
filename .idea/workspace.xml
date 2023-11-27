@@ -4,47 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jep-java-4.0-trial/jep-java-4.0-trial.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/NewFunction/UserFunction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/NewFunction/jepTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ScientificController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/VectorController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/infinitesimal/InfinitesimalSolve.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/scientific/Error.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/scientific/ScientificSolve.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/vector/VectorSolve.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Scientific.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/SientificHistory.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector2D.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector3D.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/VectorHistory.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/images/history.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/images/return.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/images/vectorAdd2D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/images/vectorAdd3D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/images/vectorAngle2D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/images/vectorAngle3D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/images/vectorCross2D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/images/vectorCross3D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/images/vectorDot2D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/images/vectorDot3D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/style.css" afterDir="false" />
+    <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="结合了vector的2D实现；完成了自定义函数的部分逻辑内容；添加了jep库">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/FunctionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Function.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewFunction/UserFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewFunction/UserFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,9 +20,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="Class" />
         <option value="FxmlFile" />
-        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -74,27 +40,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last.edited.regexp": "",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "库",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editing.templates",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last.edited.regexp&quot;: &quot;&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;库&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="应用程序.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.calculator.calculation.Main" />
@@ -139,6 +105,7 @@
       <updated>1700896221190</updated>
       <workItem from="1700896222222" duration="8496000" />
       <workItem from="1700915001187" duration="22808000" />
+      <workItem from="1701071741882" duration="6897000" />
     </task>
     <servers />
   </component>

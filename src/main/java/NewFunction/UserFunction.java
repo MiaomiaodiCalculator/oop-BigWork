@@ -1,4 +1,5 @@
 package NewFunction;
+import com.singularsys.jep.EvaluationException;
 import com.singularsys.jep.Jep;
 import com.singularsys.jep.JepException;
 import com.singularsys.jep.ParseException;
@@ -18,19 +19,20 @@ public class UserFunction {
     protected String name;
     /*在一次输入中被使用的次数，注意输入结束置零*/
     private int useTime=0;
+    protected Jep jep;
     /*参数列表，是否有x y z*/
     protected boolean hasX=false;
     protected boolean hasY=false;
     protected boolean hasZ=false;
-    public int x;
-    public int y;
-    public int z;
-    /*传入的表达式*/
+    /*展示出的表达式，可能有嵌套存在*/
+    protected  String formula;
+    /*传入的表达式，可直接计算*/
     protected String exp;
     public UserFunction(){};
-    public UserFunction(String _name,String _exp){
+    public UserFunction(String _name,String _exp,String _formula){
         this.name=_name;
         this.exp=_exp;
+        this.formula=_formula;
     }
     /**
      * @Description  判断函数名是否合法。要求只由数字字母组成，开头为字母，长度<=5
@@ -39,24 +41,21 @@ public class UserFunction {
      * @author sxq
      * @date 2023/11/26 11:11
     **/
-    public static boolean judgeName(String _name){
+    public static String judgeName(String _name){
         if(_name.length()>5){
-            System.out.println("函数名最多5个字符");
-            return false;
-        }
-        if(!_name.matches("[a-zA-Z0-9]")){
-            System.out.println("只能包含数字和英文字母");
-            return false;
-        }
-        if(!_name.matches("^[a-zA-Z][a-zA-Z0-9]")){
-            System.out.println("名称必须以字母开头");
-            return false;
+           return "函数名最多5个字符";
         }
         if(_name.matches("^[a-zA-Z][a-zA-Z0-9]{0,4}$")){
-            return true;
+            return "true";
         }
-        System.out.println("名称不合法");
-        return false;
+        if(!_name.matches("[a-zA-Z0-9]")){
+           return ("函数名只能包含数字和英文字母");
+        }
+        if(!_name.matches("^[a-zA-Z][a-zA-Z0-9]")){
+            return ("函数名必须以字母开头");
+        }
+
+       return ("名称不合法，未知错误");
     }
     /**
      * @Description 判断新自定义函数的名称是否重复
@@ -75,11 +74,10 @@ public class UserFunction {
      * @author sxq
      * @date 2023/11/25 21:42
      **/
-    public static boolean judgeFunction(String _exp){
+    public static String judgeFunction(String _exp){
         //删除空格
         if(_exp==null){
-            System.out.println("表达式为空");
-            return false;
+            return ("表达式为空");
         }
         _exp=_exp.replaceAll(" ","");
         Jep jep =new Jep();
@@ -93,32 +91,20 @@ public class UserFunction {
         try{
             jep.parse(_exp);
         }catch(ParseException e){
-            System.out.println("表达式不合法，解析失败");
-            return false;
+            return ("表达式不合法，解析失败");
         }
         //判断是否存在未定义的变量等不合法表达
-        System.out.println("函数表达式合法");
-        return true;
+        return "true";
     }
     /**
-     * @Description 新建自定义函数，加入函数map
+     * @Description 新建自定义函数，加入函数map；已在controller中做合法判定
      * @return boolean       true：成功 false：失败
      * @author sxq
      * @date 2023/11/25 22:19
      **/
     public boolean addFunction(){
-
-        if(judgeFunction(this.name)){
-            System.out.println("函数名重复");
-            return false;
-        }
-        if(!judgeFunction(this.exp)){
-            System.out.println("自定义函数不合法！");
-            return false;
-        }
         //添加到自定义函数
        userFunctionMap.put(this.name,this);
-
         return true;
     }
     /***
@@ -150,9 +136,18 @@ public class UserFunction {
         this.exp=this.exp.replace("$z$",replace+"z");
         return this.exp;
     }
-//    public double getRes(double x){
-//
-//    }
+    public Object getRes(double x) {
+        try {
+            jep.addVariable("$x$",x);
+        } catch (JepException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            return jep.evaluate();
+        } catch (EvaluationException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
 

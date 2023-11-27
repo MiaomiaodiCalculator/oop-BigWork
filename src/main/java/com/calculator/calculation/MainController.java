@@ -1,5 +1,6 @@
 package com.calculator.calculation;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,6 +43,13 @@ public class MainController implements Initializable {
     private void VectorShift(){
         loadPage("Vector.fxml");
     }
+    /**
+     * @Description 加载自定义函数页面
+     * @author sxq
+     * @date 2023/11/26 15:18
+     **/
+    @FXML
+    private void FunctionShift() {loadPage("Function.fxml");}
     /***
      * @Description  加载页面的函数
      * @param fxmlFileName 文件名称
@@ -56,4 +64,5 @@ public class MainController implements Initializable {
             System.out.println("error");
         }
     }
+
 }
