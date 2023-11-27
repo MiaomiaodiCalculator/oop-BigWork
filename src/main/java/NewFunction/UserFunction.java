@@ -1,12 +1,10 @@
 package NewFunction;
+import com.calculator.calculation.FunctionController;
 import com.singularsys.jep.EvaluationException;
 import com.singularsys.jep.Jep;
 import com.singularsys.jep.JepException;
 import com.singularsys.jep.ParseException;
-import com.singularsys.jep.functions.PostfixMathCommand;
-
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * @author sxq
@@ -16,7 +14,8 @@ import java.util.TreeMap;
 public class UserFunction {
     /*全局：所有自定义的函数<名称，函数>*/
     public static Map<String,UserFunction> userFunctionMap=new TreeMap<>();
-    protected String name;
+    private String name;
+    private int paraNum;
     /*在一次输入中被使用的次数，注意输入结束置零*/
     private int useTime=0;
     protected Jep jep;
@@ -25,15 +24,48 @@ public class UserFunction {
     protected boolean hasY=false;
     protected boolean hasZ=false;
     /*展示出的表达式，可能有嵌套存在*/
-    protected  String formula;
+    private   String formula;
     /*传入的表达式，可直接计算*/
-    protected String exp;
+    private String exp;
     public UserFunction(){};
     public UserFunction(String _name,String _exp,String _formula){
         this.name=_name;
         this.exp=_exp;
         this.formula=_formula;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getParaNum() {
+        return paraNum;
+    }
+
+    public void setParaNum(int paraNum) {
+        this.paraNum = paraNum;
+    }
+
+    public String getFormula() {
+        return formula;
+    }
+
+    public void setFormula(String formula) {
+        this.formula = formula;
+    }
+
+    public String getExp() {
+        return exp;
+    }
+
+    public void setExp(String exp) {
+        this.exp = exp;
+    }
+
     /**
      * @Description  判断函数名是否合法。要求只由数字字母组成，开头为字母，长度<=5
      * @param _name
@@ -105,7 +137,8 @@ public class UserFunction {
     public boolean addFunction(){
         //添加到自定义函数
        userFunctionMap.put(this.name,this);
-        return true;
+       FunctionController.functionList.add(this);
+       return true;
     }
     /***
      * @Description 获取参数列表

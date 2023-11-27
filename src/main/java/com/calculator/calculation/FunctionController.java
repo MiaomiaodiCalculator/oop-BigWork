@@ -1,19 +1,19 @@
 package com.calculator.calculation;
 
 import NewFunction.UserFunction;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import scientific.ScientificSolve;
 
 import java.net.URL;
-import java.nio.file.attribute.UserPrincipalLookupService;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * @author sxq
@@ -26,6 +26,11 @@ public class FunctionController implements Initializable {
     public Button BUTTON_paraZ;
     public TextField functionShow;
     public TextField functionName;
+    public Button BUTTON_USERFUNCTION;
+    public TableView FunctionList;
+    public TableColumn nameList;
+    public TableColumn paraNumList;
+    public TableColumn formulaList;
     @FXML
     private StackPane cardContainer;
 
@@ -40,10 +45,12 @@ public class FunctionController implements Initializable {
      private String formula="";
      /*后台用于计算的表达式*/
     protected String exp="";
+    public static ArrayList<UserFunction> functionList=new ArrayList<>();
 
     @FXML
         void handleHisImageClick(MouseEvent event) {
 
+        
         }
         /**
          * @Description 处理普通符号按钮点击事件
@@ -96,13 +103,25 @@ public class FunctionController implements Initializable {
         }
         //判断表达式合法性
         UserFunction function=new UserFunction(functionName.getText(),exp,formula);
+        function.setParaNum(choiceBox.getValue());
         if(function.addFunction()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("创建了一个新函数！");
             alert.setHeaderText("函数名："+functionName.getText());
             alert.setContentText("表达式："+formula);
             alert.showAndWait();
+            FunctionList.getItems().add(functionList.get(functionList.size()-1));
         }
+    }
+    /**
+     * @Description 点击自定义函数按钮，获取已有的函数列表，并转换表达式和函数式
+ * @param event        
+     * @author sxq
+     * @date 2023/11/27 20:41
+    **/
+    @FXML
+    private void handleGetFunction(ActionEvent event){
+        FunctionList.setVisible(!FunctionList.isVisible());//点击显示
     }
     /**
      * @Description 编辑自定义函数的文本
@@ -200,11 +219,22 @@ public class FunctionController implements Initializable {
                 break;
         }
     }
+    /**
+     * @Description 初始化参数选择框、函数列表
+ * @param url
+ * @param resourceBundle
+     * @author sxq
+     * @date 2023/11/27 22:49
+    **/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         choiceBox.getItems().addAll(paraNum);
         choiceBox.setValue(1);
         choiceBox.setOnAction(this::getParaNum);
+        FunctionList.setPlaceholder(new Label("脑瓜子空空的"));//占位文本
+        nameList.setCellValueFactory(new PropertyValueFactory<>("name"));
+        paraNumList.setCellValueFactory(new PropertyValueFactory<>("paraNum"));
+        formulaList.setCellValueFactory(new PropertyValueFactory<>("formula"));
     }
     /**
      * @Description 获取参数个数并禁用自变量按钮；清空输入区

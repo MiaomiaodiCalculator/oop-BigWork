@@ -7,5 +7,6 @@ module com.calculator.calculation {
         opens com.calculator.calculation to javafx.fxml;
         exports com.calculator.calculation;
         exports scientific;
-        opens scientific to javafx.fxml;
+        opens scientific to javafx.fxml,javafx.base;
+        opens NewFunction to javafx.base;
         }
