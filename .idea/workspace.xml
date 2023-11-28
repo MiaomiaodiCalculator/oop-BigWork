@@ -5,17 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/EquationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Equation.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/UnitTranslationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Angle.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Area.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Length.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Temperature.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Time.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/UnitTranslation.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Volume.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Weight.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Vector.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/Vector.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/VectorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/VectorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vector/VectorSolve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vector/VectorSolve.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/SientificHistory.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector2D.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector2D.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector3D.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector3D.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/VectorHistory.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,29 +57,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/sci",
-    "last.edited.regexp": "",
-    "last_opened_file_path": "E:/study/Sophomore/OOP/大作业/Calculation/src/main/resources/com/calculator/calculation",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "库",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editing.templates",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ZhouYH__1128&quot;,
+    &quot;last.edited.regexp&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/study/Sophomore/OOP/大作业/Calculation/src/main/resources/com/calculator/calculation&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;库&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\study\Sophomore\OOP\大作业\Calculation\src\main\resources\com\calculator\calculation" />
@@ -84,7 +88,7 @@
       <recent name="com.calculator.calculation" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.Main">
+  <component name="RunManager" selected="应用程序.jepTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.calculator.calculation.Main" />
       <module name="Calculater" />
@@ -111,25 +115,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Calculater" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Calculater" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="应用程序.Main" />
-        <item itemvalue="应用程序.jepTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -142,6 +127,7 @@
       <workItem from="1700896222222" duration="8496000" />
       <workItem from="1700915001187" duration="22808000" />
       <workItem from="1701071741882" duration="19679000" />
+      <workItem from="1701167038972" duration="251000" />
     </task>
     <task id="LOCAL-00001" summary="嘿嘿，自定义函数，嘿嘿&#10;还需要对历史自定义函数的使用">
       <option name="closed" value="true" />
