@@ -47,6 +47,13 @@ public class VectorSolve implements Serializable {
             error=false;
         }
     }
+    /***
+     * @Description 向量相加
+     * @return double[]
+     * @author Bu Xinran
+     * @date 2023/11/28 13:39
+    **/
+
     public double[] addVector(){
         add[0]=X1+X2;
         add[1]=Y1+Y2;
@@ -54,6 +61,13 @@ public class VectorSolve implements Serializable {
             add[2]=Z1+Z2;
         return add;
     }
+    /***
+     * @Description   向量点乘
+     * @return double
+     * @author Bu Xinran
+     * @date 2023/11/28 13:39
+    **/
+
     public double dotVector(){
         if(state==3){
             dot=X1*X2+Y1*Y2+Z1*Z2;
@@ -63,6 +77,13 @@ public class VectorSolve implements Serializable {
             return dot;
         }
     }
+    /***
+     * @Description   向量叉乘
+     * @return double
+     * @author Bu Xinran
+     * @date 2023/11/28 13:39
+    **/
+
     public double crossVector(){
         if(state==2){
             cross=X1*Y2 - X2*Y1;
@@ -73,6 +94,12 @@ public class VectorSolve implements Serializable {
             return cross;
         }
     }
+    /***
+     * @Description   求角度
+     * @return double
+     * @author Bu Xinran
+     * @date 2023/11/28 13:40
+    **/
     public double angleVector(){
         if(state==2){
             angle=X1*X2+Y1*Y2;

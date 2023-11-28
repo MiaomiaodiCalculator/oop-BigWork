@@ -8,10 +8,6 @@
 <AnchorPane prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.calculator.calculation.VectorController">
     <StackPane fx:id="cardContainer"/>
-    <ImageView fx:id="historyImg" fitHeight="36.0" fitWidth="35.0" layoutX="448.0" layoutY="14.0"
-               onMouseClicked="#handleHisImageClick" pickOnBounds="true" preserveRatio="true">
-        <Image url="@images/history.png"/>
-    </ImageView>
     <Text layoutX="188.0" layoutY="41.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Vector"
           wrappingWidth="128.0">
         <font>
