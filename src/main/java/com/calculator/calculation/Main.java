@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * @author sxq
- * @Description:
+ * @Description 主程序入口
  * @date 2023/11/26 13:52
  */
 public class Main extends Application {
