@@ -56,7 +56,7 @@ public class MainController implements Initializable {
      * @date 2023/11/28 10:21
      **/
     @FXML
-    public void equationShift() {loadPage("Equation.fxml");}
+    public void EquationShift() {loadPage("Equation.fxml");}
     /***
      * @Description  加载页面的函数
      * @param fxmlFileName 文件名称

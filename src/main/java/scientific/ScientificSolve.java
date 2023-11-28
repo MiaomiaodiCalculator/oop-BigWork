@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
  */
 public class ScientificSolve implements Serializable {
     protected String formula="";
+    protected String exp="";
     protected Error calFlag=Error.yes;
     protected String answer;
     protected LinkedHashMap<Integer,String> process=new LinkedHashMap<>();
@@ -26,12 +27,13 @@ public class ScientificSolve implements Serializable {
      * @author Bu Xinran
      * @date 2023/11/27 14:15
      **/
-    public ScientificSolve(String formula,String answer,Error calFlag,LinkedHashMap<Integer,String> process,int cntProcess){
+    public ScientificSolve(String formula,String answer,Error calFlag,LinkedHashMap<Integer,String> process,int cntProcess,String exp){
         this.formula=formula;
         this.answer=answer;
         this.calFlag=calFlag;
         this.process=process;
         this.cntProcess=cntProcess;
+        this.exp=exp;
     }
     /***
      * @Description getter函数，获得formula公式
@@ -42,6 +44,13 @@ public class ScientificSolve implements Serializable {
     public String getFormula() {
         return formula;
     }
+    /***
+     * @Description   getter函数，获得exp公式
+     * @return java.lang.String
+     * @author Bu Xinran
+     * @date 2023/11/28 15:46
+    **/
+    public String getExp(){return exp;}
     /***
      * @Description getter函数，获得运算结果
      * @return String

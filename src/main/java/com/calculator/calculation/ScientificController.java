@@ -1,17 +1,20 @@
 package com.calculator.calculation;
-
+import NewFunction.UserFunction;
 import com.singularsys.jep.EvaluationException;
 import com.singularsys.jep.ParseException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,6 +25,8 @@ import com.singularsys.jep.Jep;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+
+import static com.calculator.calculation.FunctionController.functionList;
 
 /**
  * @author Bu Xinran
@@ -37,14 +42,22 @@ public class ScientificController implements Initializable{
     public Pane Scientific;
     public Pane History;
     public Button buttonFree;
+    public TableView FunctionList;
+    public TableColumn nameList;
+    public TableColumn paraNumList;
+    public TableColumn formulaList1;
     private ArrayList<ScientificSolve> list =new ArrayList<>();
     public TableView<ScientificSolve> tableView;
     public TableColumn<ScientificSolve, String> formulaList;
     public TableColumn<ScientificSolve, String> answerList;
+    /*formula是展示在前端界面上的计算式*/
     private String formula="";
+    /*可直接计算的计算式*/
+    private String exp="";
     private Error calFlag;
     private String answer="";
     private LinkedHashMap<Integer,String> process=new LinkedHashMap<>();
+    private LinkedHashMap<Integer,String> processExp=new LinkedHashMap<>();
     private static int cntProcess=0;
     public static boolean atPow=false;
     private boolean finish=false;
@@ -56,6 +69,13 @@ public class ScientificController implements Initializable{
      * @date 2023/11/27 10:54
      **/
     public void initialize(URL location, ResourceBundle resources) {
+        for (UserFunction userFunction : functionList) {
+            FunctionList.getItems().add(userFunction);
+        }
+        FunctionList.setPlaceholder(new Label("暂无自定义函数"));//占位文本
+        nameList.setCellValueFactory(new PropertyValueFactory<>("name"));
+        paraNumList.setCellValueFactory(new PropertyValueFactory<>("paraNum"));
+        formulaList1.setCellValueFactory(new PropertyValueFactory<>("formula"));
         // 初始化时，显示第一个卡片，隐藏第二个卡片
         Scientific.setVisible(true);
         History.setVisible(false);
@@ -98,12 +118,53 @@ public class ScientificController implements Initializable{
         History.setVisible(true);
     }
     /***
+     * @Description  通过鼠标点击哪一个自定义函数来调用
+     * @param event  鼠标点击了tableview的哪一行
+     * @author Bu Xinran
+     * @date 2023/11/28 14:45
+    **/
+    public void chooseFunction(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            UserFunction selectedItem = (UserFunction)(FunctionList.getSelectionModel().getSelectedItem());
+            if (selectedItem != null) {
+                String title="正在调用自定义函数'"+selectedItem.getName()+"'";
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setTitle(title);
+                dialog.setHeaderText("请输入各变量的值：");
+                int num=selectedItem.getParaNum();
+                GridPane gridPane = new GridPane();
+                TextField textX = null;
+                if(num>=1){
+                    textX = new TextField();
+                    gridPane.add(textX, 1, 0);
+                    gridPane.add(new Label("X:"), 0, 0);
+                }
+                TextField textField2 = new TextField();
+                gridPane.add(textField2, 1, 1);
+                gridPane.add(new Label("文本框3:"), 0, 2);
+                TextField textField3 = new TextField();
+                gridPane.add(textField3, 1, 2);
+                dialog.getDialogPane().setContent(gridPane);
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+                Optional<ButtonType> result = dialog.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    // 在这里处理用户点击确定按钮后的逻辑，获取文本框的值
+                    String text1 = textX.getText();
+                    String text2 = textField2.getText();
+                    String text3 = textField3.getText();
+                    System.out.println("文本框1的值：" + text1);
+                    System.out.println("文本框2的值：" + text2);
+                    System.out.println("文本框3的值：" + text3);
+                }
+            }
+        }
+    }
+    /***
      * @Description  通过判断鼠标点击哪一行跳转回编辑界面
      * @param event 鼠标点击了tableview的哪一行
      * @author Bu Xinran
      * @date 2023/11/27 23:59
      **/
-
     public void handleRowClick(MouseEvent event) {
         // 判断是否双击行
         if (event.getClickCount() == 2) {
@@ -111,6 +172,7 @@ public class ScientificController implements Initializable{
             if (selectedItem != null) {
                 String toFormula=selectedItem.getFormula();
                 String toAnswer=selectedItem.getResult();
+                exp=selectedItem.getExp();
                 Scientific.setVisible(true);
                 History.setVisible(false);
                 formula=toFormula;
@@ -159,31 +221,7 @@ public class ScientificController implements Initializable{
      * @date 2023/11/28 10:49
      **/
     public void Freedom(ActionEvent actionEvent) {
-//        Stage functionsStage = new Stage();
-//        functionsStage.initModality(Modality.WINDOW_MODAL);
-//        functionsStage.initOwner(buttonFree.getScene().getWindow());
-//        TableView<Function> functionsTable = new TableView<>();
-//        TableColumn<Function, String> nameColumn = new TableColumn<>("Name");
-//        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        TableColumn<Function, String> expressionColumn = new TableColumn<>("Expression");
-//        expressionColumn.setCellValueFactory(new PropertyValueFactory<>("expression"));
-//        functionsTable.getColumns().addAll(nameColumn, expressionColumn);
-//        functionsTable.setItems(FXCollections.observableArrayList(
-//                new Function("Function 1", "x^2 + 3"),
-//                new Function("Function 2", "sin(x)"),
-//                new Function("Function 3", "1 / (1 + e^(-x))"),
-//                new Function("Function 4", "log(x)")
-//        ));
-//        VBox.setVgrow(functionsTable, Priority.ALWAYS);
-//        VBox.setMargin(functionsTable, new Insets(10));
-//        VBox.setMargin(functionsPanel, new Insets(10));
-//        functionsPanel.getChildren().setAll(functionsTable);
-//        ScrollPane scrollPane = new ScrollPane();
-//        scrollPane.setPrefSize(400, 300);
-//        scrollPane.setContent(functionsPanel);
-//        Scene scene = new Scene(scrollPane);
-//        functionsStage.setScene(scene);
-//        functionsStage.show();
+        FunctionList.setVisible(!FunctionList.isVisible());
     }
     /***
      * @Description 产生错误后的后续处理
@@ -246,7 +284,7 @@ public class ScientificController implements Initializable{
     private void setAnswer() throws EvaluationException {
         Jep jep=new Jep();
         try{
-            jep.parse(formula);
+            jep.parse(exp);
             answer=jep.evaluate().toString();
         }catch(ParseException e){
             System.out.print(" ");
@@ -263,51 +301,66 @@ public class ScientificController implements Initializable{
         switch(str){
             case "0": case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case "(":  case "+": case "-": case ".": case "!":
                 formula=formula+str;
+                exp=exp+str;
                 break;
             case ")":
                 formula=formula+")";
+                exp=exp+")";
                 if(atPow){
                     atPow=checkPow();
                 }
                 break;
             case "×":
                 formula=formula+"*";
+                exp=exp+"*";
                 break;
             case "÷":
                 formula=formula+"/";
+                exp=exp+"/";
                 break;
             case "mod":
                 formula=formula+"%";
+                exp=exp+"%";
                 break;
             case "log10": case "log": case "log2", "sin", "cos", "tan", "sec", "csc", "cot":
                 formula=formula+str+"(";
+                exp=exp+str+"(";
                 break;
             case "10ˣ":
                 formula=formula+"10^(";
+                exp=exp+"10^(";
                 break;
             case "xⁿ":
                 formula=formula+"^(";
+                exp=exp+"^(";
                 break;
             case "√":
                 formula=formula+"sqrt(";
+                exp=exp+"sqrt(";
                 break;
             case "³√":
                 formula=formula+"^(1/3)";
+                exp=exp+"^(1/3)";
                 break;
             case "eˣ":
                 formula=formula+"exp(";
+                exp=exp+"exp(";
                 break;
             case "x³":
                 formula=formula+"^3";
+                exp=exp+"^3";
                 break;
             case "π":
                 formula=formula+"pi";
+                exp=exp+"pi";
                 break;
             case "e":
                 formula=formula+"e";
+                exp=exp+"e";
                 break;
             case "x²":
                 formula=formula+"^2";
+                exp=exp+"^2";
                 break;
             case "C":
                 formula="";
@@ -316,31 +369,39 @@ public class ScientificController implements Initializable{
                 break;
             case "rand":
                 Random rand = new Random();
-                formula=formula+String.valueOf(rand.nextInt(900) + 100);
+                int x=rand.nextInt(900) + 100;
+                formula=formula+String.valueOf(x);
+                exp=exp+String.valueOf(x);
                 break;
             case "⌊x⌋":
                 formula=formula+"floor(";
+                exp=exp+"floor(";
                 break;
             case "⌈x⌉":
                 formula=formula+"ceil(";
+                exp=exp+"ceil(";
                 break;
             case "|x|":
                 formula=formula+"abs(";
+                exp=exp+"abs(";
                 break;
             case "pow":
                 formula=formula+"pow(";
+                exp=exp+"pow(";
                 atPow=true;
                 break;
             case ",":
                 formula=formula+",";
+                exp=exp+",";
                 break;
             case "=":
                 formula=formula+"=";
+                exp=exp+"=";
                 cntProcess++;
                 process.put(cntProcess,formula);
                 if(calFlag!=Error.divideZero)checkIllegal();
                 finish=true;
-                ScientificSolve a=new ScientificSolve(formula,answer,calFlag,process,cntProcess);
+                ScientificSolve a=new ScientificSolve(formula,answer,calFlag,process,cntProcess,exp);
                 a.setAnswer(a.getResult());
                 if(!list.contains(a)){
                     list.add(a);
@@ -352,16 +413,21 @@ public class ScientificController implements Initializable{
                     atPow=false;
                 }
                 cntProcess--;
-                if(cntProcess==0){
+                if(cntProcess<=0){
                     formula="";
+                    exp="";
+                    answer="";
                     return;
                 }
                 formula=process.get(cntProcess);
+                exp=processExp.get(cntProcess);
                 process.remove(cntProcess);
+                processExp.remove(cntProcess);
                 return;
         }
         cntProcess++;
         process.put(cntProcess,formula);
+        processExp.put(cntProcess,exp);
     }
     /***
      * @Description  检查当前pow函数是否调用完成
@@ -456,7 +522,7 @@ public class ScientificController implements Initializable{
         Jep jep=new Jep();
         String ans ="";
         try{
-            jep.parse(formula);
+            jep.parse(exp);
             ans=jep.evaluate().toString();
         }catch(ParseException|EvaluationException e){
             System.out.print(" ");
@@ -469,5 +535,13 @@ public class ScientificController implements Initializable{
             return;
         }
         calFlag=Error.yes;
+    }
+    /***
+     * @Description  提交调用自定义函数的参数
+     * @param event 按钮点击事件
+     * @author Bu Xinran
+     * @date 2023/11/28 16:44
+    **/
+    public void handleOkay(ActionEvent event) {
     }
 }
