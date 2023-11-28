@@ -51,6 +51,13 @@ public class MainController implements Initializable {
     @FXML
     private void FunctionShift() {loadPage("Function.fxml");}
     /***
+     * @Description 加载方程式计算器卡片布局
+     * @author Bu Xinran
+     * @date 2023/11/28 10:21
+     **/
+    @FXML
+    public void equationShift() {loadPage("Equation.fxml");}
+    /***
      * @Description  加载页面的函数
      * @param fxmlFileName 文件名称
      * @author Bu Xinran

@@ -53,22 +53,6 @@ public class VectorController{
 
     private GraphicsContext gc=null;
     /***
-     * @Description  点击图片加载历史记录界面
-     * @param event  处理的点击事件
-     * @author Bu Xinran
-     * @date 2023/11/25 22:54
-     **/
-    @FXML
-    private void handleHisImageClick(MouseEvent event) {
-        loadPage("VectorHistory.fxml");
-        Button2D.setVisible(false);
-        Button3D.setVisible(false);
-    }
-    public void handleReturnClick(MouseEvent mouseEvent) {
-        Button2D.setVisible(true);
-        Button3D.setVisible(true);
-    }
-    /***
      * @Description  加载二维向量对应的文件
      * @param actionEvent 无意义
      * @author Bu Xinran
