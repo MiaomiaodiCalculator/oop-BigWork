@@ -282,7 +282,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Volume");
+        TypeSet.setText("Length");
     }
 
     /**
@@ -300,7 +300,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Volume");
+        TypeSet.setText("Weight");
     }
 
     /**
@@ -318,7 +318,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Volume");
+        TypeSet.setText("Temperature");
     }
 
     /**
@@ -336,7 +336,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Volume");
+        TypeSet.setText("Area");
     }
 
     /**
@@ -354,7 +354,7 @@ public class UnitTranslationController {
         Times.setVisible(true);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Volume");
+        TypeSet.setText("Time");
     }
 
     /**
@@ -372,7 +372,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(true);
         newText();
-        TypeSet.setText("Volume");
+        TypeSet.setText("Angle");
     }
 
     /**
