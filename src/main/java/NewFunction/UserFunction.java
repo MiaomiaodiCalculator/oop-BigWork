@@ -156,7 +156,7 @@ public class UserFunction {
             hasZ=true;
         }
     }
-    /***
+    /**
      * @Description 用于自定义函数嵌套时替换参数
  * @return java.lang.String       返回替换后的表达式
      * @author sxq
@@ -235,5 +235,3 @@ public class UserFunction {
     }
 
 }
-
-

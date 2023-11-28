@@ -5,8 +5,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -17,9 +15,6 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.FunctionController">
     <StackPane fx:id="cardContainer" />
-    <ImageView fx:id="historyImg" fitHeight="36.0" fitWidth="35.0" layoutX="448.0" layoutY="14.0" onMouseClicked="#handleHisImageClick" pickOnBounds="true" preserveRatio="true">
-        <Image url="@images/history.png" />
-    </ImageView>
     <TextField fx:id="functionShow" layoutX="5.0" layoutY="179.0" prefHeight="62.0" prefWidth="490.0">
       <font>
          <Font size="15.0" />
@@ -75,7 +70,7 @@
             <Button fx:id="BUTTON_DIVIDE" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="÷" GridPane.columnIndex="4" GridPane.rowIndex="4">
             </Button>
             <Button fx:id="BUTTON_DIVIDE2" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="tan" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Button fx:id="BUTTON_DIVIDE3" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="rand" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Button fx:id="BUTTON_DIVIDE3" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="mod" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <Button fx:id="BUTTON_EE" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="←" GridPane.columnIndex="3" />
             <Button fx:id="BUTTON_NEGATIVE" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="sec" GridPane.rowIndex="1" />
             <Button fx:id="BUTTON_E" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="e" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -134,7 +129,7 @@
          <Font size="15.0" />
       </font>
    </TextField>
-   <TableView fx:id="FunctionList" layoutX="7.0" layoutY="244.0" prefHeight="401.0" prefWidth="490.0" visible="false">
+   <TableView fx:id="FunctionList" layoutX="7.0" layoutY="244.0" onMouseClicked="#handleRowClick" prefHeight="401.0" prefWidth="490.0" visible="false">
      <columns>
        <TableColumn fx:id="nameList" prefWidth="94.0" text="函数名" />
        <TableColumn fx:id="paraNumList" prefWidth="76.0" text="参数个数" />
