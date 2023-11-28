@@ -4,18 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/EquationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Equation.fxml" afterDir="false" />
+    <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="添加了历史自定义函数的展示；&#10;待添加点击事件">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Scientific.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/Scientific.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/VectorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/VectorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vector/VectorSolve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vector/VectorSolve.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/SientificHistory.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector2D.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector2D.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector3D.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Vector3D.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/VectorHistory.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ScientificController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ScientificController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/scientific/ScientificSolve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scientific/ScientificSolve.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Scientific.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Scientific.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +70,7 @@
     "project.structure.last.edited": "库",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editing.templates",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -107,19 +105,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Calculater" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Calculater" />
-      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -191,7 +176,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/feature/sci" />
                       </list>
                     </value>
                   </entry>
