@@ -5,21 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/UnitTranslationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Angle.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Area.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Length.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Temperature.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Time.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/UnitTranslation.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Volume.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Weight.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Vector.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/Vector.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/UnitTranslationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/UnitTranslationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Angle.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Area.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Length.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Temperature.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Time.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/UnitTranslation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/UnitTranslation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Volume.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Weight.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,10 +33,11 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="ZhouYH_1129_0" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -88,7 +84,7 @@
       <recent name="com.calculator.calculation" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.jepTest">
+  <component name="RunManager" selected="Application.jepTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.calculator.calculation.Main" />
       <module name="Calculater" />
@@ -128,6 +124,8 @@
       <workItem from="1700915001187" duration="22808000" />
       <workItem from="1701071741882" duration="19679000" />
       <workItem from="1701167038972" duration="251000" />
+      <workItem from="1701188581975" duration="159000" />
+      <workItem from="1701188748381" duration="354000" />
     </task>
     <task id="LOCAL-00001" summary="嘿嘿，自定义函数，嘿嘿&#10;还需要对历史自定义函数的使用">
       <option name="closed" value="true" />

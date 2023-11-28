@@ -29,7 +29,219 @@
                <Font size="28.0" />
            </font>
        </Text>
-       <StackPane fx:id="UnitContainer" layoutY="166.0" prefHeight="529.0" prefWidth="500.0" />
+       <Pane fx:id="Volume" layoutY="200.0" prefHeight="441.0" prefWidth="482.0" visible="false">
+           <children>
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 1">
+                           <items>
+                               <MenuItem onAction="#A1_1" text="毫升" />
+                               <MenuItem onAction="#A1_2" text="立方厘米" />
+                               <MenuItem onAction="#A1_3" text="升" />
+                               <MenuItem onAction="#A1_4" text="立方米" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 2">
+                           <items>
+                               <MenuItem onAction="#A2_1" text="毫升" />
+                               <MenuItem onAction="#A2_2" text="立方厘米" />
+                               <MenuItem onAction="#A2_3" text="升" />
+                               <MenuItem onAction="#A2_4" text="立方米" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="Go! " />
+           </children>
+       </Pane>
+       <Pane fx:id="Length" layoutY="200.0" prefHeight="463.0" prefWidth="482.0" visible="false">
+           <children>
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 1">
+                           <items>
+                               <MenuItem onAction="#B1_1" text="纳米" />
+                               <MenuItem onAction="#B1_2" text="微米" />
+                               <MenuItem onAction="#B1_3" text="毫米" />
+                               <MenuItem onAction="#B1_4" text="厘米" />
+                               <MenuItem onAction="#B1_5" text="米" />
+                               <MenuItem onAction="#B1_6" text="公里" />
+                               <MenuItem onAction="#B1_7" text="英寸" />
+                               <MenuItem onAction="#B1_8" text="英尺" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 2">
+                           <items>
+                               <MenuItem onAction="#B2_1" text="纳米" />
+                               <MenuItem onAction="#B2_2" text="微米" />
+                               <MenuItem onAction="#B2_3" text="毫米" />
+                               <MenuItem onAction="#B2_4" text="厘米" />
+                               <MenuItem onAction="#B2_5" text="米" />
+                               <MenuItem onAction="#B2_6" text="公里" />
+                               <MenuItem onAction="#B2_7" text="英寸" />
+                               <MenuItem onAction="#B2_8" text="英尺" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="Go! " />
+           </children>
+       </Pane>
+       <Pane fx:id="Weight" layoutY="200.0" prefHeight="425.0" prefWidth="500.0" visible="false">
+           <children>
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 1">
+                           <items>
+                               <MenuItem onAction="#C1_1" text="毫克" />
+                               <MenuItem onAction="#C1_2" text="克" />
+                               <MenuItem onAction="#C1_3" text="千克" />
+                               <MenuItem onAction="#C1_4" text="吨" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 2">
+                           <items>
+                               <MenuItem onAction="#C2_1" text="毫克" />
+                               <MenuItem onAction="#C2_2" text="克" />
+                               <MenuItem onAction="#C2_3" text="千克" />
+                               <MenuItem onAction="#C2_4" text="吨" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="Go! " />
+           </children>
+       </Pane>
+       <Pane fx:id="Temperature" layoutY="200.0" prefHeight="476.0" prefWidth="482.0" visible="false">
+           <children>
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 1">
+                           <items>
+                               <MenuItem onAction="#D1_1" text="摄氏度" />
+                               <MenuItem onAction="#D1_2" text="华氏度" />
+                               <MenuItem onAction="#D1_3" text="开尔文" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 2">
+                           <items>
+                               <MenuItem onAction="#D2_1" text="摄氏度" />
+                               <MenuItem onAction="#D2_2" text="华氏度" />
+                               <MenuItem onAction="#D2_3" text="开尔文" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="Go! " />
+           </children>
+       </Pane>
+       <Pane fx:id="Area" layoutY="200.0" prefHeight="476.0" prefWidth="482.0" visible="false">
+           <children>
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 1">
+                           <items>
+                               <MenuItem onAction="#E1_1" text="平方厘米" />
+                               <MenuItem onAction="#E1_2" text="平方米" />
+                               <MenuItem onAction="#E1_3" text="平方公里" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 2">
+                           <items>
+                               <MenuItem onAction="#E2_1" text="平方厘米" />
+                               <MenuItem onAction="#E2_2" text="平方米" />
+                               <MenuItem onAction="#E2_3" text="平方公里" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="Go! " />
+           </children>
+       </Pane>
+       <Pane fx:id="Times" layoutY="200.0" prefHeight="463.0" prefWidth="489.0" visible="false">
+           <children>
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 1">
+                           <items>
+                               <MenuItem onAction="#F1_1" text="毫秒" />
+                               <MenuItem onAction="#F1_2" text="秒" />
+                               <MenuItem onAction="#F1_3" text="分钟" />
+                               <MenuItem onAction="#F1_4" text="小时" />
+                               <MenuItem onAction="#F1_5" text="天" />
+                               <MenuItem onAction="#F1_6" text="周" />
+                               <MenuItem onAction="#F1_7" text="年" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 2">
+                           <items>
+                               <MenuItem onAction="#F2_1" text="毫秒" />
+                               <MenuItem onAction="#F2_2" text="秒" />
+                               <MenuItem onAction="#F2_3" text="分钟" />
+                               <MenuItem onAction="#F2_4" text="小时" />
+                               <MenuItem onAction="#F2_5" text="天" />
+                               <MenuItem onAction="#F2_6" text="周" />
+                               <MenuItem onAction="#F2_7" text="年" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="Go! " />
+           </children>
+       </Pane>
+       <Pane fx:id="Angle" layoutY="200.0" prefHeight="463.0" prefWidth="489.0" visible="false">
+           <children>
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 1">
+                           <items>
+                               <MenuItem onAction="#G1_1" text="度" />
+                               <MenuItem onAction="#G1_2" text="弧度" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+                   <menus>
+                       <Menu text="Unit 2">
+                           <items>
+                               <MenuItem onAction="#G2_1" text="度" />
+                               <MenuItem onAction="#G2_2" text="弧度" />
+                           </items>
+                       </Menu>
+                   </menus>
+               </MenuBar>
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="Go! " />
+           </children>
+       </Pane>
+       <TextField fx:id="input" layoutX="46.0" layoutY="265.0" prefHeight="64.0" prefWidth="409.0" visible="false" />
+       <TextField fx:id="output" editable="false" layoutX="46.0" layoutY="459" prefHeight="64.0" prefWidth="409.0" visible="false" />
+       <TextField fx:id="unit1" editable="false" layoutX="129.0" layoutY="200" prefHeight="23.0" prefWidth="64.0" visible="false" />
+       <TextField fx:id="unit2" editable="false" layoutX="129.0" layoutY="400" prefHeight="23.0" prefWidth="64.0" visible="false" />
       <TextField fx:id="TypeSet" editable="false" layoutX="152.0" layoutY="115.0" prefHeight="32.0" prefWidth="131.0" />
    </children>
 </AnchorPane>
