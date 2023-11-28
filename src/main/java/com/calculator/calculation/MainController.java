@@ -57,6 +57,13 @@ public class MainController implements Initializable {
      **/
     @FXML
     public void equationShift() {loadPage("Equation.fxml");}
+    /**
+     * @Description   加载单位换算页面
+     * @author ZhouYH
+     * @date 2023/11/27 19:37
+     **/
+    @FXML
+    public void UnitTranslation() {loadPage("UnitTranslation.fxml");}
     /***
      * @Description  加载页面的函数
      * @param fxmlFileName 文件名称
@@ -71,5 +78,4 @@ public class MainController implements Initializable {
             System.out.println("error");
         }
     }
-
 }

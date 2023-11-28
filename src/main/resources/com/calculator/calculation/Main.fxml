@@ -16,7 +16,7 @@
                     <MenuItem text="Discrete Math"/>
                     <MenuItem text="Probability"/>
                     <MenuItem text="Function" onAction="#FunctionShift"/>
-                    <MenuItem text="Unit Translation"/>
+                    <MenuItem text="Unit Translation" onAction="#UnitTranslation"/>
                 </Menu>
             </MenuBar>
         </top>

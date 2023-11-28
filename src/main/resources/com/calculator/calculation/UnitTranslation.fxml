@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.UnitTranslationController">
+   <children>
+       <MenuBar layoutX="46.0" layoutY="114.0" prefHeight="32.0" prefWidth="106.0">
+          <menus>
+              <Menu text="Select Type">
+                 <items>
+                     <MenuItem onAction="#VolumeShift" text="Volume" />
+                     <MenuItem onAction="#LengthShift" text="Length" />
+                     <MenuItem onAction="#WeightShift" text="Weight" />
+                     <MenuItem onAction="#TemperatureShift" text="Temperature" />
+                     <MenuItem onAction="#AreaShift" text="Area" />
+                     <MenuItem onAction="#TimeShift" text="Time" />
+                     <MenuItem onAction="#AngleShift" text="Angle" />
+                 </items>
+              </Menu>
+          </menus>
+       </MenuBar>
+       <Text layoutX="144.0" layoutY="52.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit Translation" textAlignment="CENTER">
+           <font>
+               <Font size="28.0" />
+           </font>
+       </Text>
+       <StackPane fx:id="UnitContainer" layoutY="166.0" prefHeight="529.0" prefWidth="500.0" />
+      <TextField fx:id="TypeSet" editable="false" layoutX="152.0" layoutY="115.0" prefHeight="32.0" prefWidth="131.0" />
+   </children>
+</AnchorPane>
