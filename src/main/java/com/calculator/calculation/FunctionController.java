@@ -24,18 +24,16 @@ public class FunctionController implements Initializable {
     public Button BUTTON_paraX;
     public Button BUTTON_paraY;
     public Button BUTTON_paraZ;
+    public Button BUTTON_USERFUNCTION;
+    public Button buttonPow;
     public TextField functionShow;
     public TextField functionName;
-    public Button BUTTON_USERFUNCTION;
     public TableView FunctionList;
     public TableColumn nameList;
     public TableColumn paraNumList;
     public TableColumn formulaList;
     @FXML
     private StackPane cardContainer;
-
-    @FXML
-    private ImageView historyImg;
     @FXML
     private ChoiceBox<Integer> choiceBox;
     private Integer[] paraNum={1,2,3};
@@ -45,13 +43,13 @@ public class FunctionController implements Initializable {
      private String formula="";
      /*后台用于计算的表达式*/
     protected String exp="";
+    /*储存formula的编辑过程*/
+    private List<String> formulaProcess=new ArrayList<>();
+    /*储存exp的编辑过程*/
+    private List<String> expProcess =new ArrayList<>();
     public static ArrayList<UserFunction> functionList=new ArrayList<>();
-
-    @FXML
-        void handleHisImageClick(MouseEvent event) {
-
-        
-        }
+    /*pow判断，以切换显示*/
+    public static boolean atPow=false;
         /**
          * @Description 处理普通符号按钮点击事件
  * @param event
@@ -63,6 +61,11 @@ public class FunctionController implements Initializable {
         Button clickedButton = (Button) event.getSource();
         String buttonText = clickedButton.getText();
         editFormula(buttonText);
+        if(atPow){
+            buttonPow.setText(",");
+        }else{
+            buttonPow.setText("pow");
+        }
         functionShow.setText(formula);
     }
     /**
@@ -111,6 +114,10 @@ public class FunctionController implements Initializable {
             alert.setContentText("表达式："+formula);
             alert.showAndWait();
             FunctionList.getItems().add(functionList.get(functionList.size()-1));
+            formula="";
+            exp="";
+            formulaProcess.clear();
+            expProcess.clear();
         }
     }
     /**
@@ -131,7 +138,7 @@ public class FunctionController implements Initializable {
     **/
     public void editFormula(String str){
         switch(str){
-            case "0": case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case "(": case ")": case "+": case "-": case ".": case "!":
+            case "0": case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case "(": case "+": case "-": case ".": case "!":
                 formula=formula+str;
                 exp+=str;
                 break;
@@ -168,8 +175,8 @@ public class FunctionController implements Initializable {
                 exp+="^(1/3)";
                 break;
             case "eˣ":
-                formula=formula+"e(";
-                exp+="e(";
+                formula=formula+"exp(";
+                exp+="exp(";
                 break;
             case "x³":
                 formula=formula+"^3";
@@ -206,19 +213,57 @@ public class FunctionController implements Initializable {
             case "pow":
                 formula=formula+"pow(";
                 exp+="pow(";
+                atPow=true;
                 break;
-            case "保存":
-                //TODO 保存新的自定义函数
+            case ",":
+                formula=formula+",";
+                exp+=",";
                 break;
-            default:
-                if(Character.isLetter(formula.charAt(str.length() - 1))){
-                    formula=formula.substring(0,formula.length()-3);
-                }else{
-                    formula=formula.substring(0,formula.length()-1);
+            case ")":
+                formula=formula+")";
+                exp=exp+")";
+                if(atPow){
+                    atPow=checkPow();
                 }
                 break;
+            case "←"://删除键
+                if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
+                    if(formula.contains("pow") && !formulaProcess.get(formulaProcess.size()-2).contains("pow")){
+                       //上一步是pow
+                        atPow=false;
+                    }
+                    formula=formulaProcess.get(formulaProcess.size()-2);
+                    exp=expProcess.get(expProcess.size()-2);
+                    formulaProcess.remove(formulaProcess.size()-1);
+                    expProcess.remove(formulaProcess.size()-1);
+                }
+                return;
+            default:
+                System.out.println("按钮"+str+"未设置");
+                return;
         }
+        formulaProcess.add(formula);
+        expProcess.add(exp);
     }
+    /**
+     * @Description 检查pow函数是否调用完成
+ * @return boolean
+     * @author sxq
+     * @date 2023/11/28 17:12
+    **/
+
+    private boolean checkPow() {
+        int index=formula.lastIndexOf("pow");
+        if(index==-1)return false;
+        int bracket=0;
+        for(index=index+3;index<formula.length();index++){
+            if(formula.charAt(index)=='(')bracket++;
+            else if(formula.charAt(index)==')')bracket--;
+        }
+        if(bracket>0)return true;
+        else return false;
+    }
+
     /**
      * @Description 初始化参数选择框、函数列表
  * @param url
@@ -265,5 +310,13 @@ public class FunctionController implements Initializable {
         return num;
     }
 
+    /**
+     * @Description 处理历史自定义函数的点击事件
+ * @param mouseEvent
+     * @author sxq
+     * @date 2023/11/28 17:23
+    **/
+    public void handleRowClick(MouseEvent mouseEvent) {
 
+    }
 }
