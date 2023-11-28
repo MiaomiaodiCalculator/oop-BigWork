@@ -169,6 +169,13 @@ public class UserFunction {
         this.exp=this.exp.replace("$z$",replace+"z");
         return this.exp;
     }
+    /**
+     * @Description 参数为1时计算 
+ * @param x 
+ * @return java.lang.Object       
+     * @author sxq
+     * @date 2023/11/28 12:41
+    **/
     public Object getRes(double x) {
         try {
             jep.addVariable("$x$",x);
@@ -178,6 +185,51 @@ public class UserFunction {
         try {
             return jep.evaluate();
         } catch (EvaluationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    /**
+     * @Description 参数为2时计算结果 
+ * @param x
+ * @param y 
+ * @return java.lang.Object       
+     * @author sxq
+     * @date 2023/11/28 12:43
+    **/
+    
+    public Object getRes(double x,double y){
+        try{
+            jep.addVariable("$x$",x);
+            jep.addVariable("$y$",y);
+        }catch (JepException e){
+            throw  new RuntimeException(e);
+        }
+        try{
+            return jep.evaluate();
+        }catch (EvaluationException e){
+            throw new RuntimeException(e);
+        }
+    }
+    /**
+     * @Description 参数为3时计算结果 
+ * @param x
+ * @param y
+ * @param z 
+ * @return java.lang.Object       
+     * @author sxq
+     * @date 2023/11/28 12:44
+    **/
+    public Object getRes(double x,double y,double z){
+        try{
+            jep.addVariable("$x$",x);
+            jep.addVariable("$y$",y);
+            jep.addVariable("$z$",z);
+        }catch (JepException e){
+            throw  new RuntimeException(e);
+        }
+        try{
+            return jep.evaluate();
+        }catch (EvaluationException e){
             throw new RuntimeException(e);
         }
     }
