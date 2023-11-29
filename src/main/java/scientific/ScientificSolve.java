@@ -111,4 +111,14 @@ public class ScientificSolve implements Serializable {
     public int getCntProcess(){
         return cntProcess;
     }
+    /***
+     * @Description  判断输入的字符是否合法
+     * @param text 输入的字符
+     * @return boolean
+     * @author Bu Xinran
+     * @date 2023/11/28 22:56
+    **/
+    public static boolean checkText(String text){
+        return text != null && text.matches("\\d+(\\.\\d+)?");
+    }
 }
