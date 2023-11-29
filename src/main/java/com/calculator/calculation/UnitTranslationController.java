@@ -248,6 +248,7 @@ public class UnitTranslationController {
         output.setText("");
         unit1.setText("");
         unit2.setText("");
+        label1=label2=0;
     }
     /**
      * @Description  打开Volume的单位换算页面
@@ -265,6 +266,7 @@ public class UnitTranslationController {
         Angle.setVisible(false);
         newText();
         TypeSet.setText("Volume");
+        type=1;
     }
 
     /**
@@ -283,6 +285,7 @@ public class UnitTranslationController {
         Angle.setVisible(false);
         newText();
         TypeSet.setText("Length");
+        type=2;
     }
 
     /**
@@ -301,6 +304,7 @@ public class UnitTranslationController {
         Angle.setVisible(false);
         newText();
         TypeSet.setText("Weight");
+        type=3;
     }
 
     /**
@@ -319,6 +323,7 @@ public class UnitTranslationController {
         Angle.setVisible(false);
         newText();
         TypeSet.setText("Temperature");
+        type=4;
     }
 
     /**
@@ -337,6 +342,7 @@ public class UnitTranslationController {
         Angle.setVisible(false);
         newText();
         TypeSet.setText("Area");
+        type=5;
     }
 
     /**
@@ -355,6 +361,7 @@ public class UnitTranslationController {
         Angle.setVisible(false);
         newText();
         TypeSet.setText("Time");
+        type=6;
     }
 
     /**
@@ -373,6 +380,7 @@ public class UnitTranslationController {
         Angle.setVisible(true);
         newText();
         TypeSet.setText("Angle");
+        type=7;
     }
 
     /**
@@ -381,10 +389,10 @@ public class UnitTranslationController {
      * @author ZhouYH
      * @date 2023/11/28 13:31
      **/
-    public void A1_1(ActionEvent actionEvent) { unit1.setText("毫升"); label1=1; type=1; }
-    public void A1_2(ActionEvent actionEvent) { unit1.setText("立方厘米"); label1=1; type=1; }
-    public void A1_3(ActionEvent actionEvent) { unit1.setText("升"); label1=2; type=1; }
-    public void A1_4(ActionEvent actionEvent) { unit1.setText("立方米"); label1=3; type=1; }
+    public void A1_1(ActionEvent actionEvent) { unit1.setText("毫升"); label1=1; }
+    public void A1_2(ActionEvent actionEvent) { unit1.setText("立方厘米"); label1=1; }
+    public void A1_3(ActionEvent actionEvent) { unit1.setText("升"); label1=2; }
+    public void A1_4(ActionEvent actionEvent) { unit1.setText("立方米"); label1=3; }
     public void A2_1(ActionEvent actionEvent) { unit2.setText("毫升"); label2=1; }
     public void A2_2(ActionEvent actionEvent) { unit2.setText("立方厘米"); label2=1; }
     public void A2_3(ActionEvent actionEvent) { unit2.setText("升"); label2=2; }
@@ -396,14 +404,14 @@ public class UnitTranslationController {
      * @author ZhouYH
      * @date 2023/11/28 13:31
      **/
-    public void B1_1(ActionEvent actionEvent) { unit1.setText("纳米"); label1=1; type=2; }
-    public void B1_2(ActionEvent actionEvent) { unit1.setText("微米"); label1=2; type=2; }
-    public void B1_3(ActionEvent actionEvent) { unit1.setText("毫米"); label1=3; type=2; }
-    public void B1_4(ActionEvent actionEvent) { unit1.setText("厘米"); label1=6; type=2; }
-    public void B1_5(ActionEvent actionEvent) { unit1.setText("米"); label1=4; type=2; }
-    public void B1_6(ActionEvent actionEvent) { unit1.setText("公里"); label1=5; type=2; }
-    public void B1_7(ActionEvent actionEvent) { unit1.setText("英寸"); label1=7; type=2; }
-    public void B1_8(ActionEvent actionEvent) { unit1.setText("英尺"); label1=8; type=2; }
+    public void B1_1(ActionEvent actionEvent) { unit1.setText("纳米"); label1=1; }
+    public void B1_2(ActionEvent actionEvent) { unit1.setText("微米"); label1=2; }
+    public void B1_3(ActionEvent actionEvent) { unit1.setText("毫米"); label1=3; }
+    public void B1_4(ActionEvent actionEvent) { unit1.setText("厘米"); label1=6; }
+    public void B1_5(ActionEvent actionEvent) { unit1.setText("米"); label1=4; }
+    public void B1_6(ActionEvent actionEvent) { unit1.setText("公里"); label1=5; }
+    public void B1_7(ActionEvent actionEvent) { unit1.setText("英寸"); label1=7; }
+    public void B1_8(ActionEvent actionEvent) { unit1.setText("英尺"); label1=8; }
     public void B2_1(ActionEvent actionEvent) { unit2.setText("纳米"); label2=1; }
     public void B2_2(ActionEvent actionEvent) { unit2.setText("微米"); label2=2; }
     public void B2_3(ActionEvent actionEvent) { unit2.setText("毫米"); label2=3; }
@@ -419,10 +427,10 @@ public class UnitTranslationController {
      * @author ZhouYH
      * @date 2023/11/28 13:31
      **/
-    public void C1_1(ActionEvent actionEvent) { unit1.setText("毫克"); label1=1; type=3; }
-    public void C1_2(ActionEvent actionEvent) { unit1.setText("克"); label1=2; type=3; }
-    public void C1_3(ActionEvent actionEvent) { unit1.setText("千克"); label1=3; type=3; }
-    public void C1_4(ActionEvent actionEvent) { unit1.setText("吨"); label1=4; type=3; }
+    public void C1_1(ActionEvent actionEvent) { unit1.setText("毫克"); label1=1; }
+    public void C1_2(ActionEvent actionEvent) { unit1.setText("克"); label1=2; }
+    public void C1_3(ActionEvent actionEvent) { unit1.setText("千克"); label1=3;  }
+    public void C1_4(ActionEvent actionEvent) { unit1.setText("吨"); label1=4; }
     public void C2_1(ActionEvent actionEvent) { unit2.setText("毫克"); label2=1; }
     public void C2_2(ActionEvent actionEvent) { unit2.setText("克"); label2=2; }
     public void C2_3(ActionEvent actionEvent) { unit2.setText("千克"); label2=3; }
@@ -434,9 +442,9 @@ public class UnitTranslationController {
      * @author ZhouYH
      * @date 2023/11/28 22:41
      **/
-    public void D1_1(ActionEvent actionEvent) { unit1.setText("摄氏度"); label1=1; type=4; }
-    public void D1_2(ActionEvent actionEvent) { unit1.setText("华氏度"); label1=2; type=4; }
-    public void D1_3(ActionEvent actionEvent) { unit1.setText("开尔文"); label1=3; type=4; }
+    public void D1_1(ActionEvent actionEvent) { unit1.setText("摄氏度"); label1=1; }
+    public void D1_2(ActionEvent actionEvent) { unit1.setText("华氏度"); label1=2; }
+    public void D1_3(ActionEvent actionEvent) { unit1.setText("开尔文"); label1=3; }
     public void D2_1(ActionEvent actionEvent) { unit2.setText("摄氏度"); label2=1; }
     public void D2_2(ActionEvent actionEvent) { unit2.setText("华氏度"); label2=2; }
     public void D2_3(ActionEvent actionEvent) { unit2.setText("开尔文"); label2=3; }
@@ -447,9 +455,9 @@ public class UnitTranslationController {
      * @author ZhouYH
      * @date 2023/11/28 22:42
      **/
-    public void E1_1(ActionEvent actionEvent) { unit1.setText("平方厘米"); label1=1; type=5; }
-    public void E1_2(ActionEvent actionEvent) { unit1.setText("平方米"); label1=2; type=5; }
-    public void E1_3(ActionEvent actionEvent) { unit1.setText("平方公里"); label1=5; type=5; }
+    public void E1_1(ActionEvent actionEvent) { unit1.setText("平方厘米"); label1=1; }
+    public void E1_2(ActionEvent actionEvent) { unit1.setText("平方米"); label1=2; }
+    public void E1_3(ActionEvent actionEvent) { unit1.setText("平方公里"); label1=5; }
     public void E2_1(ActionEvent actionEvent) { unit2.setText("平方厘米"); label2=1; }
     public void E2_2(ActionEvent actionEvent) { unit2.setText("平方米"); label2=2; }
     public void E2_3(ActionEvent actionEvent) { unit2.setText("平方公里"); label2=5; }
@@ -460,13 +468,13 @@ public class UnitTranslationController {
      * @author ZhouYH
      * @date 2023/11/28 22:42
      **/
-    public void F1_1(ActionEvent actionEvent) { unit1.setText("毫秒"); label1=1; type=6; }
-    public void F1_2(ActionEvent actionEvent) { unit1.setText("秒"); label1=2; type=6; }
-    public void F1_3(ActionEvent actionEvent) { unit1.setText("分钟"); label1=3; type=6; }
-    public void F1_4(ActionEvent actionEvent) { unit1.setText("小时"); label1=4; type=6; }
-    public void F1_5(ActionEvent actionEvent) { unit1.setText("天"); label1=5; type=6; }
-    public void F1_6(ActionEvent actionEvent) { unit1.setText("周"); label1=6; type=6; }
-    public void F1_7(ActionEvent actionEvent) { unit1.setText("年"); label1=7; type=6; }
+    public void F1_1(ActionEvent actionEvent) { unit1.setText("毫秒"); label1=1; }
+    public void F1_2(ActionEvent actionEvent) { unit1.setText("秒"); label1=2; }
+    public void F1_3(ActionEvent actionEvent) { unit1.setText("分钟"); label1=3; }
+    public void F1_4(ActionEvent actionEvent) { unit1.setText("小时"); label1=4; }
+    public void F1_5(ActionEvent actionEvent) { unit1.setText("天"); label1=5; }
+    public void F1_6(ActionEvent actionEvent) { unit1.setText("周"); label1=6; }
+    public void F1_7(ActionEvent actionEvent) { unit1.setText("年"); label1=7; }
     public void F2_1(ActionEvent actionEvent) { unit2.setText("毫秒"); label2=1; }
     public void F2_2(ActionEvent actionEvent) { unit2.setText("秒"); label2=2; }
     public void F2_3(ActionEvent actionEvent) { unit2.setText("分钟"); label2=3; }
@@ -481,8 +489,8 @@ public class UnitTranslationController {
      * @author ZhouYH
      * @date 2023/11/28 22:42
      **/
-    public void G1_1(ActionEvent actionEvent) { unit1.setText("度"); label1=1; type=7; }
-    public void G1_2(ActionEvent actionEvent) { unit1.setText("弧度"); label1=2; type=7; }
+    public void G1_1(ActionEvent actionEvent) { unit1.setText("度"); label1=1; }
+    public void G1_2(ActionEvent actionEvent) { unit1.setText("弧度"); label1=2; }
     public void G2_1(ActionEvent actionEvent) { unit2.setText("度"); label2=1; }
     public void G2_2(ActionEvent actionEvent) { unit2.setText("弧度"); label2=2; }
 }
