@@ -144,8 +144,10 @@ public class FunctionController implements Initializable {
             formulaProcess.add(formula);
             replacedNum++;
             replacePara = "";
-            if(replacedNum==sonParaNum-1)//不能再加参数
-                BUTTON_USERFUNCTION.setDisable(true);
+            if(replacedNum==sonParaNum-1) {//不能再加参数
+                BUTTON_USERFUNCTION.setDisable(false);
+                BUTTON_USERFUNCTION.setText("自定义函数");
+            }
             functionShow.setText(formula);
         }
     }
@@ -165,10 +167,10 @@ public class FunctionController implements Initializable {
             sonFName = f.getName();
             formula += f.getName() + "(";
             //替换exp表达式，阻止嵌套故无需反复命名
-            String renameExp = f.getExp().replace("$x$", "$x_$");
-            renameExp = renameExp.replace("$y$", "$y_$");
-            renameExp = renameExp.replace("$z$", "$z_$");
-            exp += renameExp;
+            String renameExp = f.getExp().replace("$x$", "($x_$)");
+            renameExp = renameExp.replace("$y$", "($y_$)");
+            renameExp = renameExp.replace("$z$", "($z_$)");
+            exp +="("+renameExp;
 
             atFunc = true;
             FunctionList.setVisible(false);
@@ -297,6 +299,7 @@ public class FunctionController implements Initializable {
                 break;
             case ")":
                 formula=formula+")";
+                exp+=")";
                 if(atFunc){
                     if(!(atFunc=checkAtFunc())){//嵌套结束，开始替换
                         if(replaceParaProcess[0].get(replaceParaProcess[0].size()-1).isEmpty()){
