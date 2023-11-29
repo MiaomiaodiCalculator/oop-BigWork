@@ -10,11 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -46,6 +48,7 @@ public class ScientificController implements Initializable{
     public TableColumn nameList;
     public TableColumn paraNumList;
     public TableColumn formulaList1;
+    public TextField searchField;
     private ArrayList<ScientificSolve> list =new ArrayList<>();
     public TableView<ScientificSolve> tableView;
     public TableColumn<ScientificSolve, String> formulaList;
@@ -54,7 +57,7 @@ public class ScientificController implements Initializable{
     private String formula="";
     /*可直接计算的计算式*/
     private String exp="";
-    private Error calFlag;
+    private Error calFlag=Error.yes;
     private String answer="";
     private LinkedHashMap<Integer,String> process=new LinkedHashMap<>();
     private LinkedHashMap<Integer,String> processExp=new LinkedHashMap<>();
@@ -123,38 +126,86 @@ public class ScientificController implements Initializable{
      * @author Bu Xinran
      * @date 2023/11/28 14:45
     **/
-    public void chooseFunction(MouseEvent event) {
+    public void chooseFunction(MouseEvent event) throws ParseException, EvaluationException {
         if (event.getClickCount() == 2) {
             UserFunction selectedItem = (UserFunction)(FunctionList.getSelectionModel().getSelectedItem());
             if (selectedItem != null) {
                 String title="正在调用自定义函数'"+selectedItem.getName()+"'";
+                System.out.println(selectedItem.getExp());
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setTitle(title);
                 dialog.setHeaderText("请输入各变量的值：");
                 int num=selectedItem.getParaNum();
                 GridPane gridPane = new GridPane();
                 TextField textX = null;
+                TextField textY=null;
+                TextField textZ=null;
                 if(num>=1){
                     textX = new TextField();
                     gridPane.add(textX, 1, 0);
                     gridPane.add(new Label("X:"), 0, 0);
                 }
-                TextField textField2 = new TextField();
-                gridPane.add(textField2, 1, 1);
-                gridPane.add(new Label("文本框3:"), 0, 2);
-                TextField textField3 = new TextField();
-                gridPane.add(textField3, 1, 2);
+                if(num>=2){
+                    textY= new TextField();
+                    gridPane.add(textY, 1, 1);
+                    gridPane.add(new Label("Y:"), 0, 1);
+                }
+                if(num>=3){
+                    textZ= new TextField();
+                    gridPane.add(textZ, 1, 2);
+                    gridPane.add(new Label("Z:"), 0, 2);
+                }
                 dialog.getDialogPane().setContent(gridPane);
                 dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
                 Optional<ButtonType> result = dialog.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
-                    // 在这里处理用户点击确定按钮后的逻辑，获取文本框的值
-                    String text1 = textX.getText();
-                    String text2 = textField2.getText();
-                    String text3 = textField3.getText();
-                    System.out.println("文本框1的值：" + text1);
-                    System.out.println("文本框2的值：" + text2);
-                    System.out.println("文本框3的值：" + text3);
+                    boolean checkError;
+                    String valueX;
+                    String valueY = null;
+                    String valueZ = null;
+                    if(num==1){
+                        valueX=textX.getText();
+                        checkError=ScientificSolve.checkText(valueX);
+                    }else if(num==2){
+                        valueX=textX.getText();
+                        valueY=textY.getText();
+                        boolean a=ScientificSolve.checkText(valueX);
+                        if(!a) checkError=false;
+                        else checkError=ScientificSolve.checkText(valueY);
+                    }else{
+                        valueX=textX.getText();
+                        valueY=textY.getText();
+                        valueZ=textY.getText();
+                        boolean a=ScientificSolve.checkText(valueX);
+                        boolean b=ScientificSolve.checkText(valueY);
+                        if(!a) checkError=false;
+                        else if(!b) checkError=false;
+                        else checkError=ScientificSolve.checkText(valueZ);
+                    }
+                    if(!checkError){
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("警告");
+                        alert.setHeaderText(null);
+                        alert.setContentText("存在参数值为空或不是数字！");
+                        alert.showAndWait();
+                    }else{
+                        //处理正确获得的表达式
+                        if(num==1){
+                            formula=formula+selectedItem.getName()+"("+valueX+")";
+                            exp=exp+selectedItem.getRes(Double.parseDouble(valueX)).toString();
+                        }else if(num==2){
+                            formula=formula+selectedItem.getName()+"("+valueX+","+valueY+")";
+                            exp=exp+selectedItem.getRes(Double.parseDouble(valueX),Double.parseDouble(valueY)).toString();
+                        }else{
+                            formula=formula+selectedItem.getName()+"("+valueX+","+valueY+","+valueZ+")";
+                            exp=exp+selectedItem.getRes(Double.parseDouble(valueX),Double.parseDouble(valueY),Double.parseDouble(valueY)).toString();
+                        }
+                        formulaShow.setText(formula);
+                        tackleError();
+                        dialog.close();
+                        FunctionList.setVisible(false);
+                        searchField.setVisible(false);
+                    }
                 }
             }
         }
@@ -222,6 +273,7 @@ public class ScientificController implements Initializable{
      **/
     public void Freedom(ActionEvent actionEvent) {
         FunctionList.setVisible(!FunctionList.isVisible());
+        searchField.setVisible(!searchField.isVisible());
     }
     /***
      * @Description 产生错误后的后续处理
@@ -537,11 +589,12 @@ public class ScientificController implements Initializable{
         calFlag=Error.yes;
     }
     /***
-     * @Description  提交调用自定义函数的参数
-     * @param event 按钮点击事件
+     * @Description  实时更新搜索框
+     * @param actionEvent 点击搜索框
      * @author Bu Xinran
-     * @date 2023/11/28 16:44
+     * @date 2023/11/29 0:23
     **/
-    public void handleOkay(ActionEvent event) {
+    public void searchListener(ActionEvent actionEvent) {
+        //TODO:根据搜索内容实时跳出符合的函数名
     }
 }
