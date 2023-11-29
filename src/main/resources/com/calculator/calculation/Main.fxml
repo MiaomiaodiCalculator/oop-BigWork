@@ -11,7 +11,7 @@
                 <Menu text="Shift">
                     <MenuItem text="Scientific" onAction="#ScientificShift"/>
                     <MenuItem text="Vector" onAction="#VectorShift"/>
-                    <MenuItem text="Equation"/>
+                    <MenuItem text="Equation" onAction="#EquationShift"/>
                     <MenuItem text="Calculus"/>
                     <MenuItem text="Discrete Math"/>
                     <MenuItem text="Probability"/>

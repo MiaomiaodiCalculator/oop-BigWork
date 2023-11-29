@@ -156,7 +156,7 @@ public class UserFunction {
             hasZ=true;
         }
     }
-    /***
+    /**
      * @Description 用于自定义函数嵌套时替换参数
  * @return java.lang.String       返回替换后的表达式
      * @author sxq
@@ -177,13 +177,15 @@ public class UserFunction {
      * @date 2023/11/28 12:41
     **/
     public Object getRes(double x) {
+        Jep jep1=new Jep();
         try {
-            jep.addVariable("$x$",x);
+            jep1.addVariable("$x$",x);
+            jep1.parse(exp);
         } catch (JepException e) {
             throw new RuntimeException(e);
         }
         try {
-            return jep.evaluate();
+            return jep1.evaluate();
         } catch (EvaluationException e) {
             throw new RuntimeException(e);
         }
@@ -198,14 +200,16 @@ public class UserFunction {
     **/
     
     public Object getRes(double x,double y){
+        Jep jep1=new Jep();
         try{
-            jep.addVariable("$x$",x);
-            jep.addVariable("$y$",y);
+            jep1.addVariable("$x$",x);
+            jep1.addVariable("$y$",y);
+            jep1.parse(exp);
         }catch (JepException e){
             throw  new RuntimeException(e);
         }
         try{
-            return jep.evaluate();
+            return jep1.evaluate();
         }catch (EvaluationException e){
             throw new RuntimeException(e);
         }
@@ -220,20 +224,20 @@ public class UserFunction {
      * @date 2023/11/28 12:44
     **/
     public Object getRes(double x,double y,double z){
+        Jep jep1=new Jep();
         try{
-            jep.addVariable("$x$",x);
-            jep.addVariable("$y$",y);
-            jep.addVariable("$z$",z);
+            jep1.addVariable("$x$",x);
+            jep1.addVariable("$y$",y);
+            jep1.addVariable("$z$",z);
+            jep1.parse(exp);
         }catch (JepException e){
             throw  new RuntimeException(e);
         }
         try{
-            return jep.evaluate();
+            return jep1.evaluate();
         }catch (EvaluationException e){
             throw new RuntimeException(e);
         }
     }
 
 }
-
-
