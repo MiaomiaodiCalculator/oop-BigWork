@@ -4,16 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="添加了历史自定义函数的展示；&#10;待添加点击事件">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="对自定义函数页面按钮进一步优化">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jlatexmath-1.0.7/jlatexmath-1.0.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/jepTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/Scientific.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/Scientific.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ScientificController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ScientificController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scientific/ScientificSolve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scientific/ScientificSolve.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Scientific.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Scientific.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Vector.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/Vector.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewFunction/UserFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewFunction/UserFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewFunction/jepTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/FunctionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/FunctionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Equation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Equation.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -58,25 +61,28 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/sci",
+    "git-widget-placeholder": "feature/inf&&func",
     "last.edited.regexp": "",
-    "last_opened_file_path": "E:/study/Sophomore/OOP/大作业/Calculation/src/main/resources/com/calculator/calculation",
+    "last_opened_file_path": "E:/Coding/Intellij/Calculater/jlatexmath-1.0.7/jlatexmath-1.0.7.jar",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "库",
+    "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "settings.editor.selected.configurable": "quarkus",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\study\Sophomore\OOP\大作业\Calculation\src\main\resources\com\calculator\calculation" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.calculator.calculation" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.calculator.calculation" />
@@ -97,11 +103,11 @@
       </method>
     </configuration>
     <configuration name="jepTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="NewFunction.jepTest" />
+      <option name="MAIN_CLASS_NAME" value="com.calculator.calculation.jepTest" />
       <module name="Calculater" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="NewFunction.*" />
+          <option name="PATTERN" value="com.calculator.calculation.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -127,6 +133,8 @@
       <workItem from="1700896222222" duration="8496000" />
       <workItem from="1700915001187" duration="22808000" />
       <workItem from="1701071741882" duration="19679000" />
+      <workItem from="1701172280975" duration="9138000" />
+      <workItem from="1701233771969" duration="10493000" />
     </task>
     <task id="LOCAL-00001" summary="嘿嘿，自定义函数，嘿嘿&#10;还需要对历史自定义函数的使用">
       <option name="closed" value="true" />
@@ -176,7 +184,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/feature/sci" />
+                        <option value="origin/master" />
                       </list>
                     </value>
                   </entry>
