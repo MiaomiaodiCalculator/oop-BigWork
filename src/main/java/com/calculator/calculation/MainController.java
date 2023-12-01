@@ -1,11 +1,8 @@
 package com.calculator.calculation;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import java.net.URL;
@@ -63,7 +60,14 @@ public class MainController implements Initializable {
      * @date 2023/11/27 19:37
      **/
     @FXML
-    public void UnitTranslation() {loadPage("UnitTranslation.fxml");}
+    public void UnitTranslationShift() {loadPage("UnitTranslation.fxml");}
+    /**
+     * @Description   加载函数图像绘制页面
+     * @author ZhouYH
+     * @date 2023/11/27 19:37
+     **/
+    @FXML
+    public void VisualizationShift() {loadPage("Visualization.fxml");}
     /***
      * @Description  加载页面的函数
      * @param fxmlFileName 文件名称
