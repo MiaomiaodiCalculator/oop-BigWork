@@ -1,41 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.MainController">
-   <children>
-       <BorderPane>
-           <top>
-               <MenuBar>
-                  <menus>
-                      <Menu text="Shift">
-                         <items>
-                             <MenuItem onAction="#ScientificShift" text="Scientific" />
-                             <MenuItem onAction="#VectorShift" text="Vector" />
-                             <MenuItem onAction="#EquationShift" text="Equation" />
-                             <MenuItem onAction="#InfinitesimalShift" text="Calculus" />
-                             <MenuItem onAction="#DiscreteMathShift" text="Discrete Math" />
-                             <MenuItem onAction="#ProbabilityShift" text="Probability" />
-                             <MenuItem onAction="#FunctionShift" text="Function" />
-                             <MenuItem onAction="#UnitTranslation" text="Unit Translation" />
-                         </items>
-                      </Menu>
-                  </menus>
-               </MenuBar>
-           </top>
-           <center>
-               <StackPane fx:id="cardContainer" />
-           </center>
-       </BorderPane>
-         <ImageView fitHeight="38.0" fitWidth="43.0" layoutX="399.0" layoutY="25.0">
-            <image>
-                <Image url="@images/user.png" />
-            </image>
-         </ImageView>
-   </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0"
+      prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.calculator.calculation.MainController">
+    <BorderPane>
+        <top>
+            <MenuBar>
+                <Menu text="Shift">
+                    <MenuItem text="Scientific" onAction="#ScientificShift"/>
+                    <MenuItem text="Vector" onAction="#VectorShift"/>
+                    <MenuItem text="Equation" onAction="#EquationShift"/>
+                    <MenuItem text="Calculus"/>
+                    <MenuItem text="Discrete Math"/>
+                    <MenuItem text="Probability"/>
+                    <MenuItem text="Function" onAction="#FunctionShift"/>
+                    <MenuItem text="Unit Translation" onAction="#UnitTranslationShift"/>
+                    <MenuItem text="Visualization" onAction="#VisualizationShift"/>
+                </Menu>
+            </MenuBar>
+        </top>
+        <center>
+            <StackPane fx:id="cardContainer"/>
+        </center>
+    </BorderPane>
 </Pane>
