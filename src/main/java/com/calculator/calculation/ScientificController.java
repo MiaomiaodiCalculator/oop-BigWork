@@ -14,12 +14,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import scientific.ScientificSolve;
-import scientific.Error;
+import scientific.ErrorScientific;
 import com.singularsys.jep.Jep;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-import org.scilab.forge.jlatexmath.*;
+
 import static com.calculator.calculation.FunctionController.functionList;
 
 /**
@@ -50,7 +50,7 @@ public class ScientificController implements Initializable{
     private String formula="";
     /*可直接计算的计算式*/
     private String exp="";
-    private Error calFlag=Error.yes;
+    private ErrorScientific calFlag= ErrorScientific.yes;
     private String answer="";
     private LinkedHashMap<Integer,String> process=new LinkedHashMap<>();
     private LinkedHashMap<Integer,String> processExp=new LinkedHashMap<>();
@@ -272,22 +272,22 @@ public class ScientificController implements Initializable{
      * @date 2023/11/26 11:01
      **/
     private void tackleError() throws ParseException, EvaluationException {
-        if(calFlag==Error.bracket){
+        if(calFlag== ErrorScientific.bracket){
             answerShow.setText("括号不匹配！");
-        }else if(calFlag==Error.symbolContinue){
+        }else if(calFlag== ErrorScientific.symbolContinue){
             answerShow.setText("运算符使用错误！");
-        }else if(calFlag==Error.pow){
+        }else if(calFlag== ErrorScientific.pow){
             answerShow.setText("幂运算函数未完成");
-        }else if(calFlag==Error.yes){
+        }else if(calFlag== ErrorScientific.yes){
             setAnswer();
             answerShow.setText(String.valueOf(answer));
-        }else if(calFlag==Error.dotRepeat){
+        }else if(calFlag== ErrorScientific.dotRepeat){
             answerShow.setText("小数点重复，请删除！");
-        }else if(calFlag==Error.nothing){
+        }else if(calFlag== ErrorScientific.nothing){
             answerShow.setText("还未输入算式");
-        }else if(calFlag== Error.divideZero){
+        }else if(calFlag== ErrorScientific.divideZero){
             answerShow.setText("不能除以0！");
-        }else if(calFlag==Error.Illegal){
+        }else if(calFlag== ErrorScientific.Illegal){
             answerShow.setText("算式非法！");
         }
     }
@@ -409,6 +409,8 @@ public class ScientificController implements Initializable{
                 formula="";
                 answer="";
                 answerShow.setText("");
+                process.clear();
+                processExp.clear();
                 break;
             case "rand":
                 Random rand = new Random();
@@ -442,7 +444,7 @@ public class ScientificController implements Initializable{
                 exp=exp+"=";
                 cntProcess++;
                 process.put(cntProcess,formula);
-                if(calFlag!=Error.divideZero)checkIllegal();
+                if(calFlag!= ErrorScientific.divideZero)checkIllegal();
                 finish=true;
                 ScientificSolve a=new ScientificSolve(formula,answer,calFlag,process,cntProcess,exp);
                 a.setAnswer(a.getResult());
@@ -504,18 +506,18 @@ public class ScientificController implements Initializable{
                 checkBrack-=1;
             }
             if(checkBrack<0){
-                calFlag=Error.bracket;
+                calFlag= ErrorScientific.bracket;
                 return;
             }
         }
         //判断是否直接输入=
         if(formula.length()==1&&formula.charAt(0)=='='){
-            calFlag=Error.nothing;
+            calFlag= ErrorScientific.nothing;
             return;
         }
         //判断调用幂函数的合法性
         if(ScientificController.atPow){
-            calFlag=Error.pow;
+            calFlag= ErrorScientific.pow;
             return;
         }
         //判断小数点，如果是.1928默认为0.1928
@@ -527,7 +529,7 @@ public class ScientificController implements Initializable{
             if(formula.charAt(i)=='.'){
                 checkDot++;
                 if(checkDot>1){
-                    calFlag=Error.dotRepeat;
+                    calFlag= ErrorScientific.dotRepeat;
                     return;
                 } else if(!Character.isDigit(formula.charAt(i-1))){
                     String before=formula.substring(0,i);
@@ -542,7 +544,7 @@ public class ScientificController implements Initializable{
         if(!formula.isEmpty()){
             switch(formula.charAt(0)){
                 case '+':case '-': case '*': case '/': case '%': case '^':
-                    calFlag=Error.symbolContinue;
+                    calFlag= ErrorScientific.symbolContinue;
                     return;
             }
         }
@@ -557,7 +559,7 @@ public class ScientificController implements Initializable{
 
             }
             if(checkSymbol>1){
-                calFlag=Error.symbolContinue;
+                calFlag= ErrorScientific.symbolContinue;
                 return;
             }
         }
@@ -571,13 +573,13 @@ public class ScientificController implements Initializable{
             System.out.print(" ");
         }
         if(ans.equals("Infinity")){
-            calFlag=Error.divideZero;
+            calFlag= ErrorScientific.divideZero;
             return;
         }else if(ans.length()>1&&ans.charAt(0)=='('){
-            calFlag=Error.Illegal;
+            calFlag= ErrorScientific.Illegal;
             return;
         }
-        calFlag=Error.yes;
+        calFlag= ErrorScientific.yes;
     }
     /***
      * @Description  实时更新搜索框
