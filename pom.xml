@@ -49,11 +49,7 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/jep-java-4.0-trial/jep-java-4.0-trial.jar</systemPath>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>20.0.1</version>
-        </dependency>
+
     </dependencies>
 
     <build>

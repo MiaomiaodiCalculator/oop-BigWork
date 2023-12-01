@@ -5,6 +5,7 @@ import com.singularsys.jep.Jep;
 import com.singularsys.jep.JepException;
 import com.singularsys.jep.ParseException;
 import java.util.*;
+import java.awt.image.BufferedImage;
 
 /**
  * @author sxq
@@ -239,5 +240,4 @@ public class UserFunction {
             throw new RuntimeException(e);
         }
     }
-
 }

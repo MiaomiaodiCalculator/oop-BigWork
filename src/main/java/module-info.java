@@ -3,10 +3,12 @@ module com.calculator.calculation {
         requires javafx.fxml;
         requires org.kordamp.ikonli.javafx;
         requires jep.java;
+        requires jlatexmath;
+    requires java.desktop;
 
-        opens com.calculator.calculation to javafx.fxml;
-        exports com.calculator.calculation;
+    exports com.calculator.calculation;
         exports scientific;
         opens scientific to javafx.fxml,javafx.base;
         opens NewFunction to javafx.base;
-        }
+    opens com.calculator.calculation to javafx.base, javafx.fxml;
+}

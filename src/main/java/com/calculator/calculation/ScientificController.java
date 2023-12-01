@@ -1,33 +1,25 @@
 package com.calculator.calculation;
 import NewFunction.UserFunction;
-import com.singularsys.jep.EvaluationException;
+import com.singularsys.jep.*;
 import com.singularsys.jep.ParseException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 import scientific.ScientificSolve;
 import scientific.Error;
 import com.singularsys.jep.Jep;
-
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-
+import org.scilab.forge.jlatexmath.*;
 import static com.calculator.calculation.FunctionController.functionList;
 
 /**
@@ -49,6 +41,7 @@ public class ScientificController implements Initializable{
     public TableColumn paraNumList;
     public TableColumn formulaList1;
     public TextField searchField;
+    public VBox FreeShow;
     private ArrayList<ScientificSolve> list =new ArrayList<>();
     public TableView<ScientificSolve> tableView;
     public TableColumn<ScientificSolve, String> formulaList;
@@ -203,8 +196,7 @@ public class ScientificController implements Initializable{
                         formulaShow.setText(formula);
                         tackleError();
                         dialog.close();
-                        FunctionList.setVisible(false);
-                        searchField.setVisible(false);
+                       FreeShow.setVisible(false);
                     }
                 }
             }
@@ -272,8 +264,7 @@ public class ScientificController implements Initializable{
      * @date 2023/11/28 10:49
      **/
     public void Freedom(ActionEvent actionEvent) {
-        FunctionList.setVisible(!FunctionList.isVisible());
-        searchField.setVisible(!searchField.isVisible());
+        FreeShow.setVisible(!FreeShow.isVisible());
     }
     /***
      * @Description 产生错误后的后续处理
@@ -576,7 +567,7 @@ public class ScientificController implements Initializable{
         try{
             jep.parse(exp);
             ans=jep.evaluate().toString();
-        }catch(ParseException|EvaluationException e){
+        }catch(ParseException | EvaluationException e){
             System.out.print(" ");
         }
         if(ans.equals("Infinity")){
