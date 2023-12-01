@@ -4,16 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="添加了历史自定义函数的展示；&#10;待添加点击事件">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="添加了离散数学的界面">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2023_11_28_18_40____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2023_11_28_18_40____.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2023_11_28_18_41____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2023_11_28_18_41____.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/___.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/___.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/Scientific.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/Scientific.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Vector.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/Vector.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/DiscreteMathController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/DiscreteMathController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ScientificController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ScientificController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/scientific/ScientificSolve.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/scientific/ScientificSolve.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ProbabilityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ProbabilityController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Scientific.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Scientific.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Probability.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Probability.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +33,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -58,31 +67,32 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/sci",
+    "git-widget-placeholder": "ZY",
     "last.edited.regexp": "",
-    "last_opened_file_path": "E:/study/Sophomore/OOP/大作业/Calculation/src/main/resources/com/calculator/calculation",
+    "last_opened_file_path": "D:/gitbash_OOP/src/main/resources/com/calculator/calculation",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "库",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "settings.editor.selected.configurable": "vcs.Git",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\gitbash_OOP\src\main\resources\com\calculator\calculation" />
       <recent name="E:\study\Sophomore\OOP\大作业\Calculation\src\main\resources\com\calculator\calculation" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.calculator.calculation" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.Main">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.calculator.calculation.Main" />
       <module name="Calculater" />
@@ -111,8 +121,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.Main" />
-        <item itemvalue="应用程序.jepTest" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -127,6 +136,9 @@
       <workItem from="1700896222222" duration="8496000" />
       <workItem from="1700915001187" duration="22808000" />
       <workItem from="1701071741882" duration="19679000" />
+      <workItem from="1701241518924" duration="4233000" />
+      <workItem from="1701315001920" duration="818000" />
+      <workItem from="1701432009960" duration="4112000" />
     </task>
     <task id="LOCAL-00001" summary="嘿嘿，自定义函数，嘿嘿&#10;还需要对历史自定义函数的使用">
       <option name="closed" value="true" />
@@ -171,6 +183,11 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -193,7 +210,8 @@
     <MESSAGE value="嘿嘿，自定义函数，嘿嘿&#10;还需要对历史自定义函数的使用" />
     <MESSAGE value="添加了历史自定义函数的展示；&#10;待添加点击事件" />
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="添加了离散数学的界面" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加了离散数学的界面" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

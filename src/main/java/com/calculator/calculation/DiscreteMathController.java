@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import scientific.ScientificSolve;
 import vector.VectorSolve;
 
 import java.net.URL;
@@ -62,7 +61,7 @@ public class DiscreteMathController implements Initializable {
     public Button ButtonAdd0;
     public Button ButtonRename0;
     public Button ButtonRemove0;
-    public TableColumn outputNameColumn;
+    public TableColumn<String, String> outputNameColumn;
     @FXML
     private StackPane DiscreteMathCardContainer;
     @FXML
@@ -225,7 +224,7 @@ public class DiscreteMathController implements Initializable {
                 Expression.setVisible(false);
                 Output.setVisible(false);
                 Minimized.setVisible(false);
-                ButtonChangeOff();
+//                ButtonChangeOff();
 //                 loadBoolPage("DiscreteMathTable.fxml");
             }
             case "Expression" -> {
@@ -234,7 +233,7 @@ public class DiscreteMathController implements Initializable {
                 Table.setVisible(false);
                 Output.setVisible(false);
                 Minimized.setVisible(false);
-                ButtonChangeOff();
+//                ButtonChangeOff();
 //                 loadBoolPage("DiscreteMathExpression.fxml");
             }
             case "Minimized" -> {
@@ -243,7 +242,7 @@ public class DiscreteMathController implements Initializable {
                 Table.setVisible(false);
                 Output.setVisible(false);
                 Expression.setVisible(false);
-                ButtonChangeOff();
+//                ButtonChangeOff();
 //                 loadBoolPage("DiscreteMathMinimized.fxml");
             }
         }
