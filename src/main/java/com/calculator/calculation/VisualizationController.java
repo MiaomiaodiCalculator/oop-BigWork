@@ -156,6 +156,7 @@ public class VisualizationController implements Initializable {
         for(int i=1;i<=5;i++){
             funcs[i].setText("");
             shows[i].setText("");
+            graphChart.getData().removeAll();
             int finalI = i;
             funcs[i].setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override //键入ENTER时尝试绘制
