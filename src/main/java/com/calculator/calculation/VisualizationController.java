@@ -60,22 +60,31 @@ public class VisualizationController implements Initializable {
             data5.getNode().setStyle("-fx-stroke: PURPLE; -fx-stroke-width: 2px;");
         }
         try {
-            HashMap<String, Double> vars = new HashMap<>();
-            Expression exp = parser.eval(funcs[num].getText(), vars);
-            double incr;     //增量
-            if (isTrigFunc(funcs[num].getText())) incr = Math.PI/18;
-            else incr = 0.1;
-            for (double i = -100; i <= 100; i+=incr) {
-                vars.put("x", i); //x=i
-                if (num == 1) data1.getData().add(new Data<>(i, exp.eval()));
-                if (num == 2) data2.getData().add(new Data<>(i, exp.eval()));
-                if (num == 3) data3.getData().add(new Data<>(i, exp.eval()));
-                if (num == 4) data4.getData().add(new Data<>(i, exp.eval()));
-                if (num == 5) data5.getData().add(new Data<>(i, exp.eval()));
+            if(funcs[num].getText().matches("POISSON(.+)")){
+                String getLambda=funcs[num].getText().substring(8, funcs[num].getText().indexOf(')'));
+                double lambda=Double.parseDouble(getLambda);
+                Poisson(num, lambda);
+            }else {
+                HashMap<String, Double> vars = new HashMap<>();
+                Expression exp = parser.eval(funcs[num].getText(), vars);
+                double incr;     //增量
+                if (isTrigFunc(funcs[num].getText())) incr = Math.PI/18;
+                else incr = 0.1;
+                for (double i = -100; i <= 100; i+=incr) {
+                    vars.put("x", i); //x=i
+                    if (num == 1) data1.getData().add(new Data<>(i, exp.eval()));
+                    if (num == 2) data2.getData().add(new Data<>(i, exp.eval()));
+                    if (num == 3) data3.getData().add(new Data<>(i, exp.eval()));
+                    if (num == 4) data4.getData().add(new Data<>(i, exp.eval()));
+                    if (num == 5) data5.getData().add(new Data<>(i, exp.eval()));
+                }
             }
+
             shows[num].setText("√");
-        }catch (Exception e){
+        }catch (Exception e) {
             funcs[num].setText("ERROR");
+            if (shows[num].getText().equals("√"))
+                unshow(num);
         }
     }
 
@@ -89,6 +98,26 @@ public class VisualizationController implements Initializable {
     private boolean isTrigFunc(String in) {
         Pattern p = Pattern.compile("sin|cos|tan|sec|csc|cot");
         return p.matcher(in).find();
+    }
+
+    /**
+     * @Description 泊松分布图像绘制
+     * @param num 绘制的图像标号
+     * @param lambda 参数 λ
+     * @author ZhouYH
+     * @date 2023/12/2 10:41
+     **/
+    public void Poisson(int num, double lambda){
+        double incr = 0.1;
+        double val;
+        for (double i = -100; i <= 100; i+=incr) {
+            val=1;  // 这行替换为泊松分布取表
+            if (num == 1) data1.getData().add(new Data<>(i, val));
+            if (num == 2) data2.getData().add(new Data<>(i, val));
+            if (num == 3) data3.getData().add(new Data<>(i, val));
+            if (num == 4) data4.getData().add(new Data<>(i, val));
+            if (num == 5) data5.getData().add(new Data<>(i, val));
+        }
     }
 
     /**
