@@ -12,7 +12,7 @@
                     <MenuItem text="Scientific" onAction="#ScientificShift"/>
                     <MenuItem text="Vector" onAction="#VectorShift"/>
                     <MenuItem text="Equation" onAction="#EquationShift"/>
-                    <MenuItem text="Calculus"/>
+                    <MenuItem text="Calculus" onAction="#InfinitesimalShift"/>
                     <MenuItem text="Discrete Math"/>
                     <MenuItem text="Probability"/>
                     <MenuItem text="Function" onAction="#FunctionShift"/>
