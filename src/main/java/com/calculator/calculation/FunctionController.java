@@ -74,6 +74,50 @@ public class FunctionController implements Initializable {
         }
         functionShow.setText(formula);
     }
+    /**
+     * @Description 处理点击删除键
+     * @param event
+     * @author sxq
+     * @date 2023/12/4 10:09
+     **/
+    public void handleDelClick(ActionEvent event){
+        if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
+            if(!atFunc) {//不在嵌套自定义函数中
+                if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
+                    //上一步是pow
+                    atPow = false;
+                }
+                exp = expProcess.get(expProcess.size() - 2);
+                expProcess.remove(formulaProcess.size() - 1);
+            }
+            else{//在嵌套自定义函数中
+                if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
+                    //上一步是pow
+                    atPow = false;
+                }
+                else if(replacedNum==0&&replacePara.isEmpty()){
+                    //上一步是嵌套自定义函数
+                    atFunc=false;
+                    sonParaNum=0;
+                    exp = expProcess.get(expProcess.size() - 2);
+                    expProcess.remove(formulaProcess.size() - 1);
+                }
+                else if(replacedNum>0&&replacedNum<sonParaNum&&replacePara.isEmpty()){
+                    //上一步输入逗号，不是右括号,一个参数完成输入
+                    replacedNum--;
+                    replacePara= replaceParaProcess[replacedNum].get(replaceParaProcess[replacedNum].size()-1);
+                    //更改之前替换的表达式；exp无更改
+                }
+                else if(replacedNum!=sonParaNum){
+                    replacePara= replaceParaProcess[replacedNum].get(replaceParaProcess[replacedNum].size()-2);
+                    replaceParaProcess[replacedNum].remove(replaceParaProcess[replacedNum].size()-1);
+                }
+            }
+            formula = formulaProcess.get(formulaProcess.size() - 2);
+            formulaProcess.remove(formulaProcess.size() - 1);
+        }
+
+    }
 
     /**
      * @param event
@@ -183,6 +227,7 @@ public class FunctionController implements Initializable {
         }
         functionShow.setText(formula);
     }
+
     /**
      * @Description 编辑自定义函数的文本
  * @param str
@@ -346,44 +391,6 @@ public class FunctionController implements Initializable {
                     atPow=checkPow();
                 }
                 break;
-            case "←"://删除键
-                if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
-                    if(!atFunc) {//不在嵌套自定义函数中
-                        if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
-                            //上一步是pow
-                            atPow = false;
-                        }
-                        exp = expProcess.get(expProcess.size() - 2);
-                        expProcess.remove(formulaProcess.size() - 1);
-                    }
-                    else{//在嵌套自定义函数中
-                        if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
-                            //上一步是pow
-                            atPow = false;
-                        }
-                        else if(replacedNum==0&&replacePara.isEmpty()){
-                            //上一步是嵌套自定义函数
-                            atFunc=false;
-                            sonParaNum=0;
-                            exp = expProcess.get(expProcess.size() - 2);
-                            expProcess.remove(formulaProcess.size() - 1);
-                        }
-                        else if(replacedNum>0&&replacedNum<sonParaNum&&replacePara.isEmpty()){
-                            //上一步输入逗号，不是右括号,一个参数完成输入
-                            replacedNum--;
-                            replacePara= replaceParaProcess[replacedNum].get(replaceParaProcess[replacedNum].size()-1);
-                            //更改之前替换的表达式；exp无更改
-                        }
-                        else if(replacedNum!=sonParaNum){
-                            //TODO 删除右括号的部分跳过……不会写
-                            replacePara= replaceParaProcess[replacedNum].get(replaceParaProcess[replacedNum].size()-2);
-                            replaceParaProcess[replacedNum].remove(replaceParaProcess[replacedNum].size()-1);
-                        }
-                    }
-                    formula = formulaProcess.get(formulaProcess.size() - 2);
-                    formulaProcess.remove(formulaProcess.size() - 1);
-                }
-                return;
             default:
                 System.out.println("按钮"+str+"未设置");
                 return;

@@ -78,5 +78,12 @@ public class MainController implements Initializable {
             System.out.println("error");
         }
     }
+    /**
+     * @Description 加载微积分计算页面         
+     * @author sxq
+     * @date 2023/12/4 15:26
+    **/
+    @FXML
+    private void InfinitesimalShift() {loadPage("Infinitesimal.fxml");}
 
 }
