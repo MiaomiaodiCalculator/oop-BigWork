@@ -86,7 +86,7 @@
 
 javafx
 使用工具：Scene Builder
-第三方库：jep
+第三方库：jep，common maths3
 
 ## 分工
 
