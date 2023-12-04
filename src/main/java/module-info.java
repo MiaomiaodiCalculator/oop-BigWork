@@ -4,9 +4,12 @@ module com.calculator.calculation {
         requires org.kordamp.ikonli.javafx;
         requires jep.java;
         requires jlatexmath;
+        requires commons.math3;
     requires java.desktop;
 
     exports com.calculator.calculation;
+        exports Probability.Exception;
+        exports Probability;
         exports scientific;
         opens scientific to javafx.fxml,javafx.base;
         opens NewFunction to javafx.base;
