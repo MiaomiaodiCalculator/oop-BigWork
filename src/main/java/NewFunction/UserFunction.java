@@ -121,6 +121,7 @@ public class UserFunction {
         jep.setAllowAssignment(false);
         //不允许赋值方程
         try{
+            System.out.println(_exp);
             jep.parse(_exp);
         }catch(ParseException e){
             return ("表达式不合法，解析失败");
