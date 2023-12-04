@@ -85,5 +85,23 @@ public class MainController implements Initializable {
     **/
     @FXML
     private void InfinitesimalShift() {loadPage("Infinitesimal.fxml");}
+    /**
+     * @Description  加载离散数学卡片布局
+     * @author 郑悦
+     * @date 2023/11/26 21:22
+     **/
+    @FXML
+    private void DiscreteMathShift() {
+        loadPage("DiscreteMath.fxml");
+    }
+    /**
+     * @Description 加载概率统计卡片布局
+     * @author 郑悦
+     * @date 2023/12/1 20:40
+     **/
+    @FXML
+    private void ProbabilityShift() {
+        loadPage("Probability.fxml");
+    }
 
 }

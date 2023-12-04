@@ -11,4 +11,5 @@ module com.calculator.calculation {
     exports scientific;
     opens scientific to javafx.fxml,javafx.base;
     opens NewFunction to javafx.base;
+    opens Probability to javafx.base;
 }

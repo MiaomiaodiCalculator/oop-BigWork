@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.Blend?>
+
+<AnchorPane prefHeight="698.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.ProbabilityController">
+   <children>
+       <StackPane fx:id="ProbabilityCardContainer" layoutY="100.0" prefHeight="602.0" prefWidth="500.0" />
+       <ImageView fx:id="historyImg" fitHeight="36.0" fitWidth="35.0" layoutX="448.0" layoutY="14.0" onMouseClicked="#handleHisImageClick" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@images/history.png" />
+           </image>
+       </ImageView>
+       <Text layoutX="175.0" layoutY="42.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Probability" wrappingWidth="150.0">
+           <font>
+               <Font size="28.0" />
+           </font>
+       </Text>
+       <MenuBar layoutY="59.0">
+           <effect>
+               <Blend />
+           </effect>
+           <menus>
+               <Menu text="Action Change">
+                   <items>
+                       <MenuItem onAction="#BasicAnalysisShift" text="Basic Analysis" />
+                       <MenuItem onAction="#RegressionAnalysisShift" text="Regression Analysis" />
+                       <MenuItem onAction="#GaussianDistributionShift" text="Gaussian Distribution" />
+                       <MenuItem onAction="#PoissonDistributionShift" text="Poisson Distribution" />
+                   </items>
+               </Menu>
+           </menus>
+       </MenuBar>
+       <TextField fx:id="ActionName" editable="false" layoutX="117.0" layoutY="60.0" prefHeight="23.0" prefWidth="123.0" text="Basic Analysis" AnchorPane.bottomAnchor="622.0" AnchorPane.leftAnchor="117.0" AnchorPane.topAnchor="60.0">
+         <font>
+            <Font size="10.0" />
+         </font></TextField>
+       <Pane fx:id="BasicAnalysis" layoutY="98.0" prefHeight="607.0" prefWidth="500.0">
+         <children>
+            <ChoiceBox fx:id="choiceBox" layoutX="336.0" layoutY="7.0" onAction="#getParaNum" prefWidth="150.0" />
+            <TableView fx:id="DataTable" layoutX="20.0" layoutY="80.0" prefHeight="507.0" prefWidth="150.0">
+              <columns>
+                <TableColumn fx:id="inputColumn1" prefWidth="75.0" text="X" />
+                <TableColumn fx:id="inputColumn2" prefWidth="75.0" text="Y" />
+              </columns>
+            </TableView>
+            <Text fx:id="input1" layoutX="182.0" layoutY="112.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="变量X" textAlignment="CENTER" wrappingWidth="67.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="input2" layoutX="182.0" layoutY="149.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="变量Y" textAlignment="CENTER" wrappingWidth="67.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="217.0" layoutY="21.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="随机变量个数" textAlignment="CENTER" wrappingWidth="123.0" />
+            <MenuButton fx:id="processMenu" layoutX="20.0" layoutY="37.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="123.0" text="处理方式">
+              <items>
+                <MenuItem mnemonicParsing="false" text="原始数据" />
+                <MenuItem mnemonicParsing="false" text="概率处理" />
+              </items>
+            </MenuButton>
+            <TextField fx:id="processMethod" editable="false" layoutX="121.0" layoutY="37.0" prefHeight="36.0" prefWidth="179.0" text="原始数据处理" />
+            <Text layoutX="182.0" layoutY="205.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="期望" textAlignment="CENTER" wrappingWidth="67.0" />
+            <Text layoutX="182.0" layoutY="242.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="中位数" textAlignment="CENTER" wrappingWidth="67.0" />
+            <Text layoutX="182.0" layoutY="279.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="众数" textAlignment="CENTER" wrappingWidth="67.0" />
+            <Text layoutX="182.0" layoutY="316.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="极差" textAlignment="CENTER" wrappingWidth="67.0" />
+            <Text layoutX="183.0" layoutY="353.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="方差" textAlignment="CENTER" wrappingWidth="67.0" />
+            <Text layoutX="183.0" layoutY="390.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="标准差" textAlignment="CENTER" wrappingWidth="67.0" />
+            <Text layoutX="177.0" layoutY="427.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="百分位数" textAlignment="CENTER" wrappingWidth="80.0" />
+            <Text fx:id="CovText" layoutX="177.0" layoutY="464.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="协方差" textAlignment="CENTER" wrappingWidth="80.0" />
+            <Text fx:id="CorrelationText" layoutX="176.0" layoutY="501.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="相关系数" textAlignment="CENTER" wrappingWidth="80.0" />
+            <Button fx:id="PercentEnter" layoutX="439.0" layoutY="414.0" mnemonicParsing="false" onAction="#PercentGetClick" text="Enter">
+<!--                onMouseClicked="#PercentGetClick"-->
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></Button>
+            <TextField fx:id="Mean1" editable="false" layoutX="256.0" layoutY="180.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Median1" editable="false" layoutX="256.0" layoutY="217.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Mode1" editable="false" layoutX="256.0" layoutY="254.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Range1" editable="false" layoutX="256.0" layoutY="291.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Cov" editable="false" layoutX="256.0" layoutY="440.0" prefHeight="36.0" prefWidth="235.0" />
+            <TextField fx:id="Variance1" editable="false" layoutX="256.0" layoutY="329.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="StandardDeviation1" editable="false" layoutX="256.0" layoutY="366.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Percent" layoutX="310.0" layoutY="402.0" onKeyPressed="#handlePercentKeyPressed" prefHeight="36.0" prefWidth="55.0" promptText="[0,100]">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="correlationCoefficient" editable="false" layoutX="256.0" layoutY="476.0" prefHeight="36.0" prefWidth="235.0" />
+            <TextField fx:id="StandardDeviation2" editable="false" layoutX="378.0" layoutY="365.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Median2" editable="false" layoutX="378.0" layoutY="216.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Variance2" editable="false" layoutX="378.0" layoutY="328.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Mode2" editable="false" layoutX="378.0" layoutY="253.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Range2" editable="false" layoutX="378.0" layoutY="290.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Mean2" editable="false" layoutX="378.0" layoutY="179.0" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="Percentiles" editable="false" layoutX="378.0" layoutY="402.0" prefHeight="36.0" prefWidth="61.0" />
+            <TextField fx:id="InputData2" layoutX="256.0" layoutY="123.0" onKeyPressed="#handleInput2KeyPressed" prefHeight="36.0" prefWidth="235.0" promptText="data splitted with space" />
+            <TextField fx:id="InputData1" layoutX="256.0" layoutY="87.0" onKeyPressed="#handleInput1KeyPressed" prefHeight="36.0" prefWidth="235.0" promptText="data splitted with space" />
+            <MenuButton fx:id="PercentRV" layoutX="256.0" layoutY="404.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="55.0" text="R.V." textAlignment="CENTER">
+              <items>
+                <MenuItem mnemonicParsing="false" text="X" />
+                <MenuItem mnemonicParsing="false" text="Y" />
+              </items>
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </MenuButton>
+            <Text fx:id="RVX" layoutX="277.0" layoutY="173.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="变量X" textAlignment="CENTER" wrappingWidth="67.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="RVY" layoutX="399.0" layoutY="172.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="变量Y" textAlignment="CENTER" wrappingWidth="67.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+         </children></Pane>
+       <Pane fx:id="RegressionAnalysis" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
+    </Pane>
+       <Pane fx:id="GaussianDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
+    </Pane>
+       <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
+    </Pane>
+   </children>
+
+</AnchorPane>
