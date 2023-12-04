@@ -74,7 +74,6 @@ public class DiscreteMathController implements Initializable {
         if(!flag) {
             flag = true;
             BooleanAlgebraShift();
-            inputNameColumn.setSortNode(new Label("没有变量"));//占位文本
         }
     }
 
