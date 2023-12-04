@@ -71,7 +71,7 @@
             </Button>
             <Button fx:id="BUTTON_DIVIDE2" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="tan" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <Button fx:id="BUTTON_DIVIDE3" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="mod" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Button fx:id="BUTTON_EE" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="←" GridPane.columnIndex="3" />
+            <Button fx:id="BUTTON_EE" mnemonicParsing="false" onAction="#handleDelClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="←" GridPane.columnIndex="3" />
             <Button fx:id="BUTTON_NEGATIVE" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="sec" GridPane.rowIndex="1" />
             <Button fx:id="BUTTON_E" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="e" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button fx:id="BUTTON_TAN" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="³√" GridPane.columnIndex="2" GridPane.rowIndex="3" />

@@ -49,7 +49,23 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/jep-java-4.0-trial/jep-java-4.0-trial.jar</systemPath>
         </dependency>
-
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>20.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scilab.modules</groupId>
+            <artifactId>jlatexmath</artifactId>
+            <version>1.0.7</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/jlatexmath-1.0.7/jlatexmath-1.0.7.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -72,7 +88,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.calculater/com.example.calculater.HelloApplication</mainClass>
+                            <mainClass>com.example.calculator/com.example.calculator.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

@@ -15,7 +15,7 @@ import java.util.LinkedHashMap;
 public class ScientificSolve implements Serializable {
     protected String formula="";
     protected String exp="";
-    protected Error calFlag=Error.yes;
+    protected ErrorScientific calFlag= ErrorScientific.yes;
     protected String answer;
     protected LinkedHashMap<Integer,String> process=new LinkedHashMap<>();
     protected int cntProcess=0;
@@ -27,7 +27,7 @@ public class ScientificSolve implements Serializable {
      * @author Bu Xinran
      * @date 2023/11/27 14:15
      **/
-    public ScientificSolve(String formula,String answer,Error calFlag,LinkedHashMap<Integer,String> process,int cntProcess,String exp){
+    public ScientificSolve(String formula, String answer, ErrorScientific calFlag, LinkedHashMap<Integer,String> process, int cntProcess, String exp){
         this.formula=formula;
         this.answer=answer;
         this.calFlag=calFlag;
@@ -58,12 +58,12 @@ public class ScientificSolve implements Serializable {
      * @date 2023/11/27 15:11
      **/
     public String getResult() {
-        if(calFlag==Error.symbolContinue)return "运算符连续";
-        else if(calFlag==Error.dotRepeat)return "小数点重复";
-        else if(calFlag==Error.bracket)return "括号不匹配";
-        else if(calFlag==Error.pow)return "幂运算函数未完成";
-        else if(calFlag==Error.divideZero)return "除数等于0";
-        else if(calFlag==Error.Illegal)return "算式非法";
+        if(calFlag== ErrorScientific.symbolContinue)return "运算符连续";
+        else if(calFlag== ErrorScientific.dotRepeat)return "小数点重复";
+        else if(calFlag== ErrorScientific.bracket)return "括号不匹配";
+        else if(calFlag== ErrorScientific.pow)return "幂运算函数未完成";
+        else if(calFlag== ErrorScientific.divideZero)return "除数等于0";
+        else if(calFlag== ErrorScientific.Illegal)return "算式非法";
         else return answer;
     }
     /***

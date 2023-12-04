@@ -5,7 +5,6 @@ import com.singularsys.jep.Jep;
 import com.singularsys.jep.JepException;
 import com.singularsys.jep.ParseException;
 import java.util.*;
-import java.awt.image.BufferedImage;
 
 /**
  * @author sxq
@@ -122,6 +121,7 @@ public class UserFunction {
         jep.setAllowAssignment(false);
         //不允许赋值方程
         try{
+            System.out.println(_exp);
             jep.parse(_exp);
         }catch(ParseException e){
             return ("表达式不合法，解析失败");
