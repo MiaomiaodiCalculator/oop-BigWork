@@ -4,19 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="对自定义函数页面按钮进一步优化">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jlatexmath-1.0.7/jlatexmath-1.0.7.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/jepTest.java" afterDir="false" />
+    <list default="true" id="5ca3b3d6-867a-434f-ba6c-724da601545a" name="Changes" comment="添加了概率统计的界面">
+      <change afterPath="$PROJECT_DIR$/lib/commons-math3-3.6.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DiscreteMath/BooleanSolve.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DiscreteMath/DiscreteMathException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DiscreteMath/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Probability/BasicSolve.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Probability/Exception/NegativeProbabilityException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Probability/Exception/NotInputDataException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Probability/Exception/ProbabilityException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Probability/History.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Probability/InputData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Probability/NormalDistributionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Probability/PTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Probability/PoissonDistributionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Probability/RegressionAnalysis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2023_11_28_18_40____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2023_11_28_18_40____.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2023_11_28_18_41____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2023_11_28_18_41____.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/___.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/___.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Scientific.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/Scientific.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Vector.out" beforeDir="false" afterPath="$PROJECT_DIR$/data/Vector.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/NewFunction/UserFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewFunction/UserFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/NewFunction/jepTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/FunctionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/FunctionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Scientific.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Vector.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/DiscreteMathController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/DiscreteMathController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ProbabilityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/calculator/calculation/ProbabilityController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Equation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Equation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Probability.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/calculator/calculation/Probability.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,11 +45,6 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -47,118 +54,71 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2Yeq6hP2ybUlxXADPEoF8QD8Ih7" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/inf&&func",
-    "last.edited.regexp": "",
-    "last_opened_file_path": "E:/Coding/Intellij/Calculater/jlatexmath-1.0.7/jlatexmath-1.0.7.jar",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "quarkus",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ZY&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Intellij_IDEA/java_workplace/javaGUI_CODE&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\study\Sophomore\OOP\大作业\Calculation\src\main\resources\com\calculator\calculation" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.calculator.calculation" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.calculator.calculation" />
+      <recent name="D:\gitbash_OOP\src\main\java\Probability" />
+      <recent name="D:\gitbash_OOP\src\main\java" />
+      <recent name="D:\gitbash_OOP" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="Calculator" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.calculator.calculation.Main" />
       <module name="Calculater" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.calculator.calculation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="jepTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.calculator.calculation.jepTest" />
-      <module name="Calculater" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.calculator.calculation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="应用程序.Main" />
-        <item itemvalue="应用程序.jepTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="默认任务">
-      <changelist id="2b0851c2-274a-4fab-84d9-f77c15691bd8" name="更改" comment="" />
-      <created>1700896221190</created>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5ca3b3d6-867a-434f-ba6c-724da601545a" name="Changes" comment="" />
+      <created>1701481381943</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1700896221190</updated>
-      <workItem from="1700896222222" duration="8496000" />
-      <workItem from="1700915001187" duration="22808000" />
-      <workItem from="1701071741882" duration="19679000" />
-      <workItem from="1701172280975" duration="9138000" />
-      <workItem from="1701233771969" duration="10493000" />
+      <updated>1701481381943</updated>
+      <workItem from="1701481388594" duration="5125000" />
+      <workItem from="1701515996310" duration="7097000" />
+      <workItem from="1701585344481" duration="8412000" />
+      <workItem from="1701606155087" duration="10696000" />
+      <workItem from="1701654753540" duration="14285000" />
     </task>
-    <task id="LOCAL-00001" summary="嘿嘿，自定义函数，嘿嘿&#10;还需要对历史自定义函数的使用">
-      <option name="closed" value="true" />
-      <created>1701079903852</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1701079903852</updated>
-    </task>
-    <task id="LOCAL-00002" summary="添加了历史自定义函数的展示；&#10;待添加点击事件">
-      <option name="closed" value="true" />
-      <created>1701097029196</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1701097029196</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="ed288793-b956-4bca-ab1b-05a148fd772a" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="User">
@@ -179,6 +139,11 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -193,6 +158,11 @@
             </State>
           </value>
         </entry>
+        <entry key="ed288793-b956-4bca-ab1b-05a148fd772a">
+          <value>
+            <State />
+          </value>
+        </entry>
       </map>
     </option>
   </component>
@@ -201,7 +171,28 @@
     <MESSAGE value="嘿嘿，自定义函数，嘿嘿&#10;还需要对历史自定义函数的使用" />
     <MESSAGE value="添加了历史自定义函数的展示；&#10;待添加点击事件" />
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="添加了离散数学的界面" />
+    <MESSAGE value="添加了概率统计的界面" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加了概率统计的界面" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/calculator/calculation/ProbabilityController.java</url>
+          <line>527</line>
+          <properties class="com.calculator.calculation.ProbabilityController" method="PercentGetClick">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
