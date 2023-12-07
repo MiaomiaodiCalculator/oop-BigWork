@@ -1,4 +1,4 @@
-package scientific;
+package Scientific;
 /**
  * @author Bu Xinran
  * @Description 科学计算器计算式可能出现的错误

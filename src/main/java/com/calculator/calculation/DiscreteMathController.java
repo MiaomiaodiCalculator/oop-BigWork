@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import vector.VectorSolve;
+import Vector.VectorSolve;
 
 import java.net.URL;
 import java.util.LinkedHashMap;
