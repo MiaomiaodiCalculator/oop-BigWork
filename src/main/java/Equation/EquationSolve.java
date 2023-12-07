@@ -1,4 +1,4 @@
-package equation;
+package Equation;
 import org.apache.commons.math3.analysis.differentiation.UnivariateDifferentiableFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.analysis.solvers.*;
@@ -6,10 +6,7 @@ import org.apache.commons.math3.analysis.solvers.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.DecompositionSolver;
-import org.apache.commons.math3.linear.LUDecomposition;
-import org.apache.commons.math3.linear.RealMatrix;
+
 /**
  * @author Bu Xinran
  * @Description 创建方程式类已保存历史记录

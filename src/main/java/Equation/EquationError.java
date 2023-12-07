@@ -1,4 +1,4 @@
-package equation;
+package Equation;
 /**
  * @author Bu Xinran
  * @Description 方程式的错误类型化
