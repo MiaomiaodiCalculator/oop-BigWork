@@ -114,10 +114,10 @@
                 <Label fx:id="answerShow" layoutX="1.0" layoutY="169.0" prefHeight="75.0" prefWidth="490.0" />
             </children>
            <children>
-                <VBox layoutY="246.0" prefHeight="395.0" prefWidth="500.0" spacing="2">
+                <VBox fx:id="FreeShow" layoutY="246.0" prefHeight="395.0" prefWidth="500.0" spacing="2" visible="false">
                    <children>
-                       <TextField fx:id="searchField" onAction="#searchListener" promptText="输入关键字进行搜索..." visible="false" style="-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 10px; -fx-border-color: #000000; -fx-border-radius: 10px; -fx-text-fill: #000000;" />
-                       <TableView fx:id="FunctionList" layoutX="7.0" layoutY="244.0" onMouseClicked="#chooseFunction" prefHeight="600.0" prefWidth="490.0" visible="false">
+                       <TextField fx:id="searchField" onAction="#searchListener" promptText="输入关键字进行搜索..." style="-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 10px; -fx-border-color: #000000; -fx-border-radius: 10px; -fx-text-fill: #000000;" />
+                       <TableView fx:id="FunctionList" layoutX="7.0" layoutY="244.0" onMouseClicked="#chooseFunction" prefHeight="600.0" prefWidth="490.0" >
                            <columns>
                                <TableColumn fx:id="nameList" prefWidth="94.0" text="函数名" />
                                <TableColumn fx:id="paraNumList" prefWidth="76.0" text="参数个数" />

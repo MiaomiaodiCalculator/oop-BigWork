@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="616.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
+   <children>
+       <MenuBar layoutX="377.0">
+          <menus>
+              <Menu text="Problem Solve">
+                 <items>
+                     <MenuItem onAction="#CriticalPathShift" text="关键路径" />
+                     <MenuItem text="单源最短路径" />
+                 </items>
+              </Menu>
+          </menus>
+       </MenuBar>
+   </children>
+</AnchorPane>

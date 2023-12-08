@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
+   <children>
+       <StackPane fx:id="DiscreteMathCardContainer" layoutX="-1.0" layoutY="86.0" prefHeight="616.0" prefWidth="500.0" />
+       <ImageView fx:id="historyImg" fitHeight="36.0" fitWidth="35.0" layoutX="448.0" layoutY="14.0" onMouseClicked="#handleHisImageClick" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@images/history.png" />
+          </image>
+       </ImageView>
+       <Text layoutX="158.0" layoutY="41.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Discrete Math" wrappingWidth="194.0">
+           <font>
+               <Font size="28.0" />
+           </font>
+       </Text>
+       <MenuBar layoutY="48.0">
+           <effect>
+               <Blend />
+           </effect>
+          <menus>
+              <Menu text="Function Change">
+                 <items>
+                     <MenuItem onAction="#GraphTheoryShift" text="Graph Theory" />
+                     <MenuItem onAction="#BooleanAlgebraShift" text="Boolean Algebra" />
+                 </items>
+              </Menu>
+          </menus>
+       </MenuBar>
+      <TextField fx:id="FunctionName" editable="false" layoutX="130.0" layoutY="48.0" prefHeight="24.0" prefWidth="120.0" text="Boolean Algebra" />
+<!--       <ImageView fx:id="returnImg" fitHeight="36.0" fitWidth="35.0" layoutX="9.0" layoutY="14.0"-->
+<!--                  onMouseClicked="#handleReturnClick" pickOnBounds="true" preserveRatio="true">-->
+<!--           <Image url="@images/return.png"/>-->
+<!--       </ImageView>-->
+   </children>
+</AnchorPane>

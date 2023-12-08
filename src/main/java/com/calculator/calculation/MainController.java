@@ -47,6 +47,24 @@ public class MainController implements Initializable {
      **/
     @FXML
     private void FunctionShift() {loadPage("Function.fxml");}
+    /**
+     * @Description  加载离散数学卡片布局
+     * @author 郑悦
+     * @date 2023/11/26 21:22
+     **/
+    @FXML
+    private void DiscreteMathShift() {
+        loadPage("DiscreteMath.fxml");
+    }
+    /**
+     * @Description 加载概率统计卡片布局
+     * @author 郑悦
+     * @date 2023/12/1 20:40
+    **/
+    @FXML
+    private void ProbabilityShift() {
+        loadPage("Probability.fxml");
+    }
     /***
      * @Description 加载方程式计算器卡片布局
      * @author Bu Xinran
@@ -82,5 +100,12 @@ public class MainController implements Initializable {
             System.out.println("error");
         }
     }
+    /**
+     * @Description 加载微积分计算页面         
+     * @author sxq
+     * @date 2023/12/4 15:26
+    **/
+    @FXML
+    private void InfinitesimalShift() {loadPage("Infinitesimal.fxml");}
 
 }
