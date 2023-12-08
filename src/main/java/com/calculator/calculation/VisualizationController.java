@@ -29,6 +29,7 @@ public class VisualizationController implements Initializable {
     @FXML public LineChart<Double, Double> graphChart;
     @FXML public NumberAxis xAxis, yAxis;
     public Series<Double, Double> data1, data2, data3, data4, data5;
+    public String[] dataShow; //保存到数据库时只需存储这个String数组即可
     public Parser parser;
 
     /**
@@ -38,6 +39,7 @@ public class VisualizationController implements Initializable {
      * @date 2023/11/30 17:24
      **/
     public void Go(int num) {
+        unshow(num);
         if (num == 1){
             data1 = new Series<>();
             graphChart.getData().add(data1);
@@ -79,12 +81,11 @@ public class VisualizationController implements Initializable {
                     if (num == 5) data5.getData().add(new Data<>(i, exp.eval()));
                 }
             }
-
+            dataShow[num]=funcs[num].getText();
             shows[num].setText("√");
         }catch (Exception e) {
             funcs[num].setText("ERROR");
-            if (shows[num].getText().equals("√"))
-                unshow(num);
+            dataShow[num]=null;
         }
     }
 
@@ -153,10 +154,11 @@ public class VisualizationController implements Initializable {
         // set Texts to null or ""
         funcs = new TextField[]{null, f1, f2, f3, f4, f5};
         shows = new Button[]{null, show1, show2, show3, show4, show5};
+        dataShow = new String[]{null,null,null,null,null,null};
+        graphChart.getData().removeAll();
         for(int i=1;i<=5;i++){
             funcs[i].setText("");
             shows[i].setText("");
-            graphChart.getData().removeAll();
             int finalI = i;
             funcs[i].setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override //键入ENTER时尝试绘制
