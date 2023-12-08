@@ -80,16 +80,16 @@ public class Parser{
      * @date 2023/12/1 23:43
      **/
     private Expression parseTier1() {
-        Expression x = parseTier2();
+        Expression x1 = parseTier2();
         while (true) {
             if (consume('+')) {
-                Expression left = x, right = parseTier2();
-                x = () -> left.eval() + right.eval();
+                Expression left = x1, right = parseTier2();
+                x1 = () -> left.eval() + right.eval();
             } else if (consume('-')) {
-                Expression left = x, right = parseTier2();
-                x = () -> left.eval() - right.eval();
+                Expression left = x1, right = parseTier2();
+                x1 = () -> left.eval() - right.eval();
             } else {
-                return x;
+                return x1;
             }
         }
     }
@@ -101,19 +101,19 @@ public class Parser{
      * @date 2023/12/1 23:44
      **/
     private Expression parseTier2() {
-        Expression x = parseTier3();
+        Expression x2 = parseTier3();
         while (true) {
             if (consume('*')) {
-                Expression left = x, right = parseTier3();
-                x = () -> left.eval() * right.eval();
+                Expression left = x2, right = parseTier3();
+                x2 = () -> left.eval() * right.eval();
             } else if (consume('/')) {
-                Expression left = x, right = parseTier3();
-                x = () -> left.eval() / right.eval();
+                Expression left = x2, right = parseTier3();
+                x2 = () -> left.eval() / right.eval();
             }else if (consume('%')) {
-                Expression left = x, right = parseTier3();
-                x = () -> left.eval() % right.eval();
+                Expression left = x2, right = parseTier3();
+                x2 = () -> left.eval() % right.eval();
             } else {
-                return x;
+                return x2;
             }
         }
     }
@@ -125,17 +125,17 @@ public class Parser{
      * @date 2023/12/1 23:44
      **/
     private Expression parseTier3() {
-        Expression x = parseTier4();
+        Expression x3 = parseTier4();
         while (true) {
             // handle exponentiation & nth roots/fractional exponents
             if (consume('^')) {
-                Expression left = x, right = parseTier4();
-                x = () -> Math.pow(left.eval(), right.eval());
+                Expression left = x3, right = parseTier4();
+                x3 = () -> Math.pow(left.eval(), right.eval());
             } else if (consume('@')) {
-                Expression left = x, right = parseTier4();
-                x = () -> Math.pow(left.eval(), (1.0 / right.eval()));
+                Expression left = x3, right = parseTier4();
+                x3 = () -> Math.pow(left.eval(), (1.0 / right.eval()));
             } else {
-                return x;
+                return x3;
             }
         }
     }
@@ -148,40 +148,40 @@ public class Parser{
      **/
     private Expression parseTier4() {
         int start = this.pos;
-        Expression x;   // declare the Expression we're going to return
+        Expression x4;   // declare the Expression we're going to return
         if (consume('+')) {
-            x = parseTier4();
-            return x;
+            x4 = parseTier4();
+            return x4;
         } else if (consume('-')) {
             Expression right = parseTier4();
-            x = () -> (-1.0 * right.eval());
-            return x;
+            x4 = () -> (-1.0 * right.eval());
+            return x4;
         }
         if (consume('(')) {
-            x = parseTier1();     // branch our tree until we hit the ')'
+            x4 = parseTier1();     // branch our tree until we hit the ')'
             consume(')');
-            return x;
+            return x4;
         } else if (isNumber()) {
             while(isNumber()) {
                 next();     // advance our parser to the first non-digit or '.'
             }
             double d = Double.parseDouble(input.substring(start, this.pos));
-            x = () -> d;
-            return x;
+            x4 = () -> d;
+            return x4;
         } else if (isAlpha()) {     // handle unary functions, and variables
             while (isAlpha()) {
                 next();     // advance our parser to the first non-alpha
             }
             String fn = input.substring(start, this.pos); // get the name of the function
-            x = parseTier4();    // get the value the function will operate on
+            x4 = parseTier4();    // get the value the function will operate on
             if (map.containsKey(fn)) {
-                Expression arg = x;
+                Expression arg = x4;
                 DoubleUnaryOperator func = map.get(fn);
-                x = () -> func.applyAsDouble(arg.eval());
+                x4 = () -> func.applyAsDouble(arg.eval());
             } else {
-                x = () -> vars.get(fn);
+                x4 = () -> vars.get(fn);
             }
-            return x;
+            return x4;
         } else {
             return null;
         }

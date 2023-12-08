@@ -33,10 +33,15 @@
                <StackPane fx:id="cardContainer" />
            </center>
        </BorderPane>
-         <ImageView fitHeight="38.0" fitWidth="43.0" layoutX="399.0" layoutY="25.0">
+         <ImageView fx:id="person" fitHeight="38.0" fitWidth="36.0" layoutX="406.0" layoutY="41.0" onMouseClicked="#goPersonalCenter">
             <image>
                 <Image url="@images/user.png" />
             </image>
          </ImageView>
+       <ImageView fx:id="returnMain" fitHeight="38.0" fitWidth="36.0" layoutX="14.0" layoutY="41.0" visible="false" onMouseClicked="#goMain">
+          <image>
+              <Image url="@images/return.png" />
+          </image>
+       </ImageView>
    </children>
 </Pane>

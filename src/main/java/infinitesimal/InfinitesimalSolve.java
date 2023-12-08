@@ -15,6 +15,7 @@ public class InfinitesimalSolve {
     private double downValue;
     /*被积函数式*/
     private String exp;
+
     public InfinitesimalSolve(double u,double d,String e){
         this.upValue=u;
         this.downValue=d;

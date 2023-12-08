@@ -8,7 +8,7 @@ import user.User;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
-import static Database.DataInit.*;
+import static Database.SqlUser.*;
 
 /**
  * @author Bu Xinran
@@ -19,7 +19,8 @@ public class LoginController {
     public TextArea usernameArea;
     public PasswordField passwordArea;
     public static boolean userState=false;
-    public static String userName;
+    public static String userName="abc";
+    public static String passWord=" ";
     public Button loginButton;
 
     /***
@@ -34,6 +35,7 @@ public class LoginController {
         if(!Objects.equals(name, "") && !Objects.equals(password, "")&&exists(user)&&getByName(name).getPassword().equals(password)){
             userState=true;
             userName=name;
+            passWord=password;
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
             Stage stage=new Stage();
@@ -42,6 +44,11 @@ public class LoginController {
             stage.setTitle("Calculator");
             stage.setScene(scene);
             stage.show();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("错误");
+            alert.setHeaderText("用户名不存在或密码错误！");
+            alert.showAndWait();
         }
     }
     /***
