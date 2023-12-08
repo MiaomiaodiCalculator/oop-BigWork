@@ -1,10 +1,9 @@
 package NewFunction;
-import com.calculator.calculation.FunctionController;
+import Database.SqlFunction;
 import com.singularsys.jep.EvaluationException;
 import com.singularsys.jep.Jep;
 import com.singularsys.jep.JepException;
 import com.singularsys.jep.ParseException;
-import java.util.*;
 
 /**
  * @author sxq
