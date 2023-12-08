@@ -22,7 +22,8 @@
                              <MenuItem onAction="#DiscreteMathShift" text="Discrete Math" />
                              <MenuItem onAction="#ProbabilityShift" text="Probability" />
                              <MenuItem onAction="#FunctionShift" text="Function" />
-                             <MenuItem onAction="#UnitTranslation" text="Unit Translation" />
+                             <MenuItem onAction="#UnitTranslationShift" text="Unit Translation" />
+                             <MenuItem onAction="#VisualizationShift" text="Visualization" />
                          </items>
                       </Menu>
                   </menus>
