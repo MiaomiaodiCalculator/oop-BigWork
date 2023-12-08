@@ -5,11 +5,13 @@ module com.calculator.calculation {
     requires jep.java;
     requires jlatexmath;
     requires commons.math3;
+    requires java.sql;
+    requires mysql.connector.j;
 
     opens com.calculator.calculation to javafx.fxml;
     exports com.calculator.calculation;
-    exports scientific;
-    opens scientific to javafx.fxml,javafx.base;
+    exports Scientific;
+    opens Scientific to javafx.fxml,javafx.base;
     opens NewFunction to javafx.base;
     opens Probability to javafx.base;
 }

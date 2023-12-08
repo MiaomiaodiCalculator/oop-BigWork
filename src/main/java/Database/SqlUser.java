@@ -1,26 +1,31 @@
 package Database;
+import javafx.scene.image.Image;
 import user.User;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
+
 /**
  * @author Bu Xinran
  * @Description 连接数据库
  * @date 2023/12/7 20:16
  */
-public class DataInit {
+public class SqlUser {
     private final static String driver = "com.mysql.cj.jdbc.Driver";
     private final static String username = "root";
     private final static String password = "root";
     private final static String url = "jdbc:mysql://10.192.229.109/miaomiaodi";
-    private final static String insert = "insert into user(username,password) values(?,?)";
+    private final static String insert = "insert into user(username,password,avatar) values(?,?,?)";
     private final static String update = "update user set password = ? where username = ?";
     private final static String delete = "delete from user where username = ?";
     private final static String select = "select * from user where username = ?";
+    private final static String updateImage = "update user set avatar=?  where username = ?";
     private static Connection connection;
     static
     {
@@ -65,6 +70,7 @@ public class DataInit {
             PreparedStatement add = connection.prepareStatement(insert);
             add.setString(1, user.getUsername());
             add.setString(2, user.getPassword());
+            add.setString(3, null);
             return add.executeUpdate() == 1;
         }
         catch (SQLException e) {
@@ -74,25 +80,22 @@ public class DataInit {
     }
     /***
      * @Description  修改密码
-     * @param user 用户信息
-     * @return boolean
+     * @param name 用户名
+     * @param password 密码
      * @author Bu Xinran
      * @date 2023/12/7 20:28
     **/
-    public static boolean modify(User user)
-    {
+    public static void modify(String name, String password) {
         try {
             PreparedStatement modify = connection.prepareStatement(update);
-            modify.setString(1, user.getUsername());
-            modify.setString(2, user.getPassword());
-            return modify.executeUpdate() == 1;
-        }
-        catch (SQLException e)
-        {
+            modify.setString(1, password);
+            modify.setString(2, name);
+            modify.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
+
     /***
      * @Description  注销用户信息
      * @param user 用户
@@ -140,5 +143,48 @@ public class DataInit {
             e.printStackTrace();
             return null;
         }
+    }
+    /***
+     * @Description
+     * @param fis 读入的图片信息
+     * @param name   用户名
+     * @author Bu Xinran
+     * @date 2023/12/8 12:51
+    **/
+    public static void uploadAvatar(FileInputStream fis,String name) throws SQLException {
+        PreparedStatement upload = connection.prepareStatement(updateImage);
+        try {
+            upload.setBinaryStream(1,fis, fis.available());
+            upload.setString(2, name);
+            upload.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    /***
+     * @Description  从数据库中获取头像
+     * @param name 用户名
+     * @return javafx.scene.image.Image
+     * @author Bu Xinran
+     * @date 2023/12/8 12:54
+    **/
+    public static Image loadAvatar(String name) {
+        try {
+            PreparedStatement exist = connection.prepareStatement(select);
+            exist.setString(1, name);
+            ResultSet result = exist.executeQuery();
+            if (result.next()) {
+                byte[] imageData = result.getBytes("avatar");
+                ByteArrayInputStream image = new ByteArrayInputStream(imageData);
+                return new Image(image);
+            }
+            result.close();
+            exist.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
