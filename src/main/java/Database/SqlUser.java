@@ -26,7 +26,7 @@ public class SqlUser {
     private final static String delete = "delete from user where username = ?";
     private final static String select = "select * from user where username = ?";
     private final static String updateImage = "update user set avatar=?  where username = ?";
-    private static Connection connection;
+    public static Connection connection;
     static
     {
         try {

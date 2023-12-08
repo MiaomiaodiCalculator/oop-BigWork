@@ -1,6 +1,6 @@
 package com.calculator.calculation;
 
-import NewFunction.SqlFunction;
+import Database.SqlFunction;
 import NewFunction.UserFunction;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,7 +31,7 @@ public class FunctionController implements Initializable {
     public TableColumn formulaList;
     @FXML
     private ChoiceBox<Integer> choiceBox;
-    private Integer[] paraNum = {1, 2, 3};
+    private final Integer[] paraNum = {1, 2, 3};
     String replacePara = "";//替换嵌套函数中的参数
     /*嵌套的子函数名*/
     private String sonFName = "";
@@ -46,11 +46,11 @@ public class FunctionController implements Initializable {
     /*后台用于计算的表达式*/
     protected String exp = "";
     /*储存formula的编辑过程*/
-    private List<String> formulaProcess = new ArrayList<>();
+    private final List<String> formulaProcess = new ArrayList<>();
     /*储存exp的编辑过程*/
-    private List<String> expProcess = new ArrayList<>();
+    private final List<String> expProcess = new ArrayList<>();
     /*储存参数编辑过程*/
-    private ArrayList<String> replaceParaProcess[] = new ArrayList [3];
+    private final ArrayList<String>[] replaceParaProcess = new ArrayList [3];
     public static ArrayList<UserFunction> functionList = SqlFunction.getAllFunction();
     /*pow判断，以切换显示*/
     public static boolean atPow = false;
@@ -154,7 +154,7 @@ public class FunctionController implements Initializable {
         }
         UserFunction function = new UserFunction(functionName.getText(), exp, formula);
         function.setParaNum(choiceBox.getValue());
-        boolean haveAdd=false;//是否成功添加
+        boolean haveAdd;//是否成功添加
         //判断参数个数并选择
         if(function.judgeParaNum()!=0){
             int trueNum=function.getParaNum()+ function.judgeParaNum();
@@ -184,7 +184,7 @@ public class FunctionController implements Initializable {
             alert1.showAndWait();
             //更新列表
             FunctionList.getItems().clear();
-            functionList=SqlFunction.getAllFunction();
+            functionList= SqlFunction.getAllFunction();
             FunctionList.getItems().addAll(functionList);
             formula = "";
             exp = "";
@@ -437,8 +437,7 @@ public class FunctionController implements Initializable {
             if(formula.charAt(index)=='(')bracket++;
             else if(formula.charAt(index)==')')bracket--;
         }
-        if(bracket>0)return true;
-        else return false;
+        return bracket > 0;
     }
 
     /**
@@ -456,8 +455,7 @@ public class FunctionController implements Initializable {
             if(formula.charAt(index)=='(')bracket++;
             else if(formula.charAt(index)==')')bracket--;
         }
-        if(bracket>0)return true;
-        else return false;
+        return bracket > 0;
     }
 
     /**
