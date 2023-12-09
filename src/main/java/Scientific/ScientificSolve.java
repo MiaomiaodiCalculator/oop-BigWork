@@ -119,6 +119,9 @@ public class ScientificSolve implements Serializable {
 
     public List<String> getProcessExp() {return processExp;}
 
-    public void setSaveTime(Timestamp time) {this.saveTime = saveTime;}
+    public void setSaveTime(Timestamp time) {this.saveTime = time;}
 
+    public Timestamp getSaveTime() {return saveTime;}
+
+    public ObservableValue<String> timeProperty() {return new SimpleStringProperty(String.valueOf(saveTime));}
 }
