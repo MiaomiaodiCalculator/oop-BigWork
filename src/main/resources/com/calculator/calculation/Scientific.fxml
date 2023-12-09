@@ -116,7 +116,7 @@
            <children>
                 <VBox fx:id="FreeShow" layoutY="246.0" prefHeight="395.0" prefWidth="500.0" spacing="2" visible="false">
                    <children>
-                       <TextField onKeyPressed="#KeyDown" fx:id="searchField" promptText="输入关键字进行搜索..." style="-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 10px; -fx-border-color: #000000; -fx-border-radius: 10px; -fx-text-fill: #000000;" />
+                       <TextField fx:id="searchField" onKeyPressed="#KeyDown" promptText="输入关键字进行搜索..." style="-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 10px; -fx-border-color: #000000; -fx-border-radius: 10px; -fx-text-fill: #000000;" />
                        <TableView fx:id="FunctionList" layoutX="7.0" layoutY="244.0" onMouseClicked="#chooseFunction" prefHeight="600.0" prefWidth="490.0">
                            <columns>
                                <TableColumn fx:id="nameList" prefWidth="94.0" text="函数名" />
@@ -128,7 +128,7 @@
                 </VBox>
                <StackPane fx:id="searchResult" layoutY="274.0" prefHeight="154.0" prefWidth="500.0" visible="false">
                   <children>
-                      <ListView onKeyPressed="#KeyChoose" onMouseClicked="#MouseChoose" fx:id="listView" prefHeight="304.0" prefWidth="500.0" />
+                      <ListView fx:id="listView" onKeyPressed="#KeyChoose" onMouseClicked="#MouseChoose" prefHeight="304.0" prefWidth="500.0" />
                   </children>
                </StackPane>
            </children>
@@ -147,8 +147,9 @@
                 </ImageView>
                 <TableView fx:id="tableView" layoutY="65.0" onMouseClicked="#handleRowClick" prefHeight="633.0" prefWidth="500.0">
                     <columns>
-                        <TableColumn fx:id="formulaList" prefWidth="244.0" text="计算式" />
-                        <TableColumn fx:id="answerList" prefWidth="254.0" text="计算结果" />
+                        <TableColumn fx:id="timeList" prefWidth="153.0" text="计算时间" />
+                        <TableColumn fx:id="formulaList" minWidth="0.0" prefWidth="195.0" text="计算式" />
+                        <TableColumn fx:id="answerList" prefWidth="151.0" text="计算结果" />
                     </columns>
                 </TableView>
             </children>

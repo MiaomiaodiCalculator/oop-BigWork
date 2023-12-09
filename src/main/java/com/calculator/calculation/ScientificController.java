@@ -1,5 +1,4 @@
 package com.calculator.calculation;
-import Database.SqlInfinitesimal;
 import Database.SqlScientific;
 import NewFunction.UserFunction;
 import com.singularsys.jep.*;
@@ -8,12 +7,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -25,8 +23,6 @@ import com.singularsys.jep.Jep;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.calculator.calculation.FunctionController.functionList;
 
@@ -53,6 +49,7 @@ public class ScientificController implements Initializable{
     public ListView listView;
     public StackPane searchResult;
     public StackPane stackPane;
+    public TableColumn<ScientificSolve,String> timeList;
     private ArrayList<ScientificSolve> list =new ArrayList<>();
     public TableView<ScientificSolve> tableView;
     public TableColumn<ScientificSolve, String> formulaList;
@@ -99,6 +96,7 @@ public class ScientificController implements Initializable{
     private void handleHisImageClick(MouseEvent event) throws IOException {
         list= SqlScientific.getAllHis();
         tableView.setPlaceholder(new Label("无历史记录"));//占位文本
+        timeList.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
         formulaList.setCellValueFactory(cellData -> cellData.getValue().formulaProperty());
         answerList.setCellValueFactory(cellData -> cellData.getValue().answerProperty());
         ObservableList<ScientificSolve> observableList = FXCollections.observableArrayList(list);
@@ -200,6 +198,7 @@ public class ScientificController implements Initializable{
                     tackleError();
                     dialog.close();
                     FreeShow.setVisible(false);
+                    listView.setVisible(false);
                 }
             }
         }
@@ -212,7 +211,7 @@ public class ScientificController implements Initializable{
      **/
     public void handleRowClick(MouseEvent event) {
         // 判断是否双击行
-        if (event.getClickCount() == 2) {
+        if (event.getClickCount() == 2&&event.getButton()== MouseButton.PRIMARY) {
             ScientificSolve selectedItem = tableView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 String toFormula=selectedItem.getFormula();
@@ -227,7 +226,25 @@ public class ScientificController implements Initializable{
                 process=new ArrayList<>(selectedItem.getProcess());
                 processExp=new ArrayList<>(selectedItem.getProcessExp());
             }
+        } else if(event.getButton()==MouseButton.SECONDARY){//右键单击选择是否删除
+            ScientificSolve ift = tableView.getSelectionModel().getSelectedItem();
+            System.out.println(SqlScientific.exists(ift.getSaveTime()));
+            System.out.println(ift.getSaveTime());
+            if(SqlScientific.exists(ift.getSaveTime())){
+                Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                alert1.setContentText("删除这条历史记录？");
+                Optional<ButtonType> result = alert1.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    SqlScientific.delete(ift);
+                    getHistoryList();
+                }
+            }
         }
+    }
+    private void getHistoryList(){
+        list=SqlScientific.getAllHis();
+        tableView.getItems().setAll(list);
+        tableView.refresh();
     }
     /***
      * @Description 返回到原界面

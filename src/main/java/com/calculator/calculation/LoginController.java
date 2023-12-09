@@ -1,7 +1,15 @@
 package com.calculator.calculation;
+import NewFunction.UserFunction;
+import com.singularsys.jep.EvaluationException;
+import com.singularsys.jep.ParseException;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import user.User;
@@ -9,6 +17,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 import static Database.SqlUser.*;
+import static com.calculator.calculation.FunctionController.functionList;
 
 /**
  * @author Bu Xinran
@@ -18,6 +27,7 @@ import static Database.SqlUser.*;
 public class LoginController {
     public TextArea usernameArea;
     public PasswordField passwordArea;
+    public static boolean state;
     public static boolean userState=false;
     public static String userName="abc";
     public static String passWord=" ";
@@ -36,6 +46,7 @@ public class LoginController {
             userState=true;
             userName=name;
             passWord=password;
+            state=true;
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
             Stage stage=new Stage();
@@ -126,5 +137,37 @@ public class LoginController {
     public static boolean checkPassword(String password){
         String regex = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[@_$%]).{7,15}$";
         return password.matches(regex);
+    }
+    /***
+     * @Description 游客模式进入
+     * @author Bu Xinran
+     * @date 2023/12/9 14:10
+    **/
+    public void justVisitor() throws IOException {
+        userName=String.valueOf(System.currentTimeMillis());
+        passWord=" ";
+        state=false;
+        User user=new User(userName,passWord);
+        add(user);
+        Stage currentStage = (Stage) loginButton.getScene().getWindow();
+        currentStage.close();
+        Stage stage=new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Main.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 500, 730);
+        stage.setTitle("Calculator");
+        stage.setScene(scene);
+        stage.show();
+    }
+    /***
+     * @Description 登录回车直接判断是否可以登录
+     * @param event 是否敲击键盘enter
+     * @author Bu Xinran
+     * @date 2023/12/9 14:41
+    **/
+    @FXML
+    private void log(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            login();
+        }
     }
 }
