@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 /**
  * @author Bu Xinran
@@ -19,8 +20,8 @@ import java.sql.SQLException;
 public class SqlUser {
     private final static String driver = "com.mysql.cj.jdbc.Driver";
     private final static String username = "root";
-    private final static String password = "root";
-    private final static String url = "jdbc:mysql://10.192.229.109/miaomiaodi";
+    private final static String password = "qwe1234!";
+    private final static String url = "jdbc:mysql://bj-cynosdbmysql-grp-ac12urxu.sql.tencentcdb.com:29055/miaomiaodi";
     private final static String insert = "insert into user(username,password,avatar) values(?,?,?)";
     private final static String update = "update user set password = ? where username = ?";
     private final static String delete = "delete from user where username = ?";
@@ -177,6 +178,7 @@ public class SqlUser {
             ResultSet result = exist.executeQuery();
             if (result.next()) {
                 byte[] imageData = result.getBytes("avatar");
+                if(imageData==null)return null;
                 ByteArrayInputStream image = new ByteArrayInputStream(imageData);
                 return new Image(image);
             }
