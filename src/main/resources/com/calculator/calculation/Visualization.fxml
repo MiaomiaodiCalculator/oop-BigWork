@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<StackPane prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.VisualizationController">
+   <children>
+      <Pane fx:id="Visualization">
+         <ImageView fx:id="historyImg" fitHeight="36.0" fitWidth="35.0" layoutX="448.0" layoutY="14.0" onMouseClicked="#handleHisImageClick" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/history.png" />
+            </image>
+         </ImageView>
+         <Text layoutX="165.0" layoutY="53.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Visualization" textAlignment="CENTER">
+            <font>
+               <Font size="28.0" />
+            </font>
+         </Text>
+         <StackPane layoutX="35.0" layoutY="80.0" prefHeight="371.0" prefWidth="429.0" style="-fx-background-color: #f0f0f0;">
+            <children>
+               <LineChart fx:id="graphChart" alternativeRowFillVisible="false" animated="false" createSymbols="false" horizontalGridLinesVisible="false" legendVisible="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="371.0" prefWidth="412.0" verticalGridLinesVisible="false">
+                  <padding>
+                     <Insets bottom="10.0" left="5.0" />
+                  </padding>
+                  <xAxis>
+                     <NumberAxis animated="false" autoRanging="false" forceZeroInRange="false" lowerBound="-50.0" minorTickVisible="false" side="BOTTOM" tickLength="4.0" upperBound="50.0" fx:id="xAxis" />
+                  </xAxis>
+                  <yAxis>
+                     <NumberAxis fx:id="yAxis" animated="false" autoRanging="false" forceZeroInRange="false" lowerBound="-50.0" minorTickLength="2.0" minorTickVisible="false" side="LEFT" tickLength="4.0" upperBound="50.0" />
+                  </yAxis>
+               </LineChart>
+               <GridPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" StackPane.alignment="CENTER_LEFT">
+                  <children>
+                     <Slider fx:id="posYSlider" blockIncrement="1.0" focusTraversable="false" majorTickUnit="5.0" maxHeight="1.7976931348623157E308" minorTickCount="4" orientation="VERTICAL" snapToTicks="true" value="50.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                     <Slider fx:id="negYSlider" blockIncrement="1.0" focusTraversable="false" majorTickUnit="5.0" max="0.0" maxHeight="1.7976931348623157E308" min="-100.0" minorTickCount="4" orientation="VERTICAL" snapToTicks="true" value="-50.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                  </children>
+                  <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints minHeight="10.0" percentHeight="50.0" valignment="CENTER" vgrow="ALWAYS" />
+                     <RowConstraints minHeight="10.0" percentHeight="50.0" valignment="BASELINE" vgrow="ALWAYS" />
+                  </rowConstraints>
+                  <StackPane.margin>
+                     <Insets bottom="30.0" />
+                  </StackPane.margin>
+               </GridPane>
+               <GridPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" StackPane.alignment="BOTTOM_CENTER">
+                  <children>
+                     <Slider fx:id="negXSlider" blockIncrement="1.0" focusTraversable="false" majorTickUnit="5.0" max="0.0" min="-100.0" minorTickCount="4" snapToTicks="true" value="-50.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
+                     <Slider fx:id="posXSlider" blockIncrement="1.0" focusTraversable="false" majorTickUnit="5.0" minorTickCount="4" snapToTicks="true" value="50.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
+                  </children>
+                  <columnConstraints>
+                     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0" />
+                     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints minHeight="20.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <StackPane.margin>
+                     <Insets left="35.0" />
+                  </StackPane.margin>
+               </GridPane>
+            </children>
+         </StackPane>
+         <VBox layoutX="35.0" layoutY="462.0" prefHeight="202.0" prefWidth="420.0">
+            <children>
+               <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="420.0" text="  Enter formula to graph:" textOverrun="CLIP">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+               </Label>
+               <GridPane>
+                  <columnConstraints>
+                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="34.0" />
+                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="37.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="351.0" minWidth="10.0" prefWidth="360.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y1=" GridPane.columnIndex="1">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Text>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y2=" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Text>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y3=" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Text>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y4=" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Text>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y5=" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Text>
+                     <TextField fx:id="f1" GridPane.columnIndex="2" />
+                     <TextField fx:id="f2" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                     <TextField fx:id="f3" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                     <TextField fx:id="f4" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                     <TextField fx:id="f5" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                     <Button fx:id="show1" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="23.0" prefWidth="26.0" style="-fx-background-color: RED;" textAlignment="CENTER" textFill="WHITE">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Button>
+                     <Button fx:id="show2" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="23.0" prefWidth="26.0" style="-fx-background-color: BLUE;" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="1">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Button>
+                     <Button fx:id="show3" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="23.0" prefWidth="26.0" style="-fx-background-color: GREEN;" textFill="WHITE" GridPane.rowIndex="2">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Button>
+                     <Button fx:id="show4" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="23.0" prefWidth="26.0" style="-fx-background-color: BROWN;" textFill="WHITE" GridPane.rowIndex="3">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Button>
+                     <Button fx:id="show5" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="23.0" prefWidth="26.0" style="-fx-background-color: PURPLE;" textFill="WHITE" GridPane.rowIndex="4">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Button>
+                  </children>
+               </GridPane>
+            </children>
+         </VBox>
+         <Button layoutX="303.0" layoutY="660.0" mnemonicParsing="false" onAction="#PrintScreen" prefHeight="23.0" prefWidth="72.0" text="PrtSc" />
+         <Button layoutX="383.0" layoutY="660.0" mnemonicParsing="false" onAction="#pushListToHistory" prefHeight="23.0" prefWidth="72.0" text="SAVE" />
+      </Pane>
+      <Pane fx:id="History">
+         <children>
+            <Text layoutX="152.0" layoutY="41.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Visualization" wrappingWidth="200.0">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="returnImg" fitHeight="36.0" fitWidth="35.0" layoutX="9.0" layoutY="14.0" onMouseClicked="#handleReturnClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/return.png" />
+               </image>
+            </ImageView>
+            <TableView fx:id="tableView" layoutY="65.0" onMouseClicked="#handleRowClick" prefHeight="633.0" prefWidth="500.0">
+               <columns>
+                  <TableColumn fx:id="historyList" prefWidth="500.0" text="历史记录列表" />
+               </columns>
+            </TableView>
+         </children>
+      </Pane>
+   </children>
+</StackPane>

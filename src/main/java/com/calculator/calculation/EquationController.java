@@ -1,6 +1,6 @@
 package com.calculator.calculation;
-import equation.EquationError;
-import equation.EquationSolve;
+import Equation.EquationError;
+import Equation.EquationSolve;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.Button;
@@ -13,11 +13,10 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import static equation.EquationSolve.getAnswer;
-import static scientific.ScientificSolve.checkText;
+import static Equation.EquationSolve.getAnswer;
+import static Scientific.ScientificSolve.checkText;
 
 /**
  * @author Bu Xinran
@@ -216,6 +215,7 @@ public class EquationController implements Initializable {
             para.setDisable(false);
             dot.setDisable(false);
         }
+        System.out.println(equation);
     }
     /***
      * @Description  计算多次一元方程

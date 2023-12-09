@@ -6,7 +6,6 @@ import javafx.scene.SubScene;
 import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import vector.VectorSolve;

@@ -1,4 +1,6 @@
 package com.calculator.calculation;
+import Database.SqlInfinitesimal;
+import Database.SqlScientific;
 import NewFunction.UserFunction;
 import com.singularsys.jep.*;
 import com.singularsys.jep.ParseException;
@@ -6,19 +8,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import scientific.ScientificSolve;
-import scientific.ErrorScientific;
+import Scientific.ScientificSolve;
+import Scientific.ErrorScientific;
 import com.singularsys.jep.Jep;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.calculator.calculation.FunctionController.functionList;
 
@@ -42,6 +50,9 @@ public class ScientificController implements Initializable{
     public TableColumn formulaList1;
     public TextField searchField;
     public VBox FreeShow;
+    public ListView listView;
+    public StackPane searchResult;
+    public StackPane stackPane;
     private ArrayList<ScientificSolve> list =new ArrayList<>();
     public TableView<ScientificSolve> tableView;
     public TableColumn<ScientificSolve, String> formulaList;
@@ -52,9 +63,8 @@ public class ScientificController implements Initializable{
     private String exp="";
     private ErrorScientific calFlag= ErrorScientific.yes;
     private String answer="";
-    private LinkedHashMap<Integer,String> process=new LinkedHashMap<>();
-    private LinkedHashMap<Integer,String> processExp=new LinkedHashMap<>();
-    private static int cntProcess=0;
+    private List<String> process=new ArrayList<>();
+    private List<String> processExp=new ArrayList<>();
     public static boolean atPow=false;
     private boolean finish=false;
     /***
@@ -75,22 +85,9 @@ public class ScientificController implements Initializable{
         // 初始化时，显示第一个卡片，隐藏第二个卡片
         Scientific.setVisible(true);
         History.setVisible(false);
-    }
-    /***
-     * @Description 从文件中反序列化中存储历史记录的图
-     * @author Bu Xinran
-     * @date 2023/11/27 11:16
-     **/
-    private void getListFromFile() throws IOException, ClassNotFoundException {
-        String path="./data/Scientific.out";
-        File file=new File(path);
-        if(file.exists()){
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            list =(ArrayList<ScientificSolve>)ois.readObject();
-            ois.close();
-            fis.close();
-        }
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchListener();
+        });
     }
     /***
      * @Description  跳转到历史记录界面
@@ -100,11 +97,7 @@ public class ScientificController implements Initializable{
      **/
     @FXML
     private void handleHisImageClick(MouseEvent event) throws IOException {
-        try {
-            getListFromFile();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        list= SqlScientific.getAllHis();
         tableView.setPlaceholder(new Label("无历史记录"));//占位文本
         formulaList.setCellValueFactory(cellData -> cellData.getValue().formulaProperty());
         answerList.setCellValueFactory(cellData -> cellData.getValue().answerProperty());
@@ -122,82 +115,91 @@ public class ScientificController implements Initializable{
     public void chooseFunction(MouseEvent event) throws ParseException, EvaluationException {
         if (event.getClickCount() == 2) {
             UserFunction selectedItem = (UserFunction)(FunctionList.getSelectionModel().getSelectedItem());
-            if (selectedItem != null) {
-                String title="正在调用自定义函数'"+selectedItem.getName()+"'";
-                System.out.println(selectedItem.getExp());
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setTitle(title);
-                dialog.setHeaderText("请输入各变量的值：");
-                int num=selectedItem.getParaNum();
-                GridPane gridPane = new GridPane();
-                TextField textX = null;
-                TextField textY=null;
-                TextField textZ=null;
-                if(num>=1){
-                    textX = new TextField();
-                    gridPane.add(textX, 1, 0);
-                    gridPane.add(new Label("X:"), 0, 0);
+            selectFunction(selectedItem);
+        }
+    }
+    /***
+     * @Description  调用自定义函数
+     * @param selectedItem  选中的自定义函数
+     * @author Bu Xinran
+     * @date 2023/12/9 11:44
+    **/
+    public void selectFunction(UserFunction selectedItem) throws ParseException, EvaluationException {
+        if (selectedItem != null) {
+            String title="正在调用自定义函数'"+selectedItem.getName()+"'";
+            System.out.println(selectedItem.getExp());
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle(title);
+            dialog.setHeaderText("请输入各变量的值：");
+            int num=selectedItem.getParaNum();
+            GridPane gridPane = new GridPane();
+            TextField textX = null;
+            TextField textY=null;
+            TextField textZ=null;
+            if(num>=1){
+                textX = new TextField();
+                gridPane.add(textX, 1, 0);
+                gridPane.add(new Label("X:"), 0, 0);
+            }
+            if(num>=2){
+                textY= new TextField();
+                gridPane.add(textY, 1, 1);
+                gridPane.add(new Label("Y:"), 0, 1);
+            }
+            if(num>=3){
+                textZ= new TextField();
+                gridPane.add(textZ, 1, 2);
+                gridPane.add(new Label("Z:"), 0, 2);
+            }
+            dialog.getDialogPane().setContent(gridPane);
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                boolean checkError;
+                String valueX;
+                String valueY = null;
+                String valueZ = null;
+                if(num==1){
+                    valueX=textX.getText();
+                    checkError=ScientificSolve.checkText(valueX);
+                }else if(num==2){
+                    valueX=textX.getText();
+                    valueY=textY.getText();
+                    boolean a=ScientificSolve.checkText(valueX);
+                    if(!a) checkError=false;
+                    else checkError=ScientificSolve.checkText(valueY);
+                }else{
+                    valueX=textX.getText();
+                    valueY=textY.getText();
+                    valueZ=textY.getText();
+                    boolean a=ScientificSolve.checkText(valueX);
+                    boolean b=ScientificSolve.checkText(valueY);
+                    if(!a) checkError=false;
+                    else if(!b) checkError=false;
+                    else checkError=ScientificSolve.checkText(valueZ);
                 }
-                if(num>=2){
-                    textY= new TextField();
-                    gridPane.add(textY, 1, 1);
-                    gridPane.add(new Label("Y:"), 0, 1);
-                }
-                if(num>=3){
-                    textZ= new TextField();
-                    gridPane.add(textZ, 1, 2);
-                    gridPane.add(new Label("Z:"), 0, 2);
-                }
-                dialog.getDialogPane().setContent(gridPane);
-                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-                Optional<ButtonType> result = dialog.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    boolean checkError;
-                    String valueX;
-                    String valueY = null;
-                    String valueZ = null;
+                if(!checkError){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("警告");
+                    alert.setHeaderText(null);
+                    alert.setContentText("存在参数值为空或不是数字！");
+                    alert.showAndWait();
+                }else{
+                    //处理正确获得的表达式
                     if(num==1){
-                        valueX=textX.getText();
-                        checkError=ScientificSolve.checkText(valueX);
+                        formula=formula+selectedItem.getName()+"("+valueX+")";
+                        exp=exp+selectedItem.getRes(Double.parseDouble(valueX)).toString();
                     }else if(num==2){
-                        valueX=textX.getText();
-                        valueY=textY.getText();
-                        boolean a=ScientificSolve.checkText(valueX);
-                        if(!a) checkError=false;
-                        else checkError=ScientificSolve.checkText(valueY);
+                        formula=formula+selectedItem.getName()+"("+valueX+","+valueY+")";
+                        exp=exp+selectedItem.getRes(Double.parseDouble(valueX),Double.parseDouble(valueY)).toString();
                     }else{
-                        valueX=textX.getText();
-                        valueY=textY.getText();
-                        valueZ=textY.getText();
-                        boolean a=ScientificSolve.checkText(valueX);
-                        boolean b=ScientificSolve.checkText(valueY);
-                        if(!a) checkError=false;
-                        else if(!b) checkError=false;
-                        else checkError=ScientificSolve.checkText(valueZ);
+                        formula=formula+selectedItem.getName()+"("+valueX+","+valueY+","+valueZ+")";
+                        exp=exp+selectedItem.getRes(Double.parseDouble(valueX),Double.parseDouble(valueY),Double.parseDouble(valueY)).toString();
                     }
-                    if(!checkError){
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("警告");
-                        alert.setHeaderText(null);
-                        alert.setContentText("存在参数值为空或不是数字！");
-                        alert.showAndWait();
-                    }else{
-                        //处理正确获得的表达式
-                        if(num==1){
-                            formula=formula+selectedItem.getName()+"("+valueX+")";
-                            exp=exp+selectedItem.getRes(Double.parseDouble(valueX)).toString();
-                        }else if(num==2){
-                            formula=formula+selectedItem.getName()+"("+valueX+","+valueY+")";
-                            exp=exp+selectedItem.getRes(Double.parseDouble(valueX),Double.parseDouble(valueY)).toString();
-                        }else{
-                            formula=formula+selectedItem.getName()+"("+valueX+","+valueY+","+valueZ+")";
-                            exp=exp+selectedItem.getRes(Double.parseDouble(valueX),Double.parseDouble(valueY),Double.parseDouble(valueY)).toString();
-                        }
-                        formulaShow.setText(formula);
-                        tackleError();
-                        dialog.close();
-                       FreeShow.setVisible(false);
-                    }
+                    formulaShow.setText(formula);
+                    tackleError();
+                    dialog.close();
+                    FreeShow.setVisible(false);
                 }
             }
         }
@@ -222,8 +224,8 @@ public class ScientificController implements Initializable{
                 formulaShow.setText(formula);
                 answer=toAnswer;
                 answerShow.setText(answer);
-                process=selectedItem.getProcess();
-                cntProcess= selectedItem.getCntProcess();
+                process=new ArrayList<>(selectedItem.getProcess());
+                processExp=new ArrayList<>(selectedItem.getProcessExp());
             }
         }
     }
@@ -289,34 +291,6 @@ public class ScientificController implements Initializable{
             answerShow.setText("不能除以0！");
         }else if(calFlag== ErrorScientific.Illegal){
             answerShow.setText("算式非法！");
-        }
-    }
-    /***
-     * @Description  将向量计算器的计算结果存入List，然后序列化储存在文件中
-     * @author Bu Xinran
-     * @date 2023/11/25 20:45
-     **/
-    private void pushListToHistory(){
-        try{
-            String path="./data/Scientific.out";
-            File file=new File(path);
-            if(!file.exists()){
-                file.getParentFile().mkdirs();
-            }else{
-                file.delete();
-                file.getParentFile().mkdirs();
-            }
-            FileOutputStream fos = new FileOutputStream(path);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(list);
-            oos.flush();
-            oos.close();
-            fos.flush();
-            fos.close();
-        }catch(SecurityException e){
-            System.out.println("File operation failed");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
     /***
@@ -408,6 +382,7 @@ public class ScientificController implements Initializable{
             case "C":
                 formula="";
                 answer="";
+                calFlag=ErrorScientific.yes;
                 answerShow.setText("");
                 process.clear();
                 processExp.clear();
@@ -442,37 +417,35 @@ public class ScientificController implements Initializable{
             case "=":
                 formula=formula+"=";
                 exp=exp+"=";
-                cntProcess++;
-                process.put(cntProcess,formula);
+                process.add(formula);
+                processExp.add(exp);
                 if(calFlag!= ErrorScientific.divideZero)checkIllegal();
                 finish=true;
-                ScientificSolve a=new ScientificSolve(formula,answer,calFlag,process,cntProcess,exp);
+                ScientificSolve a=new ScientificSolve(formula,answer,calFlag,process,processExp,exp);
                 a.setAnswer(a.getResult());
                 if(!list.contains(a)){
                     list.add(a);
                 }
-                pushListToHistory();
+                SqlScientific.add(a);
                 break;
             default:
-                if(formula.contains("pow") && !process.get(cntProcess - 1).contains("pow")){
+                if(formula.contains("pow") && !process.get(process.size()-1).contains("pow")){
                     atPow=false;
                 }
-                cntProcess--;
-                if(cntProcess<=0){
+                if(process.size()<=1){
                     formula="";
                     exp="";
                     answer="";
                     return;
                 }
-                formula=process.get(cntProcess);
-                exp=processExp.get(cntProcess);
-                process.remove(cntProcess);
-                processExp.remove(cntProcess);
+                formula=process.get(process.size() - 2);
+                exp=processExp.get(processExp.size() - 2);
+                process.remove(process.size() - 1);
+                processExp.remove(processExp.size() - 1);
                 return;
         }
-        cntProcess++;
-        process.put(cntProcess,formula);
-        processExp.put(cntProcess,exp);
+        process.add(formula);
+        processExp.add(exp);
     }
     /***
      * @Description  检查当前pow函数是否调用完成
@@ -583,11 +556,96 @@ public class ScientificController implements Initializable{
     }
     /***
      * @Description  实时更新搜索框
-     * @param actionEvent 点击搜索框
      * @author Bu Xinran
      * @date 2023/11/29 0:23
     **/
-    public void searchListener(ActionEvent actionEvent) {
-        //TODO:根据搜索内容实时跳出符合的函数名
+    public void searchListener() {
+        String search=searchField.getText();
+        System.out.println(search);
+        List<String> searchList=new ArrayList<>();
+        for(UserFunction key:functionList){
+            if(key.getName().contains(search)&&searchList.size()<=7){
+                searchList.add(key.getName());
+            }
+        }
+        Collections.sort(searchList);
+        ObservableList<String> items = FXCollections.observableArrayList(searchList);
+        listView.setItems(items);
+        listView.setPrefHeight(searchList.size()* listView.getFixedCellSize());
+        searchResult.setVisible(true);
+        if(searchList.isEmpty()){
+            searchResult.setVisible(false);
+        }
+        searchList.clear();
+    }
+    /***
+     * @Description 监听搜索提示框中鼠标动作
+     * @author Bu Xinran
+     * @date 2023/12/9 11:40
+    **/
+    public void MouseChoose() {
+        listView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) { // 双击事件
+                String selectedItem = (String)(listView.getSelectionModel().getSelectedItem());
+                for(UserFunction key:functionList){
+                    if(key.getName().equals(selectedItem)){
+                        try {
+                            selectFunction(key);
+                            searchResult.setVisible(false);
+                            searchField.setText("");
+                        } catch (ParseException | EvaluationException e) {
+                            System.out.println("Mouse:error");
+                        }
+                    }
+                }
+            }
+        });
+    }
+    /***
+     * @Description 监听搜索提示框中的键盘事件
+     * @author Bu Xinran
+     * @date 2023/12/9 11:41
+    **/
+    public void KeyChoose() {
+        listView.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.DOWN) {
+                int nextIndex = listView.getSelectionModel().getSelectedIndex();
+                if (nextIndex <=7) {
+                    listView.getSelectionModel().select(nextIndex);
+                }
+            } else if (event.getCode() == KeyCode.UP) {
+                int prevIndex = listView.getSelectionModel().getSelectedIndex();
+                if (prevIndex >= 0) {
+                    listView.getSelectionModel().select(prevIndex);
+                }
+            }else if(event.getCode()==KeyCode.ENTER){
+                String selectedItem = (String)(listView.getSelectionModel().getSelectedItem());
+                for(UserFunction key:functionList){
+                    if(key.getName().equals(selectedItem)){
+                        try {
+                            selectFunction(key);
+                            searchField.setText("");
+                            searchResult.setVisible(false);
+                        } catch (ParseException | EvaluationException e) {
+                            System.out.println("Key:error");
+                        }
+                    }
+                }
+            }
+        });
+    }
+    /***
+     * @Description  使用键盘DOWN跳转到搜索提示框
+     * @author Bu Xinran
+     * @date 2023/12/9 13:56
+    **/
+    public void KeyDown() {
+        searchField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.DOWN) {
+                listView.requestFocus();
+                listView.getSelectionModel().selectFirst();
+                event.consume();
+            }
+        });
     }
 }

@@ -1,13 +1,19 @@
 package com.calculator.calculation;
 import NewFunction.UserFunction;
 import infinitesimal.InfinitesimalSolve;
+import Database.SqlInfinitesimal;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author sxq
@@ -27,11 +33,20 @@ public class InfinitesimalController {
     public TextField downValue;
     /*结果文本框*/
     public TextField result;
-
-    public TableView FunctionList;
+    /*自定义函数列表元素*/
+    public TableView FunctionTableView;
     public TableColumn nameList;
     public TableColumn paraNumList;
     public TableColumn formulaList;
+    public Pane infinitesimal;
+    public Pane infinitesimalHistory;
+    public ImageView historyImg;
+    public ImageView returnImg;
+    /*历史记录列表元素*/
+    public TableView historyTableView;
+    public TableColumn historyTimeList;
+    public TableColumn historyFormulaList;
+    public TableColumn historyResList;
     /*展示给用户的表达式*/
     private String formula = "";
     /*后台用于计算的表达式*/
@@ -40,7 +55,7 @@ public class InfinitesimalController {
     private List<String> formulaProcess = new ArrayList<>();
     /*储存exp的编辑过程*/
     private List<String> expProcess = new ArrayList<>();
-    public static ArrayList<UserFunction> functionList = new ArrayList<>();
+    private static List<InfinitesimalSolve> historyList = new ArrayList<>();
     /*pow判断，以切换显示*/
     public static boolean atPow = false;
 
@@ -69,7 +84,10 @@ public class InfinitesimalController {
      * @date 2023/12/4 10:09
      **/
     public void handleDelClick(ActionEvent event){
-        if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
+        if(formulaProcess.size()<=1||expProcess.size()<=1){
+            clear();
+        }
+        else if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
             if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
                 //上一步是pow
                 atPow = false;
@@ -103,11 +121,11 @@ public class InfinitesimalController {
             alert.setContentText("请输入积分下限");
             alert.showAndWait();
         }
-        else if(!up_s.matches("-?\\d+(\\.\\d+)?")){
+        else if(!up_s.matches("^(?!0\\d)\\d+(\\.\\d+)?$")){
             alert.setContentText("积分上限只能是合法数字~");
             alert.showAndWait();
         }
-        else if(!down_s.matches("-?\\d+(\\.\\d+)?")){
+        else if(!down_s.matches("^(?!0\\d)\\d+(\\.\\d+)?$")){
             alert.setContentText("积分下限只能是合法数字~");
             alert.showAndWait();
         }
@@ -116,13 +134,73 @@ public class InfinitesimalController {
         }//判断表达式合法性
         double up_d=Double.parseDouble(up_s);
         double down_d=Double.parseDouble(down_s);
-        InfinitesimalSolve ift=new InfinitesimalSolve(up_d,down_d,exp);
+        InfinitesimalSolve ift=new InfinitesimalSolve(up_d,down_d,formula,exp,formulaProcess,expProcess);
         double res=ift.getRes();
         result.setText(String.format("%.3f",res));
-        //TODO 保存计算结果
-
+        SqlInfinitesimal.add(ift);
+        formula = "";
+        exp = "";
+        formulaProcess.clear();
+        expProcess.clear();
+        functionShow.setText(formula);
+    }
+    /**
+     * @Description 点击显示微积分计算历史记录
+ * @param mouseEvent 点击事件
+     * @author sxq
+     * @date 2023/12/8 14:33
+    **/
+    @FXML
+    public void handleHisImageClick(MouseEvent mouseEvent) {
+        getHistoryList();
+        infinitesimal.setVisible(false);
+        infinitesimalHistory.setVisible(true);
+    }
+    /**
+     * @Description 从历史记录页面返回
+     * @param mouseEvent
+     * @author sxq
+     * @date 2023/12/8 15:29
+     **/
+    public void handleReturnClick(MouseEvent mouseEvent) {
+        infinitesimal.setVisible(true);
+        infinitesimalHistory.setVisible(false);
     }
 
+    public void handleHistoryRowClick(MouseEvent mouseEvent) {
+        if (mouseEvent.getButton()== MouseButton.PRIMARY) {//左键单击添加
+            InfinitesimalSolve ift = (InfinitesimalSolve) (historyTableView.getSelectionModel().getSelectedItem());
+            if(ift==null){
+                System.out.println("点空了");
+                return ;
+            }
+            if(SqlInfinitesimal.exists(ift.getSaveTime())){
+               formula=ift.getFormula();
+               exp=ift.getExp();
+               formulaProcess=new ArrayList<>(ift.getFormulaProcess());
+               expProcess=new ArrayList<>(ift.getExpProcess());
+               upValue.setText(String.valueOf(ift.getUpValue()));
+               downValue.setText(String.valueOf(ift.getDownValue()));
+               result.setText("");
+               functionShow.setText(formula);
+               //返回编辑页面
+                infinitesimalHistory.setVisible(false);
+                infinitesimal.setVisible(true);
+            }
+        }
+        else if(mouseEvent.getButton()==MouseButton.SECONDARY){//右键单击选择是否删除
+            InfinitesimalSolve ift = (InfinitesimalSolve) (historyTableView.getSelectionModel().getSelectedItem());
+            if(SqlInfinitesimal.exists(ift.getSaveTime())){
+                Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                alert1.setContentText("删除这条历史记录？");
+                Optional<ButtonType> result = alert1.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    SqlInfinitesimal.delete(ift);
+                    getHistoryList();
+                }
+            }
+        }
+    }
     /**
      * @param event
      * @Description 点击自定义函数按钮，获取已有的函数列表，并转换表达式和函数式
@@ -131,7 +209,7 @@ public class InfinitesimalController {
      **/
     @FXML
     private void handleGetFunction(ActionEvent event) {
-        FunctionList.setVisible(!FunctionList.isVisible());//点击显示
+        FunctionTableView.setVisible(!FunctionTableView.isVisible());//点击显示
     }
 
     /**
@@ -142,7 +220,7 @@ public class InfinitesimalController {
      **/
     public void handleRowClick(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1) {
-            UserFunction f = (UserFunction)(FunctionList.getSelectionModel().getSelectedItem());
+            UserFunction f = (UserFunction)(FunctionTableView.getSelectionModel().getSelectedItem());
             if(f.getParaNum()!=1){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("出错了");
@@ -225,12 +303,7 @@ public class InfinitesimalController {
                 exp+="^2";
                 break;
             case "C":
-                formula="";
-                exp="";
-                result.setText(null);
-                upValue.setText(null);
-                downValue.setText(null);
-                BUTTON_USERFUNCTION.setDisable(false);
+                clear();
                 break;
             case "x":
                 formula=formula+"x";
@@ -277,11 +350,37 @@ public class InfinitesimalController {
         if(bracket>0)return true;
         else return false;
     }
+    private void clear(){
+        formula="";
+        exp="";
+        formulaProcess.clear();
+        expProcess.clear();
+        result.setText(null);
+        upValue.setText(null);
+        downValue.setText(null);
+        BUTTON_USERFUNCTION.setDisable(false);
+    }
     public void initialize(){
-        FunctionList.setPlaceholder(new Label("脑瓜子空空的"));//占位文本
+        /*初始化自定义函数列表*/
+        FunctionTableView.setPlaceholder(new Label("脑瓜子空空的"));//占位文本
         nameList.setCellValueFactory(new PropertyValueFactory<>("name"));
         paraNumList.setCellValueFactory(new PropertyValueFactory<>("paraNum"));
         formulaList.setCellValueFactory(new PropertyValueFactory<>("formula"));
-        FunctionList.getItems().addAll(FunctionController.functionList);
+        FunctionTableView.getItems().addAll(FunctionController.functionList);
+        /*初始化历史记录列表*/
+        historyTableView.setPlaceholder(new Label("还没有进行过微积分计算"));//占位文本
+        historyFormulaList.setCellValueFactory(new PropertyValueFactory<>("formula"));
+        historyResList.setCellValueFactory(new PropertyValueFactory<>("result"));
+        historyTimeList.setCellValueFactory(new PropertyValueFactory<>("saveTime"));
+    }
+    /**
+     * @Description 从数据库中获取历史记录列表         
+     * @author sxq
+     * @date 2023/12/8 15:10
+    **/
+    private void getHistoryList(){
+        historyList=SqlInfinitesimal.getAllHis();
+        historyTableView.getItems().setAll(historyList);
+        historyTableView.refresh();
     }
 }

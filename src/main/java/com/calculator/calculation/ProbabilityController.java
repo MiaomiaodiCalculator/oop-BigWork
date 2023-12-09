@@ -93,8 +93,6 @@ public class ProbabilityController implements Initializable {
     BasicSolve basicProb;
     double[] data1;
     double[] data2;
-    double[] probability;
-    double percent;
 
     /**
      * @Description 点击图片加载历史记录页面

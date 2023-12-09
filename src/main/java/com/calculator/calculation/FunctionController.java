@@ -1,5 +1,6 @@
 package com.calculator.calculation;
 
+import Database.SqlFunction;
 import NewFunction.UserFunction;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +14,7 @@ import java.util.*;
 
 /**
  * @author sxq
- * @Description:自定义函数的控制器
+ * @Description 自定义函数的控制器
  * @date 2023/11/26 15:09
  */
 public class FunctionController implements Initializable {
@@ -30,7 +31,7 @@ public class FunctionController implements Initializable {
     public TableColumn formulaList;
     @FXML
     private ChoiceBox<Integer> choiceBox;
-    private Integer[] paraNum = {1, 2, 3};
+    private final Integer[] paraNum = {1, 2, 3};
     String replacePara = "";//替换嵌套函数中的参数
     /*嵌套的子函数名*/
     private String sonFName = "";
@@ -45,12 +46,12 @@ public class FunctionController implements Initializable {
     /*后台用于计算的表达式*/
     protected String exp = "";
     /*储存formula的编辑过程*/
-    private List<String> formulaProcess = new ArrayList<>();
+    private final List<String> formulaProcess = new ArrayList<>();
     /*储存exp的编辑过程*/
-    private List<String> expProcess = new ArrayList<>();
+    private final List<String> expProcess = new ArrayList<>();
     /*储存参数编辑过程*/
-    private ArrayList<String> replaceParaProcess[] = new ArrayList [3];
-    public static ArrayList<UserFunction> functionList = new ArrayList<>();
+    private final ArrayList<String>[] replaceParaProcess = new ArrayList [3];
+    public static ArrayList<UserFunction> functionList = SqlFunction.getAllFunction();
     /*pow判断，以切换显示*/
     public static boolean atPow = false;
     /*判断是否正在嵌套自定义函数*/
@@ -76,12 +77,15 @@ public class FunctionController implements Initializable {
     }
     /**
      * @Description 处理点击删除键
-     * @param event
+     * @param event 点击事件
      * @author sxq
      * @date 2023/12/4 10:09
      **/
     public void handleDelClick(ActionEvent event){
-        if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
+        if(formulaProcess.size()<=1||expProcess.size()<=1){
+            clear();
+        }
+        else if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
             if(!atFunc) {//不在嵌套自定义函数中
                 if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
                     //上一步是pow
@@ -116,11 +120,11 @@ public class FunctionController implements Initializable {
             formula = formulaProcess.get(formulaProcess.size() - 2);
             formulaProcess.remove(formulaProcess.size() - 1);
         }
-
+        functionShow.setText(formula);
     }
 
     /**
-     * @param event
+     * @param event 点击事件
      * @Description 处理点击保存事件，包括判断名称合法性、函数表达式合法性等
      * @author sxq
      * @date 2023/11/27 16:44
@@ -129,51 +133,73 @@ public class FunctionController implements Initializable {
     private void handleSaveClick(ActionEvent event) {
         String judgeName = UserFunction.judgeName(functionName.getText());
         System.out.println(functionName.getText());
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("出错了");
+        alert.setHeaderText(null);
+        //判断名称合法性
         if (!judgeName.equals("true")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("出错了");
-            alert.setHeaderText(null);
             alert.setContentText(judgeName);
             alert.showAndWait();
             return;
         }
-        //判断名称合法性
+        //判断是否重复
         if (UserFunction.judgeNameRepeat(functionName.getText())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("出错了");
-            alert.setHeaderText(null);
             alert.setContentText("该函数名已存在");
             alert.showAndWait();
             return;
         }
-        //判断是否重复
+        //判断表达式合法性
         if (!UserFunction.judgeFunction(exp).equals("true")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("出错了");
-            alert.setHeaderText(null);
             alert.setContentText(UserFunction.judgeFunction(exp));
             alert.showAndWait();
             return;
         }
-        //判断表达式合法性
         UserFunction function = new UserFunction(functionName.getText(), exp, formula);
         function.setParaNum(choiceBox.getValue());
-        if (function.addFunction()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("创建了一个新函数！");
-            alert.setHeaderText("函数名：" + functionName.getText());
-            alert.setContentText("表达式：" + formula);
-            alert.showAndWait();
-            FunctionList.getItems().add(functionList.get(functionList.size() - 1));
+        boolean haveAdd;//是否成功添加
+        //判断参数个数并选择
+        if(function.judgeParaNum()!=0){
+            int trueNum=function.getParaNum()+ function.judgeParaNum();
+            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+            alert1.setContentText("坚持保存吗？它将被设置为"+trueNum+"元函数");
+            if(function.judgeParaNum()>0)
+                alert1.setHeaderText("参数个数比想象中要多……");
+            else
+                alert1.setHeaderText("参数个数比想象中要少……");
+            Optional<ButtonType> result = alert1.showAndWait();
+            if (result.get() == ButtonType.OK){
+                function.setParaNum(trueNum);
+                function.replacePara();
+                haveAdd=function.addFunction();
+            } else {
+                System.out.println("选择了返回");
+                return;
+            }
+        }
+        else {
+            function.replacePara();
+            haveAdd = function.addFunction();
+        }
+        if (haveAdd) {
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+            alert1.setTitle("创建了一个新函数！");
+            alert1.setHeaderText("函数名：" + functionName.getText());
+            alert1.setContentText("表达式：" + formula);
+            alert1.showAndWait();
+            //更新列表
+            functionList= SqlFunction.getAllFunction();
+            FunctionList.getItems().setAll(functionList);
+            FunctionList.refresh();
             formula = "";
             exp = "";
             formulaProcess.clear();
             expProcess.clear();
+            functionShow.setText(formula);
         }
     }
 
     /**
-     * @param event
+     * @param event 点击事件
      * @Description 点击自定义函数按钮，获取已有的函数列表，并转换表达式和函数式
      * @author sxq
      * @date 2023/11/27 20:41
@@ -197,11 +223,12 @@ public class FunctionController implements Initializable {
     }
 
     /**
-     * @param mouseEvent
+     * @param mouseEvent 鼠标事件
      * @Description 处理历史自定义函数的行点击事件：加入历史自定义函数
      * @author sxq
      * @date 2023/11/28 17:23
      **/
+    @FXML
     public void handleRowClick(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1) {
             TablePosition pos = (TablePosition) FunctionList.getSelectionModel().getSelectedCells().get(0);
@@ -307,14 +334,7 @@ public class FunctionController implements Initializable {
                 else exp+="^2";
                 break;
             case "C":
-                formula="";
-                exp="";
-                atFunc=false;
-                sonFName="";
-                sonParaNum=0;
-                replacePara="";
-                replacedNum=0;
-                BUTTON_USERFUNCTION.setDisable(false);
+                clear();
                 break;
             case "x":
                 formula=formula+"x";
@@ -344,7 +364,6 @@ public class FunctionController implements Initializable {
                 break;
             case ")":
                 formula=formula+")";
-                exp+=")";
                 if(atFunc){
                     if(!(atFunc=checkAtFunc())){//嵌套结束，开始替换
                         if(replaceParaProcess[0].get(replaceParaProcess[0].size()-1).isEmpty()){
@@ -396,8 +415,10 @@ public class FunctionController implements Initializable {
                 return;
         }
         formulaProcess.add(formula);
-        if(atFunc)  replaceParaProcess[replacedNum].add(replacePara);
-        else expProcess.add(exp);
+        if(atFunc)
+            replaceParaProcess[replacedNum].add(replacePara);
+        else
+            expProcess.add(exp);
     }
 /**
  * @Description 判断是否处于嵌套函数中
@@ -413,8 +434,7 @@ public class FunctionController implements Initializable {
             if(formula.charAt(index)=='(')bracket++;
             else if(formula.charAt(index)==')')bracket--;
         }
-        if(bracket>0)return true;
-        else return false;
+        return bracket > 0;
     }
 
     /**
@@ -432,8 +452,25 @@ public class FunctionController implements Initializable {
             if(formula.charAt(index)=='(')bracket++;
             else if(formula.charAt(index)==')')bracket--;
         }
-        if(bracket>0)return true;
-        else return false;
+        return bracket > 0;
+    }
+    /**
+     * @Description 重置页面所有内容
+     * @author sxq
+     * @date 2023/12/9 14:06
+    **/
+    private void clear(){
+        formula="";
+        exp="";
+        formulaProcess.clear();
+        expProcess.clear();
+        atFunc=false;
+        atPow=false;
+        sonFName="";
+        sonParaNum=0;
+        replacePara="";
+        replacedNum=0;
+        BUTTON_USERFUNCTION.setDisable(false);
     }
 
     /**
@@ -452,6 +489,7 @@ public class FunctionController implements Initializable {
         nameList.setCellValueFactory(new PropertyValueFactory<>("name"));
         paraNumList.setCellValueFactory(new PropertyValueFactory<>("paraNum"));
         formulaList.setCellValueFactory(new PropertyValueFactory<>("formula"));
+        FunctionList.getItems().addAll(functionList);
         replaceParaProcess[0]=new ArrayList<>();
         replaceParaProcess[1]=new ArrayList<>();
         replaceParaProcess[2]=new ArrayList<>();

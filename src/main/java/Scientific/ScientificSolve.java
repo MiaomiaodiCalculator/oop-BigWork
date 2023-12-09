@@ -1,11 +1,14 @@
-package scientific;
+package Scientific;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * @author Bu Xinran
@@ -17,8 +20,9 @@ public class ScientificSolve implements Serializable {
     protected String exp="";
     protected ErrorScientific calFlag= ErrorScientific.yes;
     protected String answer;
-    protected LinkedHashMap<Integer,String> process=new LinkedHashMap<>();
-    protected int cntProcess=0;
+    protected List<String> process=new ArrayList<>();
+    protected List<String> processExp=new ArrayList<>();
+    private Timestamp saveTime;
     /***
      * @Description 构造方法
      * @param formula 计算公式
@@ -27,12 +31,12 @@ public class ScientificSolve implements Serializable {
      * @author Bu Xinran
      * @date 2023/11/27 14:15
      **/
-    public ScientificSolve(String formula, String answer, ErrorScientific calFlag, LinkedHashMap<Integer,String> process, int cntProcess, String exp){
+    public ScientificSolve(String formula, String answer, ErrorScientific calFlag, List<String> process,List<String> processExp,String exp){
         this.formula=formula;
         this.answer=answer;
         this.calFlag=calFlag;
         this.process=process;
-        this.cntProcess=cntProcess;
+        this.processExp=processExp;
         this.exp=exp;
     }
     /***
@@ -99,17 +103,8 @@ public class ScientificSolve implements Serializable {
      * @author Bu Xinran
      * @date 2023/11/28 10:13
      **/
-    public LinkedHashMap<Integer,String> getProcess(){
+    public List<String> getProcess(){
         return process;
-    }
-    /***
-     * @Description   获得历史记录中给的编辑步数
-     * @return int
-     * @author Bu Xinran
-     * @date 2023/11/28 10:13
-     **/
-    public int getCntProcess(){
-        return cntProcess;
     }
     /***
      * @Description  判断输入的字符是否合法
@@ -121,4 +116,9 @@ public class ScientificSolve implements Serializable {
     public static boolean checkText(String text){
         return text != null && text.matches("\\d+(\\.\\d+)?");
     }
+
+    public List<String> getProcessExp() {return processExp;}
+
+    public void setSaveTime(Timestamp time) {this.saveTime = saveTime;}
+
 }
