@@ -105,7 +105,7 @@ public class MainController implements Initializable {
             Pane page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFileName)));
             cardContainer.getChildren().setAll(page);
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println("loadPage:error");
         }
     }
     /**
