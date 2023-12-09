@@ -16,6 +16,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 730);
         stage.setTitle("Calculator");
+        stage.setResizable(false);  // ui1
         stage.setScene(scene);
         stage.show();
     }

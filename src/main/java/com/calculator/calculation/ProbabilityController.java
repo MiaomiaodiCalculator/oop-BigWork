@@ -77,7 +77,10 @@ public class ProbabilityController implements Initializable {
     public Text RVX;
     public Text RVY;
     public Button PercentEnter;
+    public TableView oneInputTable;
+    public TableColumn oneInputColumn;
     boolean flagTwoInput = false; // 判断两行都输入后开始在表格中显示
+    boolean flagWithProbability = false;
     boolean flagRawProcess = false; // 判断是不是两个随机变量输入-true即不带概率
     boolean flagInput1 = false;
     boolean flagInput2 = false;
@@ -189,6 +192,8 @@ public class ProbabilityController implements Initializable {
         int num= choiceBox.getValue();
         switch (num) {
             case 1 -> {
+                oneInputTable.setVisible(true);
+                DataTable.setVisible(false);
                 // 单变量把协方差和相关系数设置为不可见，以及第二个随机变量的相关数字特征不可见，其余可见
                 Cov.setVisible(false);
                 correlationCoefficient.setVisible(false);
@@ -214,6 +219,8 @@ public class ProbabilityController implements Initializable {
                 flagInput2 = false;
             }
             case 2 -> {
+                DataTable.setVisible(true);
+                oneInputTable.setVisible(false);
                 Cov.setVisible(true);
                 correlationCoefficient.setVisible(true);
                 CovText.setVisible(true);
@@ -226,9 +233,15 @@ public class ProbabilityController implements Initializable {
                 Mode2.setVisible(true);
                 Range2.setVisible(true);
                 Variance2.setVisible(true);
+                input2.setVisible(true);
+                InputData2.setVisible(true);
                 StandardDeviation2.setVisible(true);
                 RVX.setVisible(true);
                 RVY.setVisible(true);
+
+                // 防止在处理带概率部分切到2个变量（注意概率处理只能1个变量）
+                input2.setText("变量Y");
+                inputColumn2.setText("Y");
 
                 // flag初始化
                 flagTwoInput = true;
@@ -261,6 +274,8 @@ public class ProbabilityController implements Initializable {
         inputColumn2.setCellValueFactory(new PropertyValueFactory<>("input2"));
         inputColumn1.setText("X");
         inputColumn2.setText("Y");
+        oneInputColumn.setCellValueFactory(new PropertyValueFactory<>("input1"));
+        oneInputColumn.setText("X");
     }
     
     /**
@@ -269,8 +284,13 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/3 20:48
     **/
     public void ProcessRaw() {
+        choiceBox.setDisable(false);
+        returnPage();
         processMethod.setText("原始数据");
+        input2.setText("变量Y");
+        inputColumn2.setText("Y");
         flagRawProcess = true;
+        flagWithProbability = false;
     }
     /**
      * @Description  处理带概率的随机变量
@@ -278,9 +298,22 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/3 20:49
     **/
     public void ProcessWithProbability() {
+
+        // 概率处理指只对一个随机变量
+        choiceBox.setDisable(true);
+        processMethod.setText("概率处理");
+        input2.setVisible(true);
+        InputData2.setVisible(true);
+        input2.setText("概率");
+        oneInputTable.setVisible(false);
+        DataTable.setVisible(true);
+        inputColumn2.setText("P");
+        // column的输入和初始化仍保持一致
 //        inputColumn1.setCellValueFactory(new PropertyValueFactory<>("X"));
 //        inputColumn2.setCellValueFactory(new PropertyValueFactory<>("P"));
-        processMethod.setText("概率处理");
+        flagWithProbability = true;
+        flagRawProcess = false;
+        flagTwoInput = true; // 需要两行输入，变量值和对应概率
     }
 
     Exception exception = new NotInputDataException("未输入数据");
@@ -307,7 +340,8 @@ public class ProbabilityController implements Initializable {
             else {
                 flagInput1 = true;
                 if (flagOneInput) {
-                    addDataToTable(); // 只有一行输入时，只保留上方的文本框
+                    oneInputListInit();
+//                    addDataToTable(); // 只有一行输入时，只保留上方的文本框
                 }
             }
         }
@@ -345,9 +379,11 @@ public class ProbabilityController implements Initializable {
     private void oneInputListInit() {
         int dataNum = data1.length;
         for (int i = 0; i < dataNum; i++) {
-            DataToShow.add(new InputData(data1[i], 0.0));
-            DataTable.getItems().add(new InputData(data1[i], 0.0));
+            oneInputTable.getItems().add(new InputData(data1[i], 0.0));
         }
+        basicProb = new BasicSolve(data1);
+        flagHasBasicSolve = true;
+        rawShowMathCharacter1(basicProb, 1);
         // 处理完数据的显示开始重置
         DataToShow.clear();
         flagInput1 = false;
@@ -417,6 +453,14 @@ public class ProbabilityController implements Initializable {
     private void showRelate(BasicSolve basicSolve) {
         Cov.setText(String.valueOf(basicSolve.Cov));
         correlationCoefficient.setText(String.valueOf(basicSolve.correlationCoefficient));
+    }
+    /**
+     * @Description 处理用户删改数据
+     * @author 郑悦
+     * @date 2023/12/9 15:23
+    **/
+    public void doWithEdit() {
+
     }
 
     /**
@@ -489,6 +533,7 @@ public class ProbabilityController implements Initializable {
         DataToShow.clear();
         flagInput1 = false;
         flagTwoInput = false;
+        // 这里处理两组数据输入的添加表格显示，注意补充一组数据的新函数（新表格）
     }
     /**
      * @Description 处理用户进行百分数读取
@@ -507,6 +552,9 @@ public class ProbabilityController implements Initializable {
             // 没数据时抛出异常
             System.out.println(flagTwoInput);
             if (flagTwoInput) {
+                if (flagWithProbability) { // 两组输入包括一组概率时
+                    Percentiles.setText(String.valueOf(BasicSolve.getWeightedPercent(basicProb.values, basicProb.probabilities, percent/100)));
+                }
                 // 输入两组随机变量时应结合相应X，Y的判断
                 switch (chosenRV) {
                     case 'X': // 初始值直接置成X？
@@ -516,6 +564,10 @@ public class ProbabilityController implements Initializable {
                         Percentiles.setText(String.valueOf(basicProb.getPercentilesInStat(2, percent)));
                         break;
                 }
+            }
+            else {
+                // 处理一组数据
+                Percentiles.setText(String.valueOf(basicProb.getPercentilesInStat(1, percent)));
             }
         }
     }
@@ -543,5 +595,45 @@ public class ProbabilityController implements Initializable {
                 Percentiles.setText(String.valueOf(basicProb.getPercentilesInStat(2, percent)));
                 break;
         }
+    }
+
+    /**
+     * @Description 处理对应的变量选择，要求X还是Y的百分数位
+     * @param actionEvent
+     * @author 郑悦
+     * @date 2023/12/9 15:13
+    **/
+    public void varXPercent(ActionEvent actionEvent) {
+        chosenRV = 'X';
+    }
+    public void varYPercent(ActionEvent actionEvent) {
+        chosenRV = 'Y';
+    }
+    /**
+     * @Description 用代码模拟控件操作 防止切换页面的时候出错
+     * @author 郑悦
+     * @date 2023/12/9 17:24
+    **/
+    public void returnPage() {
+        // 模拟选择第一个选项的操作
+        choiceBox.getSelectionModel().selectLast();
+        choiceBox.fireEvent(new javafx.scene.input.MouseEvent(javafx.scene.input.MouseEvent.MOUSE_PRESSED, 0, 0, 0, 0, javafx.scene.input.MouseButton.PRIMARY, 1, true, true, true, true, true, true, true, true, true, true, null));
+    }
+    /**
+     * @Description 切换页面时把本页面文本框以及表格内的内容清空
+     * @author 郑悦
+     * @date 2023/12/9 17:29
+    **/
+    public void clearPage() {
+        InputData1.clear(); InputData2.clear();
+        Mean1.clear();  Mean2.clear();
+        Median1.clear();    Median2.clear();
+        Mode1.clear();  Mode2.clear();
+        Range1.clear(); Range2.clear();
+        Variance1.clear();  Variance2.clear();
+        StandardDeviation1.clear(); StandardDeviation2.clear();
+        Percentiles.clear();    Percent.clear();
+        Cov.clear();    correlationCoefficient.clear();
+        DataTable.getItems().clear();   oneInputTable.getItems().clear();
     }
 }
