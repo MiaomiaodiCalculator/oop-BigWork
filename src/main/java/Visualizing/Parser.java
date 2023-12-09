@@ -231,7 +231,9 @@ public class Parser{
                 .replace("ⁿ√x", "@")
                 .replace("√", "sqrt")
                 .replace("×", "*")
-                .replace("÷", "/");
+                .replace("÷", "/")
+                .replace("x+", "(x)+")
+                .replace("x-", "(x)-");
     }
 
     /**
@@ -246,6 +248,12 @@ public class Parser{
         this.vars = vars;
         try {
             this.input = formatInput(exp);
+            int lefts=0,rights=0;
+            for(int c=0; c<this.input.length();c++){
+                if(this.input.charAt(c)=='(') lefts++;
+                if(this.input.charAt(c)==')') rights++;
+            }
+            if(lefts!=rights) throw new NullPointerException();
             return this.parse();
         } finally {
             reset();

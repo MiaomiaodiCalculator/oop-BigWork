@@ -19,8 +19,8 @@ public class SqlFunction
 {
     private final static String driver = "com.mysql.cj.jdbc.Driver";//固定？
     private final static String username = "root";
-    private final static String password = "root";
-    private final static String url = "jdbc:mysql://10.192.229.109/miaomiaodi";//最后一列为表名
+    private final static String password = "qwe1234!";
+    private final static String url = "jdbc:mysql://bj-cynosdbmysql-grp-ac12urxu.sql.tencentcdb.com:29055/miaomiaodi";//最后一列为表名
     private final static String insert = "insert into userfunction(name,paraNum,formula,exp,username) values(?,?,?,?,?)";
     private final static String update = "update userfunction set formula = ?,exp = ? where name = ? and username = ?";
     private final static String delete = "delete from userfunction where name = ? and username = ?";
