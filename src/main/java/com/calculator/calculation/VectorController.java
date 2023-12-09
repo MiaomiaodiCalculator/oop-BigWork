@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import Vector.VectorSolve;
+import vector.VectorSolve;
 import java.io.*;
 import java.util.*;
 import javafx.fxml.FXML;

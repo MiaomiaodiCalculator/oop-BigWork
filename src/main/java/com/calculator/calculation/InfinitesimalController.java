@@ -7,11 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author sxq
@@ -82,7 +84,10 @@ public class InfinitesimalController {
      * @date 2023/12/4 10:09
      **/
     public void handleDelClick(ActionEvent event){
-        if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
+        if(formulaProcess.size()<=1||expProcess.size()<=1){
+            clear();
+        }
+        else if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
             if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
                 //上一步是pow
                 atPow = false;
@@ -151,7 +156,51 @@ public class InfinitesimalController {
         infinitesimal.setVisible(false);
         infinitesimalHistory.setVisible(true);
     }
+    /**
+     * @Description 从历史记录页面返回
+     * @param mouseEvent
+     * @author sxq
+     * @date 2023/12/8 15:29
+     **/
+    public void handleReturnClick(MouseEvent mouseEvent) {
+        infinitesimal.setVisible(true);
+        infinitesimalHistory.setVisible(false);
+    }
 
+    public void handleHistoryRowClick(MouseEvent mouseEvent) {
+        if (mouseEvent.getButton()== MouseButton.PRIMARY) {//左键单击添加
+            InfinitesimalSolve ift = (InfinitesimalSolve) (historyTableView.getSelectionModel().getSelectedItem());
+            if(ift==null){
+                System.out.println("点空了");
+                return ;
+            }
+            if(SqlInfinitesimal.exists(ift.getSaveTime())){
+               formula=ift.getFormula();
+               exp=ift.getExp();
+               formulaProcess=new ArrayList<>(ift.getFormulaProcess());
+               expProcess=new ArrayList<>(ift.getExpProcess());
+               upValue.setText(String.valueOf(ift.getUpValue()));
+               downValue.setText(String.valueOf(ift.getDownValue()));
+               result.setText("");
+               functionShow.setText(formula);
+               //返回编辑页面
+                infinitesimalHistory.setVisible(false);
+                infinitesimal.setVisible(true);
+            }
+        }
+        else if(mouseEvent.getButton()==MouseButton.SECONDARY){//右键单击选择是否删除
+            InfinitesimalSolve ift = (InfinitesimalSolve) (historyTableView.getSelectionModel().getSelectedItem());
+            if(SqlInfinitesimal.exists(ift.getSaveTime())){
+                Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                alert1.setContentText("删除这条历史记录？");
+                Optional<ButtonType> result = alert1.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    SqlInfinitesimal.delete(ift);
+                    getHistoryList();
+                }
+            }
+        }
+    }
     /**
      * @param event
      * @Description 点击自定义函数按钮，获取已有的函数列表，并转换表达式和函数式
@@ -254,12 +303,7 @@ public class InfinitesimalController {
                 exp+="^2";
                 break;
             case "C":
-                formula="";
-                exp="";
-                result.setText(null);
-                upValue.setText(null);
-                downValue.setText(null);
-                BUTTON_USERFUNCTION.setDisable(false);
+                clear();
                 break;
             case "x":
                 formula=formula+"x";
@@ -306,11 +350,21 @@ public class InfinitesimalController {
         if(bracket>0)return true;
         else return false;
     }
+    private void clear(){
+        formula="";
+        exp="";
+        formulaProcess.clear();
+        expProcess.clear();
+        result.setText(null);
+        upValue.setText(null);
+        downValue.setText(null);
+        BUTTON_USERFUNCTION.setDisable(false);
+    }
     public void initialize(){
         /*初始化自定义函数列表*/
         FunctionTableView.setPlaceholder(new Label("脑瓜子空空的"));//占位文本
         nameList.setCellValueFactory(new PropertyValueFactory<>("name"));
-        paraNumList.setCellValueFactory(new PropertyValueFactory<>("result"));
+        paraNumList.setCellValueFactory(new PropertyValueFactory<>("paraNum"));
         formulaList.setCellValueFactory(new PropertyValueFactory<>("formula"));
         FunctionTableView.getItems().addAll(FunctionController.functionList);
         /*初始化历史记录列表*/
@@ -328,18 +382,5 @@ public class InfinitesimalController {
         historyList=SqlInfinitesimal.getAllHis();
         historyTableView.getItems().setAll(historyList);
         historyTableView.refresh();
-    }
-/**
- * @Description 从历史记录页面返回 
- * @param mouseEvent        
- * @author sxq
- * @date 2023/12/8 15:29
-**/
-    public void handleReturnClick(MouseEvent mouseEvent) {
-        infinitesimal.setVisible(true);
-        infinitesimalHistory.setVisible(false);
-    }
-
-    public void handleHistoryRowClick(MouseEvent mouseEvent) {
     }
 }

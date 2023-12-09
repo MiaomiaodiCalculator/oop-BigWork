@@ -77,12 +77,15 @@ public class FunctionController implements Initializable {
     }
     /**
      * @Description 处理点击删除键
-     * @param event
+     * @param event 点击事件
      * @author sxq
      * @date 2023/12/4 10:09
      **/
     public void handleDelClick(ActionEvent event){
-        if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
+        if(formulaProcess.size()<=1||expProcess.size()<=1){
+            clear();
+        }
+        else if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
             if(!atFunc) {//不在嵌套自定义函数中
                 if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
                     //上一步是pow
@@ -121,14 +124,13 @@ public class FunctionController implements Initializable {
     }
 
     /**
-     * @param event
+     * @param event 点击事件
      * @Description 处理点击保存事件，包括判断名称合法性、函数表达式合法性等
      * @author sxq
      * @date 2023/11/27 16:44
      **/
     @FXML
     private void handleSaveClick(ActionEvent event) {
-        //TODO 添加自动替换参数功能?
         String judgeName = UserFunction.judgeName(functionName.getText());
         System.out.println(functionName.getText());
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -167,6 +169,7 @@ public class FunctionController implements Initializable {
             Optional<ButtonType> result = alert1.showAndWait();
             if (result.get() == ButtonType.OK){
                 function.setParaNum(trueNum);
+                function.replacePara();
                 haveAdd=function.addFunction();
             } else {
                 System.out.println("选择了返回");
@@ -174,6 +177,7 @@ public class FunctionController implements Initializable {
             }
         }
         else {
+            function.replacePara();
             haveAdd = function.addFunction();
         }
         if (haveAdd) {
@@ -183,9 +187,9 @@ public class FunctionController implements Initializable {
             alert1.setContentText("表达式：" + formula);
             alert1.showAndWait();
             //更新列表
-            FunctionList.getItems().clear();
             functionList= SqlFunction.getAllFunction();
-            FunctionList.getItems().addAll(functionList);
+            FunctionList.getItems().setAll(functionList);
+            FunctionList.refresh();
             formula = "";
             exp = "";
             formulaProcess.clear();
@@ -195,7 +199,7 @@ public class FunctionController implements Initializable {
     }
 
     /**
-     * @param event
+     * @param event 点击事件
      * @Description 点击自定义函数按钮，获取已有的函数列表，并转换表达式和函数式
      * @author sxq
      * @date 2023/11/27 20:41
@@ -219,7 +223,7 @@ public class FunctionController implements Initializable {
     }
 
     /**
-     * @param mouseEvent
+     * @param mouseEvent 鼠标事件
      * @Description 处理历史自定义函数的行点击事件：加入历史自定义函数
      * @author sxq
      * @date 2023/11/28 17:23
@@ -330,14 +334,7 @@ public class FunctionController implements Initializable {
                 else exp+="^2";
                 break;
             case "C":
-                formula="";
-                exp="";
-                atFunc=false;
-                sonFName="";
-                sonParaNum=0;
-                replacePara="";
-                replacedNum=0;
-                BUTTON_USERFUNCTION.setDisable(false);
+                clear();
                 break;
             case "x":
                 formula=formula+"x";
@@ -456,6 +453,24 @@ public class FunctionController implements Initializable {
             else if(formula.charAt(index)==')')bracket--;
         }
         return bracket > 0;
+    }
+    /**
+     * @Description 重置页面所有内容
+     * @author sxq
+     * @date 2023/12/9 14:06
+    **/
+    private void clear(){
+        formula="";
+        exp="";
+        formulaProcess.clear();
+        expProcess.clear();
+        atFunc=false;
+        atPow=false;
+        sonFName="";
+        sonParaNum=0;
+        replacePara="";
+        replacedNum=0;
+        BUTTON_USERFUNCTION.setDisable(false);
     }
 
     /**
