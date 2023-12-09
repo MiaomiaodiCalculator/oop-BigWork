@@ -8,7 +8,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
-import com.calculator.calculation.Visualizing.*;
+import Visualizing.*;
 
 import java.net.URL;
 import java.util.HashMap;

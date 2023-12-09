@@ -1,4 +1,4 @@
-package com.calculator.calculation.Visualizing;
+package Visualizing;
 
 import java.util.HashMap;
 import java.util.function.DoubleUnaryOperator;
@@ -64,7 +64,7 @@ public class Parser{
 
     /**
      * @Description 整个数组到表达式转化的入口
-     * @return com.calculator.calculation.Visualizing.Expression 最终表达式
+     * @return Visualizing.Expression 最终表达式
      * @author ZhouYH
      * @date 2023/12/1 22:53
      **/
@@ -75,7 +75,7 @@ public class Parser{
 
     /**
      * @Description   最低优先级：+ -
-     * @return com.calculator.calculation.Visualizing.Expression
+     * @return Visualizing.Expression
      * @author ZhouYH
      * @date 2023/12/1 23:43
      **/
@@ -96,7 +96,7 @@ public class Parser{
 
     /**
      * @Description   第二优先级： * / %
-     * @return com.calculator.calculation.Visualizing.Expression
+     * @return Visualizing.Expression
      * @author ZhouYH
      * @date 2023/12/1 23:44
      **/
@@ -120,7 +120,7 @@ public class Parser{
 
     /**
      * @Description   第三优先级：^ @(√x)
-     * @return com.calculator.calculation.Visualizing.Expression
+     * @return Visualizing.Expression
      * @author ZhouYH
      * @date 2023/12/1 23:44
      **/
@@ -142,7 +142,7 @@ public class Parser{
 
     /**
      * @Description   最高优先级：括号结构、正负
-     * @return com.calculator.calculation.Visualizing.Expression
+     * @return Visualizing.Expression
      * @author ZhouYH
      * @date 2023/12/1 23:44
      **/
@@ -238,7 +238,7 @@ public class Parser{
      * @Description 一次由原本读入的字符串到函数表达式的转换过程。读入字符串不是合法表达式时会抛出异常，但parser仍被重置
      * @param exp 读入的字符串
      * @param vars 传入的HashMap，因为Controller里也要用所以由外部传入
-     * @return com.calculator.calculation.Visualizing.Expression
+     * @return Visualizing.Expression
      * @author ZhouYH
      * @date 2023/12/1 21:37
      **/

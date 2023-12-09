@@ -1,4 +1,6 @@
 package com.calculator.calculation;
+import Database.SqlInfinitesimal;
+import Database.SqlScientific;
 import NewFunction.UserFunction;
 import com.singularsys.jep.*;
 import com.singularsys.jep.ParseException;
@@ -19,6 +21,8 @@ import com.singularsys.jep.Jep;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.calculator.calculation.FunctionController.functionList;
 
@@ -52,9 +56,8 @@ public class ScientificController implements Initializable{
     private String exp="";
     private ErrorScientific calFlag= ErrorScientific.yes;
     private String answer="";
-    private LinkedHashMap<Integer,String> process=new LinkedHashMap<>();
-    private LinkedHashMap<Integer,String> processExp=new LinkedHashMap<>();
-    private static int cntProcess=0;
+    private List<String> process=new ArrayList<>();
+    private List<String> processExp=new ArrayList<>();
     public static boolean atPow=false;
     private boolean finish=false;
     /***
@@ -77,22 +80,6 @@ public class ScientificController implements Initializable{
         History.setVisible(false);
     }
     /***
-     * @Description 从文件中反序列化中存储历史记录的图
-     * @author Bu Xinran
-     * @date 2023/11/27 11:16
-     **/
-    private void getListFromFile() throws IOException, ClassNotFoundException {
-        String path="./data/Scientific.out";
-        File file=new File(path);
-        if(file.exists()){
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            list =(ArrayList<ScientificSolve>)ois.readObject();
-            ois.close();
-            fis.close();
-        }
-    }
-    /***
      * @Description  跳转到历史记录界面
      * @param event 点击事件
      * @author Bu Xinran
@@ -100,11 +87,7 @@ public class ScientificController implements Initializable{
      **/
     @FXML
     private void handleHisImageClick(MouseEvent event) throws IOException {
-        try {
-            getListFromFile();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        list= SqlScientific.getAllHis();
         tableView.setPlaceholder(new Label("无历史记录"));//占位文本
         formulaList.setCellValueFactory(cellData -> cellData.getValue().formulaProperty());
         answerList.setCellValueFactory(cellData -> cellData.getValue().answerProperty());
@@ -222,8 +205,8 @@ public class ScientificController implements Initializable{
                 formulaShow.setText(formula);
                 answer=toAnswer;
                 answerShow.setText(answer);
-                process=selectedItem.getProcess();
-                cntProcess= selectedItem.getCntProcess();
+                process=new ArrayList<>(selectedItem.getProcess());
+                processExp=new ArrayList<>(selectedItem.getProcessExp());
             }
         }
     }
@@ -289,34 +272,6 @@ public class ScientificController implements Initializable{
             answerShow.setText("不能除以0！");
         }else if(calFlag== ErrorScientific.Illegal){
             answerShow.setText("算式非法！");
-        }
-    }
-    /***
-     * @Description  将向量计算器的计算结果存入List，然后序列化储存在文件中
-     * @author Bu Xinran
-     * @date 2023/11/25 20:45
-     **/
-    private void pushListToHistory(){
-        try{
-            String path="./data/Scientific.out";
-            File file=new File(path);
-            if(!file.exists()){
-                file.getParentFile().mkdirs();
-            }else{
-                file.delete();
-                file.getParentFile().mkdirs();
-            }
-            FileOutputStream fos = new FileOutputStream(path);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(list);
-            oos.flush();
-            oos.close();
-            fos.flush();
-            fos.close();
-        }catch(SecurityException e){
-            System.out.println("File operation failed");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
     /***
@@ -408,6 +363,7 @@ public class ScientificController implements Initializable{
             case "C":
                 formula="";
                 answer="";
+                calFlag=ErrorScientific.yes;
                 answerShow.setText("");
                 process.clear();
                 processExp.clear();
@@ -442,37 +398,35 @@ public class ScientificController implements Initializable{
             case "=":
                 formula=formula+"=";
                 exp=exp+"=";
-                cntProcess++;
-                process.put(cntProcess,formula);
+                process.add(formula);
+                processExp.add(exp);
                 if(calFlag!= ErrorScientific.divideZero)checkIllegal();
                 finish=true;
-                ScientificSolve a=new ScientificSolve(formula,answer,calFlag,process,cntProcess,exp);
+                ScientificSolve a=new ScientificSolve(formula,answer,calFlag,process,processExp,exp);
                 a.setAnswer(a.getResult());
                 if(!list.contains(a)){
                     list.add(a);
                 }
-                pushListToHistory();
+                SqlScientific.add(a);
                 break;
             default:
-                if(formula.contains("pow") && !process.get(cntProcess - 1).contains("pow")){
+                if(formula.contains("pow") && !process.get(process.size()-1).contains("pow")){
                     atPow=false;
                 }
-                cntProcess--;
-                if(cntProcess<=0){
+                if(process.size()<=1){
                     formula="";
                     exp="";
                     answer="";
                     return;
                 }
-                formula=process.get(cntProcess);
-                exp=processExp.get(cntProcess);
-                process.remove(cntProcess);
-                processExp.remove(cntProcess);
+                formula=process.get(process.size() - 2);
+                exp=processExp.get(processExp.size() - 2);
+                process.remove(process.size() - 1);
+                processExp.remove(processExp.size() - 1);
                 return;
         }
-        cntProcess++;
-        process.put(cntProcess,formula);
-        processExp.put(cntProcess,exp);
+        process.add(formula);
+        processExp.add(exp);
     }
     /***
      * @Description  检查当前pow函数是否调用完成
@@ -583,11 +537,12 @@ public class ScientificController implements Initializable{
     }
     /***
      * @Description  实时更新搜索框
-     * @param actionEvent 点击搜索框
      * @author Bu Xinran
      * @date 2023/11/29 0:23
     **/
-    public void searchListener(ActionEvent actionEvent) {
+    public void searchListener() {
         //TODO:根据搜索内容实时跳出符合的函数名
+        String search=searchField.getText();
+        List<String> searchList=new ArrayList<>();
     }
 }
