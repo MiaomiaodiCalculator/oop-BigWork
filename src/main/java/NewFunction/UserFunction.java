@@ -131,11 +131,43 @@ public class UserFunction {
     **/
     public int judgeParaNum(){
         int trueNum=0;
-        getPara();
+        this.getPara();
         if(hasX) trueNum++;
         if(hasY) trueNum++;
         if(hasZ) trueNum++;
         return (trueNum-this.paraNum);
+    }
+   /**
+    * @Description 对不符合预期的参数组合进行替换，保证只有x xy xyz三种情况
+ * @return boolean  true:进行了替换；false：不需要替换
+    * @author sxq
+    * @date 2023/12/9 11:03
+   **/
+    public boolean replacePara(){
+        if(!hasX&&paraNum==1){
+            if(hasZ) {
+                formula=formula.replace("z", "x");
+                exp=exp.replace("$z$","$x$");
+            }
+            else if(hasY){
+                formula=formula.replace("y", "x");
+                exp=exp.replace("$y$","$x$");
+            }
+            return true;
+        }
+        else if(paraNum==2){
+            if(!hasX){
+                formula=formula.replace("z", "x");
+                exp=exp.replace("$z$","$x$");
+                return true;
+            }
+            else if(!hasY){
+                formula=formula.replace("z", "y");
+                exp=exp.replace("$z$","$y$");
+                return true;
+            }
+        }
+        return false;
     }
     /**
      * @Description 新建自定义函数，加入函数map；已在controller中做合法判定
@@ -146,7 +178,7 @@ public class UserFunction {
     public boolean addFunction(){
         return SqlFunction.add(this);
     }
-    /***
+    /**
      * @Description 获取参数列表
      * @author sxq
      * @date 2023/11/26 10:51

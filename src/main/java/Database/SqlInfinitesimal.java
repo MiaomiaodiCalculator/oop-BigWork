@@ -31,12 +31,12 @@ public class SqlInfinitesimal {
     * @author sxq
     * @date 2023/12/8 11:46
    **/
-    public static boolean exists(String time)
+    public static boolean exists(Timestamp time)
     {
         try
         {
             PreparedStatement exist = connection.prepareStatement(select);
-            exist.setString(1,time);
+            exist.setTimestamp(1,time);
             exist.setString(2,LoginController.userName);
             ResultSet existResult = exist.executeQuery();
             return existResult.next();
@@ -48,22 +48,22 @@ public class SqlInfinitesimal {
         }
     }
     /**
-     * @Description 向数据库中传入微积分计算历史记录，时间戳自动生成
- * @param inf 生成的微积分对象
+     * @Description 向数据库中传入微积分计算历史记录
+ * @param ift 生成的微积分对象
  * @return boolean
      * @author sxq
      * @date 2023/12/8 11:55
     **/
-    public static boolean add(InfinitesimalSolve inf)
+    public static boolean add(InfinitesimalSolve ift)
     {
         try
         {
             PreparedStatement add = connection.prepareStatement(insert);
-            add.setDouble(1,inf.getUpValue());
-            add.setDouble(2, inf.getDownValue());
-            add.setString(3, Main.serializeStringList(inf.getFormulaProcess()));
-            add.setString(4,Main.serializeStringList(inf.getExpProcess()));
-            add.setDouble(5,inf.getResult());
+            add.setDouble(1,ift.getUpValue());
+            add.setDouble(2, ift.getDownValue());
+            add.setString(3, Main.serializeStringList(ift.getFormulaProcess()));
+            add.setString(4,Main.serializeStringList(ift.getExpProcess()));
+            add.setDouble(5,ift.getResult());
             add.setString(6, LoginController.userName);
             add.setTimestamp(7,new Timestamp(System.currentTimeMillis()));
             return add.executeUpdate() == 1;
@@ -73,23 +73,24 @@ public class SqlInfinitesimal {
             e.printStackTrace();
             return false;
         }
+        
     }
     //TODO 修改下列数据库函数
     /**
-     * @Description 删除数据库中的某自定义函数
-     * @param f
-     * @return boolean
+     * @Description 删除某时刻保存的历史记录
+ * @param ift 需要删除的微积分历史记录
+ * @return boolean       
      * @author sxq
-     * @date 2023/12/7 22:15
-     **/
-    public static boolean delete(UserFunction f)
+     * @date 2023/12/9 11:13
+    **/
+    public static boolean delete(InfinitesimalSolve ift)
     {
-        if(exists(f.getName()))
+        if(exists(ift.getSaveTime()))
         {
             try
             {
                 PreparedStatement del = connection.prepareStatement(delete);
-                del.setString(1, f.getName());
+                del.setTimestamp(1, ift.getSaveTime());
                 del.setString(2,LoginController.userName);
                 return del.executeUpdate() == 1;
             }
@@ -129,6 +130,12 @@ public class SqlInfinitesimal {
             return null;
         }
     }
+    /**
+     * @Description 获取当前用户的全部历史记录
+     * @return java.util.ArrayList<infinitesimal.InfinitesimalSolve>
+     * @author sxq
+     * @date 2023/12/9 11:14
+     **/
     public static ArrayList<InfinitesimalSolve> getAllHis(){
         ArrayList<InfinitesimalSolve> res=new ArrayList<>();
         try {
