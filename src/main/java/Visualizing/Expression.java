@@ -1,4 +1,4 @@
-package com.calculator.calculation.Visualizing;
+package Visualizing;
 
 /**
  * @author ZhouYH
