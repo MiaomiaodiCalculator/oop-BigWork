@@ -155,6 +155,7 @@ public class LoginController {
         Stage stage=new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 730);
+        MainController.mainController=fxmlLoader.getController();
         stage.setTitle("Calculator");
         stage.setScene(scene);
         stage.show();
