@@ -227,12 +227,38 @@ public class Parser{
      * @date 2023/12/1 21:31
      **/
     private String formatInput(String in) {
-        return in.replace(" ", "")
+        String re = in.replace(" ", "")
                 .replace("ⁿ√x", "@")
                 .replace("√", "sqrt")
                 .replace("×", "*")
                 .replace("÷", "/")
-                .replace("x+", "(x)+")
+                .replace(")(", ")*(")
+                .replace("0x", "0*x")
+                .replace("1x", "1*x")
+                .replace("2x", "2*x")
+                .replace("3x", "3*x")
+                .replace("4x", "4*x")
+                .replace("5x", "5*x")
+                .replace("6x", "6*x")
+                .replace("7x", "7*x")
+                .replace("8x", "8*x")
+                .replace("9x", "9*x")
+                .replace(".x", ".*x")
+                .replace("xx", "x*x")
+                .replace("0(", "0*(")
+                .replace("1(", "1*(")
+                .replace("2(", "2*(")
+                .replace("3(", "3*(")
+                .replace("4(", "4*(")
+                .replace("5(", "5*(")
+                .replace("6(", "6*(")
+                .replace("7(", "7*(")
+                .replace("8(", "8*(")
+                .replace("9(", "9*(")
+                .replace(".(", ".*(")
+                .replace("x(", "x*(");
+        if(re.matches(".*x[\\d.x].*") || re.matches(".*\\)[\\d.x].*")) throw new RuntimeException();
+        return re.replace("x+", "(x)+")
                 .replace("x-", "(x)-");
     }
 
