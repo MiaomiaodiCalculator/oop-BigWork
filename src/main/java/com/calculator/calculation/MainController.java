@@ -28,6 +28,9 @@ public class MainController implements Initializable {
             flag = true;
             ScientificShift();
         }
+        if(!LoginController.state){
+            person.setVisible(false);
+        }
     }
     /***
      * @Description  加载科学计算器卡片布局
