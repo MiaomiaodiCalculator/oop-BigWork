@@ -75,7 +75,6 @@ public class SqlInfinitesimal {
         }
         
     }
-    //TODO 修改下列数据库函数
     /**
      * @Description 删除某时刻保存的历史记录
  * @param ift 需要删除的微积分历史记录

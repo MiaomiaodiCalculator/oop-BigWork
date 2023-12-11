@@ -168,7 +168,7 @@ public class InfinitesimalController {
     }
 
     public void handleHistoryRowClick(MouseEvent mouseEvent) {
-        if (mouseEvent.getButton()== MouseButton.PRIMARY) {//左键单击添加
+        if (mouseEvent.getClickCount() == 2) {//左键单击添加
             InfinitesimalSolve ift = (InfinitesimalSolve) (historyTableView.getSelectionModel().getSelectedItem());
             if(ift==null){
                 System.out.println("点空了");
@@ -350,14 +350,19 @@ public class InfinitesimalController {
         if(bracket>0)return true;
         else return false;
     }
+    /**
+     * @Description 清空重置页面
+     * @author sxq
+     * @date 2023/12/11 11:20
+    **/
     private void clear(){
         formula="";
         exp="";
         formulaProcess.clear();
         expProcess.clear();
-        result.setText(null);
-        upValue.setText(null);
-        downValue.setText(null);
+        result.setText("");
+        upValue.setText("");
+        downValue.setText("");
         BUTTON_USERFUNCTION.setDisable(false);
     }
     public void initialize(){
@@ -382,5 +387,19 @@ public class InfinitesimalController {
         historyList=SqlInfinitesimal.getAllHis();
         historyTableView.getItems().setAll(historyList);
         historyTableView.refresh();
+    }
+    /**
+     * @Description 获取从自定义函数页面跳转得到的参数
+ * @param f 表达式
+ * @param e 计算式
+     * @author sxq
+     * @date 2023/12/11 11:24
+    **/
+    public void getJumpFunction(String f,String e){
+        this.formula=f;
+        this.exp=e;
+        this.formulaProcess.add(f);
+        this.expProcess.add(e);
+        functionShow.setText(formula);
     }
 }
