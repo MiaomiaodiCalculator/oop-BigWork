@@ -188,4 +188,13 @@ public class VisualizationController implements Initializable {
             }));
         }
     }
+    /**
+     * @Description  获取自定义函数页面跳转来的函数式
+ * @param f 跳转得到的函数式
+     * @author sxq
+     * @date 2023/12/11 10:33
+    **/
+    public void getJumpFunction(String f){
+        funcs[1].setText(f);
+    }
 }

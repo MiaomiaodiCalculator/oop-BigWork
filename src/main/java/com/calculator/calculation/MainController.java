@@ -12,9 +12,11 @@ import javafx.scene.layout.StackPane;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
 public class MainController implements Initializable {
+    public static MainController mainController;
+    @FXML
     public ImageView person;
+    @FXML
     public ImageView returnMain;
     @FXML
     private StackPane cardContainer;
@@ -101,10 +103,12 @@ public class MainController implements Initializable {
      * @date 2023/11/26 11:18
      **/
     private void loadPage(String fxmlFileName) {
+        System.out.println(this);
         try {
             Pane page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFileName)));
             cardContainer.getChildren().setAll(page);
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("loadPage:error");
         }
     }
@@ -114,7 +118,7 @@ public class MainController implements Initializable {
      * @date 2023/12/4 15:26
     **/
     @FXML
-    private void InfinitesimalShift() {
+    public void InfinitesimalShift() {
         present="Infinitesimal";
         loadPage("Infinitesimal.fxml");
     }
@@ -124,6 +128,7 @@ public class MainController implements Initializable {
      * @author Bu Xinran
      * @date 2023/12/7 21:53
     **/
+    @FXML
     public void goPersonalCenter(MouseEvent mouseEvent) {
         person.setVisible(false);
         returnMain.setVisible(true);
@@ -135,6 +140,7 @@ public class MainController implements Initializable {
      * @author Bu Xinran
      * @date 2023/12/7 22:50
     **/
+    @FXML
     public void goMain(MouseEvent mouseEvent) {
         person.setVisible(true);
         returnMain.setVisible(false);
@@ -149,5 +155,10 @@ public class MainController implements Initializable {
     public void VisualizationShift() {
         present="Visualization";
         loadPage("Visualization.fxml");
+    }
+
+    public StackPane getCardContainer() {
+        System.out.println("getC");
+        return cardContainer;
     }
 }

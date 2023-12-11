@@ -74,34 +74,10 @@ public class SqlFunction
             return false;
         }
     }
-/**
- * @Description 修改自定义函数，只能修改表达式formula和exp
- * @param f
- * @return boolean
- * @author sxq
- * @date 2023/12/7 22:11
-**/
-    public static boolean modify(UserFunction f)
-    {
-        try
-        {
-            PreparedStatement modify = connection.prepareStatement(update);
-            System.out.println("更新函数"+f.getName());
-            modify.setString(1, f.getFormula());
-            modify.setString(2, f.getExp());
-            modify.setString(3, f.getName());
-            modify.setString(4,LoginController.userName);
-            return modify.executeUpdate() == 1;
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-            return false;
-        }
-    }
+
 /**
  * @Description 删除数据库中的某自定义函数
- * @param f
+ * @param f 需要被删除的函数
  * @return boolean
  * @author sxq
  * @date 2023/12/7 22:15
