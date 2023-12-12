@@ -157,6 +157,7 @@ public class LoginController {
         Scene scene = new Scene(fxmlLoader.load(), 500, 730);
         MainController.mainController=fxmlLoader.getController();
         stage.setTitle("Calculator");
+        stage.setResizable(false);  // ui1
         stage.setScene(scene);
         stage.show();
     }

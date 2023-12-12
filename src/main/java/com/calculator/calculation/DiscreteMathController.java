@@ -25,8 +25,6 @@ import java.util.ResourceBundle;
  */
 public class DiscreteMathController implements Initializable {
     protected static LinkedHashMap<Integer, VectorSolve> historyVector = new LinkedHashMap<>();
-    public static int cntHistory = 0;
-    public ImageView historyImg;
     public TextField FunctionName;
     public TextField inputName;
     public TextField outputName;
@@ -40,23 +38,15 @@ public class DiscreteMathController implements Initializable {
     public Button ButtonOutput;
     public Button ButtonTable;
     public Button ButtonExpression;
-    public Button ButtonMinimized;
     private static boolean flag = false;
-    public MenuButton MinimizedOutputMenu;
-    public MenuButton MinimizedFormatMenu;
-    public TableView<String> MinimizedTable;
     public TextArea ExpressionInput;
     public Button ButtonClear;
     public Button ButtonEnter;
     public TableView<String> ValueTable;
     public TableColumn<String, String> inputNameColumn;
-    public ImageView returnImg;
-    public Pane History;
     public Pane Input;
     public Pane Table;
     public Pane Expression;
-    public Pane Minimized;
-    public MenuButton MinimizedOutputMenuMini;
     public Pane Output;
     public Button ButtonAdd0;
     public Button ButtonRename0;
@@ -89,21 +79,6 @@ public class DiscreteMathController implements Initializable {
 
     public void CriticalPathShift() {
         loadPage("CriticalPath.fxml");
-    }
-
-    /**
-     * @Description 点击图片加载历史记录页面
-     * @param event
-     * @author 郑悦
-     * @date 2023/11/27 10:50
-    **/
-    @FXML
-    private void handleHisImageClick(MouseEvent event) {
-        loadPage("DiscreteMathHistory.fxml");
-    }
-    public void handleReturnClick(MouseEvent mouseEvent) {
-        loadPage("DiscreteMathBoolean.fxml");
-        FunctionName.setText("Boolean Algebra");
     }
     /**
      * @Description 加载输入变量定义页面
@@ -140,15 +115,6 @@ public class DiscreteMathController implements Initializable {
     **/
     public void ExpressionShift(ActionEvent actionEvent) {
         loadPage("DiscreteMathExpression.fxml");
-    }
-    /**
-     * @Description 加载化简表达式页面
-     * @param actionEvent
-     * @author 郑悦
-     * @date 2023/11/28 10:31
-    **/
-    public void MinimizedShift(ActionEvent actionEvent) {
-        loadPage("DiscreteMathMinimized.fxml");
     }
     /**
      * @Description  加载卡片布局：fxml文件
@@ -206,7 +172,6 @@ public class DiscreteMathController implements Initializable {
                 Output.setVisible(false);
                 Expression.setVisible(false);
                 Table.setVisible(false);
-                Minimized.setVisible(false);
 //                ButtonChangeOn();
 //                loadBoolPage("DiscreteMathInput.fxml");
             }
@@ -215,7 +180,6 @@ public class DiscreteMathController implements Initializable {
                 Input.setVisible(false);
                 Expression.setVisible(false);
                 Table.setVisible(false);
-                Minimized.setVisible(false);
 //                ButtonChangeOn();
 //                loadBoolPage("DiscreteMathOutput.fxml");
             }
@@ -224,7 +188,6 @@ public class DiscreteMathController implements Initializable {
                 Input.setVisible(false);
                 Expression.setVisible(false);
                 Output.setVisible(false);
-                Minimized.setVisible(false);
 //                ButtonChangeOff();
 //                 loadBoolPage("DiscreteMathTable.fxml");
             }
@@ -233,18 +196,8 @@ public class DiscreteMathController implements Initializable {
                 Input.setVisible(false);
                 Table.setVisible(false);
                 Output.setVisible(false);
-                Minimized.setVisible(false);
 //                ButtonChangeOff();
 //                 loadBoolPage("DiscreteMathExpression.fxml");
-            }
-            case "Minimized" -> {
-                Minimized.setVisible(true);
-                Input.setVisible(false);
-                Table.setVisible(false);
-                Output.setVisible(false);
-                Expression.setVisible(false);
-//                ButtonChangeOff();
-//                 loadBoolPage("DiscreteMathMinimized.fxml");
             }
         }
     }

@@ -21,6 +21,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 730);
         stage.setTitle("登录");
+        stage.setResizable(false);  // ui1
         stage.setScene(scene);
         stage.show();
     }
@@ -29,8 +30,8 @@ public class Main extends Application {
     }
     /**
      * @Description 使用“#”将字符串数组合成长字符串 
- * @param inputList 需要序列化的数组
- * @return java.lang.String       
+     * @param inputList 需要序列化的数组
+     * @return java.lang.String
      * @author sxq
      * @date 2023/12/8 11:07
     **/
