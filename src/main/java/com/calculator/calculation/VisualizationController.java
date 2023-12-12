@@ -1,25 +1,33 @@
 package com.calculator.calculation;
-import Scientific.ScientificSolve;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import org.apache.commons.math3.distribution.PoissonDistribution;
 
+import Visualizing.AxisFormatter;
+import Visualizing.Expression;
+import Visualizing.Parser;
+import Visualizing.UserData;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart.*;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.*;
-import javafx.scene.input.*;
-import Visualizing.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import org.apache.commons.math3.distribution.PoissonDistribution;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
+import java.nio.IntBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -159,68 +167,6 @@ public class VisualizationController implements Initializable {
         shows[num].setText("");
     }
 
-    public void initData(){
-        funcs = new TextField[]{null, f1, f2, f3, f4, f5};
-        shows = new Button[]{null, show1, show2, show3, show4, show5};
-        dataShow = new String[]{null,null,null,null,null,null};
-        graphChart.getData().removeAll();
-        Visualization.setVisible(true);
-        History.setVisible(false);
-        for(int i=1;i<=5;i++){
-            funcs[i].setText("");
-            shows[i].setText("");
-        }
-    }
-
-    /**
-     * @Description 初始化界面
-     * @author ZhouYH
-     * @date 2023/11/29 22:37
-     **/
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // initialize the actual graph/chart
-        xAxis.lowerBoundProperty().bind(negXSlider.valueProperty());
-        xAxis.upperBoundProperty().bind(posXSlider.valueProperty());
-        yAxis.lowerBoundProperty().bind(negYSlider.valueProperty());
-        yAxis.upperBoundProperty().bind(posYSlider.valueProperty());
-        // set the label formatter for our axis to only show ints
-        xAxis.setTickLabelFormatter(new AxisFormatter());
-        yAxis.setTickLabelFormatter(new AxisFormatter());
-        parser = new Parser();
-        Last = new String[]{null,null,null,null,null,null};
-        initData();
-        list=new ArrayList<>();
-        for(int i=1;i<=5;i++){
-            int finalI = i;
-            funcs[i].setOnKeyPressed(new EventHandler<KeyEvent>() {
-                @Override //键入ENTER时尝试绘制
-                public void handle(KeyEvent event) {
-                    if(event.getCode() == KeyCode.ENTER)
-                        Go(finalI);
-                }
-            });
-            funcs[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override //隐藏错误信息并开始编辑函数
-                public void handle(MouseEvent mouseEvent) {
-                    if (funcs[finalI].getText().equals("ERROR") || funcs[finalI].getText().equals("NO FUNCTION ENTERED"))
-                        funcs[finalI].setText("");
-                }
-            });
-            shows[i].setOnMouseClicked((new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    if(shows[finalI].getText().isEmpty()){ //点击空的show键时，尝试绘制当前文本框的函数
-                        if (funcs[finalI].getText().isEmpty() || funcs[finalI].getText().equals("ERROR"))
-                            funcs[finalI].setText("NO FUNCTION ENTERED");
-                        if (!funcs[finalI].getText().equals("NO FUNCTION ENTERED"))
-                            Go(finalI);
-                    }else //点击已打勾的show键时，隐藏函数图像
-                        unshow(finalI);
-                }
-            }));
-        }
-    }
-
     /**
      * @Description 显示历史记录页面
      * @param mouseEvent 无意义
@@ -238,17 +184,20 @@ public class VisualizationController implements Initializable {
      * @author ZhouYH
      * @date 2023/12/9 11:09
      **/
-    public void handleRowClick(MouseEvent event) {
+    public void handleRowClick(MouseEvent event) throws RuntimeException {
         // 判断是否双击行
         if (event.getClickCount() == 2) {
-            initData();
-            for(int i=1;i<=5;i++) unshow(i);
             String[] selectedItem = tableView.getSelectionModel().getSelectedItem().getItem();
-            for(int i=1;i<=5;i++)
-                if (selectedItem[i] != null) {
-                    funcs[i].setText(selectedItem[i]);
-                    Go(i);
+            if(selectedItem!=null) {
+                initData();
+                for (int i = 1; i <= 5; i++){
+                    unshow(i);
+                    if (selectedItem[i] != null) {
+                        funcs[i].setText(selectedItem[i]);
+                        Go(i);
+                    }
                 }
+            }
         }
     }
 
@@ -347,5 +296,108 @@ public class VisualizationController implements Initializable {
      * @date 2023/12/9 12:05
      **/
     public void PrintScreen(ActionEvent actionEvent) {
+        try {
+            Date dNow = new Date();
+            SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd_hh-mm-ss");
+            String path="./data/screenshots/"+ft.format(dNow)+".png";
+            File file=new File(path);
+            if(!file.exists()){
+                file.getParentFile().mkdirs();
+            }else{
+                file.delete();
+                file.getParentFile().mkdirs();
+            }
+            WritableImage image = new WritableImage(500, 720);
+            Visualization.getScene().snapshot(image);
+            int width = 500;
+            int height = 720;
+            BufferedImage bimage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            int[] buffer = new int[width];
+            PixelReader reader = image.getPixelReader();
+            WritablePixelFormat<IntBuffer> format = PixelFormat.getIntArgbInstance();
+            for (int y = 0; y < height; y++) {
+                reader.getPixels(0, y, width, 1, format, buffer, 0, width);
+                bimage.getRaster().setDataElements(0, y, width, 1, buffer);
+            }
+            ImageIO.write(bimage, "png", file);
+        } catch (IOException e) {
+            System.out.println("Screenshot operation failed");
+        }
+    }
+
+    /**
+     * @Description 初始化具体的数据存储
+     * @author ZhouYH
+     * @date 2023/12/9 18:30
+     **/
+    public void initData(){
+        funcs = new TextField[]{null, f1, f2, f3, f4, f5};
+        shows = new Button[]{null, show1, show2, show3, show4, show5};
+        dataShow = new String[]{null,null,null,null,null,null};
+        graphChart.getData().removeAll();
+        Visualization.setVisible(true);
+        History.setVisible(false);
+        for(int i=1;i<=5;i++){
+            funcs[i].setText("");
+            shows[i].setText("");
+        }
+    }
+
+    /**
+     * @Description 初始化界面
+     * @author ZhouYH
+     * @date 2023/11/29 22:37
+     **/
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // initialize the actual graph/chart
+        xAxis.lowerBoundProperty().bind(negXSlider.valueProperty());
+        xAxis.upperBoundProperty().bind(posXSlider.valueProperty());
+        yAxis.lowerBoundProperty().bind(negYSlider.valueProperty());
+        yAxis.upperBoundProperty().bind(posYSlider.valueProperty());
+        // set the label formatter for our axis to only show ints
+        xAxis.setTickLabelFormatter(new AxisFormatter());
+        yAxis.setTickLabelFormatter(new AxisFormatter());
+        parser = new Parser();
+        Last = new String[]{null,null,null,null,null,null};
+        initData();
+        list=new ArrayList<>();
+        for(int i=1;i<=5;i++){
+            int finalI = i;
+            funcs[i].setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override //键入ENTER时尝试绘制
+                public void handle(KeyEvent event) {
+                    if(event.getCode() == KeyCode.ENTER)
+                        Go(finalI);
+                }
+            });
+            funcs[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override //隐藏错误信息并开始编辑函数
+                public void handle(MouseEvent mouseEvent) {
+                    if (funcs[finalI].getText().equals("ERROR") || funcs[finalI].getText().equals("NO FUNCTION ENTERED"))
+                        funcs[finalI].setText("");
+                }
+            });
+            shows[i].setOnMouseClicked((new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if(shows[finalI].getText().isEmpty()){ //点击空的show键时，尝试绘制当前文本框的函数
+                        if (funcs[finalI].getText().isEmpty() || funcs[finalI].getText().equals("ERROR"))
+                            funcs[finalI].setText("NO FUNCTION ENTERED");
+                        if (!funcs[finalI].getText().equals("NO FUNCTION ENTERED"))
+                            Go(finalI);
+                    }else //点击已打勾的show键时，隐藏函数图像
+                        unshow(finalI);
+                }
+            }));
+        }
+    }
+    /**
+     * @Description  获取自定义函数页面跳转来的函数式
+ * @param f 跳转得到的函数式
+     * @author sxq
+     * @date 2023/12/11 10:33
+    **/
+    public void getJumpFunction(String f){
+        funcs[1].setText(f);
     }
 }

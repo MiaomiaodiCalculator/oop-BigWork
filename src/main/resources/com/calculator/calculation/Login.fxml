@@ -7,6 +7,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.LoginController">
    <children>
       <TextArea fx:id="usernameArea" layoutX="117.0" layoutY="260.0" prefHeight="50.0" prefWidth="348.0" />
@@ -32,5 +34,8 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <ImageView fitHeight="200" fitWidth="400" layoutX="50" layoutY="20" pickOnBounds="true" preserveRatio="true">
+         <Image url="@images/Cats-L.png"/>
+      </ImageView>
    </children>
 </AnchorPane>

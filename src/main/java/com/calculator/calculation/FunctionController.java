@@ -1,14 +1,21 @@
 package com.calculator.calculation;
-
 import Database.SqlFunction;
+import Database.SqlInfinitesimal;
 import NewFunction.UserFunction;
+import infinitesimal.InfinitesimalSolve;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -56,6 +63,7 @@ public class FunctionController implements Initializable {
     public static boolean atPow = false;
     /*判断是否正在嵌套自定义函数*/
     public static boolean atFunc = false;
+    /*跳转到微积分页面用*/
 
     /**
      * @param event
@@ -195,6 +203,9 @@ public class FunctionController implements Initializable {
             formulaProcess.clear();
             expProcess.clear();
             functionShow.setText(formula);
+            //一元函数，选择是否跳转
+            if(function.getParaNum()==1)
+                handleJump(function);
         }
     }
 
@@ -230,7 +241,7 @@ public class FunctionController implements Initializable {
      **/
     @FXML
     public void handleRowClick(MouseEvent mouseEvent) {
-        if (mouseEvent.getClickCount() == 1) {
+        if (mouseEvent.getClickCount() == 2) {
             TablePosition pos = (TablePosition) FunctionList.getSelectionModel().getSelectedCells().get(0);
             int rowNum = pos.getRow();
             UserFunction f = (UserFunction) FunctionList.getItems().get(rowNum);
@@ -251,8 +262,22 @@ public class FunctionController implements Initializable {
                 BUTTON_USERFUNCTION.setText(",");
             else//只能输入一个参数时禁用
                 BUTTON_USERFUNCTION.setDisable(true);
+            functionShow.setText(formula);
         }
-        functionShow.setText(formula);
+        else if(mouseEvent.getButton()== MouseButton.SECONDARY){//右键单击选择是否删除
+            UserFunction f = (UserFunction) (FunctionList.getSelectionModel().getSelectedItem());
+            if(SqlFunction.exists(f.getName())){
+                Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                alert1.setContentText("要删除这个函数吗？");
+                Optional<ButtonType> result = alert1.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    SqlFunction.delete(f);
+                    functionList=SqlFunction.getAllFunction();
+                    FunctionList.getItems().setAll(functionList);
+                    FunctionList.refresh();
+                }
+            }
+        }
     }
 
     /**
@@ -366,6 +391,7 @@ public class FunctionController implements Initializable {
                 formula=formula+")";
                 if(atFunc){
                     if(!(atFunc=checkAtFunc())){//嵌套结束，开始替换
+                        exp=exp+")";
                         if(replaceParaProcess[0].get(replaceParaProcess[0].size()-1).isEmpty()){
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle("出错了");
@@ -404,8 +430,10 @@ public class FunctionController implements Initializable {
                         replacedNum=0;
                         BUTTON_USERFUNCTION.setDisable(false);
                     }
+                    else{
+                        replacePara+=")";
+                    }
                 }
-                else exp=exp+")";
                 if(atPow){
                     atPow=checkPow();
                 }
@@ -455,6 +483,34 @@ public class FunctionController implements Initializable {
         return bracket > 0;
     }
     /**
+     * @Description 获取参数个数并禁用自变量按钮；清空输入区
+     * @param e
+     * @author sxq
+     * @date 2023/11/26 16:21
+     **/
+    public Integer getParaNum(ActionEvent e){
+        int num= choiceBox.getValue();
+        formula="";
+        switch (num) {
+            case 1 -> {
+                BUTTON_paraX.setDisable(false);
+                BUTTON_paraY.setDisable(true);
+                BUTTON_paraZ.setDisable(true);
+            }
+            case 2 -> {
+                BUTTON_paraX.setDisable(false);
+                BUTTON_paraY.setDisable(false);
+                BUTTON_paraZ.setDisable(true);
+            }
+            case 3 -> {
+                BUTTON_paraX.setDisable(false);
+                BUTTON_paraY.setDisable(false);
+                BUTTON_paraZ.setDisable(false);
+            }
+        }
+        return num;
+    }
+    /**
      * @Description 重置页面所有内容
      * @author sxq
      * @date 2023/12/9 14:06
@@ -493,35 +549,59 @@ public class FunctionController implements Initializable {
         replaceParaProcess[0]=new ArrayList<>();
         replaceParaProcess[1]=new ArrayList<>();
         replaceParaProcess[2]=new ArrayList<>();
-
     }
     /**
-     * @Description 获取参数个数并禁用自变量按钮；清空输入区
-     * @param e
+     * @Description 跳转到微积分计算页面
      * @author sxq
-     * @date 2023/11/26 16:21
-     **/
-    public Integer getParaNum(ActionEvent e){
-        int num= choiceBox.getValue();
-        formula="";
-        switch (num) {
-            case 1 -> {
-                BUTTON_paraX.setDisable(false);
-                BUTTON_paraY.setDisable(true);
-                BUTTON_paraZ.setDisable(true);
-            }
-            case 2 -> {
-                BUTTON_paraX.setDisable(false);
-                BUTTON_paraY.setDisable(false);
-                BUTTON_paraZ.setDisable(true);
-            }
-            case 3 -> {
-                BUTTON_paraX.setDisable(false);
-                BUTTON_paraY.setDisable(false);
-                BUTTON_paraZ.setDisable(false);
-            }
+     * @date 2023/12/11 10:35
+    **/
+    private void jumpToIft(UserFunction f) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Infinitesimal.fxml"));
+            Parent root =loader.load();
+            InfinitesimalController iftController = loader.getController();
+            iftController.getJumpFunction(f.getFormula(),f.getExp());
+            MainController.mainController.getCardContainer().getChildren().setAll(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Jump to ift:error");
         }
-        return num;
+    }
+    private void jumpToVis(UserFunction f){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Visualization.fxml"));
+            Parent root =loader.load();
+            VisualizationController visController = loader.getController();
+            visController.getJumpFunction(f.getExp().replace("$x$","x"));
+            MainController.mainController.getCardContainer().getChildren().setAll(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Jump to vis:error");
+        }
+    }
+    /**
+     * @Description 处理保存后的选择跳转事件
+ * @param f 需要传入的函数（已保存）
+     * @author sxq
+     * @date 2023/12/11 10:36
+    **/
+    public void handleJump(UserFunction f) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("刚刚创建了一个新函数");
+        alert.setContentText("要进行下一步操作吗？");
+        ButtonType buttonTypeOne = new ButtonType("绘制图像");
+        ButtonType buttonTypeTwo = new ButtonType("计算微积分");
+        ButtonType buttonTypeCancel = new ButtonType("什么也不做", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne){
+            //跳转至图像绘制
+            jumpToVis(f);
+        }
+        else if (result.get() == buttonTypeTwo) {
+            // 跳转至微积分
+            jumpToIft(f);
+        }
     }
 }
 
