@@ -232,6 +232,8 @@ public class Parser{
                 .replace("√", "sqrt")
                 .replace("×", "*")
                 .replace("÷", "/")
+                .replace("pi", "3.1415926")
+                .replace("π", "3.1415926")
                 .replace(")(", ")*(")
                 .replace("0x", "0*x")
                 .replace("1x", "1*x")
@@ -256,8 +258,9 @@ public class Parser{
                 .replace("8(", "8*(")
                 .replace("9(", "9*(")
                 .replace(".(", ".*(")
-                .replace("x(", "x*(");
-        if(re.matches(".*x[\\d.x].*") || re.matches(".*\\)[\\d.x].*")) throw new RuntimeException();
+                .replace("x(", "x*(")
+                .replace(")x", ")*x");
+        if(re.matches(".*x[\\d.].*") || re.matches(".*\\)[\\d.].*")) throw new RuntimeException();
         return re.replace("x+", "(x)+")
                 .replace("x-", "(x)-");
     }
