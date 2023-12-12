@@ -184,17 +184,20 @@ public class VisualizationController implements Initializable {
      * @author ZhouYH
      * @date 2023/12/9 11:09
      **/
-    public void handleRowClick(MouseEvent event) {
+    public void handleRowClick(MouseEvent event) throws RuntimeException {
         // 判断是否双击行
         if (event.getClickCount() == 2) {
-            initData();
-            for(int i=1;i<=5;i++) unshow(i);
             String[] selectedItem = tableView.getSelectionModel().getSelectedItem().getItem();
-            for(int i=1;i<=5;i++)
-                if (selectedItem[i] != null) {
-                    funcs[i].setText(selectedItem[i]);
-                    Go(i);
+            if(selectedItem!=null) {
+                initData();
+                for (int i = 1; i <= 5; i++){
+                    unshow(i);
+                    if (selectedItem[i] != null) {
+                        funcs[i].setText(selectedItem[i]);
+                        Go(i);
+                    }
                 }
+            }
         }
     }
 
