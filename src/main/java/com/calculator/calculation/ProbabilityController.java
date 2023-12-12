@@ -3,6 +3,7 @@ package com.calculator.calculation;
 import Probability.BasicSolve;
 import Probability.Exception.NotInputDataException;
 import Probability.InputData;
+import Probability.RegressionAnalysis;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -20,7 +24,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.apache.commons.math3.fitting.PolynomialCurveFitter;
+import org.apache.commons.math3.fitting.WeightedObservedPoint;
+import org.apache.commons.math3.fitting.WeightedObservedPoints;
+import org.apache.commons.math3.stat.regression.SimpleRegression;
 
+import java.net.Proxy;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -79,6 +88,43 @@ public class ProbabilityController implements Initializable {
     public Button PercentEnter;
     public TableView oneInputTable;
     public TableColumn oneInputColumn;
+    public LineChart lineChart;
+    public TextField yInput;
+    public TextField xInput;
+    public MenuItem linear;
+    public MenuItem poly;
+    public MenuItem exp;
+    public MenuItem log;
+    public Button yShow;
+    public TableColumn residual;
+    public TableColumn mse;
+    public TableColumn r;
+    public Button xShow;
+    public NumberAxis xExtend;
+    public NumberAxis yExtend;
+    public TextField regressionExpression;
+    public TableView TableRegression;
+    public TextField PExpression;
+    public Label pExpressionLabel;
+    public LineChart lineChartGauss;
+    public NumberAxis xExtend1;
+    public NumberAxis yExtend1;
+    public ChoiceBox<String> PolyJie;
+    public TextField newInputX;
+    public TextField answerY;
+    public Label pExpressionLabel1;
+    public TextField PExpression1;
+    public TextField lamda;
+    public TextField pOut1;
+    public LineChart lineChartPossion;
+    public NumberAxis xExtend11;
+    public NumberAxis yExtend11;
+    public TextField xIn1;
+    public TextField pOut;
+    public TextField u;
+    public TextField o;
+    public ImageView returnImg;
+    public TextField xIn;
     boolean flagTwoInput = false; // 判断两行都输入后开始在表格中显示
     boolean flagWithProbability = false;
     boolean flagRawProcess = false; // 判断是不是两个随机变量输入-true即不带概率
@@ -93,6 +139,16 @@ public class ProbabilityController implements Initializable {
     BasicSolve basicProb;
     double[] data1;
     double[] data2;
+    public XYChart.Series <Number, Number> dataSeries, fitSeries;
+
+    int PolyNum = 1;
+    int RegressionType;
+    RegressionAnalysis regress;
+    boolean flagHasRegress = false;
+
+    int RVType = 0;
+    boolean flagHasPossion = false;
+    boolean flagHasNormal = false;
 
     /**
      * @Description 点击图片加载历史记录页面
@@ -131,7 +187,7 @@ public class ProbabilityController implements Initializable {
         flagRawProcess = true;
         flagOneInput = false;
         flagTwoInput = true;
-        flagInput1 = false; // 是否已经确定输入一个文本框（必须要在不同文本框
+        flagInput1 = false; // 是否已经确定输入一个文本框（必须 要在不同文本框
         flagInput2 = false;
         BasicAnalysis.setVisible(true);
         GaussianDistribution.setVisible(false);
@@ -146,6 +202,8 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/4 9:59
     **/
     public void GaussianDistributionShift(ActionEvent actionEvent) {
+        RVType = 1;
+        flagHasNormal = false;
         GaussianDistribution.setVisible(true);
         BasicAnalysis.setVisible(false);
         PoissonDistribution.setVisible(false);
@@ -159,6 +217,8 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/4 9:59
     **/
     public void PoissonDistributionShift(ActionEvent actionEvent) {
+        RVType = 2;
+        flagHasPossion = false;
         PoissonDistribution.setVisible(true);
         BasicAnalysis.setVisible(false);
         GaussianDistribution.setVisible(false);
@@ -172,6 +232,8 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/4 9:59
     **/
     public void RegressionAnalysisShift(ActionEvent actionEvent) {
+        flagHasRegress = false;
+        linearAnalysis(); // 切换这个页面时以线性回归为初始化
         RegressionAnalysis.setVisible(true);
         BasicAnalysis.setVisible(false);
         GaussianDistribution.setVisible(false);
@@ -274,6 +336,24 @@ public class ProbabilityController implements Initializable {
         inputColumn2.setText("Y");
         oneInputColumn.setCellValueFactory(new PropertyValueFactory<>("input1"));
         oneInputColumn.setText("X");
+        // 回归的合理性参考数据的表格映射
+        residual.setCellValueFactory(new PropertyValueFactory<>("residual"));
+        r.setCellValueFactory(new PropertyValueFactory<>("r"));
+        mse.setCellValueFactory(new PropertyValueFactory<>("MSE"));
+        xShow.setDisable(true); // 只用来显示
+        yShow.setDisable(true);
+        // 初始化多项式模拟阶数的choiceBox
+        PolyJie.getItems().addAll("一阶多项式", "二阶多项式", "三阶多项式", "四阶多项式", "五阶多项式"); // 添加选项
+        PolyJie.setOnAction(PolySim -> {
+            switch (PolyJie.getValue()) {
+                case "一阶多项式" -> PolyNum = 1;
+                case "二阶多项式" -> PolyNum = 2;
+                case "三阶多项式" -> PolyNum = 3;
+                case "四阶多项式" -> PolyNum = 4;
+                case "五阶多项式" -> PolyNum = 5;
+            }
+        });
+        lineChartInit();
     }
     
     /**
@@ -296,7 +376,6 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/3 20:49
     **/
     public void ProcessWithProbability() {
-
         // 概率处理指只对一个随机变量
         choiceBox.setDisable(true);
         processMethod.setText("概率处理");
@@ -307,8 +386,6 @@ public class ProbabilityController implements Initializable {
         DataTable.setVisible(true);
         inputColumn2.setText("P");
         // column的输入和初始化仍保持一致
-//        inputColumn1.setCellValueFactory(new PropertyValueFactory<>("X"));
-//        inputColumn2.setCellValueFactory(new PropertyValueFactory<>("P"));
         flagWithProbability = true;
         flagRawProcess = false;
         flagTwoInput = true; // 需要两行输入，变量值和对应概率
@@ -339,8 +416,10 @@ public class ProbabilityController implements Initializable {
                 flagInput1 = true;
                 if (flagOneInput) {
                     oneInputListInit();
+                    return;
 //                    addDataToTable(); // 只有一行输入时，只保留上方的文本框
                 }
+                InputData2.requestFocus(); // 输入完这一行切换到下一行
             }
         }
     }
@@ -366,6 +445,7 @@ public class ProbabilityController implements Initializable {
             }
             else {
                 flagInput2 = true;
+                InputData1.requestFocus();
             }
         }
     }
@@ -458,7 +538,6 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/9 15:23
     **/
     public void doWithEdit() {
-
     }
 
     /**
@@ -633,5 +712,540 @@ public class ProbabilityController implements Initializable {
         Percentiles.clear();    Percent.clear();
         Cov.clear();    correlationCoefficient.clear();
         DataTable.getItems().clear();   oneInputTable.getItems().clear();
+    }
+    public void clearRegressionPage() {
+        flagHasRegress = false;
+        xInput.clear(); yInput.clear();
+        regressionExpression.clear();
+        TableRegression.getItems().clear();
+    }
+    public static void clearLines(LineChart<Number, Number> lineChart) {
+        // 获取数据系列列表
+        ObservableList<XYChart.Series<Number, Number>> dataSeriesList = lineChart.getData();
+        // 遍历数据系列列表
+        for (XYChart.Series<Number, Number> dataSeries : dataSeriesList) {
+            lineChart.getData().remove(dataSeries);
+            // 清除数据点列表中的数据点
+//            dataSeries.getData().clear();
+        }
+    }
+    /**
+     * @Description 线性回归
+     * @author 郑悦
+     * @date 2023/12/10 16:30
+    **/
+    public void linearAnalysis() {
+        clearRegressionPage();
+        PolyJie.setVisible(false);
+        flagTwoInput = true;
+        flagInput1 = false;
+        flagInput2 = false;
+        RegressionType = 1;
+    }
+    /**
+     * @Description 多项式回归
+     * @param actionEvent
+     * @author 郑悦
+     * @date 2023/12/10 16:30
+    **/
+    public void polyAnalysis(ActionEvent actionEvent) {
+        clearRegressionPage();
+        PolyJie.setVisible(true);
+        flagTwoInput = true;
+        flagInput1 = false;
+        flagInput2 = false;
+        RegressionType = 2;
+    }
+    /**
+     * @Description 指数回归
+     * @param actionEvent
+     * @author 郑悦
+     * @date 2023/12/10 16:30
+    **/
+    public void expAnalysis(ActionEvent actionEvent) {
+        clearRegressionPage(); // 先清空再显示页面
+        PolyJie.setVisible(false);
+        flagTwoInput = true;
+        flagInput1 = false;
+        flagInput2 = false;
+        RegressionType = 3;
+    }
+    /**
+     * @Description 对数回归
+     * @param actionEvent
+     * @author 郑悦
+     * @date 2023/12/10 16:30
+    **/
+    public void logAnalysis(ActionEvent actionEvent) {
+        clearRegressionPage();
+        PolyJie.setVisible(false);
+        flagTwoInput = true;
+        flagInput1 = false;
+        flagInput2 = false;
+        RegressionType = 4;
+    }
+    /**
+     * @Description 处理线性回归时自变量输入
+     * @param keyEvent
+     * @author 郑悦
+     * @date 2023/12/10 20:15
+    **/
+    public void handleIndependentVar(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            processInputEnter(xInput, 1);
+        }
+    }
+    /**
+     * @Description 处理线性回归时因变量输入
+     * @param keyEvent
+     * @author 郑悦
+     * @date 2023/12/10 20:15
+    **/
+    public void handleDependentVar(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            processInputEnter(yInput, 2);
+        }
+    }
+    /**
+     * @Description 把重复的获取输入数据code归并成函数进行处理
+     * @param inputText
+     * @param num
+     * @author 郑悦
+     * @date 2023/12/10 20:25
+    **/
+    public void processInputEnter(TextField inputText, int num) {
+        String input = inputText.getText();
+        // 获取数据到数组
+        try {
+            getData(input, num);
+        } catch (NotInputDataException e) {
+            // 展示javafx的即时提示词
+            showAlert("错误提示", "未输入数据", 2000);
+            return; // 不return的话catch完会继续执行方法剩下的语句
+        }
+        boolean flagHasPre = false;
+        switch (num) {
+            case 1:
+                flagHasPre = flagInput2; // 如果现在处理的是1textField的enter，应该判断是否2中有字段
+                break;
+            case 2:
+                flagHasPre = flagInput1;
+                break;
+        }
+        if (flagHasPre) { // 两行输入都准备完毕，进行回归分析
+            int dataNum = data1.length;
+            if (data2.length != dataNum) {
+                showAlert("错误提示", "数据数量不匹配", 2000);
+                return;
+            }
+            showRegressionLineChart();
+            showRegressionTable();
+        }
+        else {
+            switch (num) {
+                case 1:
+                    flagInput1 = true;
+                    yInput.requestFocus();
+                    break;
+                case 2:
+                    flagInput2 = true;
+                    xInput.requestFocus();
+                    break;
+            }
+        }
+    }
+    /**
+     * @Description 显示回归有关的数字参量
+     * @author 郑悦
+     * @date 2023/12/11 22:09
+    **/
+    private void showRegressionTable() {
+        regress = new RegressionAnalysis(data1, data2, RegressionType, PolyNum);
+        InputData data = new InputData(regress.sumOfResidual, regress.MSE, regress.R);
+        TableRegression.getItems().add(data);
+        flagInput1 = false;
+        flagInput2 = false;
+    }
+
+    /**
+     * @Description 计算拟合得到的多项式的值
+     * @param coefficients
+     * @param x
+     * @return double
+     * @author 郑悦
+     * @date 2023/12/11 16:03
+    **/
+    private double evaluatePolynomial(double[] coefficients, double x) {
+        double result = 0;
+        for (int i = 0; i < coefficients.length; i++) {
+            result += coefficients[i] * Math.pow(x, i);
+        }
+        return result;
+    }
+    /**
+     * @Description 统一每种回归方式的图像显示
+     * @author 郑悦
+     * @date 2023/12/10 9:58
+    **/
+    public void showRegressionLineChart() {
+        WeightedObservedPoints points = new WeightedObservedPoints();
+        for(int i = 0; i < data1.length; i++) {
+            points.add(data1[i], data2[i]);
+        }
+        double min = data1[0];
+        double max = data1[0];
+        for (int i = 1; i < data1.length; i++) {
+            if (data1[i] < min) {
+                min = data1[i];
+            }
+            if (data1[i] > max) {
+                max = data1[i];
+            }
+        }
+        // 线性回归
+        SimpleRegression regression = new SimpleRegression();
+        // 添加数据点
+        for (int i = 0; i < data1.length; i++) {
+            regression.addData(data1[i], data2[i]);
+        }
+        // 获取回归方程的系数
+        double intercept = regression.getIntercept();   // 截距
+        double slope = regression.getSlope();   // 斜率
+        String equation = "y = " + slope + "x + " + intercept;
+        // 多项式回归
+        PolynomialCurveFitter fitter = PolynomialCurveFitter.create(PolyNum);
+        double[] coefficients = fitter.fit(points.toList());
+        // 创建原始数据点
+        lineChart.getData().remove(dataSeries);
+        lineChart.getData().remove(fitSeries);
+        dataSeries = new XYChart.Series<>();
+//        XYChart.Series<Number, Number> dataSeries = new XYChart.Series<>();
+        dataSeries.setName("Data Points");
+        for (int i = 0; i < points.toList().size(); i++) {
+            WeightedObservedPoint point = points.toList().get(i);
+            double x = point.getX();
+            double y = point.getY();
+            dataSeries.getData().add(new XYChart.Data<>(x, y));
+        }
+        regress = new RegressionAnalysis(data1, data2, RegressionType, PolyNum);
+        flagHasRegress = true;
+        // 创建拟合曲线
+        fitSeries = new XYChart.Series<>();
+//        XYChart.Series<Number, Number> fitSeries = new XYChart.Series<>();
+        fitSeries.setName("Fitted Curve");
+        double y;
+        for (double x = min; x <= max; x += 0.01) {
+            y = regression.predict(x); // 默认为线性回归
+            switch (RegressionType) {
+                case 1:
+                    y = regression.predict(x);
+                    break;
+                case 2:
+                    y = evaluatePolynomial(coefficients, x);
+                    break;
+                case 3:
+                    y = regress.parameters[0] * Math.exp(regress.parameters[1] * x);
+                    break;
+                case 4:
+                    y = regress.parameters[0] * Math.log(x) + regress.parameters[1];
+                    break;
+            }
+            fitSeries.getData().add(new XYChart.Data<>(x, y));
+        }
+        lineChart.getData().addAll(fitSeries, dataSeries);
+        lineChart.getStyleClass().add("line-chart");
+        lineChart.getStylesheets().add(getClass().getResource("css/lineChartStyle.css").toExternalForm());
+        dataSeries.getNode().getStyleClass().add("data-line"); // 设置原始数据和拟合数据在折线图中的样式
+        fitSeries.getNode().getStyleClass().add("fit-line");
+        for (XYChart.Data<Number, Number> data : fitSeries.getData()) { // 不想要拟合线上为作图取的点
+            data.getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: transparent;");
+        }
+        equation = regress.regressionExpression;
+        regressionExpression.setText(equation);
+    }
+    /**
+     * @Description 获取带预测的X的值
+     * @param keyEvent
+     * @author 郑悦
+     * @date 2023/12/12 16:18
+    **/
+    public void getPredictedX(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            String input = newInputX.getText();
+            double ans = 0.0;
+            if (isDouble(input)) {
+                double x = Double.parseDouble(input);
+                if (flagHasRegress) {
+                    ans = regress.evaluatePolynomial(regress.parameters, x);
+                    answerY.setText(String.valueOf(ans));
+                }
+                else {
+                    showAlert("错误提示", "未输入待拟合数据", 2400);
+                }
+            }
+            else {
+                showAlert("错误提示", "请输入一个待预测自变量的值", 2400);
+            }
+        }
+    }
+    /**
+     * @Description 判断一个字符串是不是只代表一个double数字
+     * @param str
+     * @return boolean
+     * @author 郑悦
+     * @date 2023/12/12 16:23
+    **/
+    public static boolean isDouble(String str) {
+        try {
+            // 尝试将字符串转换为 double 类型
+            double number = Double.parseDouble(str);
+            return true; // 转换成功，表示是一个有效的 double 数字
+        } catch (NumberFormatException e) {
+            return false; // 转换失败，表示不是一个有效的 double 数字
+        }
+    }
+    public static boolean isInteger(String str) {
+        return str.matches("-?\\d+");
+    }
+    // 处理概率模型
+    double standardDeviation = 0.0;
+    double mean = 0.0;
+    double possionLamda = 0.0;
+    String sMean;
+    String sSD;
+    String sL;
+    String PDFExpress = "";
+    org.apache.commons.math3.distribution.NormalDistribution normalDistribution
+            = new org.apache.commons.math3.distribution.NormalDistribution(0, 1);
+    org.apache.commons.math3.distribution.PoissonDistribution poissonDistribution
+            = new org.apache.commons.math3.distribution.PoissonDistribution(1);
+    public void handleGaussU(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            processGaussInputEnter(u);
+        }
+    }
+    public void handleGaussO(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            processGaussInputEnter(o);
+        }
+    }
+    public void handlePossionL(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            String input = lamda.getText();
+            if (isDouble(input)) {
+                possionLamda = Double.parseDouble(input);
+                flagHasPossion = true;
+                poissonDistribution = new org.apache.commons.math3.distribution.PoissonDistribution(possionLamda);
+                showDensityPDF();
+            }
+            else {
+                showAlert("错误提示", "请输入一个待预测自变量的值", 2400);
+            }
+        }
+    }
+    /**
+     * @Description 展示概率密度函数
+     * @author 郑悦
+     * @date 2023/12/12 18:58
+    **/
+    private void showDensityPDF() {
+        lineChartPossion.getData().remove(fitSeries);
+        lineChartGauss.getData().remove(fitSeries);
+        fitSeries = new XYChart.Series<>();
+        dataSeries = new XYChart.Series<>();
+        double y;
+        switch (RVType) {
+            case 1:
+                for (double x = mean-50; x <= mean+50; x += 0.1) {
+                    y = normalDistribution.density(x);
+                    fitSeries.getData().add(new XYChart.Data<>(x, y));
+                }
+                lineChartGauss.getData().addAll(fitSeries);
+                lineChartGauss.getStyleClass().add("line-chart");
+                lineChartGauss.getStylesheets().add(getClass().getResource("css/lineChartStyle.css").toExternalForm());
+                fitSeries.getNode().getStyleClass().add("fit-line");
+                fitSeries.setName("高斯分布概率密度曲线");
+                for (XYChart.Data<Number, Number> data : fitSeries.getData()) { // 连续分布留线去点
+                    data.getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: transparent;");
+                }
+                PDFExpress = String.format("y = (e^(-((x-%.3f)^2/2*%.3f^2)) / sqrt(2*pi*%.3f^2)", mean, standardDeviation, standardDeviation);
+                PExpression.setText(PDFExpress);
+                break;
+            case 2:
+                for (int x = 0; x <= 30; x += 1) {
+                    y = calculatePoissonPMF(possionLamda, x);
+                    dataSeries.getData().add(new XYChart.Data<>(x, y));
+                }
+                lineChartPossion.getData().addAll(dataSeries);
+                yExtend11.setLabel("P(X=k)");
+                xExtend11.setLabel("k");
+                lineChartPossion.getStyleClass().add("line-chart");
+                lineChartPossion.getStylesheets().add(getClass().getResource("css/lineChartStyle.css").toExternalForm());
+                dataSeries.getNode().getStyleClass().add("data-line"); // 离散型分布留点（X只能为整数）
+                dataSeries.setName("泊松分布的概率质量函数");
+                PDFExpress = String.format("y = ((e^(-%.3f))*(%.3f^x))/x!", possionLamda, possionLamda);
+                PExpression1.setText(PDFExpress);
+                break;
+        }
+    }
+    /**
+     * @Description 计算泊松分布的概率质量函数（PMF）
+     * @param lambda
+     * @param k
+     * @return double
+     * @author 郑悦
+     * @date 2023/12/12 20:26
+    **/
+    private double calculatePoissonPMF(double lambda, int k) {
+        double numerator = Math.pow(lambda, k) * Math.exp(-lambda);
+        double denominator = factorial(k);
+        return numerator / denominator;
+    }
+    /**
+     * @Description 计算阶乘
+     * @param n
+     * @return double
+     * @author 郑悦
+     * @date 2023/12/12 20:26
+    **/
+    private double factorial(int n) {
+        double result = 1;
+        for (int i = 1; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+    /**
+     * @Description 处理高斯分布的输入参数
+     * @param inputText
+     * @author 郑悦
+     * @date 2023/12/11 20:25
+     **/
+    public void processGaussInputEnter(TextField inputText) {
+        String input = inputText.getText();
+        int getWhich = 0;
+        if (inputText == u) {
+            getWhich = 1;
+        } else {
+            getWhich = 2;
+        }
+        if (isDouble(input)) {
+            double x = Double.parseDouble(input);
+            if (getWhich == 1) {
+                mean = x;
+            } else {
+                standardDeviation = x;
+            }
+        }
+        boolean flagHasPre = false;
+        switch (getWhich) {
+            case 1:
+                flagHasPre = flagInput2;
+                break;
+            case 2:
+                flagHasPre = flagInput1;
+                break;
+        }
+        if (flagHasPre) { // 两行输入都准备完毕，进行高斯分布
+            flagHasNormal = true;
+            normalDistribution = new org.apache.commons.math3.distribution.NormalDistribution(mean, standardDeviation);
+            if (isDouble(input)) {
+                showDensityPDF();
+            }
+            else {
+                showAlert("错误提示", "请输入一个待预测自变量的值", 2400);
+            }
+        }
+        else {
+            switch (getWhich) {
+                case 1:
+                    flagInput1 = true;
+                    o.requestFocus();
+                    break;
+                case 2:
+                    flagInput2 = true;
+                    u.requestFocus();
+                    break;
+            }
+        }
+    }
+    /**
+     * @Description 处理高斯分布对应x的分布函数值获取
+     * @param keyEvent
+     * @author 郑悦
+     * @date 2023/12/12 20:32
+    **/
+    public void getXin(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            String input = xIn.getText();
+            double ans = 0.0;
+            if (isDouble(input)) {
+                double x = Double.parseDouble(input);
+                if (flagHasNormal) {
+                    ans = normalDistribution.cumulativeProbability(x);
+                    pOut.setText(String.valueOf(ans));
+                }
+                else {
+                    showAlert("错误提示", "未输入待拟合数据", 2400);
+                }
+            }
+            else {
+                showAlert("错误提示", "请输入一个待预测自变量的值", 2400);
+            }
+        }
+    }
+    public void getXin1(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            String input = xIn1.getText();
+            double ans = 0.0;
+            if (isInteger(input)) {
+                int x = Integer.parseInt(input);
+                if (flagHasPossion) {
+                    ans = poissonDistribution.cumulativeProbability(x);
+                    pOut1.setText(String.valueOf(ans));
+                }
+                else {
+                    showAlert("错误提示", "未输入待拟合数据", 2400);
+                }
+            }
+            else {
+                showAlert("错误提示", "请输入一个待预测自变量的值", 2400);
+            }
+        }
+    }
+    Tooltip tooltip = new Tooltip();
+    private Label coordinatesLabel = new Label();
+    // 创建鼠标与坐标图的联系
+    public void lineChartInit() {
+        Tooltip.install(lineChart, tooltip);
+
+        // 注册鼠标移动事件监听器
+        lineChart.setOnMouseMoved(event -> {
+            handleMouseMoved(event);
+            tooltip.setText(coordinatesLabel.getText());
+        });
+
+        // 注册鼠标移出事件监听器
+        lineChart.setOnMouseExited(event -> {
+            coordinatesLabel.setText("");
+            tooltip.setText("");
+        });
+
+        lineChart.setOnMouseMoved(this::handleMouseMoved);
+    }
+    private void handleMouseMoved(MouseEvent event) {
+        // 获取鼠标的 x 坐标
+        double mouseX = event.getX();
+
+        // 获取 LineChart 的 x 轴
+        NumberAxis xAxis = (NumberAxis) ((LineChart) event.getSource()).getXAxis();
+
+        // 获取最接近鼠标位置的数据点
+        double nearestX = xAxis.getValueForDisplay(mouseX).doubleValue();
+
+        // 更新坐标值标签的位置和文本
+        coordinatesLabel.setText(String.format("X: %.2f", nearestX));
+        coordinatesLabel.setLayoutX(event.getSceneX() + 10);
+        coordinatesLabel.setLayoutY(event.getSceneY() - 10);
     }
 }
