@@ -20,8 +20,7 @@ import static Database.SqlUser.connection;
 
 public class SqlFunction
 {
-        private final static String insert = "insert into userfunction(name,paraNum,formula,exp,username) values(?,?,?,?,?)";
-    private final static String update = "update userfunction set formula = ?,exp = ? where name = ? and username = ?";
+    private final static String insert = "insert into userfunction(name,paraNum,formula,exp,username) values(?,?,?,?,?)";
     private final static String delete = "delete from userfunction where name = ? and username = ?";
     private final static String select = "select * from userfunction where name = ? and username = ?";
     private final static String selectAll = "select * from userfunction where username = ?";

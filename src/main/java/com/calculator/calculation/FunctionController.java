@@ -1,8 +1,6 @@
 package com.calculator.calculation;
 import Database.SqlFunction;
-import Database.SqlInfinitesimal;
 import NewFunction.UserFunction;
-import infinitesimal.InfinitesimalSolve;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -29,7 +24,6 @@ public class FunctionController implements Initializable {
     public Button BUTTON_paraY;
     public Button BUTTON_paraZ;
     public Button BUTTON_USERFUNCTION;
-    public Button buttonPow;
     public TextField functionShow;
     public TextField functionName;
     public TableView FunctionList;
@@ -39,31 +33,30 @@ public class FunctionController implements Initializable {
     @FXML
     private ChoiceBox<Integer> choiceBox;
     private final Integer[] paraNum = {1, 2, 3};
-    String replacePara = "";//替换嵌套函数中的参数
-    /*嵌套的子函数名*/
+    /**替换嵌套函数中的参数*/
+    String replacePara = "";
+    /**嵌套的子函数名*/
     private String sonFName = "";
-    /*嵌套的子函数参数个数*/
+    /**嵌套的子函数参数个数*/
     private int sonParaNum = 0;
-    /*已经替代的子函数参数个数*/
+    /**已经替代的子函数参数个数*/
     private int replacedNum = 0;
-    /*自定义函数名*/
+    /**自定义函数名*/
     protected String name = "";
-    /*展示给用户的表达式*/
+    /**展示给用户的表达式*/
     private String formula = "";
-    /*后台用于计算的表达式*/
+    /**后台用于计算的表达式*/
     protected String exp = "";
-    /*储存formula的编辑过程*/
+    /**储存formula的编辑过程*/
     private final List<String> formulaProcess = new ArrayList<>();
-    /*储存exp的编辑过程*/
+    /**储存exp的编辑过程*/
     private final List<String> expProcess = new ArrayList<>();
-    /*储存参数编辑过程*/
+    /**储存参数编辑过程*/
     private final ArrayList<String>[] replaceParaProcess = new ArrayList [3];
     public static ArrayList<UserFunction> functionList = SqlFunction.getAllFunction();
-    /*pow判断，以切换显示*/
-    public static boolean atPow = false;
-    /*判断是否正在嵌套自定义函数*/
+
+    /**判断是否正在嵌套自定义函数*/
     public static boolean atFunc = false;
-    /*跳转到微积分页面用*/
 
     /**
      * @param event
@@ -76,11 +69,6 @@ public class FunctionController implements Initializable {
         Button clickedButton = (Button) event.getSource();
         String buttonText = clickedButton.getText();
         editFormula(buttonText);
-        if (atPow) {
-            buttonPow.setText(",");
-        } else {
-            buttonPow.setText("pow");
-        }
         functionShow.setText(formula);
     }
     /**
@@ -95,24 +83,18 @@ public class FunctionController implements Initializable {
         }
         else if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
             if(!atFunc) {//不在嵌套自定义函数中
-                if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
-                    //上一步是pow
-                    atPow = false;
-                }
                 exp = expProcess.get(expProcess.size() - 2);
                 expProcess.remove(formulaProcess.size() - 1);
             }
             else{//在嵌套自定义函数中
-                if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
-                    //上一步是pow
-                    atPow = false;
-                }
-                else if(replacedNum==0&&replacePara.isEmpty()){
+                if(replacedNum==0&&replacePara.isEmpty()){
                     //上一步是嵌套自定义函数
                     atFunc=false;
                     sonParaNum=0;
                     exp = expProcess.get(expProcess.size() - 2);
                     expProcess.remove(formulaProcess.size() - 1);
+                    BUTTON_USERFUNCTION.setText("自定义函数");
+                    BUTTON_USERFUNCTION.setDisable(false);
                 }
                 else if(replacedNum>0&&replacedNum<sonParaNum&&replacePara.isEmpty()){
                     //上一步输入逗号，不是右括号,一个参数完成输入
@@ -169,6 +151,13 @@ public class FunctionController implements Initializable {
         if(function.judgeParaNum()!=0){
             int trueNum=function.getParaNum()+ function.judgeParaNum();
             Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+            if(trueNum==0){
+                Alert alert0=new Alert(Alert.AlertType.WARNING);
+                alert0.setHeaderText("这个函数没有输入参数……");
+                alert0.setContentText("请重新检查表达式");
+                alert0.showAndWait();
+                return;
+            }
             alert1.setContentText("坚持保存吗？它将被设置为"+trueNum+"元函数");
             if(function.judgeParaNum()>0)
                 alert1.setHeaderText("参数个数比想象中要多……");
@@ -263,6 +252,11 @@ public class FunctionController implements Initializable {
             else//只能输入一个参数时禁用
                 BUTTON_USERFUNCTION.setDisable(true);
             functionShow.setText(formula);
+            Tooltip tooltip = new Tooltip("您刚刚选择了一个自定义函数。\n如果有多个参数的话，请使用右下角的逗号分隔。\n参数输入结束后，请点击右括号。");
+            tooltip.show(functionShow,functionShow.localToScene(functionShow.getBoundsInLocal()).getMaxX(),
+                    functionShow.localToScene(functionShow.getBoundsInLocal()).getMinY());
+                // 设置Tooltip在一定时间后自动隐藏
+                tooltip.setAutoHide(true);
         }
         else if(mouseEvent.getButton()== MouseButton.SECONDARY){//右键单击选择是否删除
             UserFunction f = (UserFunction) (FunctionList.getSelectionModel().getSelectedItem());
@@ -308,8 +302,8 @@ public class FunctionController implements Initializable {
                 if(atFunc) replacePara+="%";
                 else exp+="%";
                 break;
-            case "log10": case "log": case "log2", "sin", "cos", "tan", "sec", "csc", "cot":
-                formula=formula+str+"(";
+             case "log": case "sin": case  "cos": case  "tan": case "ln":
+                formula+=str+"(";
                 if(atFunc)replacePara+=str+"(";
                 else  exp+=str+"(";
                 break;
@@ -361,82 +355,10 @@ public class FunctionController implements Initializable {
             case "C":
                 clear();
                 break;
-            case "x":
-                formula=formula+"x";
-                if(atFunc) replacePara+="$x$";
-                else exp+="$x$";
-                break;
-            case "y":
-                formula=formula+"y";
-                if(atFunc) replacePara+="$y$";
-                else exp+="$y$";
-                break;
-            case "z":
-                formula=formula+"z";
-                if(atFunc) replacePara+="$z$";
-                else exp+="$z$";
-                break;
-            case "pow":
-                formula=formula+"pow(";
-                if(atFunc) replacePara+="pow(";
-                else exp+="pow(";
-                atPow=true;
-                break;
-            case ","://只针对pow按钮
-                formula=formula+",";
-                if(atFunc) replacePara+=",";
-                else exp+=",";
-                break;
-            case ")":
-                formula=formula+")";
-                if(atFunc){
-                    if(!(atFunc=checkAtFunc())){//嵌套结束，开始替换
-                        exp=exp+")";
-                        if(replaceParaProcess[0].get(replaceParaProcess[0].size()-1).isEmpty()){
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("出错了");
-                            alert.setContentText("请输入函数"+sonFName+"的参数x");
-                            alert.showAndWait();
-                            return;
-                        }
-                        exp=exp.replace("$x_$", replaceParaProcess[0].get(replaceParaProcess[0].size()-1));
-                        replaceParaProcess[0].clear();
-                        if(sonParaNum>1) {
-                            if(replaceParaProcess[1].get(replaceParaProcess[1].size()-1).isEmpty()){
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                alert.setTitle("出错了");
-                                alert.setContentText("请输入函数"+sonFName+"的参数y");
-                                alert.showAndWait();
-                                return;
-                            }
-                            exp = exp.replace("$y_$", replaceParaProcess[1].get(replaceParaProcess[1].size() - 1));
-                            replaceParaProcess[1].clear();
-                        }
-                        if(sonParaNum>2) {
-                            if(replaceParaProcess[2].get(replaceParaProcess[2].size()-1).isEmpty()){
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                alert.setTitle("出错了");
-                                alert.setContentText("请输入函数"+sonFName+"的参数z");
-                                alert.showAndWait();
-                                return;
-                            }
-                            exp = exp.replace("$z_$", replaceParaProcess[2].get(replaceParaProcess[2].size() - 1));
-                            replaceParaProcess[2].clear();
-                        }
-                        //结束嵌套，重置
-                        sonFName="";
-                        sonParaNum=0;
-                        replacePara="";
-                        replacedNum=0;
-                        BUTTON_USERFUNCTION.setDisable(false);
-                    }
-                    else{
-                        replacePara+=")";
-                    }
-                }
-                if(atPow){
-                    atPow=checkPow();
-                }
+            case "x": case "y": case "z":
+                formula+=str;
+                if(atFunc) replacePara+="$"+str+"$";
+                else exp+="$"+str+"$";
                 break;
             default:
                 System.out.println("按钮"+str+"未设置");
@@ -448,8 +370,80 @@ public class FunctionController implements Initializable {
         else
             expProcess.add(exp);
     }
+    /**
+     * @Description 点击右括号的逻辑判断
+     * @author sxq
+     * @date 2023/12/16 0:01
+    **/
+    public void handleRightBracket(){
+        String formula0=formula;//更新前副本
+        formula=formula+")";
+        if(atFunc){
+            if(!(atFunc=checkAtFunc())){//嵌套结束，开始替换
+                if(replaceParaProcess[0].isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("出错了");
+                    alert.setHeaderText("缺少参数");
+                    alert.setContentText("请输入函数"+sonFName+"的参数x");
+                    alert.showAndWait();
+                    formula=formula0;
+                    atFunc=true;
+                    return;
+                }
+                exp=exp.replace("$x_$", replaceParaProcess[0].get(replaceParaProcess[0].size()-1));
+                if(sonParaNum>1) {
+                    if(replaceParaProcess[1].isEmpty()){
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("出错了");
+                        alert.setHeaderText("缺少参数");
+                        alert.setContentText("请输入函数"+sonFName+"的参数y");
+                        alert.showAndWait();
+                        formula=formula0;
+                        atFunc=true;
+                        return;
+                    }
+                    exp = exp.replace("$y_$", replaceParaProcess[1].get(replaceParaProcess[1].size() - 1));
+                }
+                if(sonParaNum>2) {
+                    if(replaceParaProcess[2].isEmpty()){
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("出错了");
+                        alert.setHeaderText("缺少参数");
+                        alert.setContentText("请输入函数"+sonFName+"的参数z");
+                        alert.showAndWait();
+                        formula=formula0;
+                        atFunc=true;
+                        return;
+                    }
+                    exp = exp.replace("$z_$", replaceParaProcess[2].get(replaceParaProcess[2].size() - 1));
+                }
+                //结束嵌套，重置
+                exp=exp+")";
+                sonFName="";
+                sonParaNum=0;
+                replacePara="";
+                replacedNum=0;
+                replaceParaProcess[0].clear();
+                replaceParaProcess[1].clear();
+                replaceParaProcess[2].clear();
+                BUTTON_USERFUNCTION.setText("自定义函数");
+                BUTTON_USERFUNCTION.setDisable(false);
+            }
+            else{
+                replacePara+=")";
+            }
+        }
+        else
+            exp=exp+")";
+        formulaProcess.add(formula);
+        if(atFunc)
+            replaceParaProcess[replacedNum].add(replacePara);
+        else
+            expProcess.add(exp);
+        functionShow.setText(formula);
+    }
 /**
- * @Description 判断是否处于嵌套函数中
+ * @Description 使用formula判断是否处于嵌套函数中
  * @return boolean
  * @author sxq
  * @date 2023/11/28 23:38
@@ -466,23 +460,6 @@ public class FunctionController implements Initializable {
     }
 
     /**
-     * @Description 检查pow函数是否调用完成
- * @return boolean
-     * @author sxq
-     * @date 2023/11/28 17:12
-    **/
-
-    private boolean checkPow() {
-        int index=formula.lastIndexOf("pow");
-        if(index==-1)return false;
-        int bracket=0;
-        for(index=index+3;index<formula.length();index++){
-            if(formula.charAt(index)=='(')bracket++;
-            else if(formula.charAt(index)==')')bracket--;
-        }
-        return bracket > 0;
-    }
-    /**
      * @Description 获取参数个数并禁用自变量按钮；清空输入区
      * @param e
      * @author sxq
@@ -490,7 +467,6 @@ public class FunctionController implements Initializable {
      **/
     public Integer getParaNum(ActionEvent e){
         int num= choiceBox.getValue();
-        formula="";
         switch (num) {
             case 1 -> {
                 BUTTON_paraX.setDisable(false);
@@ -520,12 +496,13 @@ public class FunctionController implements Initializable {
         exp="";
         formulaProcess.clear();
         expProcess.clear();
+        functionName.clear();
         atFunc=false;
-        atPow=false;
         sonFName="";
         sonParaNum=0;
         replacePara="";
         replacedNum=0;
+        BUTTON_USERFUNCTION.setText("自定义函数");
         BUTTON_USERFUNCTION.setDisable(false);
     }
 
@@ -567,6 +544,12 @@ public class FunctionController implements Initializable {
             System.out.println("Jump to ift:error");
         }
     }
+    /**
+     * @Description 跳转到图像绘制页面
+ * @param f 需要绘制的函数
+     * @author sxq
+     * @date 2023/12/16 1:26
+    **/
     private void jumpToVis(UserFunction f){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Visualization.fxml"));
@@ -603,6 +586,7 @@ public class FunctionController implements Initializable {
             jumpToIft(f);
         }
     }
+
 }
 
 

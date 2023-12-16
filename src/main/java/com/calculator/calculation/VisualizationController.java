@@ -1,5 +1,6 @@
 package com.calculator.calculation;
 
+import Database.SqlVisualize;
 import Visualizing.AxisFormatter;
 import Visualizing.Expression;
 import Visualizing.Parser;
@@ -333,7 +334,7 @@ public class VisualizationController implements Initializable {
     public void initData(){
         funcs = new TextField[]{null, f1, f2, f3, f4, f5};
         shows = new Button[]{null, show1, show2, show3, show4, show5};
-        dataShow = new String[]{null,null,null,null,null,null};
+        dataShow = new String[]{null,null,null,null,null};
         graphChart.getData().removeAll();
         Visualization.setVisible(true);
         History.setVisible(false);

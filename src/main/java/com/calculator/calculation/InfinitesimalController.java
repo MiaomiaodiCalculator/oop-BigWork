@@ -5,6 +5,9 @@ import Database.SqlInfinitesimal;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -17,23 +20,22 @@ import java.util.Optional;
 
 /**
  * @author sxq
- * @Description:微积分页面控制函数
+ * @Description 微积分页面控制函数
  * @date 2023/12/4 9:58
  */
 public class InfinitesimalController {
 
     public Button BUTTON_paraX;
     public Button BUTTON_USERFUNCTION;
-    public Button buttonPow;
-    /*函数表达式文本框*/
+    /**函数表达式文本框*/
     public TextField functionShow;
-    /*上限文本框*/
+    /**上限文本框*/
     public TextField upValue;
-    /*下限文本框*/
-    public TextField downValue;
-    /*结果文本框*/
+    /**下限文本框*/
+    public TextField downValue;//上限文本框
+    /**结果文本框*/
     public TextField result;
-    /*自定义函数列表元素*/
+    /**自定义函数列表元素*/
     public TableView FunctionTableView;
     public TableColumn nameList;
     public TableColumn paraNumList;
@@ -42,25 +44,24 @@ public class InfinitesimalController {
     public Pane infinitesimalHistory;
     public ImageView historyImg;
     public ImageView returnImg;
-    /*历史记录列表元素*/
+    /**历史记录列表元素*/
     public TableView historyTableView;
     public TableColumn historyTimeList;
     public TableColumn historyFormulaList;
     public TableColumn historyResList;
-    /*展示给用户的表达式*/
+    /**展示给用户的表达式*/
     private String formula = "";
-    /*后台用于计算的表达式*/
+    /**后台用于计算的表达式*/
     protected String exp = "";
-    /*储存formula的编辑过程*/
+    /**储存formula的编辑过程*/
     private List<String> formulaProcess = new ArrayList<>();
-    /*储存exp的编辑过程*/
+    /**储存exp的编辑过程*/
     private List<String> expProcess = new ArrayList<>();
     private static List<InfinitesimalSolve> historyList = new ArrayList<>();
-    /*pow判断，以切换显示*/
-    public static boolean atPow = false;
+
 
     /**
-     * @param event
+     * @param event 点击事件
      * @Description 处理普通符号按钮点击事件
      * @author sxq
      * @date 2023/11/27 16:42
@@ -70,16 +71,11 @@ public class InfinitesimalController {
         Button clickedButton = (Button) event.getSource();
         String buttonText = clickedButton.getText();
         editFormula(buttonText);
-        if (atPow) {
-            buttonPow.setText(",");
-        } else {
-            buttonPow.setText("pow");
-        }
         functionShow.setText(formula);
     }
     /**
      * @Description 处理点击删除键
-     * @param event
+     * @param event 点击事件
      * @author sxq
      * @date 2023/12/4 10:09
      **/
@@ -88,10 +84,6 @@ public class InfinitesimalController {
             clear();
         }
         else if(!formula.isEmpty()&&!exp.isEmpty()){//表达式非空，回退到上一步
-            if (formula.contains("pow") && !formulaProcess.get(formulaProcess.size() - 2).contains("pow")) {
-                //上一步是pow
-                atPow = false;
-            }
             exp = expProcess.get(expProcess.size() - 2);
             expProcess.remove(formulaProcess.size() - 1);
             formula = formulaProcess.get(formulaProcess.size() - 2);
@@ -138,11 +130,6 @@ public class InfinitesimalController {
         double res=ift.getRes();
         result.setText(String.format("%.3f",res));
         SqlInfinitesimal.add(ift);
-        formula = "";
-        exp = "";
-        formulaProcess.clear();
-        expProcess.clear();
-        functionShow.setText(formula);
     }
     /**
      * @Description 点击显示微积分计算历史记录
@@ -158,7 +145,7 @@ public class InfinitesimalController {
     }
     /**
      * @Description 从历史记录页面返回
-     * @param mouseEvent
+     * @param mouseEvent 点击事件
      * @author sxq
      * @date 2023/12/8 15:29
      **/
@@ -166,9 +153,14 @@ public class InfinitesimalController {
         infinitesimal.setVisible(true);
         infinitesimalHistory.setVisible(false);
     }
-
+    /**
+     * @Description 处理历史记录行点击事件： 双击添加，单击删除
+ * @param mouseEvent       点击事件
+     * @author sxq
+     * @date 2023/12/15 21:16
+    **/
     public void handleHistoryRowClick(MouseEvent mouseEvent) {
-        if (mouseEvent.getClickCount() == 2) {//左键单击添加
+        if (mouseEvent.getClickCount() == 2) {//左键双击添加
             InfinitesimalSolve ift = (InfinitesimalSolve) (historyTableView.getSelectionModel().getSelectedItem());
             if(ift==null){
                 System.out.println("点空了");
@@ -202,7 +194,7 @@ public class InfinitesimalController {
         }
     }
     /**
-     * @param event
+     * @param event 点击事件
      * @Description 点击自定义函数按钮，获取已有的函数列表，并转换表达式和函数式
      * @author sxq
      * @date 2023/11/27 20:41
@@ -213,7 +205,7 @@ public class InfinitesimalController {
     }
 
     /**
-     * @param mouseEvent
+     * @param mouseEvent 点击事件
      * @Description 处理历史自定义函数的行点击事件：加入历史自定义函数
      * @author sxq
      * @date 2023/11/28 17:23
@@ -240,7 +232,7 @@ public class InfinitesimalController {
 
     /**
      * @Description 编辑自定义函数的文本
-     * @param str
+     * @param str 按钮上的文本
      * @author sxq
      * @date 2023/12/4 16:00
      **/
@@ -262,7 +254,7 @@ public class InfinitesimalController {
                 formula=formula+"%";
                 exp+="%";
                 break;
-            case "log10": case "log": case "log2", "sin", "cos", "tan", "sec", "csc", "cot":
+            case "log": case "sin": case "cos":case "tan": case "ln":
                 formula=formula+str+"(";
                 exp+=str+"(";
                 break;
@@ -309,21 +301,9 @@ public class InfinitesimalController {
                 formula=formula+"x";
                 exp+="$x$";
                 break;
-            case "pow":
-                formula=formula+"pow(";
-                exp+="pow(";
-                atPow=true;
-                break;
-            case ","://只针对pow按钮
-                formula=formula+",";
-               exp+=",";
-                break;
             case ")":
                 formula=formula+")";
                 exp+=")";
-                if(atPow){
-                    atPow=checkPow();
-                }
                 break;
             default:
                 System.out.println("按钮"+str+"未设置");
@@ -331,24 +311,6 @@ public class InfinitesimalController {
         }
         formulaProcess.add(formula);
         expProcess.add(exp);
-    }
-    /**
-     * @Description 检查pow函数是否调用完成
-     * @return boolean
-     * @author sxq
-     * @date 2023/12/4 15:14
-     **/
-
-    private boolean checkPow() {
-        int index=formula.lastIndexOf("pow");
-        if(index==-1)return false;
-        int bracket=0;
-        for(index=index+3;index<formula.length();index++){
-            if(formula.charAt(index)=='(')bracket++;
-            else if(formula.charAt(index)==')')bracket--;
-        }
-        if(bracket>0)return true;
-        else return false;
     }
     /**
      * @Description 清空重置页面
@@ -363,6 +325,7 @@ public class InfinitesimalController {
         result.setText("");
         upValue.setText("");
         downValue.setText("");
+        BUTTON_USERFUNCTION.setText("自定义函数");
         BUTTON_USERFUNCTION.setDisable(false);
     }
     public void initialize(){
