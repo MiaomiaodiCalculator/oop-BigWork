@@ -1,0 +1,101 @@
+.root {
+    -fx-background-color:white;
+}
+#title {
+    -fx-fill: #000000;
+    -fx-font-size: 28px;
+    -fx-stroke: #000000;
+    -fx-font-weight: bold;
+    -fx-stroke-width: 0;
+}
+#searchField{
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-background-radius: 10px;
+    -fx-border-color: #000000;
+    -fx-border-radius: 10px;
+    -fx-text-fill: #000000;
+}
+#formulaShow {
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #000000;
+    -fx-font-size: 16px;
+    -fx-padding: 5px;
+    -fx-border-color: #c0c0c0;
+    -fx-border-width: 1px;
+}
+#answerShow {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-font-size: 20px;
+    -fx-padding: 10px;
+    -fx-border-color: #c0c0c0;
+    -fx-border-width: 1px;
+    -fx-alignment: center-right;
+}
+#function-table{
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #ccc;
+}
+#number {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333;
+    -fx-border-color: #999;
+}
+.search-result {
+    -fx-background-color: white;
+    -fx-border-color: #b3b3b3;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 1,1,1,1 );
+}
+
+.search-result .list-view {
+    -fx-background-color: white;
+    -fx-control-inner-background: white;
+    -fx-selection-bar:#969191;
+    -fx-selection-bar-text: white;
+}
+#dialog {
+    -fx-background-color:white;
+}
+
+#dialog {
+    -fx-background-color: #333333;
+   -fx-text-fill: white;
+   -fx-font-weight: bold;
+   -fx-border-radius: 5px;
+}
+#dialog TextField,PasswordField{
+    -fx-border-color: #333333;
+   -fx-border-radius: 5px;
+   -fx-background-color: transparent;
+   -fx-text-fill: black;
+   -fx-prompt-text-fill: #cccccc;
+   -fx-font-size: 12px;
+}
+#dialog Label{
+    -fx-font-weight: bold;
+   -fx-text-fill: #333333;
+   -fx-cursor: hand;
+}
+#dialog GridPane{
+    -fx-padding: 10px 20px;
+    -fx-vgap: 10px;
+}
+#alertFunction .root{
+   -fx-background-color:gray;
+}
+#alertFunction Label {
+  -fx-background-color:white;
+  -fx-font-weight: bold;
+  -fx-text-fill: #333333;
+  -fx-cursor: hand;
+  -fx-font-size: 16pt;
+}
+#alertFunction .button {
+  -fx-background-color: #333333;
+ -fx-text-fill: white;
+ -fx-font-weight: bold;
+ -fx-border-radius: 5px;
+}
