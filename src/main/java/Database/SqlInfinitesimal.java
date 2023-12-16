@@ -101,35 +101,6 @@ public class SqlInfinitesimal {
         return false;
     }
     /**
-     * @Description 根据函数名查询（全字匹配）
-     * @param name 需查询的函数名
-     * @return NewFunction.UserFunction
-     * @author sxq
-     * @date 2023/12/7 22:16
-     **/
-    public static UserFunction getByName(String name)
-    {
-        try
-        {
-            PreparedStatement exist = connection.prepareStatement(select);
-            exist.setString(1, name);
-            exist.setString(2,LoginController.userName);
-            ResultSet existResult = exist.executeQuery();
-            if(existResult.next())
-            {
-                UserFunction f = new UserFunction(existResult.getString("name"),existResult.getString("exp"),existResult.getString("formula"));
-                f.setParaNum(existResult.getInt("paraNum"));
-                return f;
-            }
-            return null;
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    /**
      * @Description 获取当前用户的全部历史记录
      * @return java.util.ArrayList<infinitesimal.InfinitesimalSolve>
      * @author sxq

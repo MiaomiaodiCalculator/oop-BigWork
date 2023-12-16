@@ -7,9 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
+import user.User;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +37,12 @@ public class PersonCenterController implements Initializable {
         Image image=SqlUser.loadAvatar(LoginController.userName);
         if(image!=null){
             avatarImageView.setImage(image);
+            double targetSize = 128.0;
+            double scaleFactor = Math.min(targetSize / image.getWidth(), targetSize / image.getHeight());
+            double scaledWidth = image.getWidth() * scaleFactor;
+            double scaledHeight = image.getHeight() * scaleFactor;
+            avatarImageView.setFitWidth(scaledWidth);
+            avatarImageView.setFitHeight(scaledHeight);
         }
     }
     /***
@@ -43,7 +51,8 @@ public class PersonCenterController implements Initializable {
      * @date 2023/12/7 23:59
     **/
     public void handleLogout() {
-
+        User user=new User(LoginController.userName,LoginController.passWord);
+        delete(user);
     }
     /***
      * @Description  修改密码
@@ -121,6 +130,12 @@ public class PersonCenterController implements Initializable {
                 Image image=SqlUser.loadAvatar(LoginController.userName);
                 if(image!=null){
                     avatarImageView.setImage(image);
+                    double targetSize = 128.0;
+                    double scaleFactor = Math.min(targetSize / image.getWidth(), targetSize / image.getHeight());
+                    double scaledWidth = image.getWidth() * scaleFactor;
+                    double scaledHeight = image.getHeight() * scaleFactor;
+                    avatarImageView.setFitWidth(scaledWidth);
+                    avatarImageView.setFitHeight(scaledHeight);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

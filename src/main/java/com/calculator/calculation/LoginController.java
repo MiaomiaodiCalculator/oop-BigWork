@@ -27,7 +27,7 @@ import static com.calculator.calculation.FunctionController.functionList;
  * @date 2023/12/5 23:36
  */
 public class LoginController {
-    public TextArea usernameArea;
+    public TextField usernameArea;
     public PasswordField passwordArea;
     public static boolean state;
     public static boolean userState=false;
@@ -76,13 +76,16 @@ public class LoginController {
     public void signUp() {
         String title="注册";
         Dialog<ButtonType> dialog = new Dialog<>();
+        Scene dialogScene = dialog.getDialogPane().getScene();
+        dialogScene.getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+        dialog.getDialogPane().getStyleClass().add("dialog-pane");
         dialog.setTitle(title);
         dialog.setHeaderText("新用户注册");
         GridPane gridPane = new GridPane();
         gridPane.add(new Label("用户名："), 0, 0);
         gridPane.add(new Label("密码："), 0, 1);
         gridPane.add(new Label("确认密码:"), 0, 2);
-        TextArea name = new TextArea();
+        TextField name = new TextField();
         name.setPromptText("7-15位数字或字母");
         PasswordField password=new PasswordField();
         password.setPromptText("7-15位由英文字母、数字和特殊字符（@，_，%，$）组成");
@@ -108,16 +111,24 @@ public class LoginController {
             String rewrite=again.getText();
             User user=new User(username,pass);
             if(checkName(username)&&checkPassword(pass)&&pass.equals(rewrite)&&!exists(user)){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("注册成功");
-                alert.setHeaderText("用户"+username+":您已注册成功！");
+                Dialog<ButtonType> alert= new Dialog<>();
+                alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+                alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+                alert.getDialogPane().getStyleClass().add("success");
+                alert.setTitle("注册");
+                alert.setHeaderText("注册成功!");
+                alert.setContentText("用户" + username + ": 您已注册成功！");
                 alert.showAndWait();
                 dialog.close();
                 add(user);
             }else{
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("错误");
-                alert.setHeaderText("用户名或密码不合法！");
+                Dialog<ButtonType> alert= new Dialog<>();
+                alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+                alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+                alert.getDialogPane().getStyleClass().add("error");
+                alert.setTitle("注册");
+                alert.setHeaderText("注册失败!");
+                alert.setContentText("用户名或密码不合法！");
                 alert.showAndWait();
             }
         }
@@ -165,9 +176,13 @@ public class LoginController {
         stage.setResizable(false);  // ui1
         Image cursorImage = new Image("cur.png");
         ImageCursor cursor = new ImageCursor(cursorImage);
+        stage.setResizable(false);
         stage.setScene(scene);
         scene.setCursor(cursor);
         stage.show();
+        stage.setOnCloseRequest(event ->{
+            if(!state)delete(new User(userName,passWord));
+        });
     }
     /***
      * @Description 登录回车直接判断是否可以登录

@@ -1,0 +1,41 @@
+.anchor-pane , .root{
+   -fx-background-color: white;
+}
+
+.avatar-image {
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+}
+#logo {
+   -fx-alignment: center;
+}
+
+#title {
+   -fx-font-weight: bold;
+   -fx-text-fill: #333333;
+}
+
+#usernameArea, #passwordArea {
+   -fx-border-color: #333333;
+   -fx-border-radius: 5px;
+   -fx-background-color: transparent;
+   -fx-text-fill: black;
+   -fx-prompt-text-fill: #cccccc;
+}
+
+#loginButton {
+   -fx-background-color: #333333;
+   -fx-text-fill: white;
+   -fx-font-weight: bold;
+   -fx-border-radius: 5px;
+}
+
+#signup, #visitor {
+   -fx-font-weight: bold;
+   -fx-text-fill: #333333;
+   -fx-cursor: hand;
+}
+
+#signup:hover, #visitor:hover {
+   -fx-text-fill: #666666;
+}

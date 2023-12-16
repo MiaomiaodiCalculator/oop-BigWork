@@ -7,23 +7,27 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
+<?import java.net.URL?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.MainController">
-   <children>
+    <stylesheets>
+        <URL value="@style/Main.css" />
+    </stylesheets>
+    <children>
        <BorderPane>
            <top>
                <MenuBar>
                   <menus>
-                      <Menu text="Shift">
+                      <Menu text="菜单">
                          <items>
-                             <MenuItem onAction="#ScientificShift" text="Scientific" />
-                             <MenuItem onAction="#VectorShift" text="Vector" />
-                             <MenuItem onAction="#EquationShift" text="Equation" />
-                             <MenuItem onAction="#InfinitesimalShift" text="Calculus" />
-                             <MenuItem onAction="#DiscreteMathShift" text="Discrete Math" />
-                             <MenuItem onAction="#ProbabilityShift" text="Probability" />
-                             <MenuItem onAction="#FunctionShift" text="Function" />
-                             <MenuItem onAction="#UnitTranslationShift" text="Unit Translation" />
-                             <MenuItem onAction="#VisualizationShift" text="Visualization" />
+                             <MenuItem onAction="#ScientificShift" text="科学计算器" />
+                             <MenuItem onAction="#VectorShift" text="向量" />
+                             <MenuItem onAction="#EquationShift" text="方程" />
+                             <MenuItem onAction="#InfinitesimalShift" text="微积分" />
+                             <MenuItem onAction="#DiscreteMathShift" text="离散数学" />
+                             <MenuItem onAction="#ProbabilityShift" text="概率统计" />
+                             <MenuItem onAction="#FunctionShift" text="自定义函数" />
+                             <MenuItem onAction="#UnitTranslationShift" text="单位换算" />
+                             <MenuItem onAction="#VisualizationShift" text="绘制图像" />
                          </items>
                       </Menu>
                   </menus>
