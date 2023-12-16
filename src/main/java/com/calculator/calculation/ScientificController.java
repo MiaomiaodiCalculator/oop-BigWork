@@ -109,7 +109,7 @@ public class ScientificController implements Initializable{
      * @param event  鼠标点击了tableview的哪一行
      * @author Bu Xinran
      * @date 2023/11/28 14:45
-    **/
+     **/
     public void chooseFunction(MouseEvent event) throws ParseException, EvaluationException {
         if (event.getClickCount() == 2) {
             UserFunction selectedItem = (UserFunction)(FunctionList.getSelectionModel().getSelectedItem());
@@ -121,12 +121,14 @@ public class ScientificController implements Initializable{
      * @param selectedItem  选中的自定义函数
      * @author Bu Xinran
      * @date 2023/12/9 11:44
-    **/
+     **/
     public void selectFunction(UserFunction selectedItem) throws ParseException, EvaluationException {
         if (selectedItem != null) {
             String title="正在调用自定义函数'"+selectedItem.getName()+"'";
             System.out.println(selectedItem.getExp());
             Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+            dialog.getDialogPane().getStyleClass().add("dialog");
             dialog.setTitle(title);
             dialog.setHeaderText("请输入各变量的值：");
             int num=selectedItem.getParaNum();
@@ -177,10 +179,13 @@ public class ScientificController implements Initializable{
                     else checkError=ScientificSolve.checkText(valueZ);
                 }
                 if(!checkError){
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    Dialog alert = new Dialog();
+                    alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+                    alert.getDialogPane().getStyleClass().add("alertFunction");
                     alert.setTitle("警告");
                     alert.setHeaderText(null);
                     alert.setContentText("存在参数值为空或不是数字！");
+                    alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
                     alert.showAndWait();
                 }else{
                     //处理正确获得的表达式
@@ -232,6 +237,9 @@ public class ScientificController implements Initializable{
             System.out.println(ift.getSaveTime());
             if(SqlScientific.exists(ift.getSaveTime())){
                 Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                alert1.getDialogPane().getStylesheets().add(getClass().getResource("style/Scientific.css").toExternalForm());
+                DialogPane dialogPane = alert1.getDialogPane();
+                dialogPane.getStyleClass().add("alertFunction");
                 alert1.setContentText("删除这条历史记录？");
                 Optional<ButtonType> result = alert1.showAndWait();
                 if (result.get() == ButtonType.OK){
@@ -356,7 +364,7 @@ public class ScientificController implements Initializable{
                 formula=formula+"%";
                 exp=exp+"%";
                 break;
-            case "log10": case "log": case "log2", "sin", "cos", "tan", "sec", "csc", "cot":
+            case "ln": case "log": case  "sin", "cos", "tan", "sec", "csc", "cot":
                 formula=formula+str+"(";
                 exp=exp+str+"(";
                 break;
@@ -575,7 +583,7 @@ public class ScientificController implements Initializable{
      * @Description  实时更新搜索框
      * @author Bu Xinran
      * @date 2023/11/29 0:23
-    **/
+     **/
     public void searchListener() {
         String search=searchField.getText();
         System.out.println(search);
@@ -599,7 +607,7 @@ public class ScientificController implements Initializable{
      * @Description 监听搜索提示框中鼠标动作
      * @author Bu Xinran
      * @date 2023/12/9 11:40
-    **/
+     **/
     public void MouseChoose() {
         listView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // 双击事件
@@ -622,7 +630,7 @@ public class ScientificController implements Initializable{
      * @Description 监听搜索提示框中的键盘事件
      * @author Bu Xinran
      * @date 2023/12/9 11:41
-    **/
+     **/
     public void KeyChoose() {
         listView.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.DOWN) {
@@ -655,7 +663,7 @@ public class ScientificController implements Initializable{
      * @Description  使用键盘DOWN跳转到搜索提示框
      * @author Bu Xinran
      * @date 2023/12/9 13:56
-    **/
+     **/
     public void KeyDown() {
         searchField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.DOWN) {

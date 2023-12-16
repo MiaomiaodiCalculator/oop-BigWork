@@ -110,6 +110,9 @@ public class MainController implements Initializable {
         try {
             Pane page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFileName)));
             cardContainer.getChildren().setAll(page);
+            returnMain.setVisible(false);
+            person.setVisible(true);
+            if(!LoginController.state)person.setVisible(false);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("loadPage:error");
@@ -133,9 +136,9 @@ public class MainController implements Initializable {
     **/
     @FXML
     public void goPersonalCenter(MouseEvent mouseEvent) {
+        loadPage("PersonCenter.fxml");
         person.setVisible(false);
         returnMain.setVisible(true);
-        loadPage("PersonCenter.fxml");
     }
     /***
      * @Description  返回到主界面

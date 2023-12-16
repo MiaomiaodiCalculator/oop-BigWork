@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 
+<?import java.net.URL?>
 <StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.ScientificController">
+    <stylesheets>
+        <URL value="@style/Scientific.css" />
+    </stylesheets>
     <children>
         <Pane fx:id="Scientific">
             <children>
                 <ImageView fx:id="historyImg" fitHeight="36.0" fitWidth="35.0" layoutX="448.0" layoutY="14.0" onMouseClicked="#handleHisImageClick" pickOnBounds="true" preserveRatio="true">
-                   <image>
-                       <Image url="@images/history.png" />
-                   </image>
+                    <image>
+                        <Image url="@images/history.png" />
+                    </image>
                 </ImageView>
-                <Text layoutX="188.0" layoutY="41.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Scientific" wrappingWidth="128.0">
+                <Text id="title" layoutX="176.0" layoutY="41.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="科学计算器" wrappingWidth="150.0">
                     <font>
                         <Font size="28.0" />
                     </font>
@@ -98,7 +98,7 @@
                         </Button>
                         <Button fx:id="BUTTON0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="0" GridPane.columnIndex="2" GridPane.rowIndex="8">
                         </Button>
-                        <Button fx:id="BUTTON_POINT3" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="log10" GridPane.rowIndex="8" />
+                        <Button fx:id="BUTTON_POINT3" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="ln" GridPane.rowIndex="8" />
                         <Button fx:id="BUTTON_DIVIDE4" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="37.0" prefWidth="81.0" styleClass="operator" text="C" GridPane.columnIndex="4" />
                         <Button fx:id="BUTTON_POINT" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="." GridPane.columnIndex="3" GridPane.rowIndex="8">
                         </Button>
@@ -106,32 +106,32 @@
                         <Button fx:id="BUTTON_TAN1" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="|x|" GridPane.columnIndex="2" />
                         <Button fx:id="BUTTON_NEGATIVE1" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="⌊x⌋" />
                         <Button fx:id="BUTTON_NEGATIVE2" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="⌈x⌉" GridPane.columnIndex="1" />
-                        <Button fx:id="BUTTON_NEGATIVE3" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="log2" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                        <Button fx:id="buttonPow" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="pow" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Button fx:id="BUTTON_NEGATIVE3" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="rand" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <Button id="number" fx:id="buttonPow" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="pow" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
-                <TextField fx:id="formulaShow" layoutX="2.0" layoutY="65.0" prefHeight="97.0" prefWidth="490.0" />
-                <Label fx:id="answerShow" layoutX="1.0" layoutY="169.0" prefHeight="75.0" prefWidth="490.0" />
+                <TextField id="formulaShow" fx:id="formulaShow" layoutX="2.0" layoutY="65.0" prefHeight="97.0" prefWidth="490.0" />
+                <Label id="answerShow" fx:id="answerShow" layoutX="1.0" layoutY="169.0" prefHeight="75.0" prefWidth="490.0" />
             </children>
-           <children>
+            <children>
                 <VBox fx:id="FreeShow" layoutY="246.0" prefHeight="395.0" prefWidth="500.0" spacing="2" visible="false">
-                   <children>
-                       <TextField fx:id="searchField" onKeyPressed="#KeyDown" promptText="输入关键字进行搜索..." style="-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 10px; -fx-border-color: #000000; -fx-border-radius: 10px; -fx-text-fill: #000000;" />
-                       <TableView fx:id="FunctionList" layoutX="7.0" layoutY="244.0" onMouseClicked="#chooseFunction" prefHeight="600.0" prefWidth="490.0">
-                           <columns>
-                               <TableColumn fx:id="nameList" prefWidth="94.0" text="函数名" />
-                               <TableColumn fx:id="paraNumList" prefWidth="76.0" text="参数个数" />
-                               <TableColumn fx:id="formulaList1" prefWidth="394.0" text="函数表达式" />
-                           </columns>
-                       </TableView>
-                   </children>
+                    <children>
+                        <TextField id="searchField" fx:id="searchField" onKeyPressed="#KeyDown" promptText="输入关键字进行搜索..."  />
+                        <TableView id="function-table" fx:id="FunctionList" layoutX="7.0" layoutY="244.0" onMouseClicked="#chooseFunction" prefHeight="600.0" prefWidth="490.0">
+                            <columns>
+                                <TableColumn fx:id="nameList" prefWidth="94.0" text="函数名" />
+                                <TableColumn fx:id="paraNumList" prefWidth="76.0" text="参数个数" />
+                                <TableColumn fx:id="formulaList1" prefWidth="394.0" text="函数表达式" />
+                            </columns>
+                        </TableView>
+                    </children>
                 </VBox>
-               <StackPane fx:id="searchResult" layoutY="274.0" prefHeight="154.0" prefWidth="500.0" visible="false">
-                  <children>
-                      <ListView fx:id="listView" onKeyPressed="#KeyChoose" onMouseClicked="#MouseChoose" prefHeight="304.0" prefWidth="500.0" />
-                  </children>
-               </StackPane>
-           </children>
+                <StackPane styleClass="search-result" fx:id="searchResult" layoutY="274.0" prefHeight="154.0" prefWidth="500.0" visible="false">
+                    <children>
+                        <ListView fx:id="listView" onKeyPressed="#KeyChoose" onMouseClicked="#MouseChoose" prefHeight="304.0" prefWidth="500.0" />
+                    </children>
+                </StackPane>
+            </children>
         </Pane>
         <Pane fx:id="History">
             <children>
