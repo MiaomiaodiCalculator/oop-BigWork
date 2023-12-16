@@ -3,6 +3,9 @@ import Database.SqlScientific;
 import NewFunction.UserFunction;
 import com.singularsys.jep.*;
 import com.singularsys.jep.ParseException;
+import com.singularsys.jep.functions.Abs;
+import com.singularsys.jep.functions.Ceil;
+import com.singularsys.jep.functions.Floor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +25,7 @@ import Scientific.ErrorScientific;
 import com.singularsys.jep.Jep;
 import java.io.*;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import static com.calculator.calculation.FunctionController.functionList;
@@ -54,9 +58,9 @@ public class ScientificController implements Initializable{
     public TableView<ScientificSolve> tableView;
     public TableColumn<ScientificSolve, String> formulaList;
     public TableColumn<ScientificSolve, String> answerList;
-    /*formula是展示在前端界面上的计算式*/
+    /**formula是展示在前端界面上的计算式*/
     private String formula="";
-    /*可直接计算的计算式*/
+    /**可直接计算的计算式*/
     private String exp="";
     private ErrorScientific calFlag= ErrorScientific.yes;
     private String answer="";
@@ -64,6 +68,7 @@ public class ScientificController implements Initializable{
     private List<String> processExp=new ArrayList<>();
     public static boolean atPow=false;
     private boolean finish=false;
+    public String[] downSymbol =new String[]{"⁰","¹","²","³","⁴","⁵","⁶","⁷","⁸","⁹","˙"};
     /***
      * @Description  初始化科学计算器界面
      * @param location 所在位置
@@ -307,7 +312,27 @@ public class ScientificController implements Initializable{
             answerShow.setText("幂运算函数未完成");
         }else if(calFlag== ErrorScientific.yes){
             setAnswer();
-            answerShow.setText(String.valueOf(answer));
+            if(!answer.isEmpty()){
+                double ans=Double.parseDouble(answer);
+                DecimalFormat df = new DecimalFormat("0.#######");
+                if (ans > 1e5) {
+                    df.applyPattern("0.#######E0");
+                }
+                String show = df.format(ans);
+                if(show.contains("E")){
+                    String[] cmd=show.split("E");
+                    System.out.println(Arrays.toString(cmd));
+                    show=cmd[0]+"×10";
+                    char[] charArray = cmd[1].toCharArray();
+                    for (char c : charArray) {
+                        show=show+downSymbol[c-'0'];
+                    }
+                }
+                System.out.println();
+                answerShow.setText(show);
+            }else{
+                answerShow.setText("");
+            }
         }else if(calFlag== ErrorScientific.dotRepeat){
             answerShow.setText("小数点重复，请删除！");
         }else if(calFlag== ErrorScientific.nothing){
@@ -325,6 +350,9 @@ public class ScientificController implements Initializable{
      **/
     private void setAnswer() throws EvaluationException {
         Jep jep=new Jep();
+        jep.addFunction("abs", new Abs());
+        jep.addFunction("floor",new Floor());
+        jep.addFunction("ceil",new Ceil());
         try{
             jep.parse(exp);
             answer=jep.evaluate().toString();
@@ -353,18 +381,22 @@ public class ScientificController implements Initializable{
                 }
                 break;
             case "×":
-                formula=formula+"*";
+                formula=formula+"×";
                 exp=exp+"*";
                 break;
             case "÷":
-                formula=formula+"/";
+                formula=formula+"÷";
                 exp=exp+"/";
                 break;
             case "mod":
                 formula=formula+"%";
                 exp=exp+"%";
                 break;
-            case "ln": case "log": case  "sin", "cos", "tan", "sec", "csc", "cot":
+            case "log₁₀":
+                formula=formula+"log₁₀(";
+                exp=exp+"log(";
+                break;
+            case "ln": case  "sin", "cos", "tan", "sec", "csc", "cot":
                 formula=formula+str+"(";
                 exp=exp+str+"(";
                 break;
@@ -389,7 +421,7 @@ public class ScientificController implements Initializable{
                 exp=exp+"exp(";
                 break;
             case "x³":
-                formula=formula+"^3";
+                formula=formula+"³";
                 exp=exp+"^3";
                 break;
             case "π":
@@ -401,7 +433,7 @@ public class ScientificController implements Initializable{
                 exp=exp+"e";
                 break;
             case "x²":
-                formula=formula+"^2";
+                formula=formula+"²";
                 exp=exp+"^2";
                 break;
             case "C":

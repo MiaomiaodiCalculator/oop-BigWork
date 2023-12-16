@@ -168,9 +168,12 @@ public class LoginController {
         Scene scene = new Scene(fxmlLoader.load(), 500, 730);
         MainController.mainController=fxmlLoader.getController();
         stage.setTitle("Calculator");
-        stage.setResizable(false);  // ui1
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(event ->{
+            if(!state)delete(new User(userName,passWord));
+        });
     }
     /***
      * @Description 登录回车直接判断是否可以登录

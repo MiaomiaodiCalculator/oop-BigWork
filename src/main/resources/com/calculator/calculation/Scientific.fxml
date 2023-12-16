@@ -48,8 +48,7 @@
                         <Button fx:id="buttonSqrt" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="√" GridPane.rowIndex="4" />
                         <Button fx:id="buttonPower" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="xⁿ" GridPane.rowIndex="5" />
                         <Button fx:id="buttonPower10" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="10ˣ" GridPane.rowIndex="6" />
-                        <Button fx:id="buttonLog" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="log" GridPane.rowIndex="7" />
-                        <Button fx:id="buttonLn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="log" GridPane.rowIndex="7" />
+                        <Button fx:id="buttonLog" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="log₁₀" GridPane.rowIndex="7" />
                         <Button fx:id="BUTTON_EQUAL" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="=" GridPane.columnIndex="4" GridPane.rowIndex="7">
                         </Button>
                         <Button fx:id="BUTTON_ADD" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="+" GridPane.columnIndex="4" GridPane.rowIndex="7">
