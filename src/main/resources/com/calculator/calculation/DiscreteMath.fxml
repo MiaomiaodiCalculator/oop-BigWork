@@ -11,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
+<AnchorPane fx:id="DMPane" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
    <children>
        <StackPane fx:id="DiscreteMathCardContainer" layoutX="-1.0" layoutY="86.0" prefHeight="616.0" prefWidth="500.0" />
        <Text layoutX="158.0" layoutY="41.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Discrete Math" wrappingWidth="194.0">

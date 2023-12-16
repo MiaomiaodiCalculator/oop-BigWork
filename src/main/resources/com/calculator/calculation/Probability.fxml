@@ -11,11 +11,6 @@
 
 <AnchorPane prefHeight="698.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.ProbabilityController">
    <children>
-       <ImageView fx:id="returnImg" fitHeight="36.0" fitWidth="35.0" layoutX="9.0" layoutY="14.0" onMouseClicked="#handleReturnClick" pickOnBounds="true" preserveRatio="true">
-          <image>
-              <Image url="@images/return.png" />
-          </image>
-       </ImageView>
        <StackPane fx:id="ProbabilityCardContainer" layoutY="100.0" prefHeight="602.0" prefWidth="500.0" />
        <ImageView fx:id="historyImg" fitHeight="36.0" fitWidth="35.0" layoutX="448.0" layoutY="14.0" onMouseClicked="#handleHisImageClick" pickOnBounds="true" preserveRatio="true">
            <image>

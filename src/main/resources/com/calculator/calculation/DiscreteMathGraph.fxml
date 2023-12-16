@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,17 +10,57 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="616.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
+<AnchorPane fx:id="GraphPane" prefHeight="586.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
    <children>
        <MenuBar layoutX="377.0">
           <menus>
               <Menu text="Problem Solve">
                  <items>
-                     <MenuItem onAction="#CriticalPathShift" text="关键路径" />
-                     <MenuItem text="单源最短路径" />
+                     <MenuItem onAction="#MinTreeShift" text="最小生成树" />
+                     <MenuItem onAction="#ShortPathShift" text="单源最短路径" />
                  </items>
               </Menu>
           </menus>
        </MenuBar>
+       <Pane fx:id="MinTreePane" layoutY="35.0" prefHeight="578.0" prefWidth="510.0">
+           <children>
+            <Canvas fx:id="CanvasShowGraph" height="242.0" layoutX="25.0" layoutY="277.0" width="460.0" />
+            <TableView fx:id="GraphTable" layoutX="25.0" layoutY="61.0" prefHeight="182.0" prefWidth="460.0" />
+            <Label layoutX="25.0" layoutY="527.0" text="最小生成树权值：">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="253.0" text="Kruskal求解最小生成树过程演示：">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="minAns" editable="false" layoutX="137.0" layoutY="519.0" prefHeight="36.0" prefWidth="351.0" />
+               <Button fx:id="ButtonGenerateGraph" layoutX="257.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleShowMTree" prefHeight="36.0" prefWidth="112.0" text="Generate" />
+            <Button fx:id="ButtonGraphDataEnter" layoutX="373.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleMTDataConfirm" prefHeight="36.0" prefWidth="112.0" text="Enter" />
+            <TextField fx:id="PointNumText" layoutX="111.0" layoutY="14.0" onKeyPressed="#handleMTPointNumKeyPressed" prefHeight="36.0" prefWidth="137.0" />
+            <Label layoutX="26.0" layoutY="22.0" text="PointNum">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+           </children>
+       </Pane>
+       <Pane fx:id="ShortPathPane" layoutY="35.0" prefHeight="588.0" prefWidth="504.0" visible="false">
+           <children>
+               <Label layoutX="235.0" layoutY="20.0" text="source" />
+               <Button fx:id="ButtonDataConfirm" layoutX="405.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="88.0" text="Enter" />
+               <TableView fx:id="GraphPathTable" layoutX="14.0" layoutY="91.0" prefHeight="436.0" prefWidth="479.0" />
+               <TextField fx:id="sourceInputText" layoutX="283.0" layoutY="14.0" onAction="#handleInputSource" prefHeight="36.0" prefWidth="112.0" />
+            <Text layoutX="142.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="输入数据-以邻接矩阵表示图" />
+            <Label layoutX="23.0" layoutY="20.0" text="PointNum" />
+            <TextField fx:id="numInputText" layoutX="89.0" layoutY="14.0" onKeyPressed="#handleInputNum" prefHeight="36.0" prefWidth="99.0" />
+            <Label layoutX="24.0" layoutY="545.0" text="Destination" />
+            <TextField fx:id="destInputText" layoutX="100.0" layoutY="539.0" onKeyPressed="#handleDestKeyPressed" prefHeight="36.0" prefWidth="99.0" />
+            <TextField fx:id="costOutputText" editable="false" layoutX="300.0" layoutY="539.0" onAction="#handleCostOutput" prefHeight="36.0" prefWidth="194.0" />
+            <Label layoutX="264.0" layoutY="545.0" text="Cost" />
+           </children>
+       </Pane>
    </children>
 </AnchorPane>
