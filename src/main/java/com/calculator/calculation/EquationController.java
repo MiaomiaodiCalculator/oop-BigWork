@@ -35,7 +35,6 @@ public class EquationController implements Initializable {
     public javafx.scene.layout.Pane e2;
     public javafx.scene.layout.Pane e3;
     public javafx.scene.layout.Pane e4;
-    public javafx.scene.layout.Pane e5;
     public Pane Equation;
     public TextField e2x1;
     public TextField e2y1;
@@ -65,7 +64,6 @@ public class EquationController implements Initializable {
     public Label e3z;
     public Pane e3answerShow;
     public Pane e4answerShow;
-    public Pane e5answerShow;
     public TextField e4x1;
     public TextField e4y1;
     public TextField e4c1;

@@ -6,6 +6,7 @@ import com.singularsys.jep.ParseException;
 import com.singularsys.jep.functions.Abs;
 import com.singularsys.jep.functions.Ceil;
 import com.singularsys.jep.functions.Floor;
+import com.singularsys.jep.functions.PostfixMathCommand;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -130,10 +131,9 @@ public class ScientificController implements Initializable{
     public void selectFunction(UserFunction selectedItem) throws ParseException, EvaluationException {
         if (selectedItem != null) {
             String title="正在调用自定义函数'"+selectedItem.getName()+"'";
-            System.out.println(selectedItem.getExp());
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-            dialog.getDialogPane().getStyleClass().add("dialog");
+            dialog.getDialogPane().getStyleClass().add("alert");
             dialog.setTitle(title);
             dialog.setHeaderText("请输入各变量的值：");
             int num=selectedItem.getParaNum();
@@ -238,14 +238,12 @@ public class ScientificController implements Initializable{
             }
         } else if(event.getButton()==MouseButton.SECONDARY){//右键单击选择是否删除
             ScientificSolve ift = tableView.getSelectionModel().getSelectedItem();
-            System.out.println(SqlScientific.exists(ift.getSaveTime()));
-            System.out.println(ift.getSaveTime());
             if(SqlScientific.exists(ift.getSaveTime())){
-                Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
-                alert1.getDialogPane().getStylesheets().add(getClass().getResource("style/Scientific.css").toExternalForm());
-                DialogPane dialogPane = alert1.getDialogPane();
-                dialogPane.getStyleClass().add("alertFunction");
+                Dialog alert1 = new Dialog();
+                alert1.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+                alert1.getDialogPane().getStyleClass().add("alertFunction");
                 alert1.setContentText("删除这条历史记录？");
+                alert1.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
                 Optional<ButtonType> result = alert1.showAndWait();
                 if (result.get() == ButtonType.OK){
                     SqlScientific.delete(ift);
@@ -280,11 +278,6 @@ public class ScientificController implements Initializable{
         Button clickedButton = (Button) event.getSource();
         String buttonText = clickedButton.getText();
         editFormula(buttonText);
-        if(atPow){
-            buttonPow.setText(",");
-        }else{
-            buttonPow.setText("pow");
-        }
         formulaShow.setText(formula);
         if(!finish)checkIllegal();
         tackleError();
@@ -308,8 +301,6 @@ public class ScientificController implements Initializable{
             answerShow.setText("括号不匹配！");
         }else if(calFlag== ErrorScientific.symbolContinue){
             answerShow.setText("运算符使用错误！");
-        }else if(calFlag== ErrorScientific.pow){
-            answerShow.setText("幂运算函数未完成");
         }else if(calFlag== ErrorScientific.yes){
             setAnswer();
             if(!answer.isEmpty()){
@@ -328,7 +319,6 @@ public class ScientificController implements Initializable{
                         show=show+downSymbol[c-'0'];
                     }
                 }
-                System.out.println();
                 answerShow.setText(show);
             }else{
                 answerShow.setText("");
@@ -425,7 +415,7 @@ public class ScientificController implements Initializable{
                 exp=exp+"^3";
                 break;
             case "π":
-                formula=formula+"pi";
+                formula=formula+"π";
                 exp=exp+"pi";
                 break;
             case "e":
@@ -444,12 +434,6 @@ public class ScientificController implements Initializable{
                 process.clear();
                 processExp.clear();
                 break;
-            case "rand":
-                Random rand = new Random();
-                int x=rand.nextInt(900) + 100;
-                formula=formula+String.valueOf(x);
-                exp=exp+String.valueOf(x);
-                break;
             case "⌊x⌋":
                 formula=formula+"floor(";
                 exp=exp+"floor(";
@@ -461,11 +445,6 @@ public class ScientificController implements Initializable{
             case "|x|":
                 formula=formula+"abs(";
                 exp=exp+"abs(";
-                break;
-            case "pow":
-                formula=formula+"pow(";
-                exp=exp+"pow(";
-                atPow=true;
                 break;
             case ",":
                 formula=formula+",";
@@ -486,9 +465,6 @@ public class ScientificController implements Initializable{
                 SqlScientific.add(a);
                 break;
             default:
-                if(formula.contains("pow") && !process.get(process.size()-1).contains("pow")){
-                    atPow=false;
-                }
                 if(process.size()<=1){
                     formula="";
                     exp="";
@@ -543,11 +519,6 @@ public class ScientificController implements Initializable{
         //判断是否直接输入=
         if(formula.length()==1&&formula.charAt(0)=='='){
             calFlag= ErrorScientific.nothing;
-            return;
-        }
-        //判断调用幂函数的合法性
-        if(ScientificController.atPow){
-            calFlag= ErrorScientific.pow;
             return;
         }
         //判断小数点，如果是.1928默认为0.1928
