@@ -5,8 +5,10 @@ import com.singularsys.jep.ParseException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -54,7 +56,10 @@ public class LoginController {
             Scene scene = new Scene(fxmlLoader.load(), 500, 730);
             MainController.mainController=fxmlLoader.getController();
             stage.setTitle("Calculator");
+            Image cursorImage = new Image("cur.png");
+            ImageCursor cursor = new ImageCursor(cursorImage);
             stage.setScene(scene);
+            scene.setCursor(cursor);
             stage.show();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -158,7 +163,10 @@ public class LoginController {
         MainController.mainController=fxmlLoader.getController();
         stage.setTitle("Calculator");
         stage.setResizable(false);  // ui1
+        Image cursorImage = new Image("cur.png");
+        ImageCursor cursor = new ImageCursor(cursorImage);
         stage.setScene(scene);
+        scene.setCursor(cursor);
         stage.show();
     }
     /***

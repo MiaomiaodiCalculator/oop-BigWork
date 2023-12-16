@@ -571,7 +571,7 @@ public class ProbabilityController implements Initializable {
      * @author 郑悦
      * @date 2023/12/3 22:12
     **/
-    private void showAlert(String title, String message, int duration) {
+    public static void showAlert(String title, String message, int duration) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(null);
@@ -589,6 +589,21 @@ public class ProbabilityController implements Initializable {
 
         fadeInTransition.play();
         fadeOutTransition.play();
+
+        alert.showAndWait();
+    }
+    /**
+     * @Description 重写警告方法，持续显示，不自动消失
+     * @param title
+     * @param message
+     * @author 郑悦
+     * @date 2023/12/16 20:28
+    **/
+    public static void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
 
         alert.showAndWait();
     }

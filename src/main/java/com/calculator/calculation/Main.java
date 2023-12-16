@@ -2,6 +2,7 @@ package com.calculator.calculation;
 import javafx.application.Application;
 import javafx.fxml.*;
 import javafx.scene.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,11 +19,18 @@ import java.util.StringJoiner;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        // 加载光标图像
+        Image cursorImage = new Image("cur-L.png");
+        // 创建光标
+        ImageCursor cursor = new ImageCursor(cursorImage);
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 730);
         stage.setTitle("登录");
         stage.setResizable(false);  // ui1
         stage.setScene(scene);
+        // 应用光标到场景
+        scene.setCursor(cursor);
         stage.show();
     }
     public static void main(String[] args) {
