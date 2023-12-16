@@ -13,13 +13,13 @@ import com.singularsys.jep.ParseException;
 public class UserFunction {
     private String name;
     private int paraNum;
-    /*参数列表，是否有x y z*/
+    /**参数列表，是否有x y z*/
     protected boolean hasX=false;
     protected boolean hasY=false;
     protected boolean hasZ=false;
-    /*展示出的表达式，可能有嵌套存在*/
+    /**展示出的表达式，可能有嵌套存在*/
     private String formula;
-    /*传入的表达式，可直接计算*/
+    /**传入的表达式，可直接计算*/
     private String exp;
     public UserFunction(){};
     public UserFunction(String _name,String _exp,String _formula){
@@ -68,6 +68,9 @@ public class UserFunction {
      * @date 2023/11/26 11:11
     **/
     public static String judgeName(String _name){
+        if(_name.isEmpty()){
+            return "请输入函数名";
+        }
         if(_name.length()>5){
            return "函数名最多5个字符";
         }
@@ -80,7 +83,6 @@ public class UserFunction {
         if(!_name.matches("^[a-zA-Z][a-zA-Z0-9]")){
             return ("函数名必须以字母开头");
         }
-
        return ("名称不合法，未知错误");
     }
     /**
@@ -101,9 +103,8 @@ public class UserFunction {
      * @date 2023/11/25 21:42
      **/
     public static String judgeFunction(String _exp){
-        //删除空格
-        if(_exp==null){
-            return ("表达式为空");
+        if(_exp.isEmpty()){
+            return ("请输入函数表达式");
         }
         _exp=_exp.replaceAll(" ","");
         Jep jep =new Jep();
@@ -118,7 +119,7 @@ public class UserFunction {
             System.out.println(_exp);
             jep.parse(_exp);
         }catch(ParseException e){
-            return ("表达式不合法，解析失败");
+            return ("表达式不合法，再检查一下吧orz");
         }
         //判断是否存在未定义的变量等不合法表达
         return "true";
