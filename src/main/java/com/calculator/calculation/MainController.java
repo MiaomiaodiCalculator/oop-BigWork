@@ -127,6 +127,8 @@ public class MainController implements Initializable {
             if(!LoginController.state)person.setVisible(false);
             if(!fxmlFileName.equals("Vector.fxml"))VectorController.flag=false;
         } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
             System.out.println("loadPage:error");
         }
     }

@@ -17,7 +17,7 @@
                <Image url="@images/history.png" />
            </image>
        </ImageView>
-       <Text layoutX="175.0" layoutY="42.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Probability" wrappingWidth="150.0">
+       <Text layoutX="193.0" layoutY="41.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="概率统计" wrappingWidth="114.0">
            <font>
                <Font size="28.0" />
            </font>
@@ -27,17 +27,17 @@
                <Blend />
            </effect>
            <menus>
-               <Menu fx:id="actionMenu" text="Action Change">
+               <Menu fx:id="actionMenu" text="功能菜单">
                    <items>
-                       <MenuItem onAction="#BasicAnalysisShift" text="Basic Analysis" />
-                       <MenuItem onAction="#RegressionAnalysisShift" text="Regression Analysis" />
-                       <MenuItem onAction="#GaussianDistributionShift" text="Gaussian Distribution" />
-                       <MenuItem onAction="#PoissonDistributionShift" text="Poisson Distribution" />
+                       <MenuItem onAction="#BasicAnalysisShift" text="基础分析" />
+                       <MenuItem onAction="#RegressionAnalysisShift" text="回归分析" />
+                       <MenuItem onAction="#GaussianDistributionShift" text="高斯分布" />
+                       <MenuItem onAction="#PoissonDistributionShift" text="泊松分布" />
                    </items>
                </Menu>
            </menus>
        </MenuBar>
-       <TextField fx:id="ActionName" editable="false" layoutX="117.0" layoutY="60.0" prefHeight="23.0" prefWidth="123.0" text="Basic Analysis" AnchorPane.bottomAnchor="622.0" AnchorPane.leftAnchor="117.0" AnchorPane.topAnchor="60.0">
+       <TextField fx:id="ActionName" editable="false" layoutX="78.0" layoutY="59.0" prefHeight="23.0" prefWidth="123.0" text="Basic Analysis" AnchorPane.bottomAnchor="623.0" AnchorPane.leftAnchor="78.0" AnchorPane.topAnchor="59.0">
          <font>
             <Font size="10.0" />
          </font></TextField>
@@ -106,8 +106,8 @@
             <TextField fx:id="Range2" editable="false" layoutX="378.0" layoutY="290.0" prefHeight="36.0" prefWidth="108.0" />
             <TextField fx:id="Mean2" editable="false" layoutX="378.0" layoutY="179.0" prefHeight="36.0" prefWidth="108.0" />
             <TextField fx:id="Percentiles" editable="false" layoutX="378.0" layoutY="402.0" prefHeight="36.0" prefWidth="61.0" />
-            <TextField fx:id="InputData2" layoutX="256.0" layoutY="123.0" onKeyPressed="#handleInput2KeyPressed" prefHeight="36.0" prefWidth="235.0" promptText="data splitted with space" />
-            <TextField fx:id="InputData1" layoutX="256.0" layoutY="87.0" onKeyPressed="#handleInput1KeyPressed" prefHeight="36.0" prefWidth="235.0" promptText="data splitted with space" />
+            <TextField fx:id="InputData2" layoutX="256.0" layoutY="123.0" onKeyPressed="#handleInput2KeyPressed" prefHeight="36.0" prefWidth="235.0" promptText="data splitted with one space" />
+            <TextField fx:id="InputData1" layoutX="256.0" layoutY="87.0" onKeyPressed="#handleInput1KeyPressed" prefHeight="36.0" prefWidth="235.0" promptText="data splitted with one space" />
             <MenuButton fx:id="PercentRV" layoutX="256.0" layoutY="404.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="55.0" text="R.V." textAlignment="CENTER">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#varXPercent" text="X" />
@@ -128,14 +128,14 @@
                </font>
             </Text>
          </children></Pane>
-       <Pane fx:id="RegressionAnalysis" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
+       <Pane fx:id="RegressionAnalysis" layoutY="98.0" prefHeight="607.0" prefWidth="500.0">
          <children>
              <ImageView fx:id="regressionLatex" fitHeight="36.0" fitWidth="317.0" layoutX="169.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@images/blank.png" />
                 </image>
              </ImageView>
-            <LineChart fx:id="lineChart" layoutY="109.0" prefHeight="399.0" prefWidth="500.0" title="Regression Graph">
+            <LineChart fx:id="lineChart" layoutY="109.0" prefHeight="399.0" prefWidth="500.0" title="函数拟合效果图">
               <xAxis>
                 <NumberAxis side="BOTTOM" fx:id="xExtend" />
               </xAxis>
@@ -171,6 +171,7 @@
             <TextField fx:id="answerY" editable="false" layoutX="406.0" layoutY="73.0" prefHeight="10.0" prefWidth="81.0" />
             <Label layoutX="351.0" layoutY="49.0" text="待测X:" />
             <Label layoutX="351.0" layoutY="79.0" text="预测Y:" />
+            <Button fx:id="prtSc" layoutX="418.0" layoutY="117.0" mnemonicParsing="false" onAction="#PrintScreen" prefHeight="22.0" prefWidth="69.0" text="PrtSc" />
          </children></Pane>
        <Pane fx:id="GaussianDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
          <children>
@@ -203,7 +204,7 @@
                   <Font size="20.0" />
                </font></Label>
          </children></Pane>
-       <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0">
+       <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
          <children>
              <ImageView fx:id="poissonLatex" fitHeight="45.0" fitWidth="363.0" layoutX="126.0" layoutY="467.0" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -233,17 +234,17 @@
                </yAxis>
             </LineChart>
          </children></Pane>
-       <Pane fx:id="HistoryPane">
+       <Pane fx:id="HistoryPane" visible="false">
            <children>
                <ImageView fx:id="returnImg" fitHeight="36.0" fitWidth="35.0" layoutX="9.0" layoutY="14.0" onMouseClicked="#handleReturnClick" pickOnBounds="true" preserveRatio="true">
                    <image>
                        <Image url="@images/return.png" />
                    </image>
                </ImageView>
-               <TableView fx:id="tableView" layoutY="65.0" onMouseClicked="#handleRowClick" prefHeight="633.0" prefWidth="500.0">
+               <TableView fx:id="tableView" layoutY="53.0" onMouseClicked="#handleRowClick" prefHeight="645.0" prefWidth="500.0">
                    <columns>
                        <TableColumn fx:id="timeList" prefWidth="153.0" text="输入时间" />
-                       <TableColumn fx:id="data1List" minWidth="0.0" prefWidth="195.0" text="数据2" />
+                       <TableColumn fx:id="data1List" minWidth="0.0" prefWidth="195.0" text="数据1" />
                        <TableColumn fx:id="data2List" prefWidth="151.0" text="数据2" />
                    </columns>
                </TableView>

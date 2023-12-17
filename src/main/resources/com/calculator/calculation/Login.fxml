@@ -17,7 +17,7 @@
             <Image url="@images/Cats-L.png" />
          </image>
       </ImageView>
-      <Label id="title" layoutX="70.0" layoutY="168.0" text="欢迎进入喵喵滴计算器">
+      <Label id="title" fx:id="Title" layoutX="70.0" layoutY="168.0" text="欢迎进入喵喵滴计算器">
          <font>
             <Font size="24.0" />
          </font>
@@ -25,9 +25,9 @@
       <TextField fx:id="usernameArea" layoutX="25.0" layoutY="212.0" prefHeight="40.0" prefWidth="322.0" promptText="账号" />
       <PasswordField fx:id="passwordArea" layoutX="25.0" layoutY="263.0" onKeyPressed="#log" prefHeight="40.0" prefWidth="322.0" promptText="密码">
       </PasswordField>
-      <Button fx:id="loginButton" layoutX="137.0" layoutY="317.0" mnemonicParsing="false" onAction="#login" prefHeight="23.0" prefWidth="97.0" text="登录" />
-      <Button fx:id="signup" layoutX="248.0" layoutY="317.0" mnemonicParsing="false" onAction="#signUp" prefHeight="23.0" prefWidth="97.0" text="注册" />
-      <Button fx:id="visitor" layoutX="296.0" layoutY="14.0" mnemonicParsing="false" onAction="#justVisitor" prefHeight="32.0" prefWidth="59.0" text="游客">
+      <Button fx:id="loginButton" layoutX="173.0" layoutY="318.0" mnemonicParsing="false" onAction="#login" prefHeight="31.0" prefWidth="54.0" text="登录" />
+      <Button fx:id="signup" layoutX="233.0" layoutY="318.0" mnemonicParsing="false" onAction="#signUp" prefHeight="31.0" prefWidth="54.0" text="注册" />
+      <Button fx:id="visitor" layoutX="293.0" layoutY="318.0" mnemonicParsing="false" onAction="#justVisitor" prefHeight="32.0" prefWidth="54.0" text="游客">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

@@ -1,8 +1,6 @@
 package DiscreteMath;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * @author 郑悦
@@ -13,8 +11,8 @@ public class GraphOfMatrix {
     private boolean isDirect;
     private int[][] Matrix;
     char[] arrayV;
-    int length;
-    static int INF = 1000000;
+    int length = 100005;
+    public static int INF = 1000000;
     boolean hasMinTree = false;
 
     public GraphOfMatrix(int length, boolean b) {
@@ -46,6 +44,12 @@ public class GraphOfMatrix {
         if (!isDirect){
             Matrix[destIndex][srcIndex] = weight;
         }
+    }
+
+    private int treeWeight = INF;
+
+    public int getTreeWeight() {
+        return treeWeight;
     }
 
     public int kruskal(GraphOfMatrix minTree) {
@@ -86,6 +90,7 @@ public class GraphOfMatrix {
         }
         if (size == n - 1) {
             hasMinTree = true;
+            treeWeight = totalWeight;
             return totalWeight;
         } else {
             hasMinTree = false;
