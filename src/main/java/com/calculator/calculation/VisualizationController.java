@@ -23,6 +23,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.apache.commons.math3.distribution.PoissonDistribution;
 
 import javax.imageio.ImageIO;
@@ -61,6 +63,7 @@ public class VisualizationController implements Initializable {
     public ImageView historyImg;
     public TableView<UserData> tableView;
     public TableColumn<UserData,Timestamp> historyList;
+    public Tooltip tooltip;
     private ArrayList<UserData> list =new ArrayList<>();
 
 
@@ -199,9 +202,18 @@ public class VisualizationController implements Initializable {
                         funcs[i].setText(selectedItem[i]);
                         Go(i);
                     }
+                    if (funcs[i].getText().equals("ERROR")) funcs[i].setText("");
                 }
             }
         }
+        String[] selectedItem = tableView.getSelectionModel().getSelectedItem().getItem();
+        String showing="";
+        for(int i=1;i<=5;i++){
+            if(!selectedItem[i].equals("null")) showing=(showing+"y"+i+" = "+selectedItem[i]).intern();
+            else showing=(showing+"y"+i+" is BLANK").intern();
+            if(i!=5) showing=(showing+"\n").intern();
+        }
+        tooltip.setText(showing);
     }
 
     /**
@@ -215,6 +227,7 @@ public class VisualizationController implements Initializable {
         tableView.getItems().setAll(list);
         Visualization.setVisible(false);
         History.setVisible(true);
+        tooltip.setText("单击条目以查看历史记录详情\n双击以打开历史记录");
     }
 
     /**
@@ -254,32 +267,34 @@ public class VisualizationController implements Initializable {
      * @date 2023/12/9 12:05
      **/
     public void PrintScreen(ActionEvent actionEvent) {
+        Date dNow = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd_hh-mm-ss");
+        WritableImage image = new WritableImage(500, 720);
+        Visualization.getScene().snapshot(image);
+        int width = 500;
+        int height = 720;
+        BufferedImage bimage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        int[] buffer = new int[width];
+        PixelReader reader = image.getPixelReader();
+        WritablePixelFormat<IntBuffer> format = PixelFormat.getIntArgbInstance();
+        for (int y = 0; y < height; y++) {
+            reader.getPixels(0, y, width, 1, format, buffer, 0, width);
+            bimage.getRaster().setDataElements(0, y, width, 1, buffer);
+        }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("保存截图");
+        fileChooser.setInitialFileName(ft.format(dNow));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG图片格式", "*.png"),
+                new FileChooser.ExtensionFilter("JPG图片格式", "*.jpg")
+        );
+        //保存
+        File outFile = fileChooser.showSaveDialog(new Stage());
+        System.out.println("files = " + outFile);
         try {
-            Date dNow = new Date();
-            SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd_hh-mm-ss");
-            String path="./data/screenshots/"+ft.format(dNow)+".png";
-            File file=new File(path);
-            if(!file.exists()){
-                file.getParentFile().mkdirs();
-            }else{
-                file.delete();
-                file.getParentFile().mkdirs();
-            }
-            WritableImage image = new WritableImage(500, 720);
-            Visualization.getScene().snapshot(image);
-            int width = 500;
-            int height = 720;
-            BufferedImage bimage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            int[] buffer = new int[width];
-            PixelReader reader = image.getPixelReader();
-            WritablePixelFormat<IntBuffer> format = PixelFormat.getIntArgbInstance();
-            for (int y = 0; y < height; y++) {
-                reader.getPixels(0, y, width, 1, format, buffer, 0, width);
-                bimage.getRaster().setDataElements(0, y, width, 1, buffer);
-            }
-            ImageIO.write(bimage, "png", file);
+            ImageIO.write(bimage, "png", outFile);
         } catch (IOException e) {
-            System.out.println("Screenshot operation failed");
+            e.printStackTrace();
         }
     }
 
