@@ -346,7 +346,7 @@ public class DiscreteMathController implements Initializable {
                     int next = MTGraphSolve.To[pCnt[0]];
                     Path path = new Path();
                     path.setStroke(Color.BLUE);
-                    path.setStrokeWidth(5);
+                    path.setStrokeWidth(2);
                     path.getElements().add(new MoveTo(
                             circles.get(next).getCenterX() + CanvasShowGraph.getLayoutX(),
                             circles.get(next).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + 28));

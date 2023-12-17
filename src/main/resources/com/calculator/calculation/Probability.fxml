@@ -27,7 +27,7 @@
                <Blend />
            </effect>
            <menus>
-               <Menu text="Action Change">
+               <Menu fx:id="actionMenu" text="Action Change">
                    <items>
                        <MenuItem onAction="#BasicAnalysisShift" text="Basic Analysis" />
                        <MenuItem onAction="#RegressionAnalysisShift" text="Regression Analysis" />
@@ -221,6 +221,22 @@
                </yAxis>
             </LineChart>
          </children></Pane>
+       <Pane fx:id="HistoryPane">
+           <children>
+               <ImageView fx:id="returnImg" fitHeight="36.0" fitWidth="35.0" layoutX="9.0" layoutY="14.0" onMouseClicked="#handleReturnClick" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@images/return.png" />
+                   </image>
+               </ImageView>
+               <TableView fx:id="tableView" layoutY="65.0" onMouseClicked="#handleRowClick" prefHeight="633.0" prefWidth="500.0">
+                   <columns>
+                       <TableColumn fx:id="timeList" prefWidth="153.0" text="输入时间" />
+                       <TableColumn fx:id="data1List" minWidth="0.0" prefWidth="195.0" text="数据2" />
+                       <TableColumn fx:id="data2List" prefWidth="151.0" text="数据2" />
+                   </columns>
+               </TableView>
+           </children>
+       </Pane>
    </children>
 
 </AnchorPane>
