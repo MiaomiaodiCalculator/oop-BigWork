@@ -30,7 +30,6 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
-import vector.VectorSolve;
 
 import java.net.URL;
 import java.util.*;
@@ -46,7 +45,6 @@ import DiscreteMath.Circle;
  * @date 2023/11/26 20:49
  */
 public class DiscreteMathController implements Initializable {
-    protected static LinkedHashMap<Integer, VectorSolve> historyVector = new LinkedHashMap<>();
     public TextField FunctionName;
     public TextField inputName;
     public TextField outputName;

@@ -26,7 +26,7 @@ public class VectorSolve implements Serializable {
     protected double dot;
     protected double cross;
     protected double angle;
-    public VectorSolve(String x1,String y1,String z1,String x2,String y2,String z2,int state){
+    public VectorSolve(String x1, String y1, String z1, String x2, String y2, String z2, int state){
         this.x1=x1;
         this.y1=y1;
         this.z1=z1;
