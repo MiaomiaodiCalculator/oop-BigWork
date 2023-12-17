@@ -1,0 +1,36 @@
+/*.custom-chart {*/
+/*    .data-point {*/
+/*        -fx-background-color: blue;*/
+/*        -fx-background-radius: 0px;*/
+/*        -fx-shape: "M0,-5 L5,0 L0,5 L-5,0 Z";*/
+/*        -fx-background-size: 1px;*/
+/*    }*/
+
+/*    .chart-series-scatter .chart-symbol {*/
+/*        -fx-background-size: 5px;*/
+/*    }*/
+
+/*    .data-line {*/
+/*        -fx-stroke: transparent;*/
+/*    }*/
+
+/*    .fit-line {*/
+/*        -fx-stroke: blue;*/
+/*    }*/
+
+/*    .data-series .chart-line-symbol {*/
+/*        -fx-background-color: red;*/
+/*    }*/
+
+/*    .fit-series .chart-line-symbol {*/
+/*        -fx-background-color: blue;*/
+/*    }*/
+
+/*    !*在 JavaFX 中，ScatterChart 的数据点样式是通过设置 CSS 类来实现的，而不是直接在 XYChart.Series 的节点上设置样式。*/
+/*        使用 CSS 类来设置数据点的颜色和形状，以及拟合曲线的颜色*!*/
+/*}*/
+/*styleClass="custom-chart"*/
+
+.line-chart .data-line {
+    -fx-stroke: transparent;
+}

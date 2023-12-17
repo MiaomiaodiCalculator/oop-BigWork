@@ -19,8 +19,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -29,6 +28,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
@@ -36,14 +37,16 @@ import org.apache.commons.math3.fitting.WeightedObservedPoints;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import user.Shift;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.Proxy;
 import java.net.URL;
+import java.nio.IntBuffer;
 import java.security.Timestamp;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static user.Shift.*;
@@ -146,6 +149,7 @@ public class ProbabilityController implements Initializable {
     public ImageView poissonLatex;
     public ImageView GaussLatex;
     public ImageView regressionLatex;
+    public Button prtSc;
     boolean flagTwoInput = false; // 判断两行都输入后开始在表格中显示
     boolean flagWithProbability = false;
     boolean flagRawProcess = false; // 判断是不是两个随机变量输入-true即不带概率
@@ -1338,5 +1342,41 @@ public class ProbabilityController implements Initializable {
         list = SqlProb.getAllHis();
         tableView.getItems().setAll(list);
         tableView.refresh();
+    }
+    // 借用zyh的prtSc实现保存图像
+    public void PrintScreen(ActionEvent actionEvent) {
+        if (!flagHasRegress) {
+            showAlert("错误提示", "尚未生成拟合模型，无法截图保存");
+            return;
+        }
+        Date dNow = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd_hh-mm-ss");
+        WritableImage image = new WritableImage(500, 720);
+        RegressionAnalysis.getScene().snapshot(image);
+        int width = 500;
+        int height = 720;
+        BufferedImage bimage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        int[] buffer = new int[width];
+        PixelReader reader = image.getPixelReader();
+        WritablePixelFormat<IntBuffer> format = PixelFormat.getIntArgbInstance();
+        for (int y = 0; y < height; y++) {
+            reader.getPixels(0, y, width, 1, format, buffer, 0, width);
+            bimage.getRaster().setDataElements(0, y, width, 1, buffer);
+        }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("保存截图");
+        fileChooser.setInitialFileName(ft.format(dNow));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG图片格式", "*.png"),
+                new FileChooser.ExtensionFilter("JPG图片格式", "*.jpg")
+        );
+        //保存
+        File outFile = fileChooser.showSaveDialog(new Stage());
+        System.out.println("files = " + outFile);
+        try {
+            ImageIO.write(bimage, "png", outFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

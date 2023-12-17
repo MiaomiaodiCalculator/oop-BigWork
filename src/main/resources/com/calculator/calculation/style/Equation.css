@@ -5,34 +5,39 @@
     -fx-font-weight: bold;
     -fx-stroke-width: 0;
 }
+/*UI*/
 #button {
-    -fx-background-color: #808080;
+    -fx-background-color: #FF9838;
     -fx-border-width: 2px;
     -fx-border-radius: 5px;
-    -fx-border-color: #808080;
+    -fx-border-color: #FF9838;
     -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font: normal bold 16px 'serif';
 }
 #button:hover {
     -fx-background-color: #F0F0F0;
-    -fx-text-fill: #808080;
+    -fx-text-fill: #FF9838;
 }
 #button:selected {
-    -fx-background-color: #4CAF50;
-    -fx-border-color: #4CAF50;
+    -fx-background-color: #FFC187;
+    -fx-border-color: #FFC187;
     -fx-text-fill: #FFFFFF;
 }
 #button.active{
-    -fx-background-color: #F0F0F0;
-    -fx-text-fill: #808080;
+    -fx-background-color: #FFC187;
+    -fx-text-fill: BLACK;
 }
 #getAns {
     -fx-pref-height: 32px;
     -fx-pref-width: 60px;
     -fx-font-size: 14px;
-    -fx-background-color:#fad8ab;
-    -fx-border-color: #ffb74d;
+    -fx-background-color:#FF9838;
+    -fx-border-color: #fad8ab;
     -fx-border-width: 2px;
-    -fx-text-fill: #8d6e63;
+    -fx-text-fill: White;
+    -fx-font-weight: bold;
+    -fx-font: normal bold 16px 'serif';
 }
 
 #getAns:hover {

@@ -52,7 +52,7 @@ public class VectorSolve implements Serializable {
      * @return double[]
      * @author Bu Xinran
      * @date 2023/11/28 13:39
-     **/
+    **/
 
     public double[] addVector(){
         add[0]=X1+X2;
@@ -66,7 +66,7 @@ public class VectorSolve implements Serializable {
      * @return double
      * @author Bu Xinran
      * @date 2023/11/28 13:39
-     **/
+    **/
 
     public double dotVector(){
         if(state==3){

@@ -34,6 +34,7 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.*;
 
+import static DiscreteMath.GraphOfMatrix.INF;
 import static com.calculator.calculation.ProbabilityController.isInteger;
 import static com.calculator.calculation.ProbabilityController.showAlert;
 
@@ -46,19 +47,8 @@ import DiscreteMath.Circle;
  */
 public class DiscreteMathController implements Initializable {
     public TextField FunctionName;
-    public TextField inputName;
-    public TextField outputName;
-    public Button ButtonRemove;
-    public Button ButtonRename;
-    public TableView<String> variableInCnt;
-    public Button ButtonAdd;
     public Label error;
     private static boolean flag = false;
-    public TextArea ExpressionInput;
-    public Pane Input;
-    public Pane Table;
-    public Pane Expression;
-    public Pane Output;
     public AnchorPane DMPane;
     public Pane MinTreePane;
     public Button ButtonGenerateGraph;
@@ -68,12 +58,6 @@ public class DiscreteMathController implements Initializable {
     public Button ButtonGraphDataEnter;
     public TextField minAns;
     public Pane ShortPathPane;
-    public Button ButtonDataConfirm;
-    public TableView GraphPathTable;
-    public TextField sourceInputText;
-    public TextField numInputText;
-    public TextField destInputText;
-    public TextField costOutputText;
     public TextField PointNumText;
     public AnchorPane GraphPane;
     @FXML
@@ -87,9 +71,6 @@ public class DiscreteMathController implements Initializable {
     private boolean flagHasMTSolve = false;
     GraphOfMatrix MTGraphSolve = new GraphOfMatrix(MAX, true);
 
-    // 最短路径问题
-    private boolean flagHasSPSolve = false;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(!flag) {
@@ -99,9 +80,8 @@ public class DiscreteMathController implements Initializable {
     }
     public void GraphTheoryShift() {
         loadPage("DiscreteMathGraph.fxml");
-//        MinTreePane.setVisible(true);
-//        ShortPathPane.setVisible(false);
         FunctionName.setText("Graph Theory");
+//        MinTreePane.setVisible(true);
     }
     /**
      * @Description  加载卡片布局：fxml文件
@@ -120,39 +100,8 @@ public class DiscreteMathController implements Initializable {
 
     public void MinTreeShift(ActionEvent actionEvent) {
         MinTreePane.setVisible(true);
-        ShortPathPane.setVisible(false);
-    }
-
-    public void ShortPathShift(ActionEvent actionEvent) {
-        MinTreePane.setVisible(false);
-        ShortPathPane.setVisible(true);
-    }
-
-    public void handleInputSource(ActionEvent actionEvent) {
-    }
-
-    public void handleInputNum(KeyEvent actionEvent) {
-    }
-
-    public void handleCostOutput(ActionEvent actionEvent) {
-    }
-
-    public void handleDestKeyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-            String input = destInputText.getText();
-            int dest;
-            // 获取数据到数组
-            try {
-                dest = getDest(input);
-            } catch (NotInputDataException e) {
-                // 展示javafx的即时提示词
-                showAlert("错误提示", "未输入数据", 2000);
-                return; // 不return的话catch完会继续执行方法剩下的语句
-            }
-            if (flagHasSPSolve) {
-                // 显示从源点到destination需要的最小代价——不能到达显示-1
-            }
-        }
+//        ShortPathPane.setVisible(false);
+//        CanvasShowGraph.setStyle("-fx-background-color: lightblue; -fx-border-color: #0a5469; -fx-border-width: 2px;");
     }
 
     private int getDest(String input) throws NotInputDataException {
@@ -287,6 +236,10 @@ public class DiscreteMathController implements Initializable {
             showAlert("错误提示", "请先确认输入数据完毕");
             return;
         }
+        if (MTGraphSolve.getTreeWeight() >= INF) {
+            showAlert("错误提示", "没有最小生成树");
+            return;
+        }
         // 显示最小生成树构造的动画
         Pane root = GraphPane;
 
@@ -301,9 +254,9 @@ public class DiscreteMathController implements Initializable {
         buttonBox.setTranslateY(10);
         root.getChildren().add(buttonBox);
 
-        Button drawLineButton = new Button("Draw Line");
-        drawLineButton.setOnAction(event -> drawLine());
-        buttonBox.getChildren().add(drawLineButton);
+//        Button drawLineButton = new Button("Draw Line");
+//        drawLineButton.setOnAction(event -> drawLine());
+//        buttonBox.getChildren().add(drawLineButton);
 
         gc = CanvasShowGraph.getGraphicsContext2D();
         gc.setFill(CIRCLE_COLOR);
@@ -336,21 +289,21 @@ public class DiscreteMathController implements Initializable {
 
         // 按点连线
         final int[] pCnt = {0};
-        Timeline animation = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
+        Timeline animation = new Timeline(new KeyFrame(Duration.millis(1200), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if (pCnt[0] < pointNum - 1) {
                     int cur = MTGraphSolve.From[pCnt[0]];
                     int next = MTGraphSolve.To[pCnt[0]];
                     Path path = new Path();
-                    path.setStroke(Color.BLUE);
+                    path.setStroke(Color.BLACK);
                     path.setStrokeWidth(2);
                     path.getElements().add(new MoveTo(
                             circles.get(next).getCenterX() + CanvasShowGraph.getLayoutX(),
-                            circles.get(next).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + 28));
+                            circles.get(next).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + 32));
                     path.getElements().add(new LineTo(
                             circles.get(cur).getCenterX() + CanvasShowGraph.getLayoutX() + GraphPane.getLayoutX(),
-                            circles.get(cur).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + 28));
+                            circles.get(cur).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + 32));
                     GraphPane.getChildren().add(path);
                     pCnt[0]++;
                     System.out.println("draw");
@@ -379,13 +332,11 @@ public class DiscreteMathController implements Initializable {
         return false;
     }
 
-    private static final Color CIRCLE_COLOR = Color.RED;
+    private static final Color CIRCLE_COLOR = Color.ORANGE;
     private static final Color LABEL_COLOR = Color.BLACK;
 
     private List<Circle> circles = new ArrayList<>();
     private List<Line> lines = new ArrayList<>();
-
-//    private Canvas canvas;
     private GraphicsContext gc;
 
     private void drawLine() {
@@ -397,7 +348,7 @@ public class DiscreteMathController implements Initializable {
     }
 
     private void drawLine(GraphicsContext gc, Line start, Line end) {
-        gc.setStroke(Color.BLUE);
+        gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
         gc.strokeLine(start.getX(), start.getY(), end.getX(), end.getY());
     }

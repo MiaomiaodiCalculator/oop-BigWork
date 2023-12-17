@@ -4,13 +4,21 @@
 #menu .menu-bar {
     -fx-background-color: white;
 }
+
 #menu .menu-item {
     -fx-text-fill: #000000;
 }
-#menu .menu-item:hover {
-    -fx-background-color: #cfcd66;
+/*UI*/
+#menu .menu-bar:hover, .menu:hover {
+    -fx-background-color: #FFC187;
 }
-#menu .menu-item:pressed {
-    -fx-background-color: #93913c;
+#menu .menu-bar:pressed, .menu:pressed {
+    -fx-background-color: #FFC187;
+}
+#menu .menu-item:hover, .menu-item:showing {
+    -fx-background-color: #FFC187;
+}
+#menu .menu-item:pressed, .menu:showing {
+    -fx-background-color: #FF9838;
 }
 

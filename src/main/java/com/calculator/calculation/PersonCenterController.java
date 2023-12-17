@@ -20,6 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import static Database.SqlUser.*;
+import static com.calculator.calculation.LoginController.PrimaryStage;
 import static com.calculator.calculation.LoginController.checkPassword;
 /**
  * @author Bu Xinran
@@ -156,10 +157,12 @@ public class PersonCenterController implements Initializable {
     public void logout() throws IOException {
         Stage currentStage = (Stage) logoutButton.getScene().getWindow();
         currentStage.close();
+        PrimaryStage.close();
         Stage stage=new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 500, 730);
+        Scene scene = new Scene(fxmlLoader.load(), 370, 369);
         stage.setTitle("登录");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

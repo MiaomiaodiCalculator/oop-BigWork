@@ -32,6 +32,10 @@ public class LoginController {
     public Button visitor;
     public Label Text1;
     public Label Text2;
+    public Label Title;
+
+    // 完善逻辑
+    public static Stage PrimaryStage = new Stage();
 
     /***
      * @Description 登录
@@ -49,11 +53,11 @@ public class LoginController {
             state=true;
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
-            Stage stage=new Stage();
+            Stage stage = PrimaryStage;
             FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Main.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 500, 730);
             MainController.mainController=fxmlLoader.getController();
-            stage.setTitle("喵喵的计算器");
+            stage.setTitle("喵喵滴计算器");
             Image icon = new Image("icon.png");
             stage.getIcons().add(icon);
             Image cursorImage = new Image("cur.png");
@@ -178,7 +182,7 @@ public class LoginController {
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 730);
         MainController.mainController=fxmlLoader.getController();
-        stage.setTitle("Calculator");
+        stage.setTitle("喵喵滴计算器");
         stage.setResizable(false);  // ui1
         Image cursorImage = new Image("cur.png");
         ImageCursor cursor = new ImageCursor(cursorImage);
