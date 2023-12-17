@@ -741,16 +741,6 @@ public class ProbabilityController implements Initializable {
 //        regressionExpression.clear();
         TableRegression.getItems().clear();
     }
-    public static void clearLines(LineChart<Number, Number> lineChart) {
-        // 获取数据系列列表
-        ObservableList<XYChart.Series<Number, Number>> dataSeriesList = lineChart.getData();
-        // 遍历数据系列列表
-        for (XYChart.Series<Number, Number> dataSeries : dataSeriesList) {
-            lineChart.getData().remove(dataSeries);
-            // 清除数据点列表中的数据点
-//            dataSeries.getData().clear();
-        }
-    }
     /**
      * @Description 线性回归
      * @author 郑悦
@@ -1034,9 +1024,6 @@ public class ProbabilityController implements Initializable {
     double standardDeviation = 0.0;
     double mean = 0.0;
     double possionLamda = 0.0;
-    String sMean;
-    String sSD;
-    String sL;
     String PDFExpress = "";
     org.apache.commons.math3.distribution.NormalDistribution normalDistribution
             = new org.apache.commons.math3.distribution.NormalDistribution(0, 1);

@@ -1,5 +1,6 @@
 package Probability;
 
+import com.singularsys.jep.functions.Str;
 import org.apache.commons.math3.analysis.ParametricUnivariateFunction;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
@@ -18,7 +19,6 @@ public class RegressionAnalysis {
     public String regressionExpression;
     double[] xRaw;
     double[] yRaw;
-    double[] yRegress; // 记录回归方程对应的y值
     public double sumOfResidual = 0;
     public double R;
     public double adjustedR;
@@ -48,8 +48,10 @@ public class RegressionAnalysis {
         fitter = PolynomialCurveFitter.create(PolyNum);
         double[] coefficients = fitter.fit(points.toList());
         regressionExpression = "";
+        String p0;
         for (int j = coefficients.length - 1; j > 0; j--) {
-            regressionExpression += coefficients[j] + " * x^" + j + " + ";
+            p0 = String.format("%.3f", coefficients[j]);
+            regressionExpression += p0 + " * x^" + j + " + ";
         }
         regressionExpression += coefficients[0];
         regression = new SimpleRegression();
@@ -61,13 +63,16 @@ public class RegressionAnalysis {
             double x = point.getX();
             double y = point.getY();
             double predictedY = 0;
+            String p1, p2;
             switch (regressionType) {   // 根据不同回归类型确定不同函数表达式
                 case 1: // 线性回归
                     predictedY = regression.predict(x);
-                    regressionExpression = "y = " + regression.getSlope() + "x + " + regression.getIntercept();
                     parameters = new double[2];
                     parameters[0] = regression.getSlope();
                     parameters[1] = regression.getIntercept();
+                    p1 = String.format("%.3f", parameters[0]);
+                    p2 = String.format("%.3f", parameters[1]);
+                    regressionExpression = "y = " + p1 + "x + " + p2;
                     break;
                 case 2: // 多项式回归
                     parameters = coefficients;
@@ -75,11 +80,16 @@ public class RegressionAnalysis {
                     break;
                 case 3: // 指数回归
                     getExpParameters();
-                    regressionExpression = "y = " + parameters[0] + "e^(" + parameters[1] + "x)";
+                    p1 = String.format("%.3f", parameters[0]);
+                    p2 = String.format("%.3f", parameters[1]);
+                    regressionExpression = "y = " + p1 + "e^(" + p2 + "x)";
                     predictedY = parameters[0] * Math.exp(parameters[1] * x);
                     break;
                 case 4: // 对数回归
                     getLogParameters();
+                    p1 = String.format("%.3f", parameters[0]);
+                    p2 = String.format("%.3f", parameters[1]);
+                    regressionExpression = "y = " + p1 + "lnx + " + p2;
                     regressionExpression = "y = " + parameters[0] + "lnx " + "+ " + parameters[1];
                     predictedY = parameters[0] * Math.log(x) + parameters[1];
                     break;

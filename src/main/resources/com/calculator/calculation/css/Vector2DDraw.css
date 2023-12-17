@@ -1,0 +1,119 @@
+/*.default-color0.chart-series-line {*/
+
+/*    -fx-stroke: transparent;*/
+
+/*}*/
+
+/*.lineVector2D-chart.default-color0.chart-line-symbol {*/
+/*    -fx-shape: "M 0 0 L 1 0 L 0.5 1 Z";*/
+
+/*    -fx-background-color: green, green;*/
+
+/*}*/
+
+/*.default-color1.chart-series-line {*/
+
+/*    -fx-stroke: transparent;*/
+
+/*}*/
+
+/*.lineVector2D-chart.default-color1.chart-line-symbol{*/
+/*    -fx-shape: "M 0 0 L 1 0 L 0.5 1 Z";*/
+
+/*    -fx-background-color: blue, blue;*/
+
+/*}*/
+
+/*.default-color4.chart-series-line {*/
+
+/*    -fx-stroke: transparent;*/
+
+/*}*/
+
+/*.default-color4.chart-line-symbol{*/
+
+/*    -fx-shape: "M0,4 L4,4 L4,0 L0,0 Z"; !* <= esse é para quadrado*!*/
+
+/*}*/
+
+/*.chart {*/
+
+/*    -fx-padding: 10px;*/
+
+/*    -fx-background-image: url("icon.png");*/
+
+/*}*/
+
+/*.chart-content {*/
+
+/*    -fx-padding: 30px;*/
+
+/*}*/
+
+/*.chart-title {*/
+
+/*    -fx-text-fill: #4682b4;*/
+
+/*    -fx-font-size: 1.6em;*/
+
+/*}*/
+
+/*.axis-label {*/
+
+/*    -fx-text-fill: #4682b4;*/
+
+/*}*/
+
+/*.chart-legend {*/
+
+/*    -fx-background-color:  transparent;*/
+
+/*    -fx-padding: 20px;*/
+
+/*}*/
+
+/*.chart-legend-item-symbol{*/
+
+/*    -fx-background-radius: 0;*/
+
+/*}*/
+
+/*.chart-legend-item{*/
+
+/*    -fx-text-fill: #191970;*/
+
+/*}*/
+
+/*.line-chart .data1-line {*/
+/*    !*-fx-stroke: transparent;*!*/
+/*    .line-symbol {*/
+/*        -fx-background-color: red;*/
+/*        -fx-shape: "M 0 0 L 1 0 L 0.5 1 Z";*/
+/*    }*/
+/*}*/
+
+/*.line-chart .data2-line {*/
+/*    !*-fx-stroke: transparent;*!*/
+/*    .line-symbol {*/
+/*        -fx-background-color: black;*/
+/*        -fx-shape: "M 0 0 L 1 0 L 0.5 1 Z";*/
+/*    }*/
+/*}*/
+
+/*.special-data-point .chart-symbol {*/
+/*    -fx-visibility: visible;*/
+/*    -fx-shape: "M 0 0 L 1 0 L 0.5 1 Z";*/
+/*}*/
+
+/*.chart-line-symbol {*/
+/*    -fx-background-color: null;*/
+/*    -fx-shape: "";*/
+/*    -fx-visibility: hidden;*/
+/*}*/
+
+/*.chart-line-symbol {*/
+/*    -fx-background-color: null;*/
+/*    -fx-shape: "M 0 0 L 1 0 L 0.5 1 Z";*/
+/*    -fx-visibility: hidden;*/
+/*    -fx-transform: rotate(45deg) scale(0.5);*/
+/*}*/
