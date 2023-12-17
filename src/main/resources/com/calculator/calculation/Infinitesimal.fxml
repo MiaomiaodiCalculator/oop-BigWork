@@ -26,7 +26,7 @@
             <ImageView fx:id="returnImg" fitHeight="36.0" fitWidth="35.0" layoutX="9.0" layoutY="14.0" onMouseClicked="#handleReturnClick" pickOnBounds="true" preserveRatio="true">
                 <Image url="@images/return.png" />
             </ImageView>
-            <TableView fx:id="historyTableView" layoutY="65.0" onMouseClicked="#handleHistoryRowClick" prefHeight="633.0" prefWidth="500.0">
+            <TableView fx:id="historyTableView" layoutY="65.0" onMouseClicked="#handleHistoryRowClick" prefHeight="633.0" prefWidth="500.0" stylesheets="@style/List.css">
                 <columns>
                     <TableColumn fx:id="historyTimeList" prefWidth="142.0" text="保存时间" />
                     <TableColumn fx:id="historyFormulaList" prefWidth="227.0" text="积分式" />
@@ -135,7 +135,7 @@
                     <Button fx:id="BUTTON_paraX" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="自变量x" textFill="#121212" GridPane.rowIndex="7" />
                 </children>
             </GridPane>
-            <TableView fx:id="FunctionTableView" layoutX="7.0" layoutY="244.0" onMouseClicked="#handleRowClick" prefHeight="401.0" prefWidth="490.0" visible="false">
+            <TableView fx:id="FunctionTableView" layoutX="7.0" layoutY="244.0" onMouseClicked="#handleRowClick" prefHeight="401.0" prefWidth="490.0" visible="false" stylesheets="@style/List.css">
                 <columns>
                     <TableColumn fx:id="nameList" prefWidth="94.0" text="函数名" />
                     <TableColumn fx:id="paraNumList" prefWidth="76.0" text="参数个数" />
