@@ -7,6 +7,7 @@ import javafx.scene.canvas.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -17,6 +18,8 @@ import java.util.*;
 import javafx.fxml.FXML;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.shape.Cylinder;
+
+import static user.Shift.VectorShift;
 
 /**
  * @author Bu Xinran
@@ -37,10 +40,6 @@ public class VectorController implements Initializable{
     public ImageView cross2D;
     public ImageView dot2D;
     public ImageView add2D;
-    public Label addResult;
-    public Label dotResult;
-    public Label crossResult;
-    public Label angleResult;
     public Label error;
     public Canvas vectorCanvas;
     public ImageView add3D;
@@ -56,7 +55,7 @@ public class VectorController implements Initializable{
     @FXML
     private StackPane cardContainer;
     private GraphicsContext gc=null;
-    private static boolean flag=false;
+    public static boolean flag=false;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(!flag) {
@@ -71,6 +70,8 @@ public class VectorController implements Initializable{
      **/
     public void Vector2DShift() {
         loadPage("Vector2D.fxml");
+        Button2D.getStyleClass().add("active");
+        Button3D.getStyleClass().remove("active");
     }
     /***
      * @Description  加载三维向量对应的文件
@@ -79,6 +80,8 @@ public class VectorController implements Initializable{
      **/
     public void Vector3DShift() {
         loadPage("Vector3D.fxml");
+        Button3D.getStyleClass().add("active");
+        Button2D.getStyleClass().remove("active");
     }
     /***
      * @Description  加载卡片布局：fxml文件
@@ -101,7 +104,8 @@ public class VectorController implements Initializable{
      * @author Bu Xinran
      * @date 2023/11/25 20:49
      **/
-    public void setNewVector2(ActionEvent newVector) {
+    public void setNewVector2(ActionEvent newVector) throws Exception {
+        error.setVisible(false);
         if(gc!=null){
             gc.clearRect(0, 0, vectorCanvas.getWidth(), vectorCanvas.getHeight()); // 清空画布内容
         }
@@ -123,20 +127,24 @@ public class VectorController implements Initializable{
             dot2D.setVisible(true);
             cross2D.setVisible(true);
             angle2D.setVisible(true);
-            addResult.setText("=(" + add[0] + "," + add[1] + ")");
-            dotResult.setText("=" + dot);
-            crossResult.setText("=" + cross);
-            angleResult.setText("=" + angle);
+            String addResult="=(" + add[0] + "," + add[1] + ")";
+            Image i1=VectorShift(addResult,1,2);
+            add2D.setImage(i1);
+            String dotResult="=" + dot;
+            Image i2=VectorShift(dotResult,2,2);
+            dot2D.setImage(i2);
+            String crossResult="=" + cross;
+            Image i3=VectorShift(crossResult,3,2);
+            cross2D.setImage(i3);
+            String angleResult="=" + angle;
+            Image i4=VectorShift(angleResult,4,2);
+            angle2D.setImage(i4);
             drawCoordinateSystem(X1, Y1, X2, Y2);
         } else {
             add2D.setVisible(false);
             dot2D.setVisible(false);
             cross2D.setVisible(false);
             angle2D.setVisible(false);
-            addResult.setText("");
-            dotResult.setText("");
-            crossResult.setText("");
-            angleResult.setText("");
             error.setVisible(true);
         }
         cntHistory++;
@@ -164,26 +172,9 @@ public class VectorController implements Initializable{
         dataSeries1.setName("Vector 1");
         dataSeries2.setName("Vector 2");
         LineChart2D.getData().addAll(dataSeries1, dataSeries2);
-        double K1 = Y1/X1;
-        double K2 = Y2/X2;
-        double theta1 = Math.atan(K1);
-        double theta2 = Math.atan(K2);
-        double angle1 = Math.toDegrees(theta1);
-        double angle2 = Math.toDegrees(theta2);
         LineChart2D.getStyleClass().add(getClass().getResource("css/Vector2DDraw.css").toExternalForm());
         dataSeries1.getData().get(0).getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: transparent;");
         dataSeries2.getData().get(0).getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: transparent;");
-        // TODO:是否更换箭头形状
-        dataSeries1.getData().get(1).getNode().lookup(".chart-line-symbol").setStyle("-fx-shape: \"M0,1 L0,2 L1,2 L1,3 L2,3 L2,2 L3,2 L3,1 L2,1 L2,0 L1,0 L1,2 z\";-fx-rotate: 45;-fx-scale-x: 1.5; -fx-scale-y: 1.5;");
-        dataSeries2.getData().get(1).getNode().lookup(".chart-line-symbol").setStyle("-fx-shape: \"M 0 0 L 1 0 L 0.5 1 Z\";-fx-rotate: 45;-fx-scale-x: 1.5; -fx-scale-y: 1.5;");
-//        ;-fx-rotate: angle1
-        dataSeries1.getData().get(1).getNode().setRotate(270 - angle1);
-        dataSeries2.getData().get(1).getNode().setRotate(270 - angle2);
-//        dataSeries1.getNode().getStyleClass().add("data1-line");
-//        dataSeries2.getNode().getStyleClass().add("data2-line");
-//        dataSeries1.getNode().getStyleClass().add("chart-line-symbol");
-//        dataSeries1.getData().get(1).getNode().getStyleClass().add("special-data-point");
-//        dataSeries2.getData().get(1).getNode().getStyleClass().add("special-data-point");
     }
     /***
      * @Description 根据直线方向绘制箭头
@@ -240,7 +231,7 @@ public class VectorController implements Initializable{
      * @author Bu Xinran
      * @date 2023/11/25 22:49
      **/
-    public void setNewVector3(ActionEvent newVector3) {
+    public void setNewVector3(ActionEvent newVector3) throws Exception {
         if(gc!=null){
             gc.clearRect(0, 0, vectorCanvas.getWidth(), vectorCanvas.getHeight()); // 清空画布内容
         }
@@ -266,46 +257,23 @@ public class VectorController implements Initializable{
             dot3D.setVisible(true);
             cross3D.setVisible(true);
             angle3D.setVisible(true);
-            addResult.setText("=(" + add[0] + "," + add[1] + ","+add[2]+")");
-            dotResult.setText("=" + dot);
-            crossResult.setText("=" + cross);
-            angleResult.setText("=" + angle);
-            Group axisGroup = new Group();
-            PerspectiveCamera camera = new PerspectiveCamera(true);
-            camera.setTranslateX(0); // 将相机位置设置为中心
-            camera.setTranslateY(0);
-            camera.setTranslateZ(-5000); // 将相机向后移动 5000 个距离单位，增加视野范围
-            subScene.setCamera(camera);
-            // 计算新的 subScene 尺寸
-            double subSceneWidth = 500.0;
-            double subSceneHeight = 240.0;
-            // 创建 x 轴
-            Cylinder xAxis = new Cylinder(2, subSceneWidth * 2);
-            xAxis.setTranslateX(subSceneWidth / 2);
-            axisGroup.getChildren().add(xAxis);
-            // 创建 y 轴
-            Cylinder yAxis = new Cylinder(2, subSceneHeight * 2);
-            yAxis.setTranslateY(subSceneHeight / 2);
-            yAxis.setRotate(90);
-            axisGroup.getChildren().add(yAxis);
-            // 创建 z 轴
-            Cylinder zAxis = new Cylinder(2, subSceneWidth * 2);
-            zAxis.setTranslateZ(-subSceneHeight * 2); // 将 z 轴位置向后移动到场景外
-            zAxis.setRotate(90);
-            axisGroup.getChildren().add(zAxis);
-            // 将坐标轴添加到 3D 场景中
-            subScene.setRoot(axisGroup);
-            subScene.setVisible(true);
-
+            String addResult="=(" + add[0] + "," + add[1] + ","+add[2]+")";
+            Image i1=VectorShift(addResult,1,3);
+            add3D.setImage(i1);
+            String dotResult="=" + dot;
+            Image i2=VectorShift(dotResult,2,3);
+            dot3D.setImage(i2);
+            String crossResult="=" + cross;
+            Image i3=VectorShift(crossResult,3,3);
+            cross3D.setImage(i3);
+            String angleResult="=" + angle;
+            Image i4=VectorShift(angleResult,4,3);
+            angle3D.setImage(i4);
         } else {
             add3D.setVisible(false);
             dot3D.setVisible(false);
             cross3D.setVisible(false);
             angle3D.setVisible(false);
-            addResult.setText("");
-            dotResult.setText("");
-            crossResult.setText("");
-            angleResult.setText("");
             error.setVisible(true);
         }
         cntHistory++;

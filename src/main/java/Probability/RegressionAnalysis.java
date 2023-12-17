@@ -90,6 +90,7 @@ public class RegressionAnalysis {
                     p1 = String.format("%.3f", parameters[0]);
                     p2 = String.format("%.3f", parameters[1]);
                     regressionExpression = "y = " + p1 + "lnx + " + p2;
+                    regressionExpression = "y = " + parameters[0] + "lnx " + "+ " + parameters[1];
                     predictedY = parameters[0] * Math.log(x) + parameters[1];
                     break;
             }
