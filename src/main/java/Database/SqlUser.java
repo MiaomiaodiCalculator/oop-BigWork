@@ -1,4 +1,6 @@
 package Database;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import user.User;
 
@@ -11,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * @author Bu Xinran
@@ -35,7 +38,6 @@ public class SqlUser {
             connection = DriverManager.getConnection(url,username,password);
         }
         catch(Exception e) {
-            e.printStackTrace();
             connection = null;
         }
     }
@@ -54,7 +56,6 @@ public class SqlUser {
             return existResult.next();
         }
         catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }

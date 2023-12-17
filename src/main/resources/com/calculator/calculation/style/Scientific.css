@@ -93,7 +93,23 @@
   -fx-cursor: hand;
   -fx-font-size: 16pt;
 }
-#alertFunction .button {
+#delete .button {
+  -fx-background-color: #333333;
+ -fx-text-fill: white;
+ -fx-font-weight: bold;
+ -fx-border-radius: 5px;
+}
+#delete .root{
+   -fx-background-color:gray;
+}
+#delete Label {
+  -fx-background-color:white;
+  -fx-font-weight: bold;
+  -fx-text-fill: #333333;
+  -fx-cursor: hand;
+  -fx-font-size: 16pt;
+}
+#delete .button {
   -fx-background-color: #333333;
  -fx-text-fill: white;
  -fx-font-weight: bold;

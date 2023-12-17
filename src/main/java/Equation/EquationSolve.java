@@ -1,4 +1,8 @@
 package Equation;
+import com.calculator.calculation.EquationController;
+import com.singularsys.jep.EvaluationException;
+import com.singularsys.jep.Jep;
+import com.singularsys.jep.ParseException;
 import org.apache.commons.math3.analysis.differentiation.UnivariateDifferentiableFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.analysis.solvers.*;
@@ -28,12 +32,42 @@ public class EquationSolve {
      * @author Bu Xinran
      * @date 2023/11/29 23:00
     **/
-    public static List<Double> getAnswer(String equation) {
+    public static List<Double> getAnswer(String equation) throws ParseException, EvaluationException {
         double[] d = shiftEquation(equation);
+        int count = 0;
+        List<Double> res = new ArrayList<>();
+        for (double num :d) {
+            if (num != 0) {
+                count++;
+            }
+        }
+        if(count==1&&d[0]!=0) EquationController.calFlag=EquationError.notEqual;
+        else if(count==1){
+            res.add(0.0);
+            return res;
+        }else if(count==2&&d[0]!=0){
+            double xi=d[0],m=1,j = 1;
+            for(int i=1;i<d.length;i++){
+                if(d[i]!=0){
+                    m=d[i];
+                    j=i;
+                    break;
+                }
+            }
+            xi/=m;
+            String exp=xi+"^(1/"+j+")";
+            Jep jep=new Jep();
+            jep.parse(exp);
+            String answer=jep.evaluate().toString();
+            res.add(Double.parseDouble(answer));
+            if(j%2==0){
+                res.add(-Double.parseDouble(answer));
+            }
+            return res;
+        }
         UnivariateDifferentiableFunction function = new PolynomialFunction(d);
         System.out.println(function);
         UnivariateDifferentiableSolver solver = new NewtonRaphsonSolver();
-        List<Double> res = new ArrayList<>();
         double initialGuess = 0;
         double epsilon = 1e-6;
         while (true) {
@@ -57,7 +91,7 @@ public class EquationSolve {
      * @author Bu Xinran
      * @date 2023/11/30 10:37
     **/
-    private static double[] shiftEquation(String equation) {
+    public static double[] shiftEquation(String equation) {
         String[] terms = equation.split("(?=[+-])");
         double[] d=new double[60];
         for(int i=0;i<60;i++){
