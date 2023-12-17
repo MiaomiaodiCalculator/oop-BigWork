@@ -100,6 +100,7 @@ public class DiscreteMathController implements Initializable {
     public void MinTreeShift(ActionEvent actionEvent) {
         MinTreePane.setVisible(true);
         ShortPathPane.setVisible(false);
+//        CanvasShowGraph.setStyle("-fx-background-color: lightblue; -fx-border-color: #0a5469; -fx-border-width: 2px;");
     }
 
     private int getDest(String input) throws NotInputDataException {
@@ -252,9 +253,9 @@ public class DiscreteMathController implements Initializable {
         buttonBox.setTranslateY(10);
         root.getChildren().add(buttonBox);
 
-        Button drawLineButton = new Button("Draw Line");
-        drawLineButton.setOnAction(event -> drawLine());
-        buttonBox.getChildren().add(drawLineButton);
+//        Button drawLineButton = new Button("Draw Line");
+//        drawLineButton.setOnAction(event -> drawLine());
+//        buttonBox.getChildren().add(drawLineButton);
 
         gc = CanvasShowGraph.getGraphicsContext2D();
         gc.setFill(CIRCLE_COLOR);
@@ -297,10 +298,10 @@ public class DiscreteMathController implements Initializable {
                     path.setStroke(Color.BLACK);
                     path.setStrokeWidth(2);
                     path.getElements().add(new MoveTo(
-                            circles.get(next).getCenterX() + CanvasShowGraph.getLayoutX() + 4,
+                            circles.get(next).getCenterX() + CanvasShowGraph.getLayoutX(),
                             circles.get(next).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + 32));
                     path.getElements().add(new LineTo(
-                            circles.get(cur).getCenterX() + CanvasShowGraph.getLayoutX() + GraphPane.getLayoutX() - 3,
+                            circles.get(cur).getCenterX() + CanvasShowGraph.getLayoutX() + GraphPane.getLayoutX(),
                             circles.get(cur).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + 32));
                     GraphPane.getChildren().add(path);
                     pCnt[0]++;

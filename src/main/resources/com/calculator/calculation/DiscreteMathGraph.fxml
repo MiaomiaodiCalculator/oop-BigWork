@@ -36,10 +36,10 @@
                </font>
             </Label>
             <TextField fx:id="minAns" editable="false" layoutX="137.0" layoutY="519.0" prefHeight="36.0" prefWidth="351.0" />
-               <Button fx:id="ButtonGenerateGraph" layoutX="257.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleShowMTree" prefHeight="36.0" prefWidth="112.0" text="Generate" />
-            <Button fx:id="ButtonGraphDataEnter" layoutX="373.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleMTDataConfirm" prefHeight="36.0" prefWidth="112.0" text="Enter" />
-            <TextField fx:id="PointNumText" layoutX="111.0" layoutY="14.0" onKeyPressed="#handleMTPointNumKeyPressed" prefHeight="36.0" prefWidth="137.0" />
-            <Label layoutX="26.0" layoutY="22.0" text="PointNum">
+               <Button fx:id="ButtonGenerateGraph" layoutX="257.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleShowMTree" prefHeight="36.0" prefWidth="112.0" text="生成动画" />
+            <Button fx:id="ButtonGraphDataEnter" layoutX="373.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleMTDataConfirm" prefHeight="36.0" prefWidth="112.0" text="确认构图" />
+            <TextField fx:id="PointNumText" layoutX="56.0" layoutY="14.0" onKeyPressed="#handleMTPointNumKeyPressed" prefHeight="36.0" prefWidth="192.0" promptText="请输入一个数字" />
+            <Label layoutX="26.0" layoutY="22.0" text="图的点数">
                <font>
                   <Font size="14.0" />
                </font>
