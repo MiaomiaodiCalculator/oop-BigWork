@@ -509,8 +509,9 @@ public class UnitTranslationController implements Initializable  {
      **/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        VolumeShift(new ActionEvent());
         input.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override //键入ENTER时尝试绘制
+            @Override //键入ENTER时进行单位换算
             public void handle(KeyEvent event) {
                 if(event.getCode() == KeyCode.ENTER)
                     Calculate(new ActionEvent());
