@@ -478,8 +478,8 @@
                      </children></Pane>
                </children>
             </Pane>
-                <Button id="button" layoutX="98.0" layoutY="57.0" mnemonicParsing="false" onAction="#shift1" prefHeight="28.0" prefWidth="152.0" text="多元一次方程组" />
-                <Button id="button" layoutX="250.0" layoutY="57.0" mnemonicParsing="false" onAction="#shift2" prefHeight="28.0" prefWidth="152.0" text="多次方程" />
+                <Button fx:id="equation1" id="button" layoutX="98.0" layoutY="57.0" mnemonicParsing="false" onAction="#shift1" prefHeight="28.0" prefWidth="152.0" text="多元一次方程组" />
+                <Button fx:id="equation2" id="button" layoutX="250.0" layoutY="57.0" mnemonicParsing="false" onAction="#shift2" prefHeight="28.0" prefWidth="152.0" text="多次方程" />
           </children>
        </Pane>
    </children>

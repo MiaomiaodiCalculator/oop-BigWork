@@ -71,6 +71,8 @@ public class VectorController implements Initializable{
      **/
     public void Vector2DShift() {
         loadPage("Vector2D.fxml");
+        Button2D.getStyleClass().add("active");
+        Button3D.getStyleClass().remove("active");
     }
     /***
      * @Description  加载三维向量对应的文件
@@ -79,6 +81,8 @@ public class VectorController implements Initializable{
      **/
     public void Vector3DShift() {
         loadPage("Vector3D.fxml");
+        Button3D.getStyleClass().add("active");
+        Button2D.getStyleClass().remove("active");
     }
     /***
      * @Description  加载卡片布局：fxml文件

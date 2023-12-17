@@ -21,3 +21,7 @@
     -fx-border-color: #4CAF50;
     -fx-text-fill: #FFFFFF;
 }
+#button.active{
+    -fx-background-color: #F0F0F0;
+    -fx-text-fill: #808080;
+}
