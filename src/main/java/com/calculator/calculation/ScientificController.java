@@ -430,6 +430,7 @@ public class ScientificController implements Initializable{
                 break;
             case "C":
                 formula="";
+                exp="";
                 answer="";
                 calFlag=ErrorScientific.yes;
                 answerShow.setText("");

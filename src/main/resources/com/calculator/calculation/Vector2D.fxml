@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <AnchorPane prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.VectorController">
+    <stylesheets>
+        <URL value="@style/Vector.css" />
+    </stylesheets>
     <children>
-        <Label layoutX="14.0" layoutY="101.0" text="第一个向量" />
-        <Label layoutX="14.0" layoutY="175.0" text="第二个向量" />
-        <Label layoutX="14.0" layoutY="137.0" text="x1：" />
-        <TextField fx:id="inputX1" layoutX="52.0" layoutY="131.0" prefHeight="36.0" prefWidth="188.0" />
-        <Label layoutX="250.0" layoutY="137.0" text="y1：" />
-        <TextField fx:id="inputY1" layoutX="294.0" layoutY="131.0" prefHeight="36.0" prefWidth="188.0" />
-        <Label layoutX="14.0" layoutY="208.0" text="x1：" />
-        <Label layoutX="250.0" layoutY="208.0" text="y1：" />
-        <TextField fx:id="inputX2" layoutX="52.0" layoutY="202.0" prefHeight="36.0" prefWidth="188.0" />
-        <TextField fx:id="inputY2" layoutX="294.0" layoutY="202.0" prefHeight="36.0" prefWidth="188.0" />
-        <Button layoutX="201.0" layoutY="246.0" mnemonicParsing="false" onAction="#setNewVector2" prefHeight="36.0" prefWidth="78.0" text="计算" />
+        <Label id="vector" layoutX="14.0" layoutY="101.0" text="第一个向量" />
+        <Label id="vector" layoutX="14.0" layoutY="175.0" text="第二个向量" />
+        <Label id="tip" layoutX="14.0" layoutY="137.0" prefHeight="25.0" prefWidth="34.0" text="x1：" />
+        <TextField id="filed" fx:id="inputX1" focusTraversable="false" layoutX="52.0" layoutY="131.0" prefHeight="36.0" prefWidth="188.0" />
+        <Label id="tip" layoutX="259.0" layoutY="137.0" prefHeight="25.0" prefWidth="34.0" text="y1：" />
+        <TextField id="filed" fx:id="inputY1" focusTraversable="false" layoutX="294.0" layoutY="131.0" prefHeight="36.0" prefWidth="188.0" />
+        <Label id="tip" layoutX="14.0" layoutY="208.0" prefHeight="25.0" prefWidth="34.0" text="x1：" />
+        <Label id="tip" layoutX="259.0" layoutY="208.0" prefHeight="25.0" prefWidth="34.0" text="y1：" />
+        <TextField id="filed" fx:id="inputX2" focusTraversable="false" layoutX="52.0" layoutY="202.0" prefHeight="36.0" prefWidth="188.0" />
+        <TextField id="filed" fx:id="inputY2" focusTraversable="false" layoutX="294.0" layoutY="202.0" prefHeight="36.0" prefWidth="188.0" />
+        <Button id="getAns" layoutX="419.0" layoutY="247.0" mnemonicParsing="false" onAction="#setNewVector2" prefHeight="36.0" prefWidth="63.0" text="计算" />
     </children>
     <children>
-        <ImageView fx:id="add2D" layoutX="17.0" layoutY="518.0" visible="false">
+        <ImageView fx:id="add2D" fitHeight="37.0"  layoutX="23.0" layoutY="529.0" visible="false">
             <image>
                 <Image url="@images/vectorAdd2D.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="dot2D" layoutX="23.0" layoutY="559.0" visible="false">
+        <ImageView fx:id="dot2D" fitHeight="37.0" layoutX="23.0" layoutY="566.0" visible="false">
             <image>
                 <Image url="@images/vectorDot2D.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="cross2D" layoutX="18.0" layoutY="606.0" visible="false">
+        <ImageView fx:id="cross2D" fitHeight="37.0"  layoutX="23.0" layoutY="603.0" visible="false">
             <image>
                 <Image url="@images/vectorCross2D.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="angle2D" layoutX="21.0" layoutY="653.0" visible="false">
+        <ImageView fx:id="angle2D" fitHeight="37.0"  layoutX="23.0" layoutY="640.0" visible="false">
             <image>
                 <Image url="@images/vectorAngle2D.png" />
             </image>
         </ImageView>
-        <Label fx:id="addResult" layoutX="101.0" layoutY="518.0" prefHeight="48.0" prefWidth="382.0" style="-fx-font-size: 28px;" />
-        <Label fx:id="dotResult" layoutX="84.0" layoutY="562.0" style="-fx-font-size: 28px;" />
-        <Label fx:id="crossResult" layoutX="98.0" layoutY="609.0" style="-fx-font-size: 28px;" />
-        <Label fx:id="angleResult" layoutX="181.0" layoutY="657.0" style="-fx-font-size: 28px;" />
-        <Label fx:id="error" layoutX="85.0" layoutY="296.0" prefHeight="90.0" prefWidth="330.0" style="-fx-font-size: 40px;" text="输入了非法字符！" visible="false" />
-        <Canvas fx:id="vectorCanvas" height="237.0" layoutX="3.0" layoutY="286.0" width="494.0" />
+        <Label id="answer" fx:id="error" layoutX="208.0" layoutY="524.0" prefHeight="37.0" prefWidth="85.0" style="-fx-font-size: 18px;" text="ERROR！" visible="false">
+         <font>
+            <Font size="12.0" />
+         </font></Label>
       <LineChart fx:id="LineChart2D" layoutX="3.0" layoutY="286.0" prefHeight="237.0" prefWidth="494.0">
         <xAxis>
           <NumberAxis side="BOTTOM" />
@@ -57,4 +61,5 @@
         </yAxis>
       </LineChart>
     </children>
+
 </AnchorPane>

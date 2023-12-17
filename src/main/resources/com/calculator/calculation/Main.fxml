@@ -15,7 +15,7 @@
     <children>
        <BorderPane>
            <top>
-               <MenuBar>
+               <MenuBar id="menu">
                   <menus>
                       <Menu text="菜单">
                          <items>

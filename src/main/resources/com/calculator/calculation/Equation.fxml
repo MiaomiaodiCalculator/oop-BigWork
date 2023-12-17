@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -8,8 +9,8 @@
 <?import javafx.scene.shape.MoveTo?>
 <?import javafx.scene.shape.CubicCurveTo?>
 <?import javafx.scene.shape.SVGPath?>
-
 <?import java.net.URL?>
+
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.EquationController">
    <stylesheets>
       <URL value="@style/Equation.css" />
@@ -17,11 +18,11 @@
    <children>
        <Pane>
           <children>
-              <Text id="tittle" layoutX="202.0" layoutY="42.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="解方程" wrappingWidth="95.0">
-                  <font>
-                      <Font size="28.0" />
-                  </font>
-              </Text>
+             <Text id="title" layoutX="203.0" layoutY="42.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="解方程" wrappingWidth="95.0">
+                <font>
+                   <Font size="28.0" />
+                </font>
+             </Text>
               <Pane fx:id="Equation" prefHeight="698.0" prefWidth="500.0" visible="false">
                  <children>
                      <Label fx:id="showArea" layoutX="7.0" layoutY="108.0" prefHeight="111.0" prefWidth="485.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5px;" />
@@ -68,11 +69,11 @@
             <Pane fx:id="Equations" layoutY="103.0" prefHeight="593.0" prefWidth="500.0">
                <children>
                    <Pane layoutX="10.0" prefHeight="37.0" prefWidth="475.0">
-                      <children>
-                        <Button layoutX="60.0" layoutY="1.0" mnemonicParsing="false" onAction="#shift" text="2×2" />
-                        <Button layoutX="220.0" mnemonicParsing="false" onAction="#shift" text="3×3" />
-                        <Button layoutX="380.0" mnemonicParsing="false" onAction="#shift" text="4×4" />
-                      </children>
+                       <children>
+                           <Button id="button" fx:id="d2" layoutX="140.0" layoutY="1.0" mnemonicParsing="false" onAction="#shift" prefHeight="36.0" prefWidth="69.0" text="2×2" />
+                           <Button id="button" fx:id="d3" layoutX="209.0" layoutY="1.0" mnemonicParsing="false" onAction="#shift" prefHeight="36.0" prefWidth="69.0" text="3×3" />
+                           <Button id="button" fx:id="d4" layoutX="278.0" layoutY="1.0" mnemonicParsing="false" onAction="#shift" prefHeight="36.0" prefWidth="69.0" text="4×4" />
+                       </children>
                    </Pane>
                </children>
                <children>
@@ -122,7 +123,7 @@
                            <font>
                               <Font size="25.0" />
                            </font></TextField>
-                        <Button fx:id="e2answer" layoutX="182.0" layoutY="187.0" mnemonicParsing="false" onAction="#getAns" prefHeight="48.0" prefWidth="95.0" text="计算" />
+                        <Button id="getAns" fx:id="e2answer" layoutX="182.0" layoutY="187.0" mnemonicParsing="false" onAction="#getAns" prefHeight="48.0" prefWidth="95.0" text="计算" />
                         <Pane fx:id="e2answerShow" layoutX="7.0" layoutY="259.0" prefHeight="200.0" prefWidth="473.0">
                            <children>
                               <Label fx:id="e2x" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" prefHeight="64.0" prefWidth="284.0">
@@ -231,7 +232,7 @@
                               <Font name="Agency FB" size="30.0" />
                            </font>
                         </Label>
-                        <Button fx:id="e3answer" layoutX="207.0" layoutY="239.0" mnemonicParsing="false" onAction="#getAns" prefHeight="51.0" prefWidth="87.0" text="计算" />
+                        <Button id="getAns" fx:id="e3answer" layoutX="207.0" layoutY="239.0" mnemonicParsing="false" onAction="#getAns" prefHeight="51.0" prefWidth="87.0" text="计算" />
                         <Pane fx:id="e3answerShow" layoutX="8.0" layoutY="298.0" prefHeight="246.0" prefWidth="485.0">
                            <children>
                               <Label fx:id="e3x" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="8.0" prefHeight="64.0" prefWidth="284.0">
@@ -450,7 +451,7 @@
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <Button layoutX="192.0" layoutY="243.0" mnemonicParsing="false" onAction="#getAns" prefHeight="37.0" prefWidth="87.0" text="计算" />
+                        <Button id="getAns" layoutX="192.0" layoutY="243.0" mnemonicParsing="false" onAction="#getAns" prefHeight="37.0" prefWidth="87.0" text="计算" />
                         <Pane fx:id="e4answerShow" layoutX="8.0" layoutY="282.0" prefHeight="272.0" prefWidth="485.0">
                            <children>
                               <Label fx:id="e4x" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="7.0" prefHeight="64.0" prefWidth="284.0">
@@ -478,8 +479,8 @@
                      </children></Pane>
                </children>
             </Pane>
-                <Button fx:id="equation1" id="button" layoutX="98.0" layoutY="57.0" mnemonicParsing="false" onAction="#shift1" prefHeight="28.0" prefWidth="152.0" text="多元一次方程组" />
-                <Button fx:id="equation2" id="button" layoutX="250.0" layoutY="57.0" mnemonicParsing="false" onAction="#shift2" prefHeight="28.0" prefWidth="152.0" text="多次方程" />
+                <Button id="button" fx:id="equation1" layoutX="98.0" layoutY="57.0" mnemonicParsing="false" onAction="#shift1" prefHeight="28.0" prefWidth="152.0" text="多元一次方程组" />
+                <Button id="button" fx:id="equation2" layoutX="250.0" layoutY="57.0" mnemonicParsing="false" onAction="#shift2" prefHeight="28.0" prefWidth="152.0" text="多次方程" />
           </children>
        </Pane>
    </children>
