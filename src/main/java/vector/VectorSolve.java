@@ -26,7 +26,7 @@ public class VectorSolve implements Serializable {
     protected double dot;
     protected double cross;
     protected double angle;
-    public VectorSolve(String x1, String y1, String z1, String x2, String y2, String z2, int state){
+    public VectorSolve(String x1,String y1,String z1,String x2,String y2,String z2,int state){
         this.x1=x1;
         this.y1=y1;
         this.z1=z1;
@@ -82,7 +82,7 @@ public class VectorSolve implements Serializable {
      * @return double
      * @author Bu Xinran
      * @date 2023/11/28 13:39
-    **/
+     **/
 
     public double crossVector(){
         if(state==2){
@@ -99,7 +99,7 @@ public class VectorSolve implements Serializable {
      * @return double
      * @author Bu Xinran
      * @date 2023/11/28 13:40
-    **/
+     **/
     public double angleVector(){
         if(state==2){
             angle=X1*X2+Y1*Y2;
