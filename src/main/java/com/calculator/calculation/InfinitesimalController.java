@@ -163,7 +163,6 @@ public class InfinitesimalController {
         if (mouseEvent.getClickCount() == 2) {//左键双击添加
             InfinitesimalSolve ift = (InfinitesimalSolve) (historyTableView.getSelectionModel().getSelectedItem());
             if(ift==null){
-                System.out.println("点空了");
                 return ;
             }
             if(SqlInfinitesimal.exists(ift.getSaveTime())){
@@ -306,7 +305,6 @@ public class InfinitesimalController {
                 exp+=")";
                 break;
             default:
-                System.out.println("按钮"+str+"未设置");
                 return;
         }
         formulaProcess.add(formula);

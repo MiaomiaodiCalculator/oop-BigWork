@@ -122,7 +122,6 @@ public class FunctionController implements Initializable {
     @FXML
     private void handleSaveClick(ActionEvent event) {
         String judgeName = UserFunction.judgeName(functionName.getText());
-        System.out.println(functionName.getText());
         Dialog alert = new Dialog();
         alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
         alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
@@ -369,7 +368,6 @@ public class FunctionController implements Initializable {
                 else exp+="$"+str+"$";
                 break;
             default:
-                System.out.println("按钮"+str+"未设置");
                 return;
         }
         formulaProcess.add(formula);
@@ -548,8 +546,9 @@ public class FunctionController implements Initializable {
             iftController.getJumpFunction(f.getFormula(),f.getExp());
             MainController.mainController.getCardContainer().getChildren().setAll(root);
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Jump to ift:error");
+            Dialog<String> dialog=new Dialog<>();
+            dialog.setTitle("出现错误！");
+            dialog.setHeaderText("跳转到微积分页面失败qwq");
         }
     }
     /**
@@ -566,8 +565,9 @@ public class FunctionController implements Initializable {
             visController.getJumpFunction(f.getExp().replace("$x$","x"));
             MainController.mainController.getCardContainer().getChildren().setAll(root);
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Jump to vis:error");
+            Dialog<String> dialog=new Dialog<>();
+            dialog.setTitle("出现错误！");
+            dialog.setHeaderText("跳转到图像绘制页面失败qwq");
         }
     }
     /**
