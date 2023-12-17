@@ -51,7 +51,7 @@ public class VectorController implements Initializable{
     @FXML
     private StackPane cardContainer;
     private GraphicsContext gc=null;
-    private static boolean flag=false;
+    public static boolean flag=false;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(!flag) {

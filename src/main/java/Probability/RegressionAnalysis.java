@@ -80,7 +80,7 @@ public class RegressionAnalysis {
                     break;
                 case 4: // 对数回归
                     getLogParameters();
-                    regressionExpression = "y = " + parameters[0] + "lnx " + parameters[1];
+                    regressionExpression = "y = " + parameters[0] + "lnx " + "+ " + parameters[1];
                     predictedY = parameters[0] * Math.log(x) + parameters[1];
                     break;
             }
