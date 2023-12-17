@@ -1,23 +1,29 @@
 package com.calculator.calculation;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 /**
  * @author ZhouYH
  * @Description 处理单位换算的点击事件
  * @date 2023/11/27 19:46
  */
-public class UnitTranslationController {
+public class UnitTranslationController implements Initializable  {
     public TextField input;
     public TextField output;
     public TextField unit1;
@@ -265,7 +271,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Volume");
+        TypeSet.setText("体积");
         type=1;
     }
 
@@ -284,7 +290,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Length");
+        TypeSet.setText("长度");
         type=2;
     }
 
@@ -303,7 +309,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Weight");
+        TypeSet.setText("质量");
         type=3;
     }
 
@@ -322,7 +328,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Temperature");
+        TypeSet.setText("温度");
         type=4;
     }
 
@@ -341,7 +347,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Area");
+        TypeSet.setText("面积");
         type=5;
     }
 
@@ -360,7 +366,7 @@ public class UnitTranslationController {
         Times.setVisible(true);
         Angle.setVisible(false);
         newText();
-        TypeSet.setText("Time");
+        TypeSet.setText("时间");
         type=6;
     }
 
@@ -379,7 +385,7 @@ public class UnitTranslationController {
         Times.setVisible(false);
         Angle.setVisible(true);
         newText();
-        TypeSet.setText("Angle");
+        TypeSet.setText("角度");
         type=7;
     }
 
@@ -493,4 +499,22 @@ public class UnitTranslationController {
     public void G1_2(ActionEvent actionEvent) { unit1.setText("弧度"); label1=2; }
     public void G2_1(ActionEvent actionEvent) { unit2.setText("度"); label2=1; }
     public void G2_2(ActionEvent actionEvent) { unit2.setText("弧度"); label2=2; }
+
+    /**
+     * @Description 初始化设置在输入栏点击回车键的行为
+     * @param url 无意义
+     * @param resourceBundle 无意义
+     * @author ZhouYH
+     * @date 2023/12/17 13:28
+     **/
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        input.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override //键入ENTER时尝试绘制
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.ENTER)
+                    Calculate(new ActionEvent());
+            }
+        });
+    }
 }

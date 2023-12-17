@@ -27,7 +27,7 @@
                              <MenuItem onAction="#ProbabilityShift" text="概率统计" />
                              <MenuItem onAction="#FunctionShift" text="自定义函数" />
                              <MenuItem onAction="#UnitTranslationShift" text="单位换算" />
-                             <MenuItem onAction="#VisualizationShift" text="绘制图像" />
+                             <MenuItem onAction="#VisualizationShift" text="函数图像显示" />
                          </items>
                       </Menu>
                   </menus>
