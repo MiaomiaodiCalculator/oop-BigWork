@@ -1,0 +1,60 @@
+/*UI*/
+#title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-stroke-width: 0;
+}
+.Canvas {
+    -fx-border-radius: 10px;
+    -fx-background-color: rgba(225, 232, 134, 0.89);
+}
+.table-view-title {
+    -fx-background-color: #FF9838;
+    -fx-border-color: #FFC187;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font: normal bold 16px 'serif';
+}
+.button {
+    -fx-background-color: #FF9838;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #FF9838;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font: normal bold 16px 'serif';
+}
+.button:hover {
+    -fx-background-color: White;
+    -fx-text-fill: #FF9838;
+}
+.button:selected {
+    -fx-background-color: #FFC187;
+    -fx-border-color: #FFC187;
+    -fx-text-fill: #FFFFFF;
+}
+.button.active{
+    -fx-background-color: #FFC187;
+    -fx-text-fill: BLACK;
+}
+
+.menu-bar {
+    -fx-background-color: #FFC187;
+}
+
+.menu-item {
+    -fx-text-fill: #000000;
+}
+/*UI*/
+.menu-bar:hover, .menu:hover {
+    -fx-background-color: #FFC187;
+}
+.menu-bar:pressed, .menu:pressed {
+    -fx-background-color: #FFC187;
+}
+.menu-item:hover, .menu-item:showing {
+    -fx-background-color: #FFC187;
+}
+.menu-item:pressed, .menu:showing {
+    -fx-background-color: #FF9838;
+}

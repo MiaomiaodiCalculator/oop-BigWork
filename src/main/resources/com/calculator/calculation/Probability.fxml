@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
@@ -8,16 +9,20 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import java.net.URL?>
 
 <AnchorPane prefHeight="698.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.ProbabilityController">
-   <children>
+    <stylesheets>
+        <URL value="@style/Prob.css" />
+    </stylesheets>
+    <children>
        <StackPane fx:id="ProbabilityCardContainer" layoutY="100.0" prefHeight="602.0" prefWidth="500.0" />
        <ImageView fx:id="historyImg" fitHeight="36.0" fitWidth="35.0" layoutX="448.0" layoutY="14.0" onMouseClicked="#handleHisImageClick" pickOnBounds="true" preserveRatio="true">
            <image>
                <Image url="@images/history.png" />
            </image>
        </ImageView>
-       <Text layoutX="193.0" layoutY="41.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="概率统计" wrappingWidth="114.0">
+       <Text fx:id="title" layoutX="193.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="概率统计" wrappingWidth="114.0">
            <font>
                <Font size="28.0" />
            </font>
@@ -82,7 +87,7 @@
             <Text layoutX="177.0" layoutY="427.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="百分位数" textAlignment="CENTER" wrappingWidth="80.0" />
             <Text fx:id="CovText" layoutX="177.0" layoutY="464.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="协方差" textAlignment="CENTER" wrappingWidth="80.0" />
             <Text fx:id="CorrelationText" layoutX="176.0" layoutY="501.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="相关系数" textAlignment="CENTER" wrappingWidth="80.0" />
-            <Button fx:id="PercentEnter" layoutX="439.0" layoutY="414.0" mnemonicParsing="false" onAction="#PercentGetClick" text="Enter">
+            <Button fx:id="PercentEnter" layoutX="439.0" layoutY="411.0" mnemonicParsing="false" onAction="#PercentGetClick" text="Enter">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></Button>
@@ -93,7 +98,7 @@
             <TextField fx:id="Cov" editable="false" layoutX="256.0" layoutY="440.0" prefHeight="36.0" prefWidth="235.0" />
             <TextField fx:id="Variance1" editable="false" layoutX="256.0" layoutY="329.0" prefHeight="36.0" prefWidth="108.0" />
             <TextField fx:id="StandardDeviation1" editable="false" layoutX="256.0" layoutY="366.0" prefHeight="36.0" prefWidth="108.0" />
-            <TextField fx:id="Percent" layoutX="310.0" layoutY="402.0" onKeyPressed="#handlePercentKeyPressed" prefHeight="36.0" prefWidth="55.0" promptText="[0,100]">
+            <TextField fx:id="Percent" layoutX="310.0" layoutY="403.0" onKeyPressed="#handlePercentKeyPressed" prefHeight="36.0" prefWidth="55.0" promptText="[0,100]">
                <font>
                   <Font size="12.0" />
                </font>
@@ -145,7 +150,7 @@
             </LineChart>
             <TextField layoutX="90.0" layoutY="43.0" onKeyPressed="#handleIndependentVar" prefHeight="10.0" prefWidth="248.0" promptText="请用一个空格隔开输入的数据" fx:id="xInput" />
             <TextField fx:id="yInput" layoutX="90.0" layoutY="73.0" onKeyPressed="#handleDependentVar" prefHeight="10.0" prefWidth="248.0" promptText="请用一个空格隔开输入的数据" />
-            <MenuButton layoutX="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="123.0" text="回归类型">
+            <MenuButton layoutX="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="100" text="回归类型">
               <items>
                 <MenuItem fx:id="linear" mnemonicParsing="false" onAction="#linearAnalysis" text="linear regression" />
                 <MenuItem fx:id="poly" mnemonicParsing="false" onAction="#polyAnalysis" text="polynomial regression" />
@@ -221,8 +226,8 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <TextField fx:id="pOut1" editable="false" layoutX="356.0" layoutY="401.0" prefHeight="36.0" prefWidth="123.0" />
-            <TextField layoutX="158.0" layoutY="402.0" onKeyPressed="#getXin1" prefHeight="34.0" prefWidth="108.0" promptText="请输入X值" fx:id="xIn1" />
+            <TextField fx:id="pOut1" editable="false" layoutX="341.0" layoutY="401.0" prefHeight="36.0" prefWidth="138.0" />
+            <TextField layoutX="87.0" layoutY="402.0" onKeyPressed="#getXin1" prefHeight="36.0" prefWidth="179.0" promptText="请输入X值" fx:id="xIn1" />
             <Label layoutX="27.0" layoutY="407.0" prefHeight="24.0" prefWidth="131.0" text="概率分布：x = " />
             <Label layoutX="291.0" layoutY="407.0" prefHeight="24.0" prefWidth="96.0" text="P(X≤x) = " />
             <LineChart fx:id="lineChartPossion" layoutY="63.0" prefHeight="319.0" prefWidth="500.0" title="Probability Mass Function">

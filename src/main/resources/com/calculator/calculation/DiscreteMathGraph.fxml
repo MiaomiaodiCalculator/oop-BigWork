@@ -10,8 +10,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.net.URL?>
 <AnchorPane fx:id="GraphPane" prefHeight="586.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
-   <children>
+    <stylesheets>
+        <URL value="@style/Scientific.css" />
+    </stylesheets>
+    <children>
        <MenuBar layoutX="377.0">
           <menus>
               <Menu text="图论问题解决模型">
@@ -38,7 +42,7 @@
             <TextField fx:id="minAns" editable="false" layoutX="137.0" layoutY="519.0" prefHeight="36.0" prefWidth="351.0" />
                <Button fx:id="ButtonGenerateGraph" layoutX="257.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleShowMTree" prefHeight="36.0" prefWidth="112.0" text="生成动画" />
             <Button fx:id="ButtonGraphDataEnter" layoutX="373.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleMTDataConfirm" prefHeight="36.0" prefWidth="112.0" text="确认构图" />
-            <TextField fx:id="PointNumText" layoutX="56.0" layoutY="14.0" onKeyPressed="#handleMTPointNumKeyPressed" prefHeight="36.0" prefWidth="192.0" promptText="请输入一个数字" />
+            <TextField fx:id="PointNumText" layoutX="84.0" layoutY="14.0" onKeyPressed="#handleMTPointNumKeyPressed" prefHeight="36.0" prefWidth="164.0" promptText="请输入一个数字" />
             <Label layoutX="26.0" layoutY="22.0" text="图的点数">
                <font>
                   <Font size="14.0" />

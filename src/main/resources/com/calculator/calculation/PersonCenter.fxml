@@ -16,21 +16,29 @@
               <Image url="@images/avatar.png" />
           </image>
        </ImageView>
-      <Label fx:id="usernameShow" alignment="TOP_CENTER" layoutX="73.0" layoutY="212.0" prefHeight="41.0" prefWidth="212.0" text="abc" textFill="#dd5e52">
+      <Label fx:id="usernameShow" alignment="TOP_CENTER" layoutX="73.0" layoutY="212.0" prefHeight="41.0" prefWidth="212.0" text="abc">
          <font>
             <Font name="System Bold Italic" size="28.0" />
-         </font></Label>
-       <Hyperlink alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="269.0" onAction="#handleLogout" prefHeight="37.0" prefWidth="92.0" text="注销账号" textFill="#e4a68b" textOverrun="CLIP">
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill></Label>
+       <Hyperlink alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="269.0" onAction="#handleLogout" prefHeight="37.0" prefWidth="92.0" text="注销账号" textFill="#ff9838" textOverrun="CLIP">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Hyperlink>
-       <Hyperlink alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="321.0" onAction="#changePassword" prefHeight="37.0" prefWidth="92.0" text="修改密码" textFill="#e4a68b">
+       <Hyperlink alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="321.0" onAction="#changePassword" prefHeight="37.0" prefWidth="92.0" text="修改密码" textFill="#ff9838">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Hyperlink>
-      <Hyperlink fx:id="logoutButton" layoutX="133.0" layoutY="371.0" onAction="#logout" text="账号登出" textFill="#e4a68b">
+      <Hyperlink fx:id="logoutButton" layoutX="133.0" layoutY="371.0" onAction="#logout" text="账号登出" textFill="#ff9838">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>

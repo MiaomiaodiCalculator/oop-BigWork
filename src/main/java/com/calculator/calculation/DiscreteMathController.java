@@ -81,6 +81,7 @@ public class DiscreteMathController implements Initializable {
     public void GraphTheoryShift() {
         loadPage("DiscreteMathGraph.fxml");
         FunctionName.setText("Graph Theory");
+//        MinTreePane.setVisible(true);
     }
     /**
      * @Description  加载卡片布局：fxml文件
@@ -99,7 +100,7 @@ public class DiscreteMathController implements Initializable {
 
     public void MinTreeShift(ActionEvent actionEvent) {
         MinTreePane.setVisible(true);
-        ShortPathPane.setVisible(false);
+//        ShortPathPane.setVisible(false);
 //        CanvasShowGraph.setStyle("-fx-background-color: lightblue; -fx-border-color: #0a5469; -fx-border-width: 2px;");
     }
 

@@ -34,6 +34,9 @@ public class LoginController {
     public Label Text2;
     public Label Title;
 
+    // 完善逻辑
+    public static Stage PrimaryStage = new Stage();
+
     /***
      * @Description 登录
      * @author Bu Xinran
@@ -50,7 +53,7 @@ public class LoginController {
             state=true;
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
-            Stage stage=new Stage();
+            Stage stage = PrimaryStage;
             FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Main.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 500, 730);
             MainController.mainController=fxmlLoader.getController();
