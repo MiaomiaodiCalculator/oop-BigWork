@@ -1,12 +1,15 @@
 package Database;
 
+import Visualizing.UserData;
 import com.calculator.calculation.LoginController;
 import com.calculator.calculation.Main;
+import infinitesimal.InfinitesimalSolve;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import static Database.SqlUser.connection;
@@ -28,12 +31,12 @@ public class SqlVisualize {
      * @author sxq
      * @date 2023/12/16 20:53
     **/
-    public static boolean exists(Timestamp time)
+    public static boolean exists(UserData d)
     {
         try
         {
             PreparedStatement exist = connection.prepareStatement(select);
-            exist.setTimestamp(1,time);
+            exist.setTimestamp(1,d.getSaveTime());
             exist.setString(2, LoginController.userName);
             ResultSet existResult = exist.executeQuery();
             return existResult.next();
@@ -46,19 +49,19 @@ public class SqlVisualize {
     }
 /**
  * @Description 向数据库中传入函数图像绘制的历史记录
- * @param dataShow 表达式
+ * @param d 用户数据 保存类
  * @return boolean
  * @author sxq
  * @date 2023/12/16 21:03
 **/
-    public static boolean add(String[] dataShow)
+    public static boolean add(UserData d)
     {
         try
         {
             PreparedStatement add = connection.prepareStatement(insert);
-            add.setString(1, Main.serializeStringList(List.of(dataShow)));
+            add.setString(1, String.join("#", d.getItem()));
             add.setString(2,LoginController.userName);
-            add.setTimestamp(3,new Timestamp(System.currentTimeMillis()));
+            add.setTimestamp(3,d.getSaveTime());
             return add.executeUpdate() == 1;
         }
         catch (SQLException e)
@@ -75,14 +78,17 @@ public class SqlVisualize {
      * @author sxq
      * @date 2023/12/16 21:07
     **/
-    public static String[] getAllHis(){
-        String[] res=null;
+    public static ArrayList<UserData> getAllHis(){
+        ArrayList<UserData> res=new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(selectAll);
             statement.setString(1, LoginController.userName);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                res= Main.deserializeStringList(resultSet.getString("dataShow")).toArray(new String[0]);
+                UserData d=new UserData();
+                d.setSaveTime(resultSet.getTimestamp("time"));
+                d.setItem(resultSet.getString("dataShow").split("#"));
+                res.add(d);
             }
             return res;
         }
