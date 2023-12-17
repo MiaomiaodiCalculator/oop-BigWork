@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -29,6 +30,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.nio.IntBuffer;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +52,7 @@ public class VisualizationController implements Initializable {
     @FXML public LineChart<Double, Double> graphChart;
     @FXML public NumberAxis xAxis, yAxis;
     public Series<Double, Double> data1, data2, data3, data4, data5;
-    public String[] dataShow; //保存到数据库时只需存储这个String数组即可
+    public String[] dataShow;
     public String[] Last; //避免重复保存
     public Parser parser;
     public Pane Visualization;
@@ -58,7 +60,7 @@ public class VisualizationController implements Initializable {
     public ImageView returnImg;
     public ImageView historyImg;
     public TableView<UserData> tableView;
-    public TableColumn<UserData,String> historyList;
+    public TableColumn<UserData,Timestamp> historyList;
     private ArrayList<UserData> list =new ArrayList<>();
 
 
@@ -203,36 +205,13 @@ public class VisualizationController implements Initializable {
     }
 
     /**
-     * @Description 从文件中提取存储历史记录的list
-     * @author ZhouYH
-     * @date 2023/12/9 11:10
-     **/
-    private void getListFromFile() throws IOException, ClassNotFoundException {
-        String path="./data/Visualization.out";
-        File file=new File(path);
-        if(file.exists()){
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            list =(ArrayList<UserData>)ois.readObject();
-            ois.close();
-            fis.close();
-        }
-    }
-
-    /**
      * @Description 跳转到历史记录页面
      * @param event 无意义
      * @author ZhouYH
      * @date 2023/12/9 11:10
      **/
     public void handleHisImageClick(MouseEvent event) {
-        try {
-            getListFromFile();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        tableView.setPlaceholder(new Label("无历史记录"));//占位文本
-        historyList.setCellValueFactory(cellData -> cellData.getValue().dataNameProperty());
+        list=SqlVisualize.getAllHis();
         tableView.getItems().setAll(list);
         Visualization.setVisible(false);
         History.setVisible(true);
@@ -243,50 +222,28 @@ public class VisualizationController implements Initializable {
      * @author ZhouYH
      * @date 2023/12/9 11:17
      **/
-    public void pushListToHistory(ActionEvent actionEvent){
-        try{
-            String path="./data/Visualization.out";
-            File file=new File(path);
-            if(!file.exists()){
-                file.getParentFile().mkdirs();
-            }else{
-                file.delete();
-                file.getParentFile().mkdirs();
-            }
-            boolean exists=true;
-            for(int i=1;i<=5;i++)
-                if((Last[i]==null&&dataShow[i]!=null)||(Last[i]!=null&&dataShow[i]==null)){
-                    exists=false;
+    public void pushListToHistory(ActionEvent actionEvent) {
+        boolean exists = true;
+        for (int i = 1; i <= 5; i++)
+            if ((Last[i] == null && dataShow[i] != null) || (Last[i] != null && dataShow[i] == null)) {
+                exists = false;
+                break;
+            } else if (Last[i] != null && dataShow[i] != null)
+                if (!Last[i].equals(dataShow[i])) {
+                    exists = false;
                     break;
                 }
-                else if(Last[i]!=null&&dataShow[i]!=null)
-                    if (!Last[i].equals(dataShow[i])){
-                        exists=false;
-                        break;
-                    }
-            if(!exists) {
-                Last = new String[6];
-                for(int i=1;i<=5;i++){
-                    if(dataShow[i]!=null) Last[i]=dataShow[i].intern();
-                    else Last[i]=null;
-                }
-                Date dNow = new Date();
-                SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
-                UserData userData=new UserData();
-                userData.setName(ft.format(dNow));
-                userData.setItem(Last);
-                list.add(userData);
+        if (!exists) {
+            Last = new String[6];
+            for (int i = 1; i <= 5; i++) {
+                if (dataShow[i] != null) Last[i] = dataShow[i].intern();
+                else Last[i] = null;
             }
-            FileOutputStream fos = new FileOutputStream(path);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(list); //这行写不进去，会报错
-            oos.flush();
-            oos.close();
-            fos.flush();
-            fos.close();
-            tableView.getItems().setAll(list);
-        }catch(Exception e){
-            System.out.println("File operation failed");
+            UserData userData = new UserData();
+            userData.setSaveTime(new Timestamp(System.currentTimeMillis()));
+            userData.setItem(Last);
+            System.out.println("userdata");
+            SqlVisualize.add(userData);
         }
     }
 
@@ -334,7 +291,7 @@ public class VisualizationController implements Initializable {
     public void initData(){
         funcs = new TextField[]{null, f1, f2, f3, f4, f5};
         shows = new Button[]{null, show1, show2, show3, show4, show5};
-        dataShow = new String[]{null,null,null,null,null};
+        dataShow = new String[]{null,null,null,null,null,null};
         graphChart.getData().removeAll();
         Visualization.setVisible(true);
         History.setVisible(false);
@@ -350,18 +307,17 @@ public class VisualizationController implements Initializable {
      * @date 2023/11/29 22:37
      **/
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // initialize the actual graph/chart
         xAxis.lowerBoundProperty().bind(negXSlider.valueProperty());
         xAxis.upperBoundProperty().bind(posXSlider.valueProperty());
         yAxis.lowerBoundProperty().bind(negYSlider.valueProperty());
         yAxis.upperBoundProperty().bind(posYSlider.valueProperty());
-        // set the label formatter for our axis to only show ints
         xAxis.setTickLabelFormatter(new AxisFormatter());
         yAxis.setTickLabelFormatter(new AxisFormatter());
         parser = new Parser();
         Last = new String[]{null,null,null,null,null,null};
         initData();
-        list=new ArrayList<>();
+        tableView.setPlaceholder(new Label("还没有绘制过图像"));
+        historyList.setCellValueFactory(new PropertyValueFactory<>("saveTime"));
         for(int i=1;i<=5;i++){
             int finalI = i;
             funcs[i].setOnKeyPressed(new EventHandler<KeyEvent>() {

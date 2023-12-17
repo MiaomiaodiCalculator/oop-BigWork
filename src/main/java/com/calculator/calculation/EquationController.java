@@ -1,6 +1,8 @@
 package com.calculator.calculation;
 import Equation.EquationError;
 import Equation.EquationSolve;
+import com.singularsys.jep.EvaluationException;
+import com.singularsys.jep.ParseException;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.Button;
@@ -35,7 +37,6 @@ public class EquationController implements Initializable {
     public javafx.scene.layout.Pane e2;
     public javafx.scene.layout.Pane e3;
     public javafx.scene.layout.Pane e4;
-    public javafx.scene.layout.Pane e5;
     public Pane Equation;
     public TextField e2x1;
     public TextField e2y1;
@@ -65,7 +66,6 @@ public class EquationController implements Initializable {
     public Label e3z;
     public Pane e3answerShow;
     public Pane e4answerShow;
-    public Pane e5answerShow;
     public TextField e4x1;
     public TextField e4y1;
     public TextField e4c1;
@@ -93,7 +93,7 @@ public class EquationController implements Initializable {
     private String showEquation="";
     private int state=2;
     private String equation="";
-    private EquationError calFlag=EquationError.yes;
+    public static EquationError calFlag=EquationError.yes;
     public List<Double> answer;
     private boolean atMi=false;
     public String[] downSymbol =new String[]{"⁰","¹","²","³","⁴","⁵","⁶","⁷","⁸","⁹","˙"};
@@ -222,19 +222,29 @@ public class EquationController implements Initializable {
      * @author Bu Xinran
      * @date 2023/11/29 22:43
     **/
-    public void calculateClick() {
+    public void calculateClick() throws ParseException, EvaluationException {
         judgeIllegal();
         if(calFlag==EquationError.yes){
             answer=getAnswer(equation);
-            if(answer.isEmpty()){
-                answerArea.setText("无实根。");
-            }else{
-                answerArea.setText(answer.toString());
+            if(calFlag!=EquationError.notEqual){
+                if(answer.isEmpty()){
+                    answerArea.setText("无实根。");
+                }else{
+                    String show="";
+                    for(int i=0;i<answer.size();i++){
+                        show=show+ answer.get(i);
+                        if(i!=answer.size()-1)show=show+",";
+                    }
+                    answerArea.setText(show);
+                }
             }
         }else if(calFlag==EquationError.dotRepeat){
             answerArea.setText("小数点重复！");
         }else if(calFlag==EquationError.symbolRepeat){
             answerArea.setText("运算符重复！");
+        }
+        if(calFlag==EquationError.notEqual){
+            answerArea.setText("运算式不相等！");
         }
         EquationSolve solve=new EquationSolve(calFlag,showEquation,equation);
         historyEquation.add(solve);
