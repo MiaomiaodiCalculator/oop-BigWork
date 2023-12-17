@@ -5,8 +5,6 @@ import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
@@ -27,6 +25,10 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 370, 369);
         stage.setTitle("登录");
+        // 创建一个图标对象
+        Image icon = new Image("icon.png");
+        // 将图标添加到窗口的图标列表中
+        stage.getIcons().add(icon);
         stage.setResizable(false);  // ui1
         stage.setScene(scene);
         // 应用光标到场景

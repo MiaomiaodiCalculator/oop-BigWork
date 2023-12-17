@@ -1,8 +1,4 @@
 package com.calculator.calculation;
-import NewFunction.UserFunction;
-import com.singularsys.jep.EvaluationException;
-import com.singularsys.jep.ParseException;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.ImageCursor;
@@ -11,7 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import user.User;
@@ -19,7 +14,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 import static Database.SqlUser.*;
-import static com.calculator.calculation.FunctionController.functionList;
 
 /**
  * @author Bu Xinran
@@ -56,6 +50,8 @@ public class LoginController {
             Scene scene = new Scene(fxmlLoader.load(), 500, 730);
             MainController.mainController=fxmlLoader.getController();
             stage.setTitle("Calculator");
+            Image icon = new Image("icon.png");
+            stage.getIcons().add(icon);
             Image cursorImage = new Image("cur.png");
             ImageCursor cursor = new ImageCursor(cursorImage);
             stage.setScene(scene);
@@ -178,6 +174,8 @@ public class LoginController {
         ImageCursor cursor = new ImageCursor(cursorImage);
         stage.setResizable(false);
         stage.setScene(scene);
+        Image icon = new Image("icon.png");
+        stage.getIcons().add(icon);
         scene.setCursor(cursor);
         stage.show();
         stage.setOnCloseRequest(event ->{

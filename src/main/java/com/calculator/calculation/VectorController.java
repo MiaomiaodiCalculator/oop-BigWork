@@ -4,6 +4,8 @@ import javafx.fxml.*;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.canvas.*;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -47,6 +49,9 @@ public class VectorController{
     public SubScene subScene;
     public Button Button2D;
     public Button Button3D;
+    // 用于二维向量绘制
+    public XYChart.Series <Number, Number> dataSeries1, dataSeries2;
+    public LineChart LineChart2D;
     @FXML
     private StackPane cardContainer;
 
@@ -116,7 +121,7 @@ public class VectorController{
             dotResult.setText("=" + dot);
             crossResult.setText("=" + cross);
             angleResult.setText("=" + angle);
-            drawCoordinateSystem(new double[]{X1, Y1, X2, Y2});
+            drawCoordinateSystem(X1, Y1, X2, Y2);
         } else {
             add2D.setVisible(false);
             dot2D.setVisible(false);
@@ -132,58 +137,47 @@ public class VectorController{
         historyVector.put(cntHistory, vector);
         pushMapToHistory();
     }
-    /***
-     * @Description 绘制向量的坐标图
-     * @param coordinates 坐标数组
-     * @author Bu Xinran
-     * @date 2023/11/25 20:47
-     **/
-    private void drawCoordinateSystem(double[] coordinates) {
-        gc = vectorCanvas.getGraphicsContext2D();
-        double width = vectorCanvas.getWidth();
-        double height = vectorCanvas.getHeight();
-        //获得x，y的最大值以确定最小分度值
-        double xMax = Math.max(Math.abs(coordinates[0]), Math.abs(coordinates[2]));
-        double yMax = Math.max(Math.abs(coordinates[1]), Math.abs(coordinates[3]));
-        double max = Math.max(xMax, yMax);
-        int minScale = max > 10 ? (int)(max / 10) : 1;
-        gc.setStroke(Color.BLACK);
-        //绘制x，y坐标值
-        gc.setLineWidth(1);
-        gc.strokeLine(0, height / 2, width, height / 2);
-        gc.setLineWidth(1);
-        gc.strokeLine(width / 2, 0, width / 2, height);
-        //绘制箭头
-        drawArrow(gc, 0, height / 2, width, height / 2);
-        drawArrow(gc,width / 2, height,(width / 2), 0);
-        // 绘制刻度
-        int j=-9;
-        for (double i =width/20; i <= width; i += width/20,j++) {
-            gc.setLineWidth(0.3);
-            gc.strokeLine( i, height / 2-5,i, height / 2);
-            gc.setFill(Color.BLACK);
-            gc.fillText(String.format("%d", j*minScale), i - 5, height / 2 + 15);
-        }
-        j=9;
-        for (double i =height/20; i <height; i += height/20,j--) {
-            gc.setLineWidth(0.3);
-            gc.strokeLine(width / 2 - 5, i, width / 2, i);
-            if(j%2==0&&j!=0){
-                gc.setFill(Color.BLACK);
-                gc.fillText(String.format("%d", j*minScale), width / 2-20, i + 5);
-            }
-        }
-        //绘制向量
-        gc.setLineWidth(1.5);
-        gc.setStroke(Color.RED);
-        gc.strokeLine(width/2,height/2,width/2+coordinates[0]/minScale*(width/20), height/2-coordinates[1]/minScale*(height/20));
-        gc.setStroke(Color.BLUE);
-        gc.strokeLine(width/2,height/2,width/2+coordinates[2]/minScale*(width/20), height/2-coordinates[3]/minScale*(height/20));
-        gc.setLineWidth(1);
-        gc.setStroke(Color.RED);
-        drawArrow(gc,width/2,height/2,width/2+coordinates[0]/minScale*(width/20), height/2-coordinates[1]/minScale*(height/20));
-        gc.setStroke(Color.BLUE);
-        drawArrow(gc,width/2,height/2,width/2+coordinates[2]/minScale*(width/20), height/2-coordinates[3]/minScale*(height/20));
+    /**
+     * @Description 处理二维向量的绘制
+     * @param X1
+     * @param Y1
+     * @param X2
+     * @param Y2
+     * @author 郑悦
+     * @date 2023/12/17 11:14
+    **/
+    private void drawCoordinateSystem(double X1, double Y1, double X2, double Y2) {
+        LineChart2D.getData().remove(dataSeries1);
+        LineChart2D.getData().remove(dataSeries2);
+        dataSeries1 = new XYChart.Series<>();
+        dataSeries2 = new XYChart.Series<>();
+        dataSeries1.getData().add(new XYChart.Data<>(0, 0));
+        dataSeries1.getData().add(new XYChart.Data<>(X1, Y1));
+        dataSeries2.getData().add(new XYChart.Data<>(0, 0));
+        dataSeries2.getData().add(new XYChart.Data<>(X2, Y2));
+        dataSeries1.setName("Vector 1");
+        dataSeries2.setName("Vector 2");
+        LineChart2D.getData().addAll(dataSeries1, dataSeries2);
+        double K1 = Y1/X1;
+        double K2 = Y2/X2;
+        double theta1 = Math.atan(K1);
+        double theta2 = Math.atan(K2);
+        double angle1 = Math.toDegrees(theta1);
+        double angle2 = Math.toDegrees(theta2);
+        LineChart2D.getStyleClass().add(getClass().getResource("css/Vector2DDraw.css").toExternalForm());
+        dataSeries1.getData().get(0).getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: transparent;");
+        dataSeries2.getData().get(0).getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: transparent;");
+        // TODO:是否更换箭头形状
+        dataSeries1.getData().get(1).getNode().lookup(".chart-line-symbol").setStyle("-fx-shape: \"M0,1 L0,2 L1,2 L1,3 L2,3 L2,2 L3,2 L3,1 L2,1 L2,0 L1,0 L1,2 z\";-fx-rotate: 45;-fx-scale-x: 1.5; -fx-scale-y: 1.5;");
+        dataSeries2.getData().get(1).getNode().lookup(".chart-line-symbol").setStyle("-fx-shape: \"M 0 0 L 1 0 L 0.5 1 Z\";-fx-rotate: 45;-fx-scale-x: 1.5; -fx-scale-y: 1.5;");
+//        ;-fx-rotate: angle1
+        dataSeries1.getData().get(1).getNode().setRotate(270 - angle1);
+        dataSeries2.getData().get(1).getNode().setRotate(270 - angle2);
+//        dataSeries1.getNode().getStyleClass().add("data1-line");
+//        dataSeries2.getNode().getStyleClass().add("data2-line");
+//        dataSeries1.getNode().getStyleClass().add("chart-line-symbol");
+//        dataSeries1.getData().get(1).getNode().getStyleClass().add("special-data-point");
+//        dataSeries2.getData().get(1).getNode().getStyleClass().add("special-data-point");
     }
     /***
      * @Description 根据直线方向绘制箭头

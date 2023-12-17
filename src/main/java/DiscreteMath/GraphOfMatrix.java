@@ -78,7 +78,6 @@ public class GraphOfMatrix {
             if (!ufs.isSameUnionFindSet(srcIndex, destIndex)) {
                 //将符合条件的边加入到最小生成树中
                 minTree.addEdgeUseIndex(srcIndex, destIndex, Matrix[srcIndex][destIndex]);
-                System.out.println("选择的边" + arrayV[srcIndex] + " -> " + arrayV[destIndex] + ":" + Matrix[srcIndex][destIndex]);
                 size++;
                 totalWeight += Matrix[srcIndex][destIndex];
                 //将添加过的边的相邻顶点放入同一集合,防止出现环.
@@ -90,17 +89,7 @@ public class GraphOfMatrix {
             return totalWeight;
         } else {
             hasMinTree = false;
-//            return -1;
             throw new RuntimeException("没有最小生成树");
-        }
-    }
-
-    public void printGraph() {
-        for (int i = 0; i < length; i++) {
-            for(int j = 0; j < length; j++) {
-                System.out.print(Matrix[i][j] + " ");
-            }
-            System.out.print('\n');
         }
     }
 
