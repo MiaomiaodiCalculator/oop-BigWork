@@ -48,7 +48,7 @@
             </TextField>
             <Text layoutX="147.0" layoutY="60.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="微积分计算" textAlignment="CENTER" wrappingWidth="206.5">
                 <font>
-                    <Font size="28.0" />
+                    <Font name="System Bold" size="28.0" />
                 </font>
             </Text>
             <GridPane layoutX="7.0" layoutY="252.0" prefHeight="453.0" prefWidth="490.0">
@@ -70,69 +70,69 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <children>
-                    <Button fx:id="buttonSquare" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="x²" GridPane.rowIndex="2" />
-                    <Button fx:id="buttonPi" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="π" GridPane.rowIndex="1" />
-                    <Button fx:id="button3" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="x³" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <Button fx:id="buttonSqrt" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="√" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                    <Button fx:id="buttonPower" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="xⁿ" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                    <Button fx:id="buttonPower10" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="10ˣ" GridPane.rowIndex="5" />
-                    <Button fx:id="buttonLog" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="log" GridPane.rowIndex="6" />
-                    <Button fx:id="buttonLn" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="log" GridPane.rowIndex="6" />
-                    <Button fx:id="BUTTON_EQUAL" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="_=" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                    <Button fx:id="buttonSquare" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="x²" GridPane.rowIndex="2" />
+                    <Button fx:id="buttonPi" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="π" GridPane.rowIndex="1" />
+                    <Button fx:id="button3" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="x³" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Button fx:id="buttonSqrt" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="√" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                    <Button fx:id="buttonPower" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="xⁿ" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                    <Button fx:id="buttonPower10" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="10ˣ" GridPane.rowIndex="5" />
+                    <Button fx:id="buttonLog" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #f0f0f0;" styleClass="number" text="log" GridPane.rowIndex="6" />
+                    <Button fx:id="buttonLn" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="log" GridPane.rowIndex="6" />
+                    <Button fx:id="BUTTON_EQUAL" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" style="-fx-background-color: #f0f0f0;" text="_=" GridPane.columnIndex="4" GridPane.rowIndex="6">
                     </Button>
-                    <Button fx:id="BUTTON_ADD" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="+" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                    <Button fx:id="BUTTON_ADD" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="+" GridPane.columnIndex="4" GridPane.rowIndex="6">
                     </Button>
-                    <Button fx:id="BUTTON_MINUS" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="-" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                    <Button fx:id="BUTTON_MINUS" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="-" GridPane.columnIndex="4" GridPane.rowIndex="5">
                     </Button>
-                    <Button fx:id="BUTTON_MULTIPLY" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="×" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                    <Button fx:id="BUTTON_MULTIPLY" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="×" GridPane.columnIndex="4" GridPane.rowIndex="4">
                     </Button>
-                    <Button fx:id="BUTTON_DIVIDE" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="÷" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                    <Button fx:id="BUTTON_DIVIDE" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="÷" GridPane.columnIndex="4" GridPane.rowIndex="3">
                     </Button>
-                    <Button fx:id="BUTTON_DIVIDE2" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="tan" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                    <Button fx:id="BUTTON_EE" focusTraversable="false" mnemonicParsing="false" onAction="#handleDelClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="Del" GridPane.columnIndex="3">
+                    <Button fx:id="BUTTON_DIVIDE2" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="tan" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                    <Button fx:id="BUTTON_EE" focusTraversable="false" mnemonicParsing="false" onAction="#handleDelClick" style="-fx-background-color: #FFE5CC;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="Del" GridPane.columnIndex="3">
                   <tooltip>
                      <Tooltip text="撤销上一步操作。" />
                   </tooltip></Button>
-                    <Button fx:id="BUTTON_E" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="e" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Button fx:id="BUTTON_TAN" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="³√" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                    <Button fx:id="BUTTON_LEFT_PAREN" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="(" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <Button fx:id="BUTTON_E" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="e" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Button fx:id="BUTTON_TAN" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="³√" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                    <Button fx:id="BUTTON_LEFT_PAREN" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="(" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     </Button>
-                    <Button fx:id="BUTTON7" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="7" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <Button fx:id="BUTTON7" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="7" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     </Button>
-                    <Button fx:id="BUTTON4" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="4" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                    <Button fx:id="BUTTON4" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="4" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     </Button>
-                    <Button fx:id="BUTTON1" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="1" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <Button fx:id="BUTTON1" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="1" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     </Button>
-                    <Button fx:id="BUTTON_USERFUNCTION" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#handleGetFunction" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="自定义函数" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                    <Button fx:id="BUTTON_DIVIDE21" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="sin" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                    <Button fx:id="BUTTON_DIVIDE22" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="cos" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                    <Button fx:id="BUTTON_LN" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="eˣ" GridPane.rowIndex="4" />
-                    <Button fx:id="BUTTON_FACTORIAL" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="!" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                    <Button fx:id="BUTTON_USERFUNCTION" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#handleGetFunction" style="-fx-background-color: #FFE5CC;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="自定义函数" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                    <Button fx:id="BUTTON_DIVIDE21" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="sin" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    <Button fx:id="BUTTON_DIVIDE22" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="cos" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    <Button fx:id="BUTTON_LN" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="eˣ" GridPane.rowIndex="4" />
+                    <Button fx:id="BUTTON_FACTORIAL" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="!" GridPane.columnIndex="3" GridPane.rowIndex="3">
                   <tooltip>
                      <Tooltip text="阶乘" />
                   </tooltip></Button>
-                    <Button fx:id="BUTTON_RIGHT_PAREN" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text=")" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                    <Button fx:id="BUTTON_RIGHT_PAREN" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text=")" GridPane.columnIndex="2" GridPane.rowIndex="3">
                     </Button>
-                    <Button fx:id="BUTTON9" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="9" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                    <Button fx:id="BUTTON9" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="9" GridPane.columnIndex="3" GridPane.rowIndex="4">
                     </Button>
-                    <Button fx:id="BUTTON8" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="8" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                    <Button fx:id="BUTTON8" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="8" GridPane.columnIndex="2" GridPane.rowIndex="4">
                     </Button>
-                    <Button fx:id="BUTTON5" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="5" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                    <Button fx:id="BUTTON5" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="5" GridPane.columnIndex="2" GridPane.rowIndex="5">
                     </Button>
-                    <Button fx:id="BUTTON6" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="6" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                    <Button fx:id="BUTTON6" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="6" GridPane.columnIndex="3" GridPane.rowIndex="5">
                     </Button>
-                    <Button fx:id="BUTTON3" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="3" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                    <Button fx:id="BUTTON3" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="3" GridPane.columnIndex="3" GridPane.rowIndex="6">
                     </Button>
-                    <Button fx:id="BUTTON2" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="2" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                    <Button fx:id="BUTTON2" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="2" GridPane.columnIndex="2" GridPane.rowIndex="6">
                     </Button>
-                    <Button fx:id="BUTTON0" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                    <Button fx:id="BUTTON0" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="0" GridPane.columnIndex="2" GridPane.rowIndex="7">
                     </Button>
-                    <Button fx:id="BUTTON_POINT3" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="ln" GridPane.rowIndex="3" />
-                    <Button fx:id="BUTTON_DIVIDE4" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="37.0" prefWidth="81.0" styleClass="operator" text="C" GridPane.columnIndex="4" />
-                    <Button fx:id="BUTTON_POINT" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="." GridPane.columnIndex="3" GridPane.rowIndex="7">
+                    <Button fx:id="BUTTON_POINT3" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="ln" GridPane.rowIndex="3" />
+                    <Button fx:id="BUTTON_DIVIDE4" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #FFC187;" prefHeight="37.0" prefWidth="81.0" styleClass="operator" text="C" GridPane.columnIndex="4" />
+                    <Button fx:id="BUTTON_POINT" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="." GridPane.columnIndex="3" GridPane.rowIndex="7">
                     </Button>
-                    <Button fx:id="BUTTON_SAVE" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#handleSaveClick" prefHeight="36.0" prefWidth="80.0" text="计算" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-                    <Button fx:id="BUTTON_paraX" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="自变量x" textFill="#121212" GridPane.rowIndex="7" />
+                    <Button fx:id="BUTTON_SAVE" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#handleSaveClick" style="-fx-background-color: #FFC187;" prefHeight="36.0" prefWidth="80.0" text="计算" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                    <Button fx:id="BUTTON_paraX" defaultButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #FFC187;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="自变量x" textFill="#121212" GridPane.rowIndex="7" />
                 </children>
             </GridPane>
             <TableView fx:id="FunctionTableView" layoutX="7.0" layoutY="244.0" onMouseClicked="#handleRowClick" prefHeight="401.0" prefWidth="490.0" visible="false" stylesheets="@style/List.css">

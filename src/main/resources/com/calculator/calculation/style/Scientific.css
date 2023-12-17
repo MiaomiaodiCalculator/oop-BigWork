@@ -84,7 +84,7 @@
     -fx-vgap: 10px;
 }
 #alertFunction .root{
-   -fx-background-color:gray;
+   -fx-background-color:GRAY;
 }
 #alertFunction Label {
   -fx-background-color:white;
@@ -100,7 +100,7 @@
  -fx-border-radius: 5px;
 }
 #delete .root{
-   -fx-background-color:gray;
+   -fx-background-color:GRAY;
 }
 #delete Label {
   -fx-background-color:white;
