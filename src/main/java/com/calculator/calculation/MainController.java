@@ -106,7 +106,6 @@ public class MainController implements Initializable {
      * @date 2023/11/26 11:18
      **/
     private void loadPage(String fxmlFileName) {
-        System.out.println(this);
         try {
             Pane page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFileName)));
             cardContainer.getChildren().setAll(page);
@@ -115,7 +114,6 @@ public class MainController implements Initializable {
             if(!LoginController.state)person.setVisible(false);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("loadPage:error");
         }
     }
     /**
@@ -164,7 +162,6 @@ public class MainController implements Initializable {
     }
 
     public StackPane getCardContainer() {
-        System.out.println("getC");
         return cardContainer;
     }
 }
