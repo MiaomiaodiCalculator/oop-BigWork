@@ -62,7 +62,7 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" />
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" style="-fx-background-color: #FFE5CC;" />
            </children>
        </Pane>
        <Pane fx:id="Length" layoutY="200.0" prefHeight="463.0" prefWidth="482.0" visible="false">
@@ -99,7 +99,7 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" />
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" style="-fx-background-color: #FFE5CC;" />
            </children>
        </Pane>
        <Pane fx:id="Weight" layoutY="200.0" prefHeight="425.0" prefWidth="500.0" visible="false">
@@ -128,7 +128,7 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" />
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" style="-fx-background-color: #FFE5CC;" />
            </children>
        </Pane>
        <Pane fx:id="Temperature" layoutY="200.0" prefHeight="476.0" prefWidth="482.0" visible="false">
@@ -155,7 +155,7 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" />
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换"  style="-fx-background-color: #FFE5CC;"/>
            </children>
        </Pane>
        <Pane fx:id="Area" layoutY="200.0" prefHeight="476.0" prefWidth="482.0" visible="false">
@@ -182,7 +182,7 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" />
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换"  style="-fx-background-color: #FFE5CC;"/>
            </children>
        </Pane>
        <Pane fx:id="Times" layoutY="200.0" prefHeight="463.0" prefWidth="489.0" visible="false">
@@ -217,7 +217,7 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" />
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" style="-fx-background-color: #FFE5CC;" />
            </children>
        </Pane>
        <Pane fx:id="Angle" layoutY="200.0" prefHeight="463.0" prefWidth="489.0" visible="false">
@@ -242,7 +242,7 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" />
+               <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换"  style="-fx-background-color: #FFE5CC;"/>
            </children>
        </Pane>
        <TextField fx:id="input" layoutX="46.0" layoutY="265.0" prefHeight="64.0" prefWidth="409.0" visible="false" />

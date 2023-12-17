@@ -42,26 +42,26 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         </rowConstraints>
                         <children>
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="↓" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="3" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="7" GridPane.columnIndex="1" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="6" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="5" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="9" GridPane.columnIndex="3" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="8" GridPane.columnIndex="2" />
-                            <Button mnemonicParsing="false" onAction="#calculateClick" prefHeight="48.0" prefWidth="87.0" text="计算" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                            <Button fx:id="subtract" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="-" GridPane.rowIndex="2" />
-                            <Button fx:id="multiply" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="*" />
-                            <Button fx:id="add" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="+" GridPane.rowIndex="1" />
-                            <Button fx:id="dot" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="." GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="C" GridPane.columnIndex="4" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="xʸ" GridPane.rowIndex="3" />
-                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="←" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                            <Button fx:id="para" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" text="变量x" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="↓" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="3" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="7" GridPane.columnIndex="1" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="6" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="5" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="9" GridPane.columnIndex="3" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="8" GridPane.columnIndex="2" />
+                           <Button mnemonicParsing="false" onAction="#calculateClick" style="-fx-background-color: #FFC187;" prefHeight="48.0" prefWidth="87.0" text="计算" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                           <Button fx:id="subtract" mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="-" GridPane.rowIndex="2" />
+                           <Button fx:id="multiply" mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="*" />
+                           <Button fx:id="add" mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="+" GridPane.rowIndex="1" />
+                           <Button fx:id="dot" mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="." GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #FFC187;" prefHeight="48.0" prefWidth="87.0" text="C" GridPane.columnIndex="4" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="xʸ" GridPane.rowIndex="3" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #f0f0f0;" prefHeight="48.0" prefWidth="87.0" text="←" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                           <Button fx:id="para" mnemonicParsing="false" onAction="#buttonClick" style="-fx-background-color: #FFE5CC;" prefHeight="48.0" prefWidth="87.0" text="变量x" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                         </children>
                     </GridPane>
                  </children>
