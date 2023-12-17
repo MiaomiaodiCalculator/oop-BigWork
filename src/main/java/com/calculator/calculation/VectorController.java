@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import vector.VectorSolve;
 import java.io.*;
+import java.net.URL;
 import java.util.*;
 import javafx.fxml.FXML;
 import javafx.scene.PerspectiveCamera;
@@ -20,7 +21,7 @@ import javafx.scene.shape.Cylinder;
  * @Description 处理向量计算器的点击事件
  * @date 2023/11/23 17:26
  */
-public class VectorController{
+public class VectorController implements Initializable{
     protected static LinkedHashMap<Integer, VectorSolve> historyVector = new LinkedHashMap<>();
     public static int cntHistory = 0;
     public ImageView historyImg;
@@ -49,24 +50,29 @@ public class VectorController{
     public Button Button3D;
     @FXML
     private StackPane cardContainer;
-
     private GraphicsContext gc=null;
+    private static boolean flag=false;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if(!flag) {
+            flag = true;
+            Vector2DShift();
+        }
+    }
     /***
      * @Description  加载二维向量对应的文件
-     * @param actionEvent 无意义
      * @author Bu Xinran
      * @date 2023/11/25 22:52
      **/
-    public void Vector2DShift(ActionEvent actionEvent) {
+    public void Vector2DShift() {
         loadPage("Vector2D.fxml");
     }
     /***
      * @Description  加载三维向量对应的文件
-     * @param actionEvent 无意义
      * @author Bu Xinran
      * @date 2023/11/25 22:52
      **/
-    public void Vector3DShift(ActionEvent actionEvent) {
+    public void Vector3DShift() {
         loadPage("Vector3D.fxml");
     }
     /***
