@@ -27,11 +27,10 @@
               <Menu text="Function Change">
                  <items>
                      <MenuItem onAction="#GraphTheoryShift" text="Graph Theory" />
-                     <MenuItem onAction="#BooleanAlgebraShift" text="Boolean Algebra" />
                  </items>
               </Menu>
           </menus>
        </MenuBar>
-      <TextField fx:id="FunctionName" editable="false" layoutX="130.0" layoutY="48.0" prefHeight="24.0" prefWidth="120.0" text="Boolean Algebra" />
+      <TextField fx:id="FunctionName" editable="false" layoutX="130.0" layoutY="48.0" prefHeight="24.0" prefWidth="120.0" text="Graph Theory" />
    </children>
 </AnchorPane>

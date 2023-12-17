@@ -22,7 +22,7 @@
                <Image url="@images/history.png" />
             </image>
          </ImageView>
-         <Text layoutX="165.0" layoutY="53.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Visualization" textAlignment="CENTER">
+         <Text layoutX="165.0" layoutY="53.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="函数图像显示" textAlignment="CENTER">
             <font>
                <Font size="28.0" />
             </font>
@@ -173,6 +173,12 @@
                <columns>
                   <TableColumn fx:id="historyList" prefWidth="500.0" text="历史记录列表" />
                </columns>
+               <tooltip>
+                  <Tooltip fx:id="tooltip">
+                     <font>
+                        <Font size="12.0" />
+                     </font></Tooltip>
+               </tooltip>
             </TableView>
          </children>
       </Pane>

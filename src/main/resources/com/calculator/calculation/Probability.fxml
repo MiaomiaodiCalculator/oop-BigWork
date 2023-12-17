@@ -130,6 +130,11 @@
          </children></Pane>
        <Pane fx:id="RegressionAnalysis" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
          <children>
+             <ImageView fx:id="regressionLatex" fitHeight="36.0" fitWidth="317.0" layoutX="169.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/blank.png" />
+                </image>
+             </ImageView>
             <LineChart fx:id="lineChart" layoutY="109.0" prefHeight="399.0" prefWidth="500.0" title="Regression Graph">
               <xAxis>
                 <NumberAxis side="BOTTOM" fx:id="xExtend" />
@@ -157,11 +162,10 @@
                 <TableColumn fx:id="r" editable="false" prefWidth="193.0" text="R-squared" />
               </columns>
             </TableView>
-            <Label layoutX="14.0" layoutY="502.0" text="regression equation">
+            <Label layoutX="14.0" layoutY="508.0" text="regression equation">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <TextField fx:id="regressionExpression" editable="false" layoutX="170.0" layoutY="504.0" prefHeight="8.0" prefWidth="317.0" />
             <ChoiceBox fx:id="PolyJie" layoutX="336.0" prefWidth="150.0" />
             <TextField fx:id="newInputX" layoutX="406.0" layoutY="43.0" onKeyPressed="#getPredictedX" prefHeight="10.0" prefWidth="81.0" />
             <TextField fx:id="answerY" editable="false" layoutX="406.0" layoutY="73.0" prefHeight="10.0" prefWidth="81.0" />
@@ -170,8 +174,12 @@
          </children></Pane>
        <Pane fx:id="GaussianDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
          <children>
-            <TextField fx:id="PExpression" editable="false" layoutX="106.0" layoutY="470.0" prefHeight="45.0" prefWidth="385.0" />
-            <Label fx:id="pExpressionLabel" layoutX="20.0" layoutY="482.0" text="Expression" />
+             <ImageView fx:id="GaussLatex" fitHeight="45.0" fitWidth="377.0" layoutX="113.0" layoutY="469.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/blank.png" />
+                </image>
+             </ImageView>
+            <Label fx:id="pExpressionLabel" layoutX="20.0" layoutY="485.0" text="Expression" />
             <LineChart fx:id="lineChartGauss" layoutY="72.0" prefHeight="319.0" prefWidth="500.0" title="Probability Density Function">
                <xAxis>
                   <NumberAxis side="BOTTOM" fx:id="xExtend1" />
@@ -182,7 +190,7 @@
             </LineChart>
             <Label layoutX="280.0" layoutY="416.0" prefHeight="24.0" prefWidth="96.0" text="P(X≤x) = " />
             <Label layoutX="34.0" layoutY="416.0" prefHeight="24.0" prefWidth="138.0" text="概率分布：x = " />
-            <TextField onKeyPressed="#getXin" layoutX="118.0" layoutY="410.0" prefHeight="36.0" prefWidth="108.0" fx:id="xIn" />
+            <TextField layoutX="118.0" layoutY="410.0" onKeyPressed="#getXin" prefHeight="36.0" prefWidth="108.0" fx:id="xIn" />
             <TextField fx:id="pOut" editable="false" layoutX="329.0" layoutY="410.0" prefHeight="36.0" prefWidth="138.0" />
             <Label layoutX="81.0" layoutY="20.0" prefHeight="24.0" prefWidth="69.0" text="μ = ">
                <font>
@@ -197,19 +205,23 @@
          </children></Pane>
        <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0">
          <children>
-            <Label fx:id="pExpressionLabel1" layoutX="10.0" layoutY="476.0" text="Expression">
+             <ImageView fx:id="poissonLatex" fitHeight="45.0" fitWidth="363.0" layoutX="126.0" layoutY="467.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/blank.png" />
+                </image>
+             </ImageView>
+            <Label fx:id="pExpressionLabel1" layoutX="10.0" layoutY="479.0" text="Expression">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="PExpression1" editable="false" layoutX="127.0" layoutY="467.0" prefHeight="45.0" prefWidth="363.0" />
             <TextField fx:id="lamda" layoutX="378.0" layoutY="19.0" onKeyPressed="#handlePossionL" prefHeight="27.0" prefWidth="108.0" />
             <Label layoutX="344.0" layoutY="14.0" prefHeight="24.0" prefWidth="69.0" text="λ = ">
                <font>
                   <Font size="20.0" />
                </font></Label>
             <TextField fx:id="pOut1" editable="false" layoutX="356.0" layoutY="401.0" prefHeight="36.0" prefWidth="123.0" />
-            <TextField onKeyPressed="#getXin1" layoutX="158.0" layoutY="402.0" prefHeight="34.0" prefWidth="108.0" fx:id="xIn1" />
+            <TextField layoutX="158.0" layoutY="402.0" onKeyPressed="#getXin1" prefHeight="34.0" prefWidth="108.0" fx:id="xIn1" />
             <Label layoutX="27.0" layoutY="407.0" prefHeight="24.0" prefWidth="131.0" text="概率分布：x = " />
             <Label layoutX="291.0" layoutY="407.0" prefHeight="24.0" prefWidth="96.0" text="P(X≤x) = " />
             <LineChart fx:id="lineChartPossion" layoutY="63.0" prefHeight="319.0" prefWidth="500.0" title="Probability Mass Function">

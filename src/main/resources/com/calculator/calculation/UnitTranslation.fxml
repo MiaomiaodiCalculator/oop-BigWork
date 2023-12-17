@@ -16,9 +16,9 @@
         <URL value="@style/Unity.css" />
     </stylesheets>
    <children>
-       <MenuBar layoutX="46.0" layoutY="114.0" prefHeight="32.0" prefWidth="106.0">
+       <MenuBar layoutX="46.0" layoutY="114.0" prefHeight="26.0" prefWidth="84.0">
           <menus>
-              <Menu text="选择类型">
+              <Menu text="单位类型">
                  <items>
                      <MenuItem onAction="#VolumeShift" text="体积" />
                      <MenuItem onAction="#LengthShift" text="长度" />
@@ -31,16 +31,16 @@
               </Menu>
           </menus>
        </MenuBar>
-       <Text fx:id="title" layoutX="195.0" layoutY="57.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="单位换算" textAlignment="CENTER">
+       <Text fx:id="title" layoutX="195.0" layoutY="64.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="单位换算" textAlignment="CENTER">
            <font>
                <Font size="28.0" />
            </font>
        </Text>
        <Pane fx:id="Volume" layoutY="200.0" prefHeight="441.0" prefWidth="482.0" visible="false">
            <children>
-               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位1">
+                       <Menu text="换算前单位">
                            <items>
                                <MenuItem onAction="#A1_1" text="毫升" />
                                <MenuItem onAction="#A1_2" text="立方厘米" />
@@ -50,9 +50,9 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位2">
+                       <Menu text="换算后单位">
                            <items>
                                <MenuItem onAction="#A2_1" text="毫升" />
                                <MenuItem onAction="#A2_2" text="立方厘米" />
@@ -67,9 +67,9 @@
        </Pane>
        <Pane fx:id="Length" layoutY="200.0" prefHeight="463.0" prefWidth="482.0" visible="false">
            <children>
-               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位1">
+                       <Menu text="换算前单位">
                            <items>
                                <MenuItem onAction="#B1_1" text="纳米" />
                                <MenuItem onAction="#B1_2" text="微米" />
@@ -83,9 +83,9 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位2">
+                       <Menu text="换算后单位">
                            <items>
                                <MenuItem onAction="#B2_1" text="纳米" />
                                <MenuItem onAction="#B2_2" text="微米" />
@@ -104,9 +104,9 @@
        </Pane>
        <Pane fx:id="Weight" layoutY="200.0" prefHeight="425.0" prefWidth="500.0" visible="false">
            <children>
-               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位1">
+                       <Menu text="换算前单位">
                            <items>
                                <MenuItem onAction="#C1_1" text="毫克" />
                                <MenuItem onAction="#C1_2" text="克" />
@@ -116,9 +116,9 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位2">
+                       <Menu text="换算后单位">
                            <items>
                                <MenuItem onAction="#C2_1" text="毫克" />
                                <MenuItem onAction="#C2_2" text="克" />
@@ -133,9 +133,9 @@
        </Pane>
        <Pane fx:id="Temperature" layoutY="200.0" prefHeight="476.0" prefWidth="482.0" visible="false">
            <children>
-               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位1">
+                       <Menu text="换算前单位">
                            <items>
                                <MenuItem onAction="#D1_1" text="摄氏度" />
                                <MenuItem onAction="#D1_2" text="华氏度" />
@@ -144,9 +144,9 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位2">
+                       <Menu text="换算后单位">
                            <items>
                                <MenuItem onAction="#D2_1" text="摄氏度" />
                                <MenuItem onAction="#D2_2" text="华氏度" />
@@ -160,9 +160,9 @@
        </Pane>
        <Pane fx:id="Area" layoutY="200.0" prefHeight="476.0" prefWidth="482.0" visible="false">
            <children>
-               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位1">
+                       <Menu text="换算前单位">
                            <items>
                                <MenuItem onAction="#E1_1" text="平方厘米" />
                                <MenuItem onAction="#E1_2" text="平方米" />
@@ -171,9 +171,9 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位2">
+                       <Menu text="换算后单位">
                            <items>
                                <MenuItem onAction="#E2_1" text="平方厘米" />
                                <MenuItem onAction="#E2_2" text="平方米" />
@@ -187,9 +187,9 @@
        </Pane>
        <Pane fx:id="Times" layoutY="200.0" prefHeight="463.0" prefWidth="489.0" visible="false">
            <children>
-               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位1">
+                       <Menu text="换算前单位">
                            <items>
                                <MenuItem onAction="#F1_1" text="毫秒" />
                                <MenuItem onAction="#F1_2" text="秒" />
@@ -202,9 +202,9 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位2">
+                       <Menu text="换算后单位">
                            <items>
                                <MenuItem onAction="#F2_1" text="毫秒" />
                                <MenuItem onAction="#F2_2" text="秒" />
@@ -222,9 +222,9 @@
        </Pane>
        <Pane fx:id="Angle" layoutY="200.0" prefHeight="463.0" prefWidth="489.0" visible="false">
            <children>
-               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位1">
+                       <Menu text="换算前单位">
                            <items>
                                <MenuItem onAction="#G1_1" text="度" />
                                <MenuItem onAction="#G1_2" text="弧度" />
@@ -232,9 +232,9 @@
                        </Menu>
                    </menus>
                </MenuBar>
-               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="83.0">
+               <MenuBar layoutX="46.0" layoutY="200.0" prefHeight="25.0" prefWidth="93.0">
                    <menus>
-                       <Menu text="单位2">
+                       <Menu text="换算后单位">
                            <items>
                                <MenuItem onAction="#G2_1" text="度" />
                                <MenuItem onAction="#G2_2" text="弧度" />
@@ -245,19 +245,10 @@
                <Button layoutX="383.0" layoutY="150.0" mnemonicParsing="false" onAction="#Calculate" prefHeight="34.0" prefWidth="72.0" text="转换" />
            </children>
        </Pane>
-       <TextField fx:id="input" layoutX="46.0" layoutY="265.0" prefHeight="64.0" prefWidth="409.0" visible="false">
-         <font>
-            <Font size="18.0" />
-         </font></TextField>
-       <TextField fx:id="output" editable="false" layoutX="46.0" layoutY="459" prefHeight="64.0" prefWidth="409.0" visible="false">
-         <font>
-            <Font size="18.0" />
-         </font></TextField>
-      <TextField fx:id="TypeSet" editable="false" layoutX="161.0" layoutY="114.0" prefHeight="32.0" prefWidth="131.0">
-         <font>
-            <Font size="15.0" />
-         </font></TextField>
-       <TextField fx:id="unit2" editable="false" layoutX="161.0" layoutY="405.0" prefHeight="32.0" prefWidth="83.0" visible="false" />
-       <TextField fx:id="unit1" editable="false" layoutX="161.0" layoutY="200.0" prefHeight="32.0" prefWidth="83.0" visible="false" />
+       <TextField fx:id="input" layoutX="46.0" layoutY="265.0" prefHeight="64.0" prefWidth="409.0" visible="false" />
+       <TextField fx:id="output" editable="false" layoutX="46.0" layoutY="459" prefHeight="64.0" prefWidth="409.0" visible="false" />
+       <TextField fx:id="unit1" editable="false" layoutX="139.0" layoutY="200" prefHeight="26.0" prefWidth="64.0" visible="false" />
+       <TextField fx:id="unit2" editable="false" layoutX="139.0" layoutY="400" prefHeight="26.0" prefWidth="64.0" visible="false" />
+      <TextField fx:id="TypeSet" editable="false" layoutX="129.0" layoutY="114.0" prefHeight="26.0" prefWidth="54.0" />
    </children>
 </AnchorPane>

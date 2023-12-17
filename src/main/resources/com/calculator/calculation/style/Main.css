@@ -1,16 +1,16 @@
 .root {
     -fx-background-color: white;
 }
-.menu-bar {
+#menu .menu-bar {
     -fx-background-color: white;
 }
-.menu-item {
+#menu .menu-item {
     -fx-text-fill: #000000;
 }
-.menu-item:hover {
+#menu .menu-item:hover {
     -fx-background-color: #cfcd66;
 }
-.menu-item:pressed {
+#menu .menu-item:pressed {
     -fx-background-color: #93913c;
 }
 

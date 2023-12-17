@@ -50,6 +50,8 @@ public class LoginController {
             Scene scene = new Scene(fxmlLoader.load(), 500, 730);
             MainController.mainController=fxmlLoader.getController();
             stage.setTitle("Calculator");
+            Image icon = new Image("icon.png");
+            stage.getIcons().add(icon);
             Image cursorImage = new Image("cur.png");
             ImageCursor cursor = new ImageCursor(cursorImage);
             stage.setScene(scene);
@@ -171,6 +173,8 @@ public class LoginController {
         ImageCursor cursor = new ImageCursor(cursorImage);
         stage.setResizable(false);
         stage.setScene(scene);
+        Image icon = new Image("icon.png");
+        stage.getIcons().add(icon);
         scene.setCursor(cursor);
         stage.show();
         stage.setOnCloseRequest(event ->{

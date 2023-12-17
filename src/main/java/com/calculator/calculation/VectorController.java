@@ -4,7 +4,10 @@ import javafx.fxml.*;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.canvas.*;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -15,6 +18,8 @@ import java.util.*;
 import javafx.fxml.FXML;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.shape.Cylinder;
+
+import static user.Shift.VectorShift;
 
 /**
  * @author Bu Xinran
@@ -35,10 +40,6 @@ public class VectorController implements Initializable{
     public ImageView cross2D;
     public ImageView dot2D;
     public ImageView add2D;
-    public Label addResult;
-    public Label dotResult;
-    public Label crossResult;
-    public Label angleResult;
     public Label error;
     public Canvas vectorCanvas;
     public ImageView add3D;
@@ -48,10 +49,13 @@ public class VectorController implements Initializable{
     public SubScene subScene;
     public Button Button2D;
     public Button Button3D;
+    // 用于二维向量绘制
+    public XYChart.Series <Number, Number> dataSeries1, dataSeries2;
+    public LineChart LineChart2D;
     @FXML
     private StackPane cardContainer;
     private GraphicsContext gc=null;
-    private static boolean flag=false;
+    public static boolean flag=false;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(!flag) {
@@ -66,6 +70,8 @@ public class VectorController implements Initializable{
      **/
     public void Vector2DShift() {
         loadPage("Vector2D.fxml");
+        Button2D.getStyleClass().add("active");
+        Button3D.getStyleClass().remove("active");
     }
     /***
      * @Description  加载三维向量对应的文件
@@ -74,6 +80,8 @@ public class VectorController implements Initializable{
      **/
     public void Vector3DShift() {
         loadPage("Vector3D.fxml");
+        Button3D.getStyleClass().add("active");
+        Button2D.getStyleClass().remove("active");
     }
     /***
      * @Description  加载卡片布局：fxml文件
@@ -96,7 +104,8 @@ public class VectorController implements Initializable{
      * @author Bu Xinran
      * @date 2023/11/25 20:49
      **/
-    public void setNewVector2(ActionEvent newVector) {
+    public void setNewVector2(ActionEvent newVector) throws Exception {
+        error.setVisible(false);
         if(gc!=null){
             gc.clearRect(0, 0, vectorCanvas.getWidth(), vectorCanvas.getHeight()); // 清空画布内容
         }
@@ -118,78 +127,54 @@ public class VectorController implements Initializable{
             dot2D.setVisible(true);
             cross2D.setVisible(true);
             angle2D.setVisible(true);
-            addResult.setText("=(" + add[0] + "," + add[1] + ")");
-            dotResult.setText("=" + dot);
-            crossResult.setText("=" + cross);
-            angleResult.setText("=" + angle);
-            drawCoordinateSystem(new double[]{X1, Y1, X2, Y2});
+            String addResult="=(" + add[0] + "," + add[1] + ")";
+            Image i1=VectorShift(addResult,1,2);
+            add2D.setImage(i1);
+            String dotResult="=" + dot;
+            Image i2=VectorShift(dotResult,2,2);
+            dot2D.setImage(i2);
+            String crossResult="=" + cross;
+            Image i3=VectorShift(crossResult,3,2);
+            cross2D.setImage(i3);
+            String angleResult="=" + angle;
+            Image i4=VectorShift(angleResult,4,2);
+            angle2D.setImage(i4);
+            drawCoordinateSystem(X1, Y1, X2, Y2);
         } else {
             add2D.setVisible(false);
             dot2D.setVisible(false);
             cross2D.setVisible(false);
             angle2D.setVisible(false);
-            addResult.setText("");
-            dotResult.setText("");
-            crossResult.setText("");
-            angleResult.setText("");
             error.setVisible(true);
         }
         cntHistory++;
         historyVector.put(cntHistory, vector);
         pushMapToHistory();
     }
-    /***
-     * @Description 绘制向量的坐标图
-     * @param coordinates 坐标数组
-     * @author Bu Xinran
-     * @date 2023/11/25 20:47
-     **/
-    private void drawCoordinateSystem(double[] coordinates) {
-        gc = vectorCanvas.getGraphicsContext2D();
-        double width = vectorCanvas.getWidth();
-        double height = vectorCanvas.getHeight();
-        //获得x，y的最大值以确定最小分度值
-        double xMax = Math.max(Math.abs(coordinates[0]), Math.abs(coordinates[2]));
-        double yMax = Math.max(Math.abs(coordinates[1]), Math.abs(coordinates[3]));
-        double max = Math.max(xMax, yMax);
-        int minScale = max > 10 ? (int)(max / 10) : 1;
-        gc.setStroke(Color.BLACK);
-        //绘制x，y坐标值
-        gc.setLineWidth(1);
-        gc.strokeLine(0, height / 2, width, height / 2);
-        gc.setLineWidth(1);
-        gc.strokeLine(width / 2, 0, width / 2, height);
-        //绘制箭头
-        drawArrow(gc, 0, height / 2, width, height / 2);
-        drawArrow(gc,width / 2, height,(width / 2), 0);
-        // 绘制刻度
-        int j=-9;
-        for (double i =width/20; i <= width; i += width/20,j++) {
-            gc.setLineWidth(0.3);
-            gc.strokeLine( i, height / 2-5,i, height / 2);
-            gc.setFill(Color.BLACK);
-            gc.fillText(String.format("%d", j*minScale), i - 5, height / 2 + 15);
-        }
-        j=9;
-        for (double i =height/20; i <height; i += height/20,j--) {
-            gc.setLineWidth(0.3);
-            gc.strokeLine(width / 2 - 5, i, width / 2, i);
-            if(j%2==0&&j!=0){
-                gc.setFill(Color.BLACK);
-                gc.fillText(String.format("%d", j*minScale), width / 2-20, i + 5);
-            }
-        }
-        //绘制向量
-        gc.setLineWidth(1.5);
-        gc.setStroke(Color.RED);
-        gc.strokeLine(width/2,height/2,width/2+coordinates[0]/minScale*(width/20), height/2-coordinates[1]/minScale*(height/20));
-        gc.setStroke(Color.BLUE);
-        gc.strokeLine(width/2,height/2,width/2+coordinates[2]/minScale*(width/20), height/2-coordinates[3]/minScale*(height/20));
-        gc.setLineWidth(1);
-        gc.setStroke(Color.RED);
-        drawArrow(gc,width/2,height/2,width/2+coordinates[0]/minScale*(width/20), height/2-coordinates[1]/minScale*(height/20));
-        gc.setStroke(Color.BLUE);
-        drawArrow(gc,width/2,height/2,width/2+coordinates[2]/minScale*(width/20), height/2-coordinates[3]/minScale*(height/20));
+    /**
+     * @Description 处理二维向量的绘制
+     * @param X1
+     * @param Y1
+     * @param X2
+     * @param Y2
+     * @author 郑悦
+     * @date 2023/12/17 11:14
+    **/
+    private void drawCoordinateSystem(double X1, double Y1, double X2, double Y2) {
+        LineChart2D.getData().remove(dataSeries1);
+        LineChart2D.getData().remove(dataSeries2);
+        dataSeries1 = new XYChart.Series<>();
+        dataSeries2 = new XYChart.Series<>();
+        dataSeries1.getData().add(new XYChart.Data<>(0, 0));
+        dataSeries1.getData().add(new XYChart.Data<>(X1, Y1));
+        dataSeries2.getData().add(new XYChart.Data<>(0, 0));
+        dataSeries2.getData().add(new XYChart.Data<>(X2, Y2));
+        dataSeries1.setName("Vector 1");
+        dataSeries2.setName("Vector 2");
+        LineChart2D.getData().addAll(dataSeries1, dataSeries2);
+        LineChart2D.getStyleClass().add(getClass().getResource("css/Vector2DDraw.css").toExternalForm());
+        dataSeries1.getData().get(0).getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: transparent;");
+        dataSeries2.getData().get(0).getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: transparent;");
     }
     /***
      * @Description 根据直线方向绘制箭头
@@ -246,7 +231,7 @@ public class VectorController implements Initializable{
      * @author Bu Xinran
      * @date 2023/11/25 22:49
      **/
-    public void setNewVector3(ActionEvent newVector3) {
+    public void setNewVector3(ActionEvent newVector3) throws Exception {
         if(gc!=null){
             gc.clearRect(0, 0, vectorCanvas.getWidth(), vectorCanvas.getHeight()); // 清空画布内容
         }
@@ -272,46 +257,23 @@ public class VectorController implements Initializable{
             dot3D.setVisible(true);
             cross3D.setVisible(true);
             angle3D.setVisible(true);
-            addResult.setText("=(" + add[0] + "," + add[1] + ","+add[2]+")");
-            dotResult.setText("=" + dot);
-            crossResult.setText("=" + cross);
-            angleResult.setText("=" + angle);
-            Group axisGroup = new Group();
-            PerspectiveCamera camera = new PerspectiveCamera(true);
-            camera.setTranslateX(0); // 将相机位置设置为中心
-            camera.setTranslateY(0);
-            camera.setTranslateZ(-5000); // 将相机向后移动 5000 个距离单位，增加视野范围
-            subScene.setCamera(camera);
-            // 计算新的 subScene 尺寸
-            double subSceneWidth = 500.0;
-            double subSceneHeight = 240.0;
-            // 创建 x 轴
-            Cylinder xAxis = new Cylinder(2, subSceneWidth * 2);
-            xAxis.setTranslateX(subSceneWidth / 2);
-            axisGroup.getChildren().add(xAxis);
-            // 创建 y 轴
-            Cylinder yAxis = new Cylinder(2, subSceneHeight * 2);
-            yAxis.setTranslateY(subSceneHeight / 2);
-            yAxis.setRotate(90);
-            axisGroup.getChildren().add(yAxis);
-            // 创建 z 轴
-            Cylinder zAxis = new Cylinder(2, subSceneWidth * 2);
-            zAxis.setTranslateZ(-subSceneHeight * 2); // 将 z 轴位置向后移动到场景外
-            zAxis.setRotate(90);
-            axisGroup.getChildren().add(zAxis);
-            // 将坐标轴添加到 3D 场景中
-            subScene.setRoot(axisGroup);
-            subScene.setVisible(true);
-
+            String addResult="=(" + add[0] + "," + add[1] + ","+add[2]+")";
+            Image i1=VectorShift(addResult,1,3);
+            add3D.setImage(i1);
+            String dotResult="=" + dot;
+            Image i2=VectorShift(dotResult,2,3);
+            dot3D.setImage(i2);
+            String crossResult="=" + cross;
+            Image i3=VectorShift(crossResult,3,3);
+            cross3D.setImage(i3);
+            String angleResult="=" + angle;
+            Image i4=VectorShift(angleResult,4,3);
+            angle3D.setImage(i4);
         } else {
             add3D.setVisible(false);
             dot3D.setVisible(false);
             cross3D.setVisible(false);
             angle3D.setVisible(false);
-            addResult.setText("");
-            dotResult.setText("");
-            crossResult.setText("");
-            angleResult.setText("");
             error.setVisible(true);
         }
         cntHistory++;
