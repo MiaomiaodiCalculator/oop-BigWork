@@ -107,4 +107,48 @@ public class Shift {
             return equation;
         }else return equation;
     }
+    /***
+     * @Description  返回向量latex图片
+     * @param equation 答案
+     * @param x 运算序号
+     * @param z 几维
+     * @return javafx.scene.image.Image
+     * @author Bu Xinran
+     * @date 2023/12/17 17:26
+    **/
+    public static javafx.scene.image.Image VectorShift(String equation,int x,int z) throws Exception {
+        String latex="";
+        if(x==1){
+            if(z==2){
+                latex="\\vec{a}+\\vec{b}"+equation;
+            }else{
+                latex="\\vec{a}+\\vec{b}+\\vec{c}"+equation;
+            }
+        }else if(x==2){
+            if(z==2){
+                latex="\\vec{a}·\\vec{b}"+equation;
+            }else{
+                latex="\\vec{a}·\\vec{b}·\\vec{c}"+equation;
+            }
+        }else if(x==3){
+            if(z==2){
+                latex="\\vec{a}\\times\\vec{b}"+equation;
+            }else{
+                latex="\\vec{a}\\times\\vec{b}\\times\\vec{c}"+equation;
+            }
+        }else{
+            if(z==2){
+                latex="cos<\\vec{a},\\vec{b}>"+equation;
+            }else{
+                latex="cos<\\vec{a},\\vec{b},\\vec{c}>"+equation;
+            }
+        }
+        BufferedImage image = (BufferedImage) image(latex);
+        ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", byteOutput);
+        byte[] imageInByte = byteOutput.toByteArray();
+        javafx.scene.image.Image fxImage = new javafx.scene.image.Image(new ByteArrayInputStream(imageInByte));
+        byteOutput.close();
+        return fxImage;
+    }
 }

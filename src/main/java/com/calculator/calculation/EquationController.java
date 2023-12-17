@@ -92,6 +92,9 @@ public class EquationController implements Initializable {
     public Label e4m;
     public Button equation1;
     public Button equation2;
+    public Button d2;
+    public Button d3;
+    public Button d4;
     private String showEquation="";
     private int state=2;
     private String equation="";
@@ -115,7 +118,7 @@ public class EquationController implements Initializable {
         Equation.setVisible(false);
         e3.setVisible(false);
         e4.setVisible(false);
-        equation1.getStyleClass().add("active");
+        shift1();
     }
     /***
      * @Description 点击跳转到多元一次方程
@@ -127,6 +130,9 @@ public class EquationController implements Initializable {
         Equation.setVisible(false);
         equation1.getStyleClass().add("active");
         equation2.getStyleClass().remove("active");
+        d2.getStyleClass().add("active");
+        d3.getStyleClass().remove("active");
+        d4.getStyleClass().remove("active");
     }
     /***
      * @Description  点击跳转到多次方程
@@ -304,9 +310,24 @@ public class EquationController implements Initializable {
         e4.setVisible(false);
         e4answerShow.setVisible(false);
         switch (text) {
-            case "2×2" -> e2.setVisible(true);
-            case "3×3" -> e3.setVisible(true);
-            default -> e4.setVisible(true);
+            case "2×2":
+                e2.setVisible(true);
+                d2.getStyleClass().add("active");
+                d3.getStyleClass().remove("active");
+                d4.getStyleClass().remove("active");
+                break;
+            case "3×3":
+                e3.setVisible(true);
+                d3.getStyleClass().add("active");
+                d2.getStyleClass().remove("active");
+                d4.getStyleClass().remove("active");
+                break;
+            default:
+                e4.setVisible(true);
+                d4.getStyleClass().add("active");
+                d3.getStyleClass().remove("active");
+                d2.getStyleClass().remove("active");
+                break;
         }
         state=Integer.parseInt(text.substring(0,1));
     }
