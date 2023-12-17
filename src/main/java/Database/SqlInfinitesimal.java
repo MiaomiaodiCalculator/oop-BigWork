@@ -1,5 +1,4 @@
 package Database;
-import NewFunction.UserFunction;
 import com.calculator.calculation.LoginController;
 import com.calculator.calculation.Main;
 import infinitesimal.InfinitesimalSolve;
