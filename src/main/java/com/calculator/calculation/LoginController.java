@@ -6,8 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -57,7 +59,10 @@ public class LoginController {
             Scene scene = new Scene(fxmlLoader.load(), 500, 730);
             MainController.mainController=fxmlLoader.getController();
             stage.setTitle("Calculator");
+            Image cursorImage = new Image("cur.png");
+            ImageCursor cursor = new ImageCursor(cursorImage);
             stage.setScene(scene);
+            scene.setCursor(cursor);
             stage.show();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -170,8 +175,12 @@ public class LoginController {
         Scene scene = new Scene(fxmlLoader.load(), 500, 730);
         MainController.mainController=fxmlLoader.getController();
         stage.setTitle("Calculator");
+        stage.setResizable(false);  // ui1
+        Image cursorImage = new Image("cur.png");
+        ImageCursor cursor = new ImageCursor(cursorImage);
         stage.setResizable(false);
         stage.setScene(scene);
+        scene.setCursor(cursor);
         stage.show();
         stage.setOnCloseRequest(event ->{
             if(!state)delete(new User(userName,passWord));
@@ -189,5 +198,4 @@ public class LoginController {
             login();
         }
     }
-
 }

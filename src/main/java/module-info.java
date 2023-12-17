@@ -7,6 +7,7 @@ module com.calculator.calculation {
     requires commons.math3;
     requires java.sql;
     requires mysql.connector.j;
+    requires java.desktop;
 
     opens com.calculator.calculation to javafx.fxml;
     exports com.calculator.calculation;
