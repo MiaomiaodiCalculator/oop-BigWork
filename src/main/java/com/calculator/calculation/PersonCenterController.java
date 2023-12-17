@@ -159,7 +159,7 @@ public class PersonCenterController implements Initializable {
         currentStage.close();
         Stage stage=new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 500, 730);
+        Scene scene = new Scene(fxmlLoader.load(), 370, 369);
         stage.setTitle("登录");
         stage.setScene(scene);
         stage.show();
