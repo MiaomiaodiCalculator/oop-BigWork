@@ -4,14 +4,27 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.ImageCursor;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import user.User;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static Database.SqlUser.add;
+import static Database.SqlUser.exists;
+
 public class MainController implements Initializable {
     public static MainController mainController;
     @FXML
@@ -127,17 +140,27 @@ public class MainController implements Initializable {
         present="Infinitesimal";
         loadPage("Infinitesimal.fxml");
     }
-    /***
-     * @Description 跳转到个人中心
-     * @param mouseEvent  点击事件
-     * @author Bu Xinran
-     * @date 2023/12/7 21:53
+
+    public static Stage PersonStage = new Stage();
+    /**
+     * @Description 布局美化+使用体验考虑改动个人中心的显示
+     * @param mouseEvent
+     * @author 郑悦
+     * @date 2023/12/17 21:44
     **/
     @FXML
-    public void goPersonalCenter(MouseEvent mouseEvent) {
-        loadPage("PersonCenter.fxml");
-        person.setVisible(false);
-        returnMain.setVisible(true);
+    public void goPersonalCenter(MouseEvent mouseEvent) throws IOException {
+        Stage stage = PersonStage;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PersonCenter.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 355, 465);
+        stage.setTitle("个人中心");
+        Image icon = new Image("icon.png");
+        stage.getIcons().add(icon);
+        Image cursorImage = new Image("cur.png");
+        ImageCursor cursor = new ImageCursor(cursorImage);
+        stage.setScene(scene);
+        scene.setCursor(cursor);
+        stage.show();
     }
     /***
      * @Description  返回到主界面

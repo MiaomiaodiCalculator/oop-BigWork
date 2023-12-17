@@ -23,17 +23,24 @@
    -fx-prompt-text-fill: #cccccc;
 }
 
-#loginButton {
+#loginButton, #signup, #visitor {
+   /*-fx-arc-height: 80;*/
+   /*-fx-arc-width: 250;*/
    -fx-background-color: #333333;
    -fx-text-fill: white;
    -fx-font-weight: bold;
-   -fx-border-radius: 5px;
+   -fx-border-radius: 20px;
+   -fx-font: normal bold 16px 'serif';
 }
 
-#signup, #visitor {
-   -fx-font-weight: bold;
-   -fx-text-fill: #333333;
-   -fx-cursor: hand;
+/*#signup, #visitor {*/
+/*   -fx-font-weight: bold;*/
+/*   -fx-text-fill: #333333;*/
+/*   -fx-cursor: hand;*/
+/*}*/
+
+#Text1, #Text2 {
+   -fx-font: normal bold 20px 'serif';
 }
 
 #signup:hover, #visitor:hover {
