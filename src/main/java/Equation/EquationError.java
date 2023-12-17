@@ -5,6 +5,6 @@ package Equation;
  * @date 2023/11/30 9:55
  */
 public enum EquationError {
-    //yes:无错误。dotRepeat：小数点重复。symbolRepeat:运算符重复。
-    yes,dotRepeat,symbolRepeat,
+    //yes:无错误。dotRepeat：小数点重复。symbolRepeat:运算符重复。notEqual:一定不相等。
+    yes,dotRepeat,symbolRepeat,notEqual,
 }

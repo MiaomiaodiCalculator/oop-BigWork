@@ -123,7 +123,10 @@ public class FunctionController implements Initializable {
     private void handleSaveClick(ActionEvent event) {
         String judgeName = UserFunction.judgeName(functionName.getText());
         System.out.println(functionName.getText());
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Dialog alert = new Dialog();
+        alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+        alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("dialog");
         alert.setTitle("出错了");
         alert.setHeaderText(null);
         //判断名称合法性
@@ -150,7 +153,6 @@ public class FunctionController implements Initializable {
         //判断参数个数并选择
         if(function.judgeParaNum()!=0){
             int trueNum=function.getParaNum()+ function.judgeParaNum();
-            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
             if(trueNum==0){
                 Alert alert0=new Alert(Alert.AlertType.WARNING);
                 alert0.setHeaderText("这个函数没有输入参数……");
@@ -158,6 +160,10 @@ public class FunctionController implements Initializable {
                 alert0.showAndWait();
                 return;
             }
+            Dialog alert1 = new Dialog();
+            alert1.getDialogPane().getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);
+            alert1.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+            alert.getDialogPane().getStyleClass().add("alertFunction");
             alert1.setContentText("坚持保存吗？它将被设置为"+trueNum+"元函数");
             if(function.judgeParaNum()>0)
                 alert1.setHeaderText("参数个数比想象中要多……");
@@ -169,7 +175,6 @@ public class FunctionController implements Initializable {
                 function.replacePara();
                 haveAdd=function.addFunction();
             } else {
-                System.out.println("选择了返回");
                 return;
             }
         }
@@ -178,7 +183,10 @@ public class FunctionController implements Initializable {
             haveAdd = function.addFunction();
         }
         if (haveAdd) {
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+            Dialog alert1 = new Dialog();
+            alert1.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            alert1.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+            alert1.getDialogPane().getStyleClass().add("alertFunction");
             alert1.setTitle("创建了一个新函数！");
             alert1.setHeaderText("函数名：" + functionName.getText());
             alert1.setContentText("表达式：" + formula);
@@ -569,22 +577,26 @@ public class FunctionController implements Initializable {
      * @date 2023/12/11 10:36
     **/
     public void handleJump(UserFunction f) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("刚刚创建了一个新函数");
-        alert.setContentText("要进行下一步操作吗？");
-        ButtonType buttonTypeOne = new ButtonType("绘制图像");
-        ButtonType buttonTypeTwo = new ButtonType("计算微积分");
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+        dialog.getDialogPane().getStyleClass().add("alertFunction");
+        dialog.setHeaderText("刚刚创建了一个新函数");
+        dialog.setContentText("要进行下一步操作吗？");
+        ButtonType buttonTypeOne = new ButtonType("绘制图像", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonTypeTwo = new ButtonType("计算微积分", ButtonBar.ButtonData.OK_DONE);
         ButtonType buttonTypeCancel = new ButtonType("什么也不做", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne){
-            //跳转至图像绘制
-            jumpToVis(f);
+        dialog.getDialogPane().getButtonTypes().addAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            if (result.get() == buttonTypeOne) {
+                // 跳转至图像绘制
+                jumpToVis(f);
+            } else if (result.get() == buttonTypeTwo) {
+                // 跳转至微积分
+                jumpToIft(f);
+            }
         }
-        else if (result.get() == buttonTypeTwo) {
-            // 跳转至微积分
-            jumpToIft(f);
-        }
+
     }
 
 }

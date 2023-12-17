@@ -54,4 +54,16 @@
   -fx-font-weight: bold;
   -fx-border-radius: 5px;
 }
-
+#alert.button {
+   -fx-background-color: #333333;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-border-radius: 5px;
+}
+#alert Label{
+    -fx-background-color:white;
+    -fx-font-weight: bold;
+    -fx-text-font:15px;
+   -fx-text-fill: #333333;
+   -fx-cursor: hand;
+}

@@ -2,11 +2,16 @@ package com.calculator.calculation;
 import NewFunction.UserFunction;
 import com.singularsys.jep.EvaluationException;
 import com.singularsys.jep.ParseException;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -54,7 +59,10 @@ public class LoginController {
             Scene scene = new Scene(fxmlLoader.load(), 500, 730);
             MainController.mainController=fxmlLoader.getController();
             stage.setTitle("Calculator");
+            Image cursorImage = new Image("cur.png");
+            ImageCursor cursor = new ImageCursor(cursorImage);
             stage.setScene(scene);
+            scene.setCursor(cursor);
             stage.show();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -81,9 +89,9 @@ public class LoginController {
         gridPane.add(new Label("密码："), 0, 1);
         gridPane.add(new Label("确认密码:"), 0, 2);
         TextField name = new TextField();
-        name.setPromptText("7-15位数字或字母");
+        name.setPromptText("6-15位数字或字母");
         PasswordField password=new PasswordField();
-        password.setPromptText("7-15位由英文字母、数字和特殊字符（@，_，%，$）组成");
+        password.setPromptText("大于等于6位字符");
         PasswordField again=new PasswordField();
         again.setPromptText("再次确认密码");
         name.setPrefWidth(300);
@@ -136,7 +144,7 @@ public class LoginController {
      * @date 2023/12/7 10:47
     **/
     public static boolean checkName(String name){
-        String regex = "^[a-zA-Z0-9]{7,15}$";
+        String regex = "^[a-zA-Z0-9]{6,15}$";
         return name.matches(regex);
     }
     /***
@@ -147,8 +155,7 @@ public class LoginController {
      * @date 2023/12/7 10:51
     **/
     public static boolean checkPassword(String password){
-        String regex = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[@_$%]).{7,15}$";
-        return password.matches(regex);
+        return password.length() >= 6;
     }
     /***
      * @Description 游客模式进入
@@ -168,8 +175,12 @@ public class LoginController {
         Scene scene = new Scene(fxmlLoader.load(), 500, 730);
         MainController.mainController=fxmlLoader.getController();
         stage.setTitle("Calculator");
+        stage.setResizable(false);  // ui1
+        Image cursorImage = new Image("cur.png");
+        ImageCursor cursor = new ImageCursor(cursorImage);
         stage.setResizable(false);
         stage.setScene(scene);
+        scene.setCursor(cursor);
         stage.show();
         stage.setOnCloseRequest(event ->{
             if(!state)delete(new User(userName,passWord));
