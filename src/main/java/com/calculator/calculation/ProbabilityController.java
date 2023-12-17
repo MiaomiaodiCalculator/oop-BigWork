@@ -16,6 +16,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -28,6 +29,7 @@ import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
+import user.Shift;
 
 import java.net.Proxy;
 import java.net.URL;
@@ -35,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import static user.Shift.*;
 
 /**
  * @author 郑悦
@@ -125,6 +129,9 @@ public class ProbabilityController implements Initializable {
     public TextField o;
     public ImageView returnImg;
     public TextField xIn;
+    public ImageView poissonLatex;
+    public ImageView GaussLatex;
+    public ImageView regressionLatex;
     boolean flagTwoInput = false; // 判断两行都输入后开始在表格中显示
     boolean flagWithProbability = false;
     boolean flagRawProcess = false; // 判断是不是两个随机变量输入-true即不带概率
@@ -731,7 +738,7 @@ public class ProbabilityController implements Initializable {
     public void clearRegressionPage() {
         flagHasRegress = false;
         xInput.clear(); yInput.clear();
-        regressionExpression.clear();
+//        regressionExpression.clear();
         TableRegression.getItems().clear();
     }
     /**
@@ -795,7 +802,7 @@ public class ProbabilityController implements Initializable {
      * @author 郑悦
      * @date 2023/12/10 20:15
     **/
-    public void handleIndependentVar(KeyEvent keyEvent) {
+    public void handleIndependentVar(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             processInputEnter(xInput, 1);
         }
@@ -806,7 +813,7 @@ public class ProbabilityController implements Initializable {
      * @author 郑悦
      * @date 2023/12/10 20:15
     **/
-    public void handleDependentVar(KeyEvent keyEvent) {
+    public void handleDependentVar(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             processInputEnter(yInput, 2);
         }
@@ -818,7 +825,7 @@ public class ProbabilityController implements Initializable {
      * @author 郑悦
      * @date 2023/12/10 20:25
     **/
-    public void processInputEnter(TextField inputText, int num) {
+    public void processInputEnter(TextField inputText, int num) throws Exception {
         String input = inputText.getText();
         // 获取数据到数组
         try {
@@ -892,7 +899,7 @@ public class ProbabilityController implements Initializable {
      * @author 郑悦
      * @date 2023/12/10 9:58
     **/
-    public void showRegressionLineChart() {
+    public void showRegressionLineChart() throws Exception {
         WeightedObservedPoints points = new WeightedObservedPoints();
         for(int i = 0; i < data1.length; i++) {
             points.add(data1[i], data2[i]);
@@ -966,7 +973,8 @@ public class ProbabilityController implements Initializable {
             data.getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: transparent;");
         }
         equation = regress.regressionExpression;
-        regressionExpression.setText(equation);
+        Image image=regressionShift(equation);
+        regressionLatex.setImage(image);
     }
     /**
      * @Description 获取带预测的X的值
@@ -1021,17 +1029,17 @@ public class ProbabilityController implements Initializable {
             = new org.apache.commons.math3.distribution.NormalDistribution(0, 1);
     org.apache.commons.math3.distribution.PoissonDistribution poissonDistribution
             = new org.apache.commons.math3.distribution.PoissonDistribution(1);
-    public void handleGaussU(KeyEvent keyEvent) {
+    public void handleGaussU(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             processGaussInputEnter(u);
         }
     }
-    public void handleGaussO(KeyEvent keyEvent) {
+    public void handleGaussO(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             processGaussInputEnter(o);
         }
     }
-    public void handlePossionL(KeyEvent keyEvent) {
+    public void handlePossionL(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             String input = lamda.getText();
             if (isDouble(input)) {
@@ -1050,7 +1058,7 @@ public class ProbabilityController implements Initializable {
      * @author 郑悦
      * @date 2023/12/12 18:58
     **/
-    private void showDensityPDF() {
+    private void showDensityPDF() throws Exception {
         lineChartPossion.getData().remove(fitSeries);
         lineChartGauss.getData().remove(fitSeries);
         fitSeries = new XYChart.Series<>();
@@ -1071,7 +1079,8 @@ public class ProbabilityController implements Initializable {
                     data.getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: transparent;");
                 }
                 PDFExpress = String.format("y = (e^(-((x-%.3f)^2/2*%.3f^2)) / sqrt(2*pi*%.3f^2)", mean, standardDeviation, standardDeviation);
-                PExpression.setText(PDFExpress);
+                Image GaussImage=GaussShift(mean,standardDeviation,standardDeviation);
+                GaussLatex.setImage(GaussImage);
                 break;
             case 2:
                 for (int x = 0; x <= 30; x += 1) {
@@ -1086,7 +1095,9 @@ public class ProbabilityController implements Initializable {
                 dataSeries.getNode().getStyleClass().add("data-line"); // 离散型分布留点（X只能为整数）
                 dataSeries.setName("泊松分布的概率质量函数");
                 PDFExpress = String.format("y = ((e^(-%.3f))*(%.3f^x))/x!", possionLamda, possionLamda);
-                PExpression1.setText(PDFExpress);
+                System.out.println(PDFExpress);
+                Image image=PDFExpressShift(possionLamda,possionLamda);
+                poissonLatex.setImage(image);
                 break;
         }
     }
@@ -1123,7 +1134,7 @@ public class ProbabilityController implements Initializable {
      * @author 郑悦
      * @date 2023/12/11 20:25
      **/
-    public void processGaussInputEnter(TextField inputText) {
+    public void processGaussInputEnter(TextField inputText) throws Exception {
         String input = inputText.getText();
         int getWhich = 0;
         if (inputText == u) {

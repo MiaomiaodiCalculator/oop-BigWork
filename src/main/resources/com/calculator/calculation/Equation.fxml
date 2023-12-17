@@ -9,16 +9,20 @@
 <?import javafx.scene.shape.CubicCurveTo?>
 <?import javafx.scene.shape.SVGPath?>
 
+<?import java.net.URL?>
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.EquationController">
+   <stylesheets>
+      <URL value="@style/Equation.css" />
+   </stylesheets>
    <children>
        <Pane>
           <children>
-              <Text layoutX="202.0" layoutY="42.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="解方程" wrappingWidth="95.0">
+              <Text id="tittle" layoutX="202.0" layoutY="42.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="解方程" wrappingWidth="95.0">
                   <font>
                       <Font size="28.0" />
                   </font>
               </Text>
-              <Pane fx:id="Equation" prefHeight="698.0" prefWidth="500.0">
+              <Pane fx:id="Equation" prefHeight="698.0" prefWidth="500.0" visible="false">
                  <children>
                      <Label fx:id="showArea" layoutX="7.0" layoutY="108.0" prefHeight="111.0" prefWidth="485.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5px;" />
                      <Label fx:id="answerArea" layoutX="8.0" layoutY="238.0" prefHeight="162.0" prefWidth="485.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5px;" />
@@ -61,19 +65,6 @@
                     </GridPane>
                  </children>
               </Pane>
-              <GridPane layoutX="97.0" layoutY="44.0" prefHeight="64.0" prefWidth="337.0">
-                  <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                  <children>
-                      <Button mnemonicParsing="false" onAction="#shift1" text="多元一次方程组" GridPane.columnIndex="0" />
-                      <Button mnemonicParsing="false" onAction="#shift2" prefWidth="100.0" text="多次方程" GridPane.columnIndex="1" />
-                  </children>
-              </GridPane>
             <Pane fx:id="Equations" layoutY="103.0" prefHeight="593.0" prefWidth="500.0">
                <children>
                    <Pane layoutX="10.0" prefHeight="37.0" prefWidth="475.0">
@@ -487,6 +478,8 @@
                      </children></Pane>
                </children>
             </Pane>
+                <Button fx:id="equation1" id="button" layoutX="98.0" layoutY="57.0" mnemonicParsing="false" onAction="#shift1" prefHeight="28.0" prefWidth="152.0" text="多元一次方程组" />
+                <Button fx:id="equation2" id="button" layoutX="250.0" layoutY="57.0" mnemonicParsing="false" onAction="#shift2" prefHeight="28.0" prefWidth="152.0" text="多次方程" />
           </children>
        </Pane>
    </children>

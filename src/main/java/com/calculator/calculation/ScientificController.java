@@ -88,6 +88,8 @@ public class ScientificController implements Initializable{
         // 初始化时，显示第一个卡片，隐藏第二个卡片
         Scientific.setVisible(true);
         History.setVisible(false);
+        answerShow.setText("");
+        formulaShow.setText("");
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchListener();
         });
