@@ -718,7 +718,12 @@ public class ProbabilityController implements Initializable {
         String input = Percent.getText();
         double percent = Double.parseDouble(input);
         if (!flagHasBasicSolve) {
+            showAlert("错误提示", "请先构建概率模型/输入初始数据");
             return; // 这里应该增加无数据输入想获得输出的异常
+        }
+        if (!Percent.getChildrenUnmodifiable().isEmpty()) {
+            showAlert("错误提示", "请先输入你想求得的百分位");
+            return;
         }
         // 没数据时抛出异常
         System.out.println(530);
