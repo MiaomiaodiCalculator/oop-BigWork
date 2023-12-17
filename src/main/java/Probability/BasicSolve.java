@@ -35,15 +35,15 @@ public class BasicSolve {
      * @return null
      * @author 郑悦
      * @date 2023/12/2 21:37
-    **/
+     **/
     public BasicSolve() {}
     /**
      * @Description 单变量的基本数字特征求解
      * @param statics
-     * @return null       
+     * @return null
      * @author 郑悦
      * @date 2023/12/2 20:48
-    **/
+     **/
     public BasicSolve(double[] statics) {
         values = statics;
         dataNum = statics.length;
@@ -69,7 +69,7 @@ public class BasicSolve {
      * @return null
      * @author 郑悦
      * @date 2023/12/2 20:54
-    **/
+     **/
     public BasicSolve(double[] statics, double[] prob) {
         values = statics;
         probabilities = prob;
@@ -91,7 +91,7 @@ public class BasicSolve {
      * @return null
      * @author 郑悦
      * @date 2023/12/2 20:56
-    **/
+     **/
     public BasicSolve(double[] statics, double[] staticsY, boolean isBivariate) {
         values = statics;
         valuesY = staticsY;
@@ -127,7 +127,7 @@ public class BasicSolve {
      * @return java.util.List<java.lang.Double>
      * @author 郑悦
      * @date 2023/12/2 21:34
-    **/
+     **/
     public List<Double> getModeInStat(double[] values) {
         // 创建一个 Map 用于统计值和出现次数的映射关系
         Map<Double, Integer> valueCountMap = new HashMap<>();
@@ -163,7 +163,7 @@ public class BasicSolve {
      * @return double
      * @author 郑悦
      * @date 2023/12/2 21:33
-    **/
+     **/
     private double getRangeInStat(double[] values) {
         // 找到最大值和最小值
         double max = Arrays.stream(values).max().getAsDouble();
@@ -179,7 +179,7 @@ public class BasicSolve {
      * @return double
      * @author 郑悦
      * @date 2023/12/2 21:42
-    **/
+     **/
     private double getMeanInStat(double[] statics, double[] prob) {
         int num = statics.length;
         double result = 0.0;
@@ -196,7 +196,7 @@ public class BasicSolve {
      * @return double
      * @author 郑悦
      * @date 2023/12/9 16:38
-    **/
+     **/
     private static double getWeightedVariance(double[] values, double[] probabilities, double weightedMean) {
         double weightedSumSquaredDeviation = 0;
         double totalWeight = 0;
@@ -216,7 +216,7 @@ public class BasicSolve {
      * @return double
      * @author 郑悦
      * @date 2023/12/9 16:49
-    **/
+     **/
     public static double getWeightedPercent(double[] values, double[] weights, double p) {
         // p传入0.5的时候就是中位数
         int n = values.length;
@@ -272,7 +272,7 @@ public class BasicSolve {
      * @return java.util.List<java.lang.Double>
      * @author 郑悦
      * @date 2023/12/9 17:03
-    **/
+     **/
     private List<Double> getWeightedMode(double[] values, double[] weights) {
         int n = values.length;
 
@@ -307,7 +307,7 @@ public class BasicSolve {
      * @return double
      * @author 郑悦
      * @date 2023/12/3 0:11
-    **/
+     **/
     public double getPercentilesInStat(int type, double p) {
         DescriptiveStatistics descriptiveStatistics = new DescriptiveStatistics();
         switch (type) {
@@ -331,7 +331,7 @@ public class BasicSolve {
      * @return double
      * @author 郑悦
      * @date 2023/12/9 11:23
-    **/
+     **/
     public double getCovariance(double[] value1, double[] value2) {
         // 获取协方差
         // 创建 Covariance 对象
@@ -348,7 +348,7 @@ public class BasicSolve {
      * @return Probability.BasicSolve
      * @author 郑悦
      * @date 2023/12/9 11:33
-    **/
+     **/
     public BasicSolve reEditForVarTwo(double[] staticsRevise, double[] statics, int toWhich, int ProcessMethod) {
         BasicSolve basic = new BasicSolve();
         switch (toWhich) {
@@ -377,7 +377,7 @@ public class BasicSolve {
      * @return Probability.BasicSolve
      * @author 郑悦
      * @date 2023/12/9 11:34
-    **/
+     **/
     public BasicSolve reEditForVarOne(double[] staticsRevise) {
         return new BasicSolve(staticsRevise);
     }

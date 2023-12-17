@@ -1,0 +1,23 @@
+#title {
+    -fx-fill: #000000;
+    -fx-font-size: 28px;
+    -fx-stroke: #000000;
+    -fx-font-weight: bold;
+    -fx-stroke-width: 0;
+}
+#button {
+    -fx-background-color: #808080;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #808080;
+    -fx-text-fill: #FFFFFF;
+}
+#button:hover {
+    -fx-background-color: #F0F0F0;
+    -fx-text-fill: #808080;
+}
+#button:selected {
+    -fx-background-color: #4CAF50;
+    -fx-border-color: #4CAF50;
+    -fx-text-fill: #FFFFFF;
+}
