@@ -53,27 +53,14 @@ public class DiscreteMathController implements Initializable {
     public Button ButtonRemove;
     public Button ButtonRename;
     public TableView<String> variableInCnt;
-    public TableView<String> variableOutCnt;
     public Button ButtonAdd;
     public Label error;
-    public Button ButtonInput;
-    public Button ButtonOutput;
-    public Button ButtonTable;
-    public Button ButtonExpression;
     private static boolean flag = false;
     public TextArea ExpressionInput;
-    public Button ButtonClear;
-    public Button ButtonEnter;
-    public TableView<String> ValueTable;
-    public TableColumn<String, String> inputNameColumn;
     public Pane Input;
     public Pane Table;
     public Pane Expression;
     public Pane Output;
-    public Button ButtonAdd0;
-    public Button ButtonRename0;
-    public Button ButtonRemove0;
-    public TableColumn<String, String> outputNameColumn;
     public AnchorPane DMPane;
     public Pane MinTreePane;
     public Button ButtonGenerateGraph;
@@ -93,10 +80,6 @@ public class DiscreteMathController implements Initializable {
     public AnchorPane GraphPane;
     @FXML
     private StackPane DiscreteMathCardContainer;
-    @FXML
-    private StackPane DiscreteMathBooleanCardContainer;
-    @FXML
-    private StackPane DiscreteMathGraphCardContainer;
 
     static int MAX = 1000;
     int pointNum = MAX; // 记录目前图论计算的点的个数
@@ -111,59 +94,16 @@ public class DiscreteMathController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        DMPane.setStyle("-fx-background-color: BEIGE;");
         if(!flag) {
             flag = true;
-            BooleanAlgebraShift();
+            GraphTheoryShift();
         }
-    }
-
-    public void BooleanAlgebraShift() {
-        loadPage("DiscreteMathBoolean.fxml");
-        FunctionName.setText("Boolean Algebra");
     }
     public void GraphTheoryShift() {
         loadPage("DiscreteMathGraph.fxml");
 //        MinTreePane.setVisible(true);
 //        ShortPathPane.setVisible(false);
         FunctionName.setText("Graph Theory");
-    }
-
-    /**
-     * @Description 加载输入变量定义页面
-     * @param actionEvent
-     * @author 郑悦
-     * @date 2023/11/28 10:33
-    **/
-    public void InputShift(ActionEvent actionEvent) {
-        loadPage("DiscreteMathInput.fxml");
-    }
-    /**
-     * @Description 加载输出变量名字的定义页面
-     * @param actionEvent
-     * @author 郑悦
-     * @date 2023/11/28 10:34
-    **/
-    public void OutputShift(ActionEvent actionEvent) {
-        loadPage("DiscreteMathOutput.fxml");
-    }
-    /**
-     * @Description 加载真值表对应页面
-     * @param actionEvent
-     * @author 郑悦
-     * @date 2023/11/27 11:02
-    **/
-    public void TableShift(ActionEvent actionEvent) {
-        loadPage("DiscreteMathTable.fxml");
-    }
-    /**
-     * @Description 加载逻辑表达式对应页面
-     * @param actionEvent
-     * @author 郑悦
-     * @date 2023/11/27 11:02
-    **/
-    public void ExpressionShift(ActionEvent actionEvent) {
-        loadPage("DiscreteMathExpression.fxml");
     }
     /**
      * @Description  加载卡片布局：fxml文件
@@ -178,115 +118,6 @@ public class DiscreteMathController implements Initializable {
         } catch (Exception e) {
             System.out.println("error");
         }
-    }
-    /**
-     * @Description 存储用户输入的表达式变量
-     * @param
-     * @author 郑悦
-     * @date 2023/11/28 23:53
-     **/
-    @FXML
-    private void handleInputName() {
-        String newValue = inputName.getText();
-        if (newValue.isEmpty()) {
-            System.out.println("文本框为空");
-        } else {
-            System.out.println("文本框内容为: " + newValue);
-        }
-    }
-    @FXML
-    private void handleOutputName() {
-        String newValue = outputName.getText();
-        if (newValue.isEmpty()) {
-            System.out.println("文本框为空");
-        } else {
-            System.out.println("文本框内容为: " + newValue);
-        }
-    }
-    private void loadBoolPage(String fxmlFileName) {
-        try {
-            Pane page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFileName)));
-            DiscreteMathBooleanCardContainer.getChildren().setAll(page);
-        } catch (Exception e) {
-            System.out.println("error");
-        }
-    }
-    @FXML
-    private void BoolShift(ActionEvent event) {
-        Button clickedButton = (Button) event.getSource();
-        String buttonText = clickedButton.getText();
-        switch (buttonText) {
-            case "Input" -> {
-                Input.setVisible(true);
-                Output.setVisible(false);
-                Expression.setVisible(false);
-                Table.setVisible(false);
-//                ButtonChangeOn();
-//                loadBoolPage("DiscreteMathInput.fxml");
-            }
-            case "Output" -> {
-                Output.setVisible(true);
-                Input.setVisible(false);
-                Expression.setVisible(false);
-                Table.setVisible(false);
-//                ButtonChangeOn();
-//                loadBoolPage("DiscreteMathOutput.fxml");
-            }
-            case "Table" -> {
-                Table.setVisible(true);
-                Input.setVisible(false);
-                Expression.setVisible(false);
-                Output.setVisible(false);
-//                ButtonChangeOff();
-//                 loadBoolPage("DiscreteMathTable.fxml");
-            }
-            case "Expression" -> {
-                Expression.setVisible(true);
-                Input.setVisible(false);
-                Table.setVisible(false);
-                Output.setVisible(false);
-//                ButtonChangeOff();
-//                 loadBoolPage("DiscreteMathExpression.fxml");
-            }
-        }
-    }
-    private void ButtonChangeOn() {
-        ButtonRemove.setVisible(true);
-        ButtonRename.setVisible(true);
-        ButtonAdd.setVisible(true);
-    }
-    private void ButtonChangeOff() {
-        ButtonRemove.setVisible(false);
-        ButtonRename.setVisible(false);
-        ButtonAdd.setVisible(false);
-    }
-
-    public void setNewInputVariable(ActionEvent newInputVariable) {
-        String newInputVar = inputName.getText();
-        // 存储新的自变量，并将其添加到上述表格中
-    }
-    /**
-     * @Description 存储用户输入的因变量名称
-     * @param newOutputVariable
-     * @author 郑悦
-     * @date 2023/11/28 23:58
-    **/
-    public void setNewOutputVariable(ActionEvent newOutputVariable) {
-        String newOutputVar = outputName.getText();
-        // 存储新的自变量，并将其添加到上述表格中
-        ObservableList<String> data = FXCollections.observableArrayList(
-                newOutputVar
-        );
-        variableInCnt.setItems(data);
-    }
-    /**
-     * @Description 存储用户输入的对应的输出的表达式
-     * @param newInputExpression
-     * @author 郑悦
-     * @date 2023/11/29 0:02
-    **/
-    public void inputExpression(ActionEvent newInputExpression) {
-        String newExpression = ExpressionInput.getText();
     }
 
     public void MinTreeShift(ActionEvent actionEvent) {
@@ -460,12 +291,6 @@ public class DiscreteMathController implements Initializable {
         }
         // 显示最小生成树构造的动画
         Pane root = GraphPane;
-//        Scene scene = new Scene(root, CANVAS_WIDTH, CANVAS_HEIGHT);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-
-//        canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-//        root.getChildren().add(CanvasShowGraph);
 
         double CANVAS_WIDTH = CanvasShowGraph.getWidth();
         double CANVAS_HEIGHT = CanvasShowGraph.getHeight();
