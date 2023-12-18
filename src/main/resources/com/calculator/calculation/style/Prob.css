@@ -44,6 +44,14 @@
     -fx-text-fill: BLACK;
 }
 
+.table-view {
+    -fx-selection-bar:#FF9838;
+    -fx-selection-bar-text: white;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size:15px;
+}
+
+
 /*.line-chart {*/
 /*    -fx-background-color: #FFC187;*/
 /*    -fx-border-color: #FFC187;*/

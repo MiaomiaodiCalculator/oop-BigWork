@@ -47,18 +47,15 @@ import DiscreteMath.Circle;
  * @date 2023/11/26 20:49
  */
 public class DiscreteMathController implements Initializable {
-    public TextField FunctionName;
     public Label error;
     private static boolean flag = false;
     public AnchorPane DMPane;
-    public Pane MinTreePane;
     public Button ButtonGenerateGraph;
     @FXML
     public Canvas CanvasShowGraph;
     public TableView<ObservableList<String>> GraphTable;
     public Button ButtonGraphDataEnter;
     public TextField minAns;
-    public Pane ShortPathPane;
     public TextField PointNumText;
     public AnchorPane GraphPane;
     public Button detail;
@@ -73,7 +70,13 @@ public class DiscreteMathController implements Initializable {
     // 最小生成树问题
     private boolean flagHasMTSolve = false;
     GraphOfMatrix MTGraphSolve = new GraphOfMatrix(MAX, true);
-
+    /**
+     * @Description 页面初始化
+     * @param location
+     * @param resources
+     * @author 郑悦
+     * @date 2023/12/18 21:51
+    **/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(!flag) {
@@ -96,7 +99,13 @@ public class DiscreteMathController implements Initializable {
             System.out.println("error");
         }
     }
-
+    /**
+     * @Description 获取到达点
+     * @param input
+     * @return int
+     * @author 郑悦
+     * @date 2023/12/18 21:48
+    **/
     private int getDest(String input) throws NotInputDataException {
         if (input.isEmpty()) {
             throw new NotInputDataException("未输入数据");
@@ -112,7 +121,12 @@ public class DiscreteMathController implements Initializable {
         }
         return -1;
     }
-
+    /**
+     * @Description 获取生成图的顶点个数
+     * @param keyEvent
+     * @author 郑悦
+     * @date 2023/12/18 21:47
+    **/
     public void handleMTPointNumKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             String input = PointNumText.getText();
@@ -148,7 +162,7 @@ public class DiscreteMathController implements Initializable {
                             }
                             // 用函数记录改变值
                             MTGraphSolve.addEdgeUseIndex(rowIndex, columnIndex - 1, Integer.parseInt(newValue));
-                            System.out.println("Cell [" + rowIndex + "," + columnIndex + "] changed from " + oldValue + " to " + newValue);
+//                            System.out.println("Cell [" + rowIndex + "," + columnIndex + "] changed from " + oldValue + " to " + newValue);
                             data.getValue().set(columnIndex, newValue); // 更新数据源中对应单元格的值
                             // de只能改一个表格，之后被javafx覆盖改变的bug
                         }
@@ -193,7 +207,12 @@ public class DiscreteMathController implements Initializable {
             MTGraphSolve.initArray(charArray);
         }
     }
-
+    /**
+     * @Description 处理构造图
+     * @param keyEvent
+     * @author 郑悦
+     * @date 2023/12/18 21:47
+    **/
     public void handleMTDataConfirm(ActionEvent keyEvent) {
         if (!flagHasMTSolve) {
             showAlert("错误提示", "请先完成图的构造");
@@ -219,7 +238,12 @@ public class DiscreteMathController implements Initializable {
 //        kminTree.printGraph();
     }
 
-
+    /**
+     * @Description 展示最小生成树过程
+     * @param actionEvent
+     * @author 郑悦
+     * @date 2023/12/18 21:47
+    **/
     public void handleShowMTree(ActionEvent actionEvent) {
         if (!flagHasMTSolve) {
             showAlert("错误提示", "请先完成图的构造");
@@ -246,10 +270,6 @@ public class DiscreteMathController implements Initializable {
         buttonBox.setTranslateX(10);
         buttonBox.setTranslateY(10);
         root.getChildren().add(buttonBox);
-
-//        Button drawLineButton = new Button("Draw Line");
-//        drawLineButton.setOnAction(event -> drawLine());
-//        buttonBox.getChildren().add(drawLineButton);
 
         gc = CanvasShowGraph.getGraphicsContext2D();
         gc.setFill(CIRCLE_COLOR);
@@ -292,28 +312,46 @@ public class DiscreteMathController implements Initializable {
                     path.setStrokeWidth(2);
                     path.getElements().add(new MoveTo(
                             circles.get(next).getCenterX() + CanvasShowGraph.getLayoutX(),
-                            circles.get(next).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + 32));
+                            circles.get(next).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY()));
                     path.getElements().add(new LineTo(
                             circles.get(cur).getCenterX() + CanvasShowGraph.getLayoutX() + GraphPane.getLayoutX(),
-                            circles.get(cur).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + 32));
+                            circles.get(cur).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY()));
                     GraphPane.getChildren().add(path);
                     pCnt[0]++;
-                    System.out.println("draw");
                 }
             }
         }));
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.play();
     }
-
+    /**
+     * @Description 获取点将画的位置X
+     * @param CANVAS_WIDTH
+     * @return double
+     * @author 郑悦
+     * @date 2023/12/15 21:43
+    **/
     private double generateRandomX(double CANVAS_WIDTH) {
         return Math.random() * (CANVAS_WIDTH - 20) + 10; // 保持一定的边距
     }
-
+    /**
+     * @Description 获取点将画的位置Y
+     * @param CANVAS_HEIGHT
+     * @return double
+     * @author 郑悦
+     * @date 2023/12/15 21:43
+     **/
     private double generateRandomY(double CANVAS_HEIGHT) {
-        return Math.random() * (CANVAS_HEIGHT - 20) + 10; // 保持一定的边距
+        return Math.random() * (CANVAS_HEIGHT - 20); // 保持一定的边距
     }
-
+    /**
+     * @Description 判断要画的位置点是否和已有点重合
+     * @param x
+     * @param y
+     * @return boolean
+     * @author 郑悦
+     * @date 2023/12/15 21:44
+    **/
     private boolean isOverlapping(double x, double y) {
         for (Circle circle : circles) {
             double distance = Math.sqrt(Math.pow(circle.getCenterX() - x, 2) + Math.pow(circle.getCenterY() - y, 2));
@@ -330,7 +368,11 @@ public class DiscreteMathController implements Initializable {
     private List<Circle> circles = new ArrayList<>();
     private List<Line> lines = new ArrayList<>();
     private GraphicsContext gc;
-
+    /**
+     * @Description 构造传给实际画线函数的参数
+     * @author 郑悦
+     * @date 2023/12/15 21:46
+    **/
     private void drawLine() {
         if (lines.size() < 2) {
             lines.add(new Line(circles.get(0).getCenterX(), circles.get(0).getCenterY()));
@@ -338,18 +380,25 @@ public class DiscreteMathController implements Initializable {
             drawLine(gc, lines.get(0), lines.get(1));
         }
     }
-
+    /**
+     * @Description 画线
+     * @param gc
+     * @param start
+     * @param end
+     * @author 郑悦
+     * @date 2023/12/15 21:45
+    **/
     private void drawLine(GraphicsContext gc, Line start, Line end) {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
         gc.strokeLine(start.getX(), start.getY(), end.getX(), end.getY());
     }
-/**
- * @Description 点击说明按钮
- * @param event
- * @author sxq
- * @date 2023/12/18 14:20
-**/
+    /**
+     * @Description 点击说明按钮
+     * @param event
+     * @author sxq
+     * @date 2023/12/18 14:20
+    **/
     public void clickDetail(ActionEvent event) {
         if(textFlow.isVisible()){
             textFlow.setVisible(false);
@@ -362,7 +411,11 @@ public class DiscreteMathController implements Initializable {
         }
     }
 
-
+    /**
+     * @Description 创建线条内部类
+     * @author 郑悦
+     * @date 2023/12/18 21:45
+    **/
     private static class Line {
         private double x;
         private double y;

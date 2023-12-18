@@ -22,6 +22,14 @@ public class InputData implements Serializable {
     /**用户输入的数字序列2*/
     private String data2;
     private Timestamp saveTime;
+    /**
+     * @Description 显示两列数据
+     * @param data1
+     * @param data2
+     * @return null
+     * @author 郑悦
+     * @date 2023/12/18 22:11
+    **/
     public InputData(double data1, double data2) {
         input1 = data1;
         input2 = data2;
@@ -30,13 +38,36 @@ public class InputData implements Serializable {
         r = 0;
         adjustedR = 0;
     }
+    /**
+     * @Description 显示拟合评估结果
+     * @param residual0
+     * @param MSE0
+     * @param r0
+     * @return null
+     * @author 郑悦
+     * @date 2023/12/18 22:12
+    **/
     public InputData(double residual0, double MSE0, double r0) {
         residual = residual0;
         MSE = MSE0;
         r = r0;
 //        adjustedR = adjustedR0;
     }
+    /**
+     * @Description 无参初始化
+     * @return null
+     * @author 郑悦
+     * @date 2023/12/18 22:12
+    **/
     public InputData(){};
+    /**
+     * @Description 历史记录表格初始化
+     * @param d1
+     * @param d2
+     * @return null
+     * @author 郑悦
+     * @date 2023/12/18 22:12
+    **/
     public InputData(String d1, String d2) { // 用于历史记录存储
         data1 = d1;
         data2 = d2;
