@@ -1,0 +1,11 @@
+/*UI*/
+.table-view .column-header {
+    -fx-background-color: #FF9838;
+    /*-fx-border-radius: 5px;*/
+    -fx-border-color: #FFC187;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

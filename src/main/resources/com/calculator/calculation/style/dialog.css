@@ -60,17 +60,17 @@
   -fx-font-weight: bold;
   -fx-border-radius: 5px;
 }
-#alert Label{
-    -fx-background-color:white;
-    -fx-font-weight: bold;
-    -fx-text-font:15px;
-   -fx-text-fill: #333333;
-   -fx-cursor: hand;
-}
+/*#alert Label{*/
+/*    -fx-background-color:white;*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-text-font:15px;*/
+/*   -fx-text-fill: #333333;*/
+/*   -fx-cursor: hand;*/
+/*}*/
 /*UI*/
-.dialog-pane .header-panel {
-    -fx-background-image: url('right.png');
-    -fx-background-size: cover;
-    /*-fx-background-position: center;*/
-    -fx-background-repeat: no-repeat;
-}
+/*.dialog-pane .header-panel {*/
+/*    -fx-background-image: url('right.png');*/
+/*    -fx-background-size: cover;*/
+/*    !*-fx-background-position: center;*!*/
+/*    -fx-background-repeat: no-repeat;*/
+/*}*/

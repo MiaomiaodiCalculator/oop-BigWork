@@ -49,6 +49,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.calculator.calculation.LoginController.PrimaryStage;
 import static user.Shift.*;
 
 /**
@@ -207,7 +208,7 @@ public class ProbabilityController implements Initializable {
         PoissonDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
         HistoryPane.setVisible(false);
-        ActionName.setText("Basic Analysis");
+        ActionName.setText("基础分析");
     }
     /**
      * @Description 切换到基础数字特征计算页面        
@@ -224,8 +225,9 @@ public class ProbabilityController implements Initializable {
         GaussianDistribution.setVisible(false);
         PoissonDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
-        ActionName.setText("Basic Analysis");
+        ActionName.setText("基础分析");
         HistoryPane.setVisible(false);
+        historyImg.setVisible(true);
     }
     /**
      * @Description 切换到高斯分布页面
@@ -240,8 +242,9 @@ public class ProbabilityController implements Initializable {
         BasicAnalysis.setVisible(false);
         PoissonDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
-        ActionName.setText("Gaussian Distribution");
+        ActionName.setText("高斯分布");
         HistoryPane.setVisible(false);
+        historyImg.setVisible(false);
     }
     /**
      * @Description 切换到泊松分布页面
@@ -256,8 +259,9 @@ public class ProbabilityController implements Initializable {
         BasicAnalysis.setVisible(false);
         GaussianDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
-        ActionName.setText("Poisson Distribution");
+        ActionName.setText("泊松分布");
         HistoryPane.setVisible(false);
+        historyImg.setVisible(false);
     }
     /**
      * @Description 切换到回归分析页面
@@ -272,8 +276,9 @@ public class ProbabilityController implements Initializable {
         BasicAnalysis.setVisible(false);
         GaussianDistribution.setVisible(false);
         PoissonDistribution.setVisible(false);
-        ActionName.setText("Regression Analysis");
+        ActionName.setText("回归分析");
         HistoryPane.setVisible(false);
+        historyImg.setVisible(false);
     }
 
     /**
@@ -363,7 +368,8 @@ public class ProbabilityController implements Initializable {
         flagRawProcess = true;
         BasicAnalysisShift();
         DataTable.setPlaceholder(new Label("表中无数据"));
-        ActionName.setText("Basic Analysis");
+//        PrimaryStage.getScene().getStylesheets().add(getClass().getResource("com/calculator/calculation/css/tableViewStyle.css").toExternalForm());
+        ActionName.setText("基础分析");
         // 建立表格各列的一一映射
         inputColumn1.setCellValueFactory(new PropertyValueFactory<>("input1"));
         inputColumn2.setCellValueFactory(new PropertyValueFactory<>("input2"));
@@ -371,6 +377,7 @@ public class ProbabilityController implements Initializable {
         inputColumn2.setText("Y");
         oneInputColumn.setCellValueFactory(new PropertyValueFactory<>("input1"));
         oneInputColumn.setText("X");
+//        PrimaryStage.getScene().getStylesheets().add(getClass().getResource("com/calculator/calculation/css/tableViewStyle.css").toExternalForm());
         // 回归的合理性参考数据的表格映射
         residual.setCellValueFactory(new PropertyValueFactory<>("residual"));
         r.setCellValueFactory(new PropertyValueFactory<>("r"));
@@ -509,6 +516,9 @@ public class ProbabilityController implements Initializable {
         // 处理完数据的显示开始重置
         DataToShow.clear();
         flagInput1 = false;
+//        oneInputTable.lookup(".table-view").lookup("column-header").setStyle("-fx-background-color: #FF9838;\n" +
+//                "            /*-fx-border-radius: 5px;*/\n" +
+//                "            -fx-border-color: #FFC187;");
     }
     /**
      * @Description 处理表格中各项数据（以一行为单位的初始化）
