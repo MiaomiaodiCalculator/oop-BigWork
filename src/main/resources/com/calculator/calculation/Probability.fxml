@@ -155,7 +155,7 @@
                </font>
             </Text>
          </children></Pane>
-       <Pane fx:id="RegressionAnalysis" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
+       <Pane fx:id="RegressionAnalysis" layoutY="98.0" prefHeight="607.0" prefWidth="500.0">
          <children>
              <ImageView fx:id="regressionLatex" fitHeight="36.0" fitWidth="317.0" layoutX="169.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -180,10 +180,10 @@
                </tooltip></TextField>
             <MenuButton layoutX="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="100" text="回归类型">
               <items>
-                <MenuItem fx:id="linear" mnemonicParsing="false" onAction="#linearAnalysis" text="linear regression" />
-                <MenuItem fx:id="poly" mnemonicParsing="false" onAction="#polyAnalysis" text="polynomial regression" />
-                <MenuItem fx:id="exp" mnemonicParsing="false" onAction="#expAnalysis" text="exponential regression" />
-                <MenuItem fx:id="log" mnemonicParsing="false" onAction="#logAnalysis" text="logistic regression" />
+                <MenuItem fx:id="linear" mnemonicParsing="false" onAction="#linearAnalysis" text="线性回归" />
+                <MenuItem fx:id="poly" mnemonicParsing="false" onAction="#polyAnalysis" text="多项式回归" />
+                <MenuItem fx:id="exp" mnemonicParsing="false" onAction="#expAnalysis" text="指数回归" />
+                <MenuItem fx:id="log" mnemonicParsing="false" onAction="#logAnalysis" text="对数回归" />
               </items>
             </MenuButton>
             <Button layoutX="25.0" layoutY="43.0" mnemonicParsing="false" text="自变量" fx:id="xShow" />
@@ -246,7 +246,7 @@
                   <Font size="20.0" />
                </font></Label>
          </children></Pane>
-       <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0">
+       <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
          <children>
              <ImageView fx:id="poissonLatex" fitHeight="45.0" fitWidth="96.0" layoutX="163.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -258,7 +258,7 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="lamda" layoutX="292.0" layoutY="11.0" onKeyPressed="#handlePossionL" prefHeight="36.0" prefWidth="194.0" promptText="输入正数后请后回车" />
+            <TextField fx:id="lamda" layoutX="307.0" layoutY="11.0" onKeyPressed="#handlePossionL" prefHeight="36.0" prefWidth="179.0" promptText="输入正数后请后回车" />
             <Label layoutX="273.0" layoutY="14.0" prefHeight="24.0" prefWidth="69.0" text="λ = ">
                <font>
                   <Font size="20.0" />

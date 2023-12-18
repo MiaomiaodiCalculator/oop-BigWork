@@ -195,6 +195,10 @@ public class EquationController implements Initializable {
                 if(atMi)equation = equation + ")";
                 atMi = false;
                 break;
+            case "x²":
+                showEquation=showEquation+"x²";
+                equation=equation+"x^(2)";
+                break;
             case "C":
                 atMi = false;
                 equation = "";

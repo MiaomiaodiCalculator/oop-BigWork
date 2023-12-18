@@ -119,9 +119,7 @@ public class ProbabilityController implements Initializable {
     public Button xShow;
     public NumberAxis xExtend;
     public NumberAxis yExtend;
-    public TextField regressionExpression;
     public TableView TableRegression;
-    public TextField PExpression;
     public Label pExpressionLabel;
     public LineChart lineChartGauss;
     public NumberAxis xExtend1;
@@ -130,7 +128,6 @@ public class ProbabilityController implements Initializable {
     public TextField newInputX;
     public TextField answerY;
     public Label pExpressionLabel1;
-    public TextField PExpression1;
     public TextField lamda;
     public TextField pOut1;
     public LineChart lineChartPossion;
@@ -177,6 +174,7 @@ public class ProbabilityController implements Initializable {
     boolean flagHasPossion = false;
     boolean flagHasNormal = false;
     private ArrayList<InputData> list = new ArrayList<>();
+    private TableRow<InputData> lastSelectedRow;
 
     /**
      * @Description 点击图片加载历史记录页面
@@ -194,13 +192,44 @@ public class ProbabilityController implements Initializable {
         PoissonDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
         HistoryPane.setVisible(true);
-//        ObservableList<InputData> observableList = FXCollections.observableArrayList(list);
-//        tableView.setItems(observableList);
         if(list==null)
             return;
-        tableView.getItems().setAll(list);
+        tableView.getItems().setAll(list);// 设置行工厂
+        tableView.setRowFactory(tv -> {
+            TableRow<InputData> row = new TableRow<>();
+
+            row.setOnMousePressed(Event -> {
+                if (row.isEmpty()) {
+                    return;
+                }
+
+                if (row == lastSelectedRow) {
+                    // 选中的是同一行，恢复原样
+                    row.setStyle("");
+                    lastSelectedRow = null;
+                } else {
+                    // 取消上一次选中行的样式
+                    if (lastSelectedRow != null) {
+                        lastSelectedRow.setStyle("");
+                    }
+
+                    // 设置当前选中行的样式
+                    row.setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
+                    lastSelectedRow = row;
+                }
+            });
+
+            return row;
+        });
+
         tableView.refresh();
     }
+    /**
+     * @Description 处理离开历史页面事件
+     * @param mouseEvent
+     * @author 郑悦
+     * @date 2023/12/18 21:30
+    **/
     public void handleReturnClick(MouseEvent mouseEvent) {
         BasicAnalysis.setVisible(true);
         actionMenu.setVisible(true);
@@ -217,6 +246,7 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/4 9:58
     **/
     public void BasicAnalysisShift() {
+        clearPage();
         flagRawProcess = true;
         flagOneInput = false;
         flagTwoInput = true;
@@ -281,7 +311,6 @@ public class ProbabilityController implements Initializable {
         HistoryPane.setVisible(false);
         historyImg.setVisible(false);
     }
-
     /**
      * @Description 对应用户选择的处理变量数目
      * @param event
@@ -402,7 +431,6 @@ public class ProbabilityController implements Initializable {
         });
         lineChartInit();
     }
-    
     /**
      * @Description  处理原始数据
      * @author 郑悦
@@ -439,7 +467,6 @@ public class ProbabilityController implements Initializable {
     }
 
     String cntString1, cntString2;
-    Exception exception = new NotInputDataException("未输入数据");
     /**
      * @Description 在第一个文本框输入数据并按下enter键
      * @param keyEvent        
@@ -547,6 +574,32 @@ public class ProbabilityController implements Initializable {
         DataToShow.clear();
         flagInput1 = false;
     }
+    /**
+     * @Description 从历史记录获取数据到原页面
+     * @param f
+     * @author 郑悦
+     * @date 2023/12/18 21:29
+    **/
+    private void inputListInit(boolean f) {
+        int dataNum = data1.length;
+        if (data2.length != dataNum) {
+            showAlert("错误提示", "数据数量不匹配", 2000);
+            return;
+        }
+        for (int i = 0; i < dataNum; i++) {
+            DataToShow.add(new InputData(data1[i], data2[i]));
+            DataTable.getItems().add(new InputData(data1[i], data2[i]));
+        }
+        // 处理数字特征的显示
+        basicProb = new BasicSolve(data1, data2, true);
+        flagHasBasicSolve = true;
+        rawShowMathCharacter1(basicProb, 1);
+        rawShowMathCharacter1(basicProb, 2);
+        showRelate(basicProb);
+        // 处理完数据的显示开始重置
+        DataToShow.clear();
+        flagInput1 = false;
+    }
 
     /**
      * @Description 显示原始数据输入时，各变量各数字特征
@@ -589,14 +642,6 @@ public class ProbabilityController implements Initializable {
         correlationCoefficient.setText(String.valueOf(basicSolve.correlationCoefficient));
     }
     /**
-     * @Description 处理用户删改数据
-     * @author 郑悦
-     * @date 2023/12/9 15:23
-    **/
-    public void doWithEdit() {
-    }
-
-    /**
      * @Description 从输入的字符串中获取对应数据
      * @param input
      * @param ToWhich
@@ -630,7 +675,6 @@ public class ProbabilityController implements Initializable {
             case 2 -> data2 = numbers;
         }
     }
-
     /**
      * @Description 检查是否输入合法数据
      * @param numbers
@@ -651,7 +695,6 @@ public class ProbabilityController implements Initializable {
         }
         return true;
     }
-
     /**
      * @Description 对用户错误使用而抛出异常进行警告处理
      * @param title
@@ -665,18 +708,6 @@ public class ProbabilityController implements Initializable {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
-
-        // 修改标题的样式
-//        Label titleLabel = (Label) alert.getDialogPane().lookup(".header-panel .header-label");
-//        titleLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 20px; -fx-text-fill: red;");
-
-        // 修改头部文本的样式
-//        Label headerLabel = (Label) alert.getDialogPane().lookup(".dialog-pane .header-text");
-//        headerLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 16px; -fx-text-fill: blue;");
-
-        // 修改内容文本的样式
-//        Label contentLabel = (Label) alert.getDialogPane().lookup(".dialog-pane .content-text");
-//        contentLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 14px; -fx-text-fill: green;");
 
         FadeTransition fadeInTransition = new FadeTransition(Duration.millis(500), alert.getDialogPane());
         fadeInTransition.setFromValue(0);
@@ -720,12 +751,10 @@ public class ProbabilityController implements Initializable {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
-
         Image customIcon = new Image("wrong.png");
         ImageView iconImageView = new ImageView(customIcon);
         iconImageView.setFitWidth(48);
         iconImageView.setFitHeight(48);
-
         alert.getDialogPane().setGraphic(iconImageView);
         alert.getDialogPane().setStyle("-fx-background-color: white;");
         ButtonType okButton = ButtonType.OK;
@@ -800,7 +829,6 @@ public class ProbabilityController implements Initializable {
                 break;
         }
     }
-
     /**
      * @Description 处理对应的变量选择，要求X还是Y的百分数位
      * @param actionEvent
@@ -810,6 +838,12 @@ public class ProbabilityController implements Initializable {
     public void varXPercent(ActionEvent actionEvent) {
         chosenRV = 'X';
     }
+    /**
+     * @Description 处理对应的变量选择，要求X还是Y的百分数位
+     * @param actionEvent
+     * @author 郑悦
+     * @date 2023/12/9 15:13
+     **/
     public void varYPercent(ActionEvent actionEvent) {
         chosenRV = 'Y';
     }
@@ -840,10 +874,14 @@ public class ProbabilityController implements Initializable {
         Cov.clear();    correlationCoefficient.clear();
         DataTable.getItems().clear();   oneInputTable.getItems().clear();
     }
+    /**
+     * @Description 清空回归页面，便于下次显示
+     * @author 郑悦
+     * @date 2023/12/9 21:28
+    **/
     public void clearRegressionPage() {
         flagHasRegress = false;
         xInput.clear(); yInput.clear();
-//        regressionExpression.clear();
         TableRegression.getItems().clear();
     }
     /**
@@ -983,7 +1021,6 @@ public class ProbabilityController implements Initializable {
         flagInput1 = false;
         flagInput2 = false;
     }
-
     /**
      * @Description 计算拟合得到的多项式的值
      * @param coefficients
@@ -1036,7 +1073,6 @@ public class ProbabilityController implements Initializable {
         lineChart.getData().remove(dataSeries);
         lineChart.getData().remove(fitSeries);
         dataSeries = new XYChart.Series<>();
-//        XYChart.Series<Number, Number> dataSeries = new XYChart.Series<>();
         dataSeries.setName("Data Points");
         for (int i = 0; i < points.toList().size(); i++) {
             WeightedObservedPoint point = points.toList().get(i);
@@ -1048,7 +1084,6 @@ public class ProbabilityController implements Initializable {
         flagHasRegress = true;
         // 创建拟合曲线
         fitSeries = new XYChart.Series<>();
-//        XYChart.Series<Number, Number> fitSeries = new XYChart.Series<>();
         fitSeries.setName("Fitted Curve");
         double y;
         for (double x = min; x <= max; x += 0.01) {
@@ -1122,6 +1157,13 @@ public class ProbabilityController implements Initializable {
             return false; // 转换失败，表示不是一个有效的 double 数字
         }
     }
+    /**
+     * @Description 判断是否为整数
+     * @param str
+     * @return boolean
+     * @author 郑悦
+     * @date 2023/12/11 21:26
+    **/
     public static boolean isInteger(String str) {
         return str.matches("-?\\d+");
     }
@@ -1134,16 +1176,34 @@ public class ProbabilityController implements Initializable {
             = new org.apache.commons.math3.distribution.NormalDistribution(0, 1);
     org.apache.commons.math3.distribution.PoissonDistribution poissonDistribution
             = new org.apache.commons.math3.distribution.PoissonDistribution(1);
+    /**
+     * @Description 获取高斯分布的均值
+     * @param keyEvent
+     * @author 郑悦
+     * @date 2023/12/11 21:35
+    **/
     public void handleGaussU(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             processGaussInputEnter(u);
         }
     }
+    /**
+     * @Description 处理高斯分布方差的获取
+     * @param keyEvent
+     * @author 郑悦
+     * @date 2023/12/11 21:26
+    **/
     public void handleGaussO(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             processGaussInputEnter(o);
         }
     }
+    /**
+     * @Description 处理泊松分布的特征值获取
+     * @param keyEvent
+     * @author 郑悦
+     * @date 2023/12/11 21:25
+    **/
     public void handlePossionL(KeyEvent keyEvent) throws Exception {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             String input = lamda.getText();
@@ -1337,6 +1397,12 @@ public class ProbabilityController implements Initializable {
             }
         }
     }
+    /**
+     * @Description
+     * @param keyEvent
+     * @author 郑悦
+     * @date 2023/12/18 21:24
+    **/
     public void getXin1(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             String input = xIn1.getText();
@@ -1358,7 +1424,11 @@ public class ProbabilityController implements Initializable {
     }
     Tooltip tooltip = new Tooltip();
     private Label coordinatesLabel = new Label();
-    // 创建鼠标与坐标图的联系
+    /**
+     * @Description 创建鼠标与坐标图的联系，为了后续用户通过鼠标与函数图交互
+     * @author 郑悦
+     * @date 2023/12/11 21:24
+    **/
     public void lineChartInit() {
         Tooltip.install(lineChart, tooltip);
 
@@ -1376,6 +1446,12 @@ public class ProbabilityController implements Initializable {
 
         lineChart.setOnMouseMoved(this::handleMouseMoved);
     }
+    /**
+     * @Description 读取鼠标位置
+     * @param event
+     * @author 郑悦
+     * @date 2023/12/18 21:23
+    **/
     private void handleMouseMoved(MouseEvent event) {
         // 获取鼠标的 x 坐标
         double mouseX = event.getX();
@@ -1394,7 +1470,12 @@ public class ProbabilityController implements Initializable {
         coordinatesLabel.setLayoutX(event.getSceneX() + 10);
         coordinatesLabel.setLayoutY(event.getSceneY() - 10);
     }
-
+    /**
+     * @Description 历史记录应用
+     * @param event
+     * @author 郑悦
+     * @date 2023/12/17 21:23
+    **/
     public void handleRowClick(MouseEvent event) {
         // 判断是否双击行
         if (event.getClickCount() == 2&&event.getButton()== MouseButton.PRIMARY) {
@@ -1402,17 +1483,22 @@ public class ProbabilityController implements Initializable {
             if (selectedItem != null) {
                 String data11 = selectedItem.getData1();
                 String data22 = selectedItem.getData2();
-                BasicAnalysis.setVisible(true);
-                InputData1.setText(data11);
                 try {
                     getData(data11, 1);
-                    getData(data22, 1);
+                    getData(data22, 2);
                 } catch (NotInputDataException e) {
                     // 展示javafx的即时提示词
                     showAlert("错误提示", "未输入数据", 2000);
                     return; // 不return的话catch完会继续执行方法剩下的语句
                 }
-                inputListInit();
+                HistoryPane.setVisible(false);
+                BasicAnalysis.setVisible(true);
+                InputData1.clear();
+                InputData2.clear();
+                DataTable.getItems().clear();
+                InputData1.setText(data11);
+                InputData2.setText(data22);
+                inputListInit(false);
             }
         } else if(event.getButton()==MouseButton.SECONDARY){//右键单击选择是否删除
             InputData ift = (InputData) tableView.getSelectionModel().getSelectedItem();
@@ -1430,12 +1516,22 @@ public class ProbabilityController implements Initializable {
             }
         }
     }
+    /**
+     * @Description 获取历史记录
+     * @author 郑悦
+     * @date 2023/12/17 21:36
+    **/
     private void getHistoryList(){
         list = SqlProb.getAllHis();
         tableView.getItems().setAll(list);
         tableView.refresh();
     }
-    // 借用zyh的prtSc实现保存图像
+    /**
+     * @Description 借用zyh的prtSc实现保存图像
+     * @param actionEvent
+     * @author 郑悦
+     * @date 2023/12/18 21:22
+    **/
     public void PrintScreen(ActionEvent actionEvent) {
         if (!flagHasRegress) {
             showAlert("错误提示", "尚未生成拟合模型，无法截图保存");
@@ -1471,4 +1567,5 @@ public class ProbabilityController implements Initializable {
             e.printStackTrace();
         }
     }
+
 }

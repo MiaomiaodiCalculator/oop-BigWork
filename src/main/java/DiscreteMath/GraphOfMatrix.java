@@ -14,7 +14,14 @@ public class GraphOfMatrix {
     int length = 100005;
     public static int INF = 1000000;
     boolean hasMinTree = false;
-
+    /**
+     * @Description 初始化图的临界矩阵
+     * @param length
+     * @param b
+     * @return null
+     * @author 郑悦
+     * @date 2023/12/16 22:02
+    **/
     public GraphOfMatrix(int length, boolean b) {
         Matrix = new int[length][length];
         this.length = length;
@@ -24,20 +31,24 @@ public class GraphOfMatrix {
             }
         }
     }
-
+    /**
+     * @Description 存点的名字
+     * @param array
+     * @author 郑悦
+     * @date 2023/12/16 22:02
+    **/
     public void initArray(char[] array) {
         arrayV = array;
     }
 
-    public void addEdge(char a, char b, int i) {
-        Matrix[a-'a'][b-'a'] = i;
-        //如果是无向图邻接矩阵对称位置也要添加
-        if (!isDirect){
-            Matrix[b-'a'][a-'a'] = i;
-        }
-    }
-
-    //按照下标将边加入到最小生成树中
+    /**
+     * @Description 按照下标将边加入到最小生成树中
+     * @param srcIndex
+     * @param destIndex
+     * @param weight
+     * @author 郑悦
+     * @date 2023/12/16 22:03
+    **/
     public void addEdgeUseIndex(int srcIndex,int destIndex,int weight){
         Matrix[srcIndex][destIndex] = weight;
         //如果是无向图邻接矩阵对称位置也要添加
@@ -47,11 +58,22 @@ public class GraphOfMatrix {
     }
 
     private int treeWeight = INF;
-
+    /**
+     * @Description 获取最小生成树的权重
+     * @return int
+     * @author 郑悦
+     * @date 2023/12/16 22:03
+    **/
     public int getTreeWeight() {
         return treeWeight;
     }
-
+    /**
+     * @Description 计算最小生成树权值
+     * @param minTree
+     * @return int
+     * @author 郑悦
+     * @date 2023/12/16 22:04
+    **/
     public int kruskal(GraphOfMatrix minTree) {
         //1.定义一个优先级队列
         PriorityQueue<Edge> minQ = new PriorityQueue<Edge>(new Comparator<Edge>() {
@@ -100,6 +122,12 @@ public class GraphOfMatrix {
 
     public int[] From;
     public int[] To;
+    /**
+     * @Description 记录画图路径
+     * @param circles
+     * @author 郑悦
+     * @date 2023/12/16 22:04
+    **/
     public void getLineFromTo(List<Circle> circles) {
         From = new int[length];
         To = new int[length];

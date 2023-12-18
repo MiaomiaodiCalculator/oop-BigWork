@@ -31,12 +31,28 @@ public class RegressionAnalysis {
     // 多项式模拟
     PolynomialCurveFitter fitter = PolynomialCurveFitter.create(1);
     public double[] parameters;  // 记录拟合函数对应的参数
+    /**
+     * @Description 无参构造
+     * @return null
+     * @author 郑悦
+     * @date 2023/12/18 21:58
+    **/
     public RegressionAnalysis() {
         sumOfResidual = 0;
         R = 0;
         adjustedR = 0;
         MSE = 0;
     }
+    /**
+     * @Description 含参构造函数
+     * @param xInput
+     * @param yInput
+     * @param type
+     * @param PolyNum
+     * @return null
+     * @author 郑悦
+     * @date 2023/12/18 21:58
+    **/
     public RegressionAnalysis(double[] xInput, double[] yInput, int type, int PolyNum) {
         xRaw = xInput;
         yRaw = yInput;
@@ -53,7 +69,8 @@ public class RegressionAnalysis {
             p0 = String.format("%.3f", coefficients[j]);
             regressionExpression += p0 + " * x^" + j + " + ";
         }
-        regressionExpression += coefficients[0];
+        p0 = String.format("%.3f", coefficients[0]);
+        regressionExpression += p0;
         regression = new SimpleRegression();
         for (int j = 0; j < xInput.length; j++) {
             regression.addData(xInput[j], yInput[j]);
@@ -101,6 +118,14 @@ public class RegressionAnalysis {
 //        adjustedR = calculateAdjustedRSquared(R, xInput.length, parameters.length);
         MSE = calculateMSE(residuals);
     }
+    /**
+     * @Description 计算多项式
+     * @param coefficients
+     * @param x
+     * @return double
+     * @author 郑悦
+     * @date 2023/12/18 21:58
+    **/
     public double evaluatePolynomial(double[] coefficients, double x) {
         double result = 0;
         for (int i = 0; i < coefficients.length; i++) {

@@ -50,9 +50,20 @@ public class PersonCenterController implements Initializable {
      * @author Bu Xinran
      * @date 2023/12/7 23:59
     **/
-    public void handleLogout() {
+    public void handleLogout() throws IOException {
         User user=new User(LoginController.userName,LoginController.passWord);
         delete(user);
+        MainController.flag=false;
+        Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+        currentStage.close();
+        PrimaryStage.close();
+        Stage stage=new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 370, 369);
+        stage.setTitle("登录");
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
     }
     /***
      * @Description  修改密码
@@ -146,18 +157,12 @@ public class PersonCenterController implements Initializable {
         }
     }
     /***
-     * @Description 查看历史记录
-     * @author Bu Xinran
-     * @date 2023/12/8 9:53
-    **/
-    public void checkHistory() {
-    }
-    /***
      * @Description 用户登出
      * @author Bu Xinran
      * @date 2023/12/8 13:01
     **/
     public void logout() throws IOException {
+        MainController.flag=false;
         Stage currentStage = (Stage) logoutButton.getScene().getWindow();
         currentStage.close();
         PrimaryStage.close();
@@ -165,6 +170,8 @@ public class PersonCenterController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 370, 369);
         stage.setTitle("登录");
+        Image icon = new Image("icon.png");
+        stage.getIcons().add(icon);
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
