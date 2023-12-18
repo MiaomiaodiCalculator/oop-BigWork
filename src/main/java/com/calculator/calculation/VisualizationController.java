@@ -257,6 +257,25 @@ public class VisualizationController implements Initializable {
             userData.setItem(Last);
             System.out.println("userdata");
             SqlVisualize.add(userData);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("保存成功");
+            alert.setHeaderText("保存成功！查看请点击历史记录。");
+            Image alertImage = new Image("right.png");
+            ImageView alertImageView = new ImageView(alertImage);
+            alertImageView.setFitWidth(48);
+            alertImageView.setFitHeight(48);
+            alert.getDialogPane().setGraphic(alertImageView);
+            alert.showAndWait();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("错误");
+            alert.setHeaderText("所保存记录为空或重复！");
+            Image alertImage = new Image("wrong.png");
+            ImageView alertImageView = new ImageView(alertImage);
+            alertImageView.setFitWidth(48);
+            alertImageView.setFitHeight(48);
+            alert.getDialogPane().setGraphic(alertImageView);
+            alert.showAndWait();
         }
     }
 
