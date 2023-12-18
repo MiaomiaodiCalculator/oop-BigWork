@@ -1,9 +1,12 @@
 package com.calculator.calculation;
 
+import Database.SqlProb;
+import Database.SqlScientific;
 import Probability.BasicSolve;
 import Probability.Exception.NotInputDataException;
 import Probability.InputData;
 import Probability.RegressionAnalysis;
+import Scientific.ScientificSolve;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,14 +19,17 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
@@ -31,11 +37,16 @@ import org.apache.commons.math3.fitting.WeightedObservedPoints;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import user.Shift;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.Proxy;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.nio.IntBuffer;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static user.Shift.*;
@@ -129,9 +140,16 @@ public class ProbabilityController implements Initializable {
     public TextField o;
     public ImageView returnImg;
     public TextField xIn;
+    public Pane HistoryPane;
+    public TableView tableView;
+    public TableColumn timeList;
+    public TableColumn data1List;
+    public TableColumn data2List;
+    public Menu actionMenu;
     public ImageView poissonLatex;
     public ImageView GaussLatex;
     public ImageView regressionLatex;
+    public Button prtSc;
     boolean flagTwoInput = false; // 判断两行都输入后开始在表格中显示
     boolean flagWithProbability = false;
     boolean flagRawProcess = false; // 判断是不是两个随机变量输入-true即不带概率
@@ -156,6 +174,7 @@ public class ProbabilityController implements Initializable {
     int RVType = 0;
     boolean flagHasPossion = false;
     boolean flagHasNormal = false;
+    private ArrayList<InputData> list = new ArrayList<>();
 
     /**
      * @Description 点击图片加载历史记录页面
@@ -164,26 +183,31 @@ public class ProbabilityController implements Initializable {
      * @date 2023/11/27 10:50
      **/
     @FXML
-    private void handleHisImageClick(MouseEvent event) {
-        loadPage("DiscreteMathHistory.fxml");
+    private void handleHisImageClick(MouseEvent event) throws IOException {
+        list = SqlProb.getAllHis();
+        actionMenu.setVisible(false);
+        ActionName.setVisible(false);
+        BasicAnalysis.setVisible(false);
+        GaussianDistribution.setVisible(false);
+        PoissonDistribution.setVisible(false);
+        RegressionAnalysis.setVisible(false);
+        HistoryPane.setVisible(true);
+//        ObservableList<InputData> observableList = FXCollections.observableArrayList(list);
+//        tableView.setItems(observableList);
+        if(list==null)
+            return;
+        tableView.getItems().setAll(list);
+        tableView.refresh();
     }
     public void handleReturnClick(MouseEvent mouseEvent) {
-        loadPage("DiscreteMathBoolean.fxml");
+        BasicAnalysis.setVisible(true);
+        actionMenu.setVisible(true);
+        ActionName.setVisible(true);
+        GaussianDistribution.setVisible(false);
+        PoissonDistribution.setVisible(false);
+        RegressionAnalysis.setVisible(false);
+        HistoryPane.setVisible(false);
         ActionName.setText("Basic Analysis");
-    }
-    /**
-     * @Description  加载卡片布局：fxml文件
-     * @param fxmlFileName 要打开的fxml文件名称
-     * @author 郑悦
-     * @date 2023/11/25 22:51
-     **/
-    private void loadPage(String fxmlFileName) {
-        try {
-            Pane page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFileName)));
-            ProbabilityCardContainer.getChildren().setAll(page);
-        } catch (Exception e) {
-            System.out.println("error");
-        }
     }
     /**
      * @Description 切换到基础数字特征计算页面        
@@ -201,6 +225,7 @@ public class ProbabilityController implements Initializable {
         PoissonDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
         ActionName.setText("Basic Analysis");
+        HistoryPane.setVisible(false);
     }
     /**
      * @Description 切换到高斯分布页面
@@ -216,6 +241,7 @@ public class ProbabilityController implements Initializable {
         PoissonDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
         ActionName.setText("Gaussian Distribution");
+        HistoryPane.setVisible(false);
     }
     /**
      * @Description 切换到泊松分布页面
@@ -231,6 +257,7 @@ public class ProbabilityController implements Initializable {
         GaussianDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
         ActionName.setText("Poisson Distribution");
+        HistoryPane.setVisible(false);
     }
     /**
      * @Description 切换到回归分析页面
@@ -246,6 +273,7 @@ public class ProbabilityController implements Initializable {
         GaussianDistribution.setVisible(false);
         PoissonDistribution.setVisible(false);
         ActionName.setText("Regression Analysis");
+        HistoryPane.setVisible(false);
     }
 
     /**
@@ -349,6 +377,10 @@ public class ProbabilityController implements Initializable {
         mse.setCellValueFactory(new PropertyValueFactory<>("MSE"));
         xShow.setDisable(true); // 只用来显示
         yShow.setDisable(true);
+        tableView.setPlaceholder(new Label("无历史记录"));//占位文本
+        timeList.setCellValueFactory(new PropertyValueFactory<>("saveTime"));
+        data1List.setCellValueFactory(new PropertyValueFactory<>("data1"));
+        data2List.setCellValueFactory(new PropertyValueFactory<>("data2"));
         // 初始化多项式模拟阶数的choiceBox
         PolyJie.getItems().addAll("一阶多项式", "二阶多项式", "三阶多项式", "四阶多项式", "五阶多项式"); // 添加选项
         PolyJie.setOnAction(PolySim -> {
@@ -398,6 +430,7 @@ public class ProbabilityController implements Initializable {
         flagTwoInput = true; // 需要两行输入，变量值和对应概率
     }
 
+    String cntString1, cntString2;
     Exception exception = new NotInputDataException("未输入数据");
     /**
      * @Description 在第一个文本框输入数据并按下enter键
@@ -417,9 +450,11 @@ public class ProbabilityController implements Initializable {
                 return; // 不return的话catch完会继续执行方法剩下的语句
             }
             if (flagInput2) {
+                cntString1 = input;
                 inputListInit();
             }
             else {
+                cntString1 = input;
                 flagInput1 = true;
                 if (flagOneInput) {
                     oneInputListInit();
@@ -448,9 +483,11 @@ public class ProbabilityController implements Initializable {
                 return; // 不return的话catch完会继续执行方法剩下的语句
             }
             if (flagInput1) {
+                cntString2 = input;
                 inputListInit();
             }
             else {
+                cntString2 = input;
                 flagInput2 = true;
                 InputData1.requestFocus();
             }
@@ -484,6 +521,7 @@ public class ProbabilityController implements Initializable {
             showAlert("错误提示", "数据数量不匹配", 2000);
             return;
         }
+        SqlProb.add(new InputData(cntString1, cntString2));
         for (int i = 0; i < dataNum; i++) {
             DataToShow.add(new InputData(data1[i], data2[i]));
             DataTable.getItems().add(new InputData(data1[i], data2[i]));
@@ -1234,14 +1272,14 @@ public class ProbabilityController implements Initializable {
 
         // 注册鼠标移动事件监听器
         lineChart.setOnMouseMoved(event -> {
-            handleMouseMoved(event);
-            tooltip.setText(coordinatesLabel.getText());
+            coordinatesLabel.setText("");
+            tooltip.setText("");
         });
 
         // 注册鼠标移出事件监听器
         lineChart.setOnMouseExited(event -> {
-            coordinatesLabel.setText("");
-            tooltip.setText("");
+            handleMouseMoved(event);
+            tooltip.setText(coordinatesLabel.getText());
         });
 
         lineChart.setOnMouseMoved(this::handleMouseMoved);
@@ -1249,16 +1287,96 @@ public class ProbabilityController implements Initializable {
     private void handleMouseMoved(MouseEvent event) {
         // 获取鼠标的 x 坐标
         double mouseX = event.getX();
+        double mouseY = event.getY();
 
         // 获取 LineChart 的 x 轴
         NumberAxis xAxis = (NumberAxis) ((LineChart) event.getSource()).getXAxis();
+        NumberAxis yAxis = (NumberAxis) ((LineChart) event.getSource()).getYAxis();
 
         // 获取最接近鼠标位置的数据点
         double nearestX = xAxis.getValueForDisplay(mouseX).doubleValue();
+        double nearestY = yAxis.getValueForDisplay(mouseY).doubleValue();
 
         // 更新坐标值标签的位置和文本
-        coordinatesLabel.setText(String.format("X: %.2f", nearestX));
+        coordinatesLabel.setText(String.format("(%.2f , ", nearestX) + String.format("%.2f)", nearestY));
         coordinatesLabel.setLayoutX(event.getSceneX() + 10);
         coordinatesLabel.setLayoutY(event.getSceneY() - 10);
+    }
+
+    public void handleRowClick(MouseEvent event) {
+        // 判断是否双击行
+        if (event.getClickCount() == 2&&event.getButton()== MouseButton.PRIMARY) {
+            InputData selectedItem = (InputData) tableView.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                String data11 = selectedItem.getData1();
+                String data22 = selectedItem.getData2();
+                BasicAnalysis.setVisible(true);
+                InputData1.setText(data11);
+                try {
+                    getData(data11, 1);
+                    getData(data22, 1);
+                } catch (NotInputDataException e) {
+                    // 展示javafx的即时提示词
+                    showAlert("错误提示", "未输入数据", 2000);
+                    return; // 不return的话catch完会继续执行方法剩下的语句
+                }
+                inputListInit();
+            }
+        } else if(event.getButton()==MouseButton.SECONDARY){//右键单击选择是否删除
+            InputData ift = (InputData) tableView.getSelectionModel().getSelectedItem();
+            if(SqlProb.exists(ift.getSaveTime())){
+                Dialog alert1 = new Dialog();
+                alert1.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+                alert1.getDialogPane().getStyleClass().add("alertFunction");
+                alert1.setContentText("删除这条历史记录？");
+                alert1.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+                Optional<ButtonType> result = alert1.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    SqlProb.delete(ift);
+                    getHistoryList();
+                }
+            }
+        }
+    }
+    private void getHistoryList(){
+        list = SqlProb.getAllHis();
+        tableView.getItems().setAll(list);
+        tableView.refresh();
+    }
+    // 借用zyh的prtSc实现保存图像
+    public void PrintScreen(ActionEvent actionEvent) {
+        if (!flagHasRegress) {
+            showAlert("错误提示", "尚未生成拟合模型，无法截图保存");
+            return;
+        }
+        Date dNow = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd_hh-mm-ss");
+        WritableImage image = new WritableImage(500, 720);
+        RegressionAnalysis.getScene().snapshot(image);
+        int width = 500;
+        int height = 720;
+        BufferedImage bimage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        int[] buffer = new int[width];
+        PixelReader reader = image.getPixelReader();
+        WritablePixelFormat<IntBuffer> format = PixelFormat.getIntArgbInstance();
+        for (int y = 0; y < height; y++) {
+            reader.getPixels(0, y, width, 1, format, buffer, 0, width);
+            bimage.getRaster().setDataElements(0, y, width, 1, buffer);
+        }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("保存截图");
+        fileChooser.setInitialFileName(ft.format(dNow));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG图片格式", "*.png"),
+                new FileChooser.ExtensionFilter("JPG图片格式", "*.jpg")
+        );
+        //保存
+        File outFile = fileChooser.showSaveDialog(new Stage());
+        System.out.println("files = " + outFile);
+        try {
+            ImageIO.write(bimage, "png", outFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -207,7 +207,7 @@ public class VisualizationController implements Initializable {
             }
         }
         String[] selectedItem = tableView.getSelectionModel().getSelectedItem().getItem();
-        String showing="";
+        String showing=(tableView.getSelectionModel().getSelectedItem().getSaveTime().toString()+"\n");
         for(int i=1;i<=5;i++){
             if(!selectedItem[i].equals("null")) showing=(showing+"y"+i+" = "+selectedItem[i]).intern();
             else showing=(showing+"y"+i+" is BLANK").intern();
@@ -290,7 +290,6 @@ public class VisualizationController implements Initializable {
         );
         //保存
         File outFile = fileChooser.showSaveDialog(new Stage());
-        System.out.println("files = " + outFile);
         try {
             ImageIO.write(bimage, "png", outFile);
         } catch (IOException e) {

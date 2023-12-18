@@ -1,0 +1,5 @@
+.label {
+    -fx-text-fill: #FF9838;
+    -fx-font-weight: bold;
+    -fx-font: normal bold 16px 'serif';
+}

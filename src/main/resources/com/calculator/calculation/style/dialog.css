@@ -26,7 +26,7 @@
     -fx-vgap: 10px;
 }
 #success .root{
-    -fx-background-color:gray;
+    -fx-background-color:Gray;
 }
 #success Label{
     -fx-background-color:white;
@@ -41,7 +41,7 @@
   -fx-border-radius: 5px;
 }
 #error .root{
-    -fx-background-color:gray;
+    -fx-background-color:Gray;
 }
 #error Label{
     -fx-font-weight: bold;
@@ -66,4 +66,11 @@
     -fx-text-font:15px;
    -fx-text-fill: #333333;
    -fx-cursor: hand;
+}
+/*UI*/
+.dialog-pane .header-panel {
+    -fx-background-image: url('right.png');
+    -fx-background-size: cover;
+    /*-fx-background-position: center;*/
+    -fx-background-repeat: no-repeat;
 }

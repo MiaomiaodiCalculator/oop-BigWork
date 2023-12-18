@@ -1,5 +1,6 @@
 package Probability;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -7,7 +8,7 @@ import java.sql.Timestamp;
  * @Description: 用于表格数据展示
  * @date 2023/12/4 0:14
  */
-public class InputData {
+public class InputData implements Serializable {
     // 展示basicSolve部分统计原始数据
     public double input1;
     public double input2;
@@ -36,6 +37,10 @@ public class InputData {
 //        adjustedR = adjustedR0;
     }
     public InputData(){};
+    public InputData(String d1, String d2) { // 用于历史记录存储
+        data1 = d1;
+        data2 = d2;
+    }
     /**
      * @Description 给表格显示提高read方法
      * @return double

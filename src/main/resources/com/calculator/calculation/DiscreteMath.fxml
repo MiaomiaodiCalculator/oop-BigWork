@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -10,11 +11,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <AnchorPane fx:id="DMPane" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
+    <stylesheets>
+        <URL value="@style/DM.css" />
+    </stylesheets>
    <children>
        <StackPane fx:id="DiscreteMathCardContainer" layoutX="-1.0" layoutY="86.0" prefHeight="616.0" prefWidth="500.0" />
-       <Text layoutX="158.0" layoutY="41.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Discrete Math" wrappingWidth="194.0">
+       <Text fx:id="title" layoutX="193.0" layoutY="37.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="离散数学" wrappingWidth="114.0">
            <font>
                <Font size="28.0" />
            </font>
@@ -24,13 +29,13 @@
                <Blend />
            </effect>
           <menus>
-              <Menu text="Function Change">
+              <Menu text="功能转换">
                  <items>
                      <MenuItem onAction="#GraphTheoryShift" text="Graph Theory" />
                  </items>
               </Menu>
           </menus>
        </MenuBar>
-      <TextField fx:id="FunctionName" editable="false" layoutX="130.0" layoutY="48.0" prefHeight="24.0" prefWidth="120.0" text="Graph Theory" />
+      <TextField fx:id="FunctionName" editable="false" layoutX="82.0" layoutY="50.0" prefHeight="24.0" prefWidth="120.0" text="Graph Theory" />
    </children>
 </AnchorPane>

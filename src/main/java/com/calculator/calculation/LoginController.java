@@ -28,6 +28,14 @@ public class LoginController {
     public static String userName="abc";
     public static String passWord=" ";
     public Button loginButton;
+    public Button signup;
+    public Button visitor;
+    public Label Text1;
+    public Label Text2;
+    public Label Title;
+
+    // 完善逻辑
+    public static Stage PrimaryStage = new Stage();
 
     /***
      * @Description 登录
@@ -45,17 +53,24 @@ public class LoginController {
             state=true;
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
-            Stage stage=new Stage();
+            Stage stage = PrimaryStage;
             FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Main.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 500, 730);
             MainController.mainController=fxmlLoader.getController();
-            stage.setTitle("Calculator");
+            stage.setTitle("喵喵滴计算器");
             Image icon = new Image("icon.png");
             stage.getIcons().add(icon);
             Image cursorImage = new Image("cur.png");
             ImageCursor cursor = new ImageCursor(cursorImage);
             stage.setScene(scene);
             scene.setCursor(cursor);
+            // 完善关闭逻辑，主舞台关闭需要把其他子舞台都关闭UI
+            stage.setOnCloseRequest(event -> {
+                // 关闭所有子舞台
+                MainController.PersonStage.close();
+                // 退出应用程序
+                System.exit(0);
+            });
             stage.show();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -167,7 +182,7 @@ public class LoginController {
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 730);
         MainController.mainController=fxmlLoader.getController();
-        stage.setTitle("Calculator");
+        stage.setTitle("喵喵滴计算器");
         stage.setResizable(false);  // ui1
         Image cursorImage = new Image("cur.png");
         ImageCursor cursor = new ImageCursor(cursorImage);
@@ -190,7 +205,11 @@ public class LoginController {
     @FXML
     private void log(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
-            login();
+            if (event.getTarget() == usernameArea)
+                passwordArea.requestFocus();
+            else {
+                login();
+            }
         }
     }
 }

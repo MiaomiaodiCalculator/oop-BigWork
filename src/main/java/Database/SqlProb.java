@@ -59,7 +59,9 @@ public class SqlProb {
             add.setString(1,d.getData1());
             add.setString(2,d.getData2());
             add.setString(3, LoginController.userName);
-            add.setTimestamp(4,d.getSaveTime());
+            Timestamp t = new Timestamp(System.currentTimeMillis());
+            add.setTimestamp(4,t);
+            d.setSaveTime(t);
             return add.executeUpdate() == 1;
         }
         catch (SQLException e)

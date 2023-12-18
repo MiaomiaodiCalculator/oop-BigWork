@@ -82,7 +82,7 @@ public class VectorSolve implements Serializable {
      * @return double
      * @author Bu Xinran
      * @date 2023/11/28 13:39
-    **/
+     **/
 
     public double crossVector(){
         if(state==2){
@@ -99,7 +99,7 @@ public class VectorSolve implements Serializable {
      * @return double
      * @author Bu Xinran
      * @date 2023/11/28 13:40
-    **/
+     **/
     public double angleVector(){
         if(state==2){
             angle=X1*X2+Y1*Y2;

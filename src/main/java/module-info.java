@@ -15,4 +15,6 @@ module com.calculator.calculation {
     opens Scientific to javafx.fxml,javafx.base;
     opens NewFunction to javafx.base;
     opens Probability to javafx.base;
+    opens infinitesimal to javafx.base;
+    opens Visualizing to javafx.base;
 }

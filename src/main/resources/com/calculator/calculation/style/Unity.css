@@ -17,10 +17,10 @@
     -fx-text-fill: #000000;
 }
 .menu-item:hover {
-    -fx-background-color: #a7e4f6;
+    -fx-background-color: #FFC187;
 }
 .menu-item:pressed {
-    -fx-background-color: #04ade0;
+    -fx-background-color: #FF9838;
 }
 .text-field{
     -fx-font-size: 15px;
