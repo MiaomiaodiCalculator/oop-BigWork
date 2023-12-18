@@ -38,7 +38,6 @@ import static com.calculator.calculation.FunctionController.functionList;
  */
 public class ScientificController implements Initializable{
     public ImageView historyImg;
-    public Button buttonPow;
     public TextField formulaShow;
     public Label answerShow;
     public ImageView returnImg;
@@ -186,13 +185,18 @@ public class ScientificController implements Initializable{
                     else checkError=ScientificSolve.checkText(valueZ);
                 }
                 if(!checkError){
-                    Dialog alert = new Dialog();
-                    alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-                    alert.getDialogPane().getStyleClass().add("alertFunction");
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    Image customIcon1= new Image("wrong.png");
+                    ImageView iconImageView1 = new ImageView(customIcon1);
+                    iconImageView1.setFitWidth(48);
+                    iconImageView1.setFitHeight(48);
+                    alert.getDialogPane().setGraphic(iconImageView1);
+                    alert.getDialogPane().setStyle("-fx-background-color: white;");
+                    ButtonType okButton1 = ButtonType.OK;
+                    alert.getDialogPane().lookupButton(okButton1).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
                     alert.setTitle("警告");
                     alert.setHeaderText(null);
                     alert.setContentText("存在参数值为空或不是数字！");
-                    alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
                     alert.showAndWait();
                 }else{
                     //处理正确获得的表达式
@@ -241,10 +245,15 @@ public class ScientificController implements Initializable{
             ScientificSolve ift = tableView.getSelectionModel().getSelectedItem();
             if(SqlScientific.exists(ift.getSaveTime())){
                 Dialog alert1 = new Dialog();
-                alert1.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-                alert1.getDialogPane().getStyleClass().add("alertFunction");
+                Image customIcon = new Image("error.png");
+                ImageView iconImageView = new ImageView(customIcon);
+                iconImageView.setFitWidth(48);
+                iconImageView.setFitHeight(48);
+                alert1.getDialogPane().setGraphic(iconImageView);
+                alert1.getDialogPane().setStyle("-fx-background-color: white;");
+                ButtonType okButton = ButtonType.OK;
+                alert1.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
                 alert1.setContentText("删除这条历史记录？");
-                alert1.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
                 Optional<ButtonType> result = alert1.showAndWait();
                 if (result.get() == ButtonType.OK){
                     SqlScientific.delete(ift);

@@ -720,12 +720,10 @@ public class ProbabilityController implements Initializable {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
-
         Image customIcon = new Image("wrong.png");
         ImageView iconImageView = new ImageView(customIcon);
         iconImageView.setFitWidth(48);
         iconImageView.setFitHeight(48);
-
         alert.getDialogPane().setGraphic(iconImageView);
         alert.getDialogPane().setStyle("-fx-background-color: white;");
         ButtonType okButton = ButtonType.OK;

@@ -125,14 +125,15 @@ public class FunctionController implements Initializable {
     @FXML
     private void handleSaveClick(ActionEvent event) {
         String judgeName = UserFunction.judgeName(functionName.getText());
-        Dialog alert = new Dialog();
-        alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-        alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("dialog");
-//        Image image = new Image("wrong.png");
-//        ImageView imageView = new ImageView(image);
-//        VBox content = new VBox(10, imageView);
-//        alert.getDialogPane().setContent(content); //没研究好还会缺少文字只有图片
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Image customIcon = new Image("wrong.png");
+        ImageView iconImageView = new ImageView(customIcon);
+        iconImageView.setFitWidth(48);
+        iconImageView.setFitHeight(48);
+        alert.getDialogPane().setGraphic(iconImageView);
+        alert.getDialogPane().setStyle("-fx-background-color: white;");
+        ButtonType okButton = ButtonType.OK;
+        alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
         alert.setTitle("出错了");
         alert.setHeaderText(null);
         //判断名称合法性
@@ -166,10 +167,15 @@ public class FunctionController implements Initializable {
                 alert0.showAndWait();
                 return;
             }
-            Dialog alert1 = new Dialog();
-            alert1.getDialogPane().getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);
-            alert1.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alertFunction");
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+            Image customIcon1 = new Image("wrong.png");
+            ImageView iconImageView1 = new ImageView(customIcon1);
+            iconImageView.setFitWidth(48);
+            iconImageView.setFitHeight(48);
+            alert.getDialogPane().setGraphic(iconImageView1);
+            alert.getDialogPane().setStyle("-fx-background-color: white;");
+            ButtonType okButton1 = ButtonType.OK;
+            alert.getDialogPane().lookupButton(okButton1).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
             alert1.setContentText("坚持保存吗？它将被设置为"+trueNum+"元函数");
             if(function.judgeParaNum()>0)
                 alert1.setHeaderText("参数个数比想象中要多……");
@@ -189,10 +195,15 @@ public class FunctionController implements Initializable {
             haveAdd = function.addFunction();
         }
         if (haveAdd) {
-            Dialog alert1 = new Dialog();
-            alert1.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            alert1.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-            alert1.getDialogPane().getStyleClass().add("alertFunction");
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+            Image customIcon2 = new Image("right.png");
+            ImageView iconImageView2 = new ImageView(customIcon2);
+            iconImageView.setFitWidth(48);
+            iconImageView.setFitHeight(48);
+            alert1.getDialogPane().setGraphic(iconImageView2);
+            alert1.getDialogPane().setStyle("-fx-background-color: white;");
+            ButtonType okButton2 = ButtonType.OK;
+            alert1.getDialogPane().lookupButton(okButton2).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
             alert1.setTitle("创建了一个新函数！");
             alert1.setHeaderText("函数名：" + functionName.getText());
             alert1.setContentText("表达式：" + formula);
@@ -399,6 +410,14 @@ public class FunctionController implements Initializable {
             if(!(atFunc=checkAtFunc())){//嵌套结束，开始替换
                 if(replaceParaProcess[0].isEmpty()){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    Image customIcon = new Image("wrong.png");
+                    ImageView iconImageView = new ImageView(customIcon);
+                    iconImageView.setFitWidth(48);
+                    iconImageView.setFitHeight(48);
+                    alert.getDialogPane().setGraphic(iconImageView);
+                    alert.getDialogPane().setStyle("-fx-background-color: white;");
+                    ButtonType okButton = ButtonType.OK;
+                    alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
                     alert.setTitle("出错了");
                     alert.setHeaderText("缺少参数");
                     alert.setContentText("请输入函数"+sonFName+"的参数x");
@@ -411,6 +430,14 @@ public class FunctionController implements Initializable {
                 if(sonParaNum>1) {
                     if(replaceParaProcess[1].isEmpty()){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        Image customIcon = new Image("wrong.png");
+                        ImageView iconImageView = new ImageView(customIcon);
+                        iconImageView.setFitWidth(48);
+                        iconImageView.setFitHeight(48);
+                        alert.getDialogPane().setGraphic(iconImageView);
+                        alert.getDialogPane().setStyle("-fx-background-color: white;");
+                        ButtonType okButton = ButtonType.OK;
+                        alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
                         alert.setTitle("出错了");
                         alert.setHeaderText("缺少参数");
                         alert.setContentText("请输入函数"+sonFName+"的参数y");
@@ -424,6 +451,14 @@ public class FunctionController implements Initializable {
                 if(sonParaNum>2) {
                     if(replaceParaProcess[2].isEmpty()){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        Image customIcon = new Image("wrong.png");
+                        ImageView iconImageView = new ImageView(customIcon);
+                        iconImageView.setFitWidth(48);
+                        iconImageView.setFitHeight(48);
+                        alert.getDialogPane().setGraphic(iconImageView);
+                        alert.getDialogPane().setStyle("-fx-background-color: white;");
+                        ButtonType okButton = ButtonType.OK;
+                        alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
                         alert.setTitle("出错了");
                         alert.setHeaderText("缺少参数");
                         alert.setContentText("请输入函数"+sonFName+"的参数z");
@@ -557,9 +592,17 @@ public class FunctionController implements Initializable {
             iftController.getJumpFunction(f.getFormula(),f.getExp());
             MainController.mainController.getCardContainer().getChildren().setAll(root);
         } catch (Exception e) {
-            Dialog<String> dialog=new Dialog<>();
+            Alert dialog=new Alert(Alert.AlertType.ERROR);
+            Image customIcon = new Image("error.png");
+            ImageView iconImageView = new ImageView(customIcon);
+            iconImageView.setFitWidth(48);
+            iconImageView.setFitHeight(48);
+            dialog.getDialogPane().setGraphic(iconImageView);
+            dialog.getDialogPane().setStyle("-fx-background-color: white;");
+            ButtonType okButton = ButtonType.OK;
+            dialog.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
             dialog.setTitle("出现错误！");
-            dialog.setHeaderText("跳转到微积分页面失败qwq");
+            dialog.setContentText("跳转到微积分页面失败qwq");
         }
     }
     /**
@@ -576,9 +619,17 @@ public class FunctionController implements Initializable {
             visController.getJumpFunction(f.getExp().replace("$x$","x"));
             MainController.mainController.getCardContainer().getChildren().setAll(root);
         } catch (Exception e) {
-            Dialog<String> dialog=new Dialog<>();
+            Alert dialog=new Alert(Alert.AlertType.ERROR);
+            Image customIcon = new Image("error.png");
+            ImageView iconImageView = new ImageView(customIcon);
+            iconImageView.setFitWidth(48);
+            iconImageView.setFitHeight(48);
+            dialog.getDialogPane().setGraphic(iconImageView);
+            dialog.getDialogPane().setStyle("-fx-background-color: white;");
+            ButtonType okButton = ButtonType.OK;
+            dialog.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
             dialog.setTitle("出现错误！");
-            dialog.setHeaderText("跳转到图像绘制页面失败qwq");
+            dialog.setContentText("跳转到图像绘制页面失败qwq");
         }
     }
     /**
@@ -590,9 +641,14 @@ public class FunctionController implements Initializable {
     public void handleJump(UserFunction f) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-        dialog.getDialogPane().getStyleClass().add("alertFunction");
-        dialog.setHeaderText("刚刚创建了一个新函数");
-        dialog.setContentText("要进行下一步操作吗？");
+        dialog.getDialogPane().getStyleClass().add("en");
+        Image customIcon = new Image("right.png");
+        ImageView iconImageView = new ImageView(customIcon);
+        iconImageView.setFitWidth(48);
+        iconImageView.setFitHeight(48);
+        dialog.getDialogPane().setGraphic(iconImageView);
+        dialog.getDialogPane().setStyle("-fx-background-color: white;");
+        dialog.setContentText("刚刚创建了一个新函数，要进行下一步操作吗？");
         ButtonType buttonTypeOne = new ButtonType("绘制图像", ButtonBar.ButtonData.OK_DONE);
         ButtonType buttonTypeTwo = new ButtonType("计算微积分", ButtonBar.ButtonData.OK_DONE);
         ButtonType buttonTypeCancel = new ButtonType("什么也不做", ButtonBar.ButtonData.CANCEL_CLOSE);
