@@ -7,6 +7,7 @@ import Probability.Exception.NotInputDataException;
 import Probability.InputData;
 import Probability.RegressionAnalysis;
 import Scientific.ScientificSolve;
+import com.singularsys.jep.functions.Str;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -1102,7 +1103,7 @@ public class ProbabilityController implements Initializable {
                 showDensityPDF();
             }
             else {
-                showAlert("错误提示", "请输入一个待预测自变量的值", 2400);
+                showAlert("错误提示", "请输入特征值", 2400);
             }
         }
     }
@@ -1113,7 +1114,9 @@ public class ProbabilityController implements Initializable {
     **/
     private void showDensityPDF() throws Exception {
         lineChartPossion.getData().remove(fitSeries);
+        lineChartPossion.getData().remove(dataSeries);
         lineChartGauss.getData().remove(fitSeries);
+        lineChartGauss.getData().remove(dataSeries);
         fitSeries = new XYChart.Series<>();
         dataSeries = new XYChart.Series<>();
         double y;
@@ -1249,7 +1252,7 @@ public class ProbabilityController implements Initializable {
                 double x = Double.parseDouble(input);
                 if (flagHasNormal) {
                     ans = normalDistribution.cumulativeProbability(x);
-                    pOut.setText(String.valueOf(ans));
+                    pOut.setText(String.format("%.3f", ans));
                 }
                 else {
                     showAlert("错误提示", "未输入待拟合数据", 2400);
@@ -1268,7 +1271,7 @@ public class ProbabilityController implements Initializable {
                 int x = Integer.parseInt(input);
                 if (flagHasPossion) {
                     ans = poissonDistribution.cumulativeProbability(x);
-                    pOut1.setText(String.valueOf(ans));
+                    pOut1.setText(String.format("%.3f", ans));
                 }
                 else {
                     showAlert("错误提示", "未输入待拟合数据", 2400);

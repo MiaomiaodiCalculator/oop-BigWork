@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -10,35 +16,31 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="GraphPane" prefHeight="586.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
+<AnchorPane prefHeight="586.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
     <stylesheets>
         <URL value="@style/Scientific.css" />
     </stylesheets>
     <children>
-       <Pane fx:id="MinTreePane" layoutY="35.0" prefHeight="578.0" prefWidth="510.0">
-           <children>
-            <Canvas fx:id="CanvasShowGraph" height="242.0" layoutX="25.0" layoutY="277.0" width="460.0" />
-            <TableView fx:id="GraphTable" layoutX="25.0" layoutY="61.0" prefHeight="182.0" prefWidth="460.0" />
-            <Label layoutX="25.0" layoutY="527.0" text="最小生成树权值：">
+            <Canvas fx:id="CanvasShowGraph" height="242.0" layoutX="15.0" layoutY="303.0" width="460.0" />
+            <TableView fx:id="GraphTable" layoutX="15.0" layoutY="87.0" prefHeight="182.0" prefWidth="460.0" />
+            <Label layoutX="15.0" layoutY="553.0" text="最小生成树权值：">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="25.0" layoutY="253.0" text="Kruskal求解最小生成树过程演示：">
+            <Label layoutX="15.0" layoutY="279.0" text="Kruskal求解最小生成树过程演示：">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="minAns" editable="false" layoutX="137.0" layoutY="519.0" prefHeight="36.0" prefWidth="351.0" />
-               <Button fx:id="ButtonGenerateGraph" layoutX="257.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleShowMTree" prefHeight="36.0" prefWidth="112.0" text="生成动画" />
-            <Button fx:id="ButtonGraphDataEnter" layoutX="373.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleMTDataConfirm" prefHeight="36.0" prefWidth="112.0" text="确认构图" />
-            <TextField fx:id="PointNumText" layoutX="84.0" layoutY="14.0" onKeyPressed="#handleMTPointNumKeyPressed" prefHeight="36.0" prefWidth="164.0" promptText="请输入一个数字之后回车" />
-            <Label layoutX="26.0" layoutY="22.0" text="图的点数">
+            <TextField fx:id="minAns" editable="false" layoutX="127.0" layoutY="545.0" prefHeight="36.0" prefWidth="351.0" />
+               <Button fx:id="ButtonGenerateGraph" layoutX="247.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleShowMTree" prefHeight="36.0" prefWidth="112.0" text="生成动画" />
+            <Button fx:id="ButtonGraphDataEnter" layoutX="363.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleMTDataConfirm" prefHeight="36.0" prefWidth="112.0" text="确认构图" />
+            <TextField fx:id="PointNumText" layoutX="74.0" layoutY="40.0" onKeyPressed="#handleMTPointNumKeyPressed" prefHeight="36.0" prefWidth="164.0" promptText="请输入一个数字之后回车" />
+            <Label layoutX="16.0" layoutY="48.0" text="图的点数">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-           </children>
-       </Pane>
    </children>
 </AnchorPane>
