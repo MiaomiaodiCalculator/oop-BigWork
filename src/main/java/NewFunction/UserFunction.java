@@ -4,6 +4,7 @@ import com.singularsys.jep.EvaluationException;
 import com.singularsys.jep.Jep;
 import com.singularsys.jep.JepException;
 import com.singularsys.jep.ParseException;
+import com.singularsys.jep.functions.Abs;
 
 /**
  * @author sxq
@@ -109,6 +110,7 @@ public class UserFunction {
         }
         _exp=_exp.replaceAll(" ","");
         Jep jep =new Jep();
+        jep.addFunction("abs", new Abs());
         jep.addVariable("$x$");
         jep.addVariable("$y$");
         jep.addVariable("$z$");

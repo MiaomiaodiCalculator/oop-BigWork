@@ -289,7 +289,7 @@ public class FunctionController implements Initializable {
     **/
     public void editFormula(String str){
         switch(str){
-            case "0": case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case "(": case "+": case "-": case ".": case "!":
+            case "0": case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case "(": case "+": case "-": case ".":
                 formula=formula+str;
                 if(atFunc) replacePara+=str;
                 else  exp+=str;
@@ -298,6 +298,10 @@ public class FunctionController implements Initializable {
                 formula=formula+"*";
                 if(atFunc) replacePara+="*";
                 else exp+="*";
+                break;
+            case "|x|":
+                formula=formula+"abs(";
+                exp=exp+"abs(";
                 break;
             case "÷":
                 formula=formula+"/";

@@ -155,8 +155,8 @@
                   </GridPane>
                </children>
             </VBox>
-            <Button layoutX="303.0" layoutY="660.0" mnemonicParsing="false" onAction="#PrintScreen" prefHeight="23.0" prefWidth="72.0" text="PrtSc" style="-fx-background-color: #FFE5CC;"/>
-            <Button layoutX="383.0" layoutY="660.0" mnemonicParsing="false" onAction="#pushListToHistory" prefHeight="23.0" prefWidth="72.0" text="SAVE" style="-fx-background-color: #FFE5CC;"/>
+            <Button layoutX="250.0" layoutY="660.0" mnemonicParsing="false" onAction="#PrintScreen" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: #FFE5CC;" text="保存截图" />
+            <Button layoutX="355.0" layoutY="660.0" mnemonicParsing="false" onAction="#pushListToHistory" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: #FFE5CC;" text="保存记录" />
          </children>
       </Pane>
       <Pane fx:id="History">

@@ -107,9 +107,9 @@
                     <Button fx:id="BUTTON_DIVIDE21" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #f0f0f0;" styleClass="operator" text="sin" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                     <Button fx:id="BUTTON_DIVIDE22" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #f0f0f0;" styleClass="operator" text="cos" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                     <Button fx:id="BUTTON_LN" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #f0f0f0;" styleClass="number" text="eˣ" GridPane.rowIndex="4" />
-                    <Button fx:id="BUTTON_FACTORIAL" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #f0f0f0;" styleClass="operator" text="!" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                    <Button fx:id="BUTTON_FACTORIAL" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #f0f0f0;" styleClass="operator" text="|x|" GridPane.columnIndex="3" GridPane.rowIndex="3">
                   <tooltip>
-                     <Tooltip text="阶乘" />
+                     <Tooltip text="绝对值" />
                   </tooltip></Button>
                     <Button fx:id="BUTTON_RIGHT_PAREN" focusTraversable="false" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #f0f0f0;" styleClass="operator" text=")" GridPane.columnIndex="2" GridPane.rowIndex="3">
                     </Button>

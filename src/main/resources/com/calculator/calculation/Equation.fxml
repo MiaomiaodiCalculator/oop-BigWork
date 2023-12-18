@@ -25,8 +25,14 @@
              </Text>
               <Pane fx:id="Equation" prefHeight="698.0" prefWidth="500.0" visible="false">
                  <children>
-                     <Label fx:id="showArea" layoutX="7.0" layoutY="108.0" prefHeight="111.0" prefWidth="485.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5px;" />
-                     <Label fx:id="answerArea" layoutX="8.0" layoutY="238.0" prefHeight="162.0" prefWidth="485.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-padding: 5px;" />
+                     <Label id="equationShow" fx:id="showArea" layoutX="7.0" layoutY="123.0" prefHeight="155.0" prefWidth="485.0">
+                     <tooltip>
+                        <Tooltip text="请输入方程，计算器会自动帮您填充方程等号右侧的&quot;=0&quot;" />
+                     </tooltip></Label>
+                     <Label id="answerShow" fx:id="answerArea" layoutX="8.0" layoutY="310.0" prefHeight="90.0" prefWidth="485.0">
+                     <tooltip>
+                        <Tooltip text="显示方程的解" />
+                     </tooltip></Label>
                     <GridPane layoutX="8.0" layoutY="405.0" prefHeight="293.0" prefWidth="492.0">
                         <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -44,7 +50,10 @@
                         <children>
                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                           <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="↓" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="↓" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <tooltip>
+                              <Tooltip text="退出幂次项的输入" />
+                           </tooltip></Button>
                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="3" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="7" GridPane.columnIndex="1" />
@@ -55,15 +64,19 @@
                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="8" GridPane.columnIndex="2" />
                            <Button mnemonicParsing="false" onAction="#calculateClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #FFC187;" text="计算" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                            <Button fx:id="subtract" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="-" GridPane.rowIndex="2" />
-                           <Button fx:id="multiply" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="*" />
+                           <Button fx:id="multiply" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="x²" />
                            <Button fx:id="add" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="+" GridPane.rowIndex="1" />
                            <Button fx:id="dot" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="." GridPane.columnIndex="3" GridPane.rowIndex="3" />
                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #FFC187;" text="C" GridPane.columnIndex="4" />
-                           <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="xʸ" GridPane.rowIndex="3" />
+                           <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="xʸ" GridPane.rowIndex="3">
+                           <tooltip>
+                              <Tooltip text="进入幂次项的输入" />
+                           </tooltip></Button>
                            <Button mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #f0f0f0;" text="←" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                            <Button fx:id="para" mnemonicParsing="false" onAction="#buttonClick" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #FFE5CC;" text="变量x" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                         </children>
                     </GridPane>
+                  <Label id="tips" alignment="CENTER" contentDisplay="CENTER" layoutY="99.0" prefHeight="24.0" prefWidth="500.0" text="请输入方程，计算器会自动帮您填充方程等号右侧的&quot;=0&quot;" />
                  </children>
               </Pane>
             <Pane fx:id="Equations" layoutY="103.0" prefHeight="593.0" prefWidth="500.0">
@@ -79,61 +92,79 @@
                <children>
                    <Pane fx:id="e2" layoutX="8.0" layoutY="50.0" prefHeight="535.0" prefWidth="485.0">
                      <children>
-                        <TextField fx:id="e2x1" layoutX="70.0" layoutY="29.0" prefHeight="36.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e2x1" layoutX="79.0" layoutY="37.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
-                           </font></TextField>
-                        <Label layoutX="157.0" layoutY="22.0" prefHeight="64.0" prefWidth="57.0" text="x+">
+                           </font>
+                           <tooltip>
+                              <Tooltip text="请输入x的系数" />
+                           </tooltip></TextField>
+                        <Label layoutX="157.0" layoutY="23.0" prefHeight="64.0" prefWidth="57.0" text="x+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="e2y1" layoutX="194.0" layoutY="29.0" prefHeight="51.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e2y1" layoutX="194.0" layoutY="37.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
-                           </font></TextField>
-                        <Label layoutX="287.0" layoutY="22.0" prefHeight="64.0" prefWidth="57.0" text="y=">
+                           </font>
+                           <tooltip>
+                              <Tooltip text="请输入y的系数" />
+                           </tooltip></TextField>
+                        <Label layoutX="273.0" layoutY="23.0" prefHeight="64.0" prefWidth="57.0" text="y=">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="e2c1" layoutX="325.0" layoutY="29.0" prefHeight="51.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e2c1" layoutX="309.0" layoutY="37.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
-                           </font></TextField>
-                        <TextField fx:id="e2c2" layoutX="325.0" layoutY="118.0" prefHeight="51.0" prefWidth="71.0">
+                           </font>
+                           <tooltip>
+                              <Tooltip text="请输入常数项" />
+                           </tooltip></TextField>
+                        <TextField id="text" fx:id="e2c2" layoutX="309.0" layoutY="126.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
-                           </font></TextField>
-                        <Label layoutX="287.0" layoutY="105.0" prefHeight="64.0" prefWidth="57.0" text="y=">
+                           </font>
+                           <tooltip>
+                              <Tooltip text="请输入常数项" />
+                           </tooltip></TextField>
+                        <Label layoutX="273.0" layoutY="112.0" prefHeight="64.0" prefWidth="57.0" text="y=">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="e2y2" layoutX="194.0" layoutY="118.0" prefHeight="51.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e2y2" layoutX="194.0" layoutY="126.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
-                           </font></TextField>
-                        <Label layoutX="157.0" layoutY="105.0" prefHeight="64.0" prefWidth="57.0" text="x+">
+                           </font>
+                           <tooltip>
+                              <Tooltip text="请输入y的系数" />
+                           </tooltip></TextField>
+                        <Label layoutX="157.0" layoutY="112.0" prefHeight="64.0" prefWidth="57.0" text="x+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="e2x2" layoutX="70.0" layoutY="118.0" prefHeight="51.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e2x2" layoutX="79.0" layoutY="126.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
-                           </font></TextField>
+                           </font>
+                           <tooltip>
+                              <Tooltip text="请输入x的系数" />
+                           </tooltip></TextField>
                         <Button id="getAns" fx:id="e2answer" layoutX="213.0" layoutY="188.0" mnemonicParsing="false" onAction="#getAns" prefHeight="48.0" prefWidth="95.0" text="计算" />
                         <Pane fx:id="e2answerShow" layoutX="7.0" layoutY="259.0" prefHeight="200.0" prefWidth="473.0">
                            <children>
                               <Label fx:id="e2x" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" prefHeight="64.0" prefWidth="284.0">
                                  <font>
-                                    <Font name="Agency FB" size="30.0" />
+                                    <Font name="Times New Roman" size="25.0" />
                                  </font>
                               </Label>
                               <Label fx:id="e2y" alignment="CENTER" layoutX="91.0" layoutY="106.0" prefHeight="64.0" prefWidth="284.0">
                                  <font>
-                                    <Font name="Agency FB" size="30.0" />
+                                    <Font name="Times New Roman" size="25.0" />
                                  </font>
                               </Label>
                            </children>
@@ -142,94 +173,98 @@
                   </Pane>
                    <Pane fx:id="e3" layoutY="46.0" prefHeight="547.0" prefWidth="500.0" visible="false">
                      <children>
-                        <TextField fx:id="e3y1" layoutX="145.0" layoutY="9.0" prefHeight="51.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e3y1" layoutX="145.0" layoutY="21.0" prefHeight="37.0" prefWidth="71.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="请输入y的系数" />
+                           </tooltip>
+                        </TextField>
+                        <TextField id="text" fx:id="e3z1" layoutX="268.0" layoutY="23.0" prefHeight="37.0" prefWidth="71.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="请输入z的系数" />
+                           </tooltip>
+                        </TextField>
+                        <TextField id="text" fx:id="e3c1" layoutX="394.0" layoutY="23.0" prefHeight="37.0" prefWidth="71.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <tooltip>
+                              <Tooltip text="请输入常数项" />
+                           </tooltip>
+                        </TextField>
+                        <TextField id="text" fx:id="e3x2" layoutX="20.0" layoutY="101.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e3z1" layoutX="268.0" layoutY="9.0" prefHeight="51.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e3x3" layoutX="20.0" layoutY="189.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="345.0" layoutY="3.0" prefHeight="64.0" prefWidth="57.0" text="z=">
-                           <font>
-                              <Font name="Agency FB" size="30.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="e3c1" layoutX="394.0" layoutY="9.0" prefHeight="51.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e3z3" layoutX="268.0" layoutY="186.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e3x2" layoutX="20.0" layoutY="95.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e3z2" layoutX="268.0" layoutY="101.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e3x3" layoutX="20.0" layoutY="181.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e3y3" layoutX="145.0" layoutY="186.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e3z3" layoutX="268.0" layoutY="182.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e3y2" layoutX="145.0" layoutY="101.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e3z2" layoutX="268.0" layoutY="95.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e3c3" layoutX="394.0" layoutY="186.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e3y3" layoutX="145.0" layoutY="181.0" prefHeight="48.0" prefWidth="71.0">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="e3y2" layoutX="145.0" layoutY="95.0" prefHeight="48.0" prefWidth="71.0">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="e3c3" layoutX="394.0" layoutY="182.0" prefHeight="48.0" prefWidth="71.0">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="e3c2" layoutX="394.0" layoutY="96.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e3c2" layoutX="394.0" layoutY="101.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
                         <Label layoutX="97.0" layoutY="175.0" prefHeight="64.0" prefWidth="57.0" text="x+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                         <Label layoutX="97.0" layoutY="90.0" prefHeight="64.0" prefWidth="57.0" text="x+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                         <Label layoutX="222.0" layoutY="172.0" prefHeight="64.0" prefWidth="57.0" text="y+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                         <Label layoutX="222.0" layoutY="90.0" prefHeight="64.0" prefWidth="57.0" text="y+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                         <Label layoutX="345.0" layoutY="172.0" prefHeight="64.0" prefWidth="57.0" text="z=">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                         <Label layoutX="345.0" layoutY="90.0" prefHeight="64.0" prefWidth="57.0" text="z=">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                         <Button id="getAns" fx:id="e3answer" layoutX="221.0" layoutY="239.0" mnemonicParsing="false" onAction="#getAns" prefHeight="51.0" prefWidth="87.0" text="计算" />
@@ -237,216 +272,236 @@
                            <children>
                               <Label fx:id="e3x" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="8.0" prefHeight="64.0" prefWidth="284.0">
                                  <font>
-                                    <Font name="Agency FB" size="30.0" />
+                                    <Font name="Times New Roman" size="25.0" />
                                  </font>
                               </Label>
                               <Label fx:id="e3y" alignment="CENTER" layoutX="92.0" layoutY="79.0" prefHeight="64.0" prefWidth="284.0">
                                  <font>
-                                    <Font name="Agency FB" size="30.0" />
+                                    <Font name="Times New Roman" size="25.0" />
                                  </font>
                               </Label>
                               <Label fx:id="e3z" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="151.0" prefHeight="64.0" prefWidth="284.0">
                                  <font>
-                                    <Font name="Agency FB" size="30.0" />
+                                    <Font name="Times New Roman" size="25.0" />
                                  </font>
                               </Label>
                            </children>
                         </Pane>
-                        <TextField fx:id="e3x1" layoutX="20.0" layoutY="10.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e3x1" layoutX="20.0" layoutY="21.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
                         <Label layoutX="222.0" layoutY="4.0" prefHeight="64.0" prefWidth="57.0" text="y+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                         <Label layoutX="97.0" layoutY="4.0" prefHeight="64.0" prefWidth="57.0" text="x+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="345.0" layoutY="8.0" prefHeight="64.0" prefWidth="57.0" text="z=">
+                           <font>
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
                    <Pane fx:id="e4" layoutY="39.0" prefHeight="554.0" prefWidth="500.0" visible="false">
                      <children>
-                        <Label layoutX="178.0" layoutY="12.0" prefHeight="64.0" prefWidth="57.0" text="y+">
+                        <Label layoutX="182.0" layoutY="8.0" prefHeight="64.0" prefWidth="57.0" text="y+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                         <Label layoutX="85.0" layoutY="25.0" prefHeight="29.0" prefWidth="57.0" text="x+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="e4x1" layoutX="14.0" layoutY="18.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4x1" layoutX="14.0" layoutY="24.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="请输入x的系数" />
+                           </tooltip>
                         </TextField>
-                        <TextField fx:id="e4y1" layoutX="107.0" layoutY="18.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4y1" layoutX="111.0" layoutY="21.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="请输入y的系数" />
+                           </tooltip>
                         </TextField>
-                        <TextField fx:id="e4c1" layoutX="396.0" layoutY="18.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4c1" layoutX="412.0" layoutY="21.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="请输入常数项" />
+                           </tooltip>
                         </TextField>
-                        <TextField fx:id="e4z1" layoutX="200.0" layoutY="18.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4z1" layoutX="208.0" layoutY="21.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="请输入z的系数" />
+                           </tooltip>
                         </TextField>
-                        <TextField fx:id="e4m1" layoutX="293.0" layoutY="18.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4m1" layoutX="304.0" layoutY="21.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="请输入m的系数" />
+                           </tooltip>
                         </TextField>
-                        <Label layoutX="364.0" layoutY="25.0" prefHeight="37.0" prefWidth="39.0" text="m=">
+                        <Label layoutX="377.0" layoutY="21.0" prefHeight="37.0" prefWidth="39.0" text="m=">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="271.0" layoutY="25.0" prefHeight="29.0" prefWidth="57.0" text="z+">
+                        <Label layoutX="279.0" layoutY="25.0" prefHeight="29.0" prefWidth="57.0" text="z+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="e4x2" layoutX="14.0" layoutY="76.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4x2" layoutX="14.0" layoutY="79.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e4x3" layoutX="14.0" layoutY="134.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4x3" layoutX="14.0" layoutY="142.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e4x4" layoutX="14.0" layoutY="191.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4x4" layoutX="14.0" layoutY="202.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="85.0" layoutY="198.0" prefHeight="29.0" prefWidth="57.0" text="x+">
+                        <Label layoutX="83.0" layoutY="206.0" prefHeight="29.0" prefWidth="57.0" text="x+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                         <Label layoutX="85.0" layoutY="141.0" prefHeight="29.0" prefWidth="57.0" text="x+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
                         <Label layoutX="85.0" layoutY="83.0" prefHeight="29.0" prefWidth="57.0" text="x+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="e4y2" layoutX="107.0" layoutY="76.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4y2" layoutX="111.0" layoutY="79.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e4y3" layoutX="107.0" layoutY="134.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4y3" layoutX="111.0" layoutY="142.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e4y4" layoutX="107.0" layoutY="191.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4y4" layoutX="111.0" layoutY="202.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="178.0" layoutY="70.0" prefHeight="64.0" prefWidth="57.0" text="y+">
+                        <Label layoutX="181.0" layoutY="70.0" prefHeight="64.0" prefWidth="57.0" text="y+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="178.0" layoutY="128.0" prefHeight="64.0" prefWidth="57.0" text="y+">
+                        <Label layoutX="182.0" layoutY="128.0" prefHeight="64.0" prefWidth="57.0" text="y+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="178.0" layoutY="185.0" prefHeight="64.0" prefWidth="57.0" text="y+">
+                        <Label layoutX="182.0" layoutY="189.0" prefHeight="64.0" prefWidth="57.0" text="y+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="e4z2" layoutX="200.0" layoutY="77.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4z2" layoutX="208.0" layoutY="82.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e4z3" layoutX="200.0" layoutY="134.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4z3" layoutX="208.0" layoutY="142.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e4z4" layoutX="200.0" layoutY="192.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4z4" layoutX="208.0" layoutY="203.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="271.0" layoutY="84.0" prefHeight="29.0" prefWidth="57.0" text="z+">
+                        <Label layoutX="280.0" layoutY="86.0" prefHeight="29.0" prefWidth="57.0" text="z+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="271.0" layoutY="141.0" prefHeight="29.0" prefWidth="57.0" text="z+">
+                        <Label layoutX="280.0" layoutY="146.0" prefHeight="29.0" prefWidth="57.0" text="z+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="271.0" layoutY="198.0" prefHeight="29.0" prefWidth="57.0" text="z+">
+                        <Label layoutX="281.0" layoutY="207.0" prefHeight="29.0" prefWidth="57.0" text="z+">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="e4m2" layoutX="293.0" layoutY="77.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4m2" layoutX="308.0" layoutY="83.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e4m3" layoutX="293.0" layoutY="134.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4m3" layoutX="309.0" layoutY="142.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e4m4" layoutX="293.0" layoutY="192.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4m4" layoutX="309.0" layoutY="203.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="364.0" layoutY="83.0" prefHeight="37.0" prefWidth="39.0" text="m=">
+                        <Label layoutX="377.0" layoutY="80.0" prefHeight="37.0" prefWidth="39.0" text="m=">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="364.0" layoutY="141.0" prefHeight="37.0" prefWidth="39.0" text="m=">
+                        <Label layoutX="377.0" layoutY="141.0" prefHeight="37.0" prefWidth="39.0" text="m=">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="364.0" layoutY="198.0" prefHeight="37.0" prefWidth="39.0" text="m=">
+                        <Label layoutX="380.0" layoutY="202.0" prefHeight="37.0" prefWidth="39.0" text="m=">
                            <font>
-                              <Font name="Agency FB" size="30.0" />
+                              <Font name="Times New Roman" size="25.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="e4c2" layoutX="396.0" layoutY="77.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4c2" layoutX="412.0" layoutY="80.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e4c3" layoutX="396.0" layoutY="135.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4c3" layoutX="412.0" layoutY="141.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="e4c4" layoutX="396.0" layoutY="192.0" prefHeight="48.0" prefWidth="71.0">
+                        <TextField id="text" fx:id="e4c4" layoutX="412.0" layoutY="203.0" prefHeight="37.0" prefWidth="71.0">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -456,22 +511,22 @@
                            <children>
                               <Label fx:id="e4x" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="7.0" prefHeight="64.0" prefWidth="284.0">
                                  <font>
-                                    <Font name="Agency FB" size="30.0" />
+                                    <Font name="Times New Roman" size="25.0" />
                                  </font>
                               </Label>
                               <Label fx:id="e4y" alignment="CENTER" layoutX="92.0" layoutY="71.0" prefHeight="64.0" prefWidth="284.0">
                                  <font>
-                                    <Font name="Agency FB" size="30.0" />
+                                    <Font name="Times New Roman" size="25.0" />
                                  </font>
                               </Label>
                               <Label fx:id="e4z" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="136.0" prefHeight="64.0" prefWidth="284.0">
                                  <font>
-                                    <Font name="Agency FB" size="30.0" />
+                                    <Font name="Times New Roman" size="25.0" />
                                  </font>
                               </Label>
                               <Label fx:id="e4m" alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="201.0" prefHeight="64.0" prefWidth="284.0">
                                  <font>
-                                    <Font name="Agency FB" size="30.0" />
+                                    <Font name="Times New Roman" size="25.0" />
                                  </font>
                               </Label>
                            </children>

@@ -18,15 +18,16 @@
 #formulaShow {
     -fx-background-color: #f4f4f4;
     -fx-text-fill: #000000;
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-padding: 5px;
     -fx-border-color: #c0c0c0;
     -fx-border-width: 1px;
+    -fx-font-family: "Times New Roman";
 }
 #answerShow {
     -fx-background-color: #ffffff;
     -fx-text-fill: #000000;
-    -fx-font-size: 20px;
+    -fx-font-size: 16px;
     -fx-padding: 10px;
     -fx-border-color: #c0c0c0;
     -fx-border-width: 1px;
@@ -35,6 +36,8 @@
 #function-table{
     -fx-background-color: #f5f5f5;
     -fx-border-color: #ccc;
+    -fx-selection-bar:#FF9838;
+    -fx-selection-bar-text: white;
 }
 #number {
     -fx-background-color: #e0e0e0;
@@ -53,7 +56,7 @@
 .search-result .list-view {
     -fx-background-color: white;
     -fx-control-inner-background: white;
-    -fx-selection-bar:#969191;
+    -fx-selection-bar:#FF9838;
     -fx-selection-bar-text: white;
 }
 #dialog {
@@ -114,4 +117,10 @@
  -fx-text-fill: white;
  -fx-font-weight: bold;
  -fx-border-radius: 5px;
+}
+#history{
+    -fx-selection-bar:#FF9838;
+    -fx-selection-bar-text: white;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size:15px;
 }

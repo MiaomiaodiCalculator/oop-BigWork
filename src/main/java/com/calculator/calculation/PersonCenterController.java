@@ -62,6 +62,9 @@ public class PersonCenterController implements Initializable {
     public void changePassword() {
         String title="修改密码";
         Dialog<ButtonType> dialog = new Dialog<>();
+        Scene dialogScene = dialog.getDialogPane().getScene();
+        dialogScene.getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+        dialog.getDialogPane().getStyleClass().add("dialog-pane");
         dialog.setTitle(title);
         dialog.setHeaderText("修改密码");
         GridPane gridPane = new GridPane();

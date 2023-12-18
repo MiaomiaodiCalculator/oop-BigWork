@@ -46,9 +46,17 @@
                        <children>
                            <Button fx:id="buttonPi" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="π" GridPane.rowIndex="1" />
                            <Button fx:id="button3" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="x³" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                           <Button fx:id="buttonSqrt" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="√" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                           <Button fx:id="buttonSqrt" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="√" GridPane.columnIndex="3" GridPane.rowIndex="2" >
+                               <tooltip>
+                                   <Tooltip text="应用时计算器会自动加上左括号，请用户在开根号内部写完后自己填充右括号。" />
+                               </tooltip>
+                           </Button>
                            <Button fx:id="buttonPower10" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="10ˣ" GridPane.rowIndex="5" />
-                           <Button fx:id="buttonLog" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="log₁₀" GridPane.rowIndex="6" />
+                           <Button fx:id="buttonLog" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="log₁₀" GridPane.rowIndex="6" >
+                               <tooltip>
+                                   <Tooltip text="应用时计算器会自动加上左括号，请用户在log内部写完后自己填充右括号。" />
+                               </tooltip>
+                           </Button>
                            <Button fx:id="BUTTON_EQUAL" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="=" GridPane.columnIndex="4" GridPane.rowIndex="6">
                         </Button>
                            <Button fx:id="BUTTON_ADD" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="+" GridPane.columnIndex="4" GridPane.rowIndex="6">
@@ -59,10 +67,17 @@
                         </Button>
                            <Button fx:id="BUTTON_DIVIDE" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="÷" GridPane.columnIndex="4" GridPane.rowIndex="3">
                         </Button>
-                           <Button fx:id="BUTTON_DIVIDE2" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="tan" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                           <Button fx:id="BUTTON_DIVIDE2" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="tan" GridPane.columnIndex="4" GridPane.rowIndex="1" >《<tooltip>
+                               <Tooltip text="应用时计算器会自动加上左括号，请用户在tan内部写完后自己填充右括号。" />
+                           </tooltip>
+                           </Button>
                            <Button fx:id="BUTTON_EE" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #FFE5CC;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="Del" GridPane.columnIndex="3" />
                            <Button fx:id="BUTTON_E" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="e" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                           <Button fx:id="BUTTON_TAN" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="³√" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                           <Button fx:id="BUTTON_TAN" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="³√" GridPane.columnIndex="4" GridPane.rowIndex="2" >
+                               <tooltip>
+                                   <Tooltip text="应用时计算器会自动加上左括号，请用户在开立方内部写完后自己填充右括号。" />
+                               </tooltip>
+                           </Button>
                            <Button fx:id="BUTTON_LEFT_PAREN" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="(" GridPane.columnIndex="1" GridPane.rowIndex="3">
                         </Button>
                            <Button fx:id="BUTTON7" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="7" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -71,10 +86,22 @@
                         </Button>
                            <Button fx:id="BUTTON1" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="1" GridPane.columnIndex="1" GridPane.rowIndex="6">
                         </Button>
-                           <Button fx:id="buttonFree" mnemonicParsing="false" onAction="#Freedom" style="-fx-background-color: #FFE5CC;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="自定义函数" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                           <Button fx:id="BUTTON_DIVIDE21" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="sin" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                           <Button fx:id="buttonFree" mnemonicParsing="false" onAction="#Freedom" style="-fx-background-color: #FFE5CC;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="自定义函数" GridPane.columnIndex="1" GridPane.rowIndex="7" >
+                               <tooltip>
+                                   <Tooltip text="可点击菜单->自定义函数，定义函数并在这里应用。" />
+                               </tooltip>
+                           </Button>
+                           <Button fx:id="BUTTON_DIVIDE21" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="sin" GridPane.columnIndex="2" GridPane.rowIndex="1" >
+                               <tooltip>
+                                   <Tooltip text="应用时计算器会自动加上左括号，请用户在log内部写完后自己填充右括号。" />
+                               </tooltip>
+                           </Button>
                            <Button fx:id="BUTTON_DIVIDE22" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="cos" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                           <Button fx:id="BUTTON_FACTORIAL" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="!" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                           <Button fx:id="BUTTON_FACTORIAL" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text="rand" GridPane.columnIndex="3" GridPane.rowIndex="3" >
+                               <tooltip>
+                                   <Tooltip text="随机生成0~100的整数。" />
+                               </tooltip>
+                           </Button>
                            <Button fx:id="BUTTON_RIGHT_PAREN" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="operator" text=")" GridPane.columnIndex="2" GridPane.rowIndex="3">
                         </Button>
                            <Button fx:id="BUTTON9" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #f0f0f0;" prefHeight="36.0" prefWidth="80.0" styleClass="number" text="9" GridPane.columnIndex="3" GridPane.rowIndex="4">
@@ -111,13 +138,20 @@
                <children>
                    <VBox fx:id="FreeShow" layoutY="246.0" prefHeight="395.0" prefWidth="500.0" spacing="2" visible="false">
                        <children>
-                           <TextField id="searchField" fx:id="searchField" onKeyPressed="#KeyDown" promptText="输入关键字进行搜索..." />
+                           <TextField id="searchField" fx:id="searchField" onKeyPressed="#KeyDown" promptText="输入自定义函数的关键字进行搜索..." >
+                               <tooltip>
+                                   <Tooltip text="键盘上下键可选中不同搜索提示。" />
+                               </tooltip>
+                           </TextField>
                            <TableView id="function-table" fx:id="FunctionList" layoutX="7.0" layoutY="244.0" onMouseClicked="#chooseFunction" prefHeight="600.0" prefWidth="490.0">
                                <columns>
                                    <TableColumn fx:id="nameList" prefWidth="94.0" text="函数名" />
                                    <TableColumn fx:id="paraNumList" prefWidth="76.0" text="参数个数" />
                                    <TableColumn fx:id="formulaList1" prefWidth="394.0" text="函数表达式" />
                                </columns>
+                               <tooltip>
+                                   <Tooltip text="回车或双击选中即可调用。" />
+                               </tooltip>
                            </TableView>
                        </children>
                    </VBox>
@@ -140,7 +174,7 @@
                        <Image url="@images/return.png" />
                    </image>
                </ImageView>
-               <TableView fx:id="tableView" layoutY="65.0" onMouseClicked="#handleRowClick" prefHeight="633.0" prefWidth="500.0">
+               <TableView id="history" fx:id="tableView" layoutY="65.0" onMouseClicked="#handleRowClick" prefHeight="633.0" prefWidth="500.0">
                    <columns>
                        <TableColumn fx:id="timeList" prefWidth="153.0" text="计算时间" />
                        <TableColumn fx:id="formulaList" minWidth="0.0" prefWidth="195.0" text="计算式" />

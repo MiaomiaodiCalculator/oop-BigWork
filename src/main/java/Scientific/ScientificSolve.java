@@ -68,6 +68,9 @@ public class ScientificSolve implements Serializable {
         else if(calFlag== ErrorScientific.pow)return "幂运算函数未完成";
         else if(calFlag== ErrorScientific.divideZero)return "除数等于0";
         else if(calFlag== ErrorScientific.Illegal)return "算式非法";
+        else if(calFlag== ErrorScientific.nothing)return "还未输入算式";
+        else if(calFlag==ErrorScientific.BrackNull)return "括号内为空";
+        if(calFlag==ErrorScientific.error)return "运算式错误！";
         else return answer;
     }
     /***
@@ -116,12 +119,41 @@ public class ScientificSolve implements Serializable {
     public static boolean checkText(String text){
         return text != null && text.matches("\\d+(\\.\\d+)?");
     }
-
+    /***
+     * @Description   计算式过程
+     * @return java.util.List<java.lang.String>  字符串list
+     * @author Bu Xinran
+     * @date 2023/12/18 12:46
+    **/
     public List<String> getProcessExp() {return processExp;}
-
+    /***
+     * @Description 计算时间
+     * @param time  时间
+     * @author Bu Xinran
+     * @date 2023/12/18 12:46
+    **/
     public void setSaveTime(Timestamp time) {this.saveTime = time;}
-
+    /***
+     * @Description  返回时间戳
+     * @return java.sql.Timestamp 时间戳
+     * @author Bu Xinran
+     * @date 2023/12/18 12:45
+    **/
     public Timestamp getSaveTime() {return saveTime;}
-
+    /***
+     * @Description   返回时间戳
+     * @return javafx.beans.value.ObservableValue<java.lang.String>     时间字符串
+     * @author Bu Xinran
+     * @date 2023/12/18 12:45
+    **/
     public ObservableValue<String> timeProperty() {return new SimpleStringProperty(String.valueOf(saveTime));}
+    /***
+     * @Description 返回错误类型
+     * @return Scientific.ErrorScientific   错误类型
+     * @author Bu Xinran
+     * @date 2023/12/18 12:45
+    **/
+    public ErrorScientific getCalFlag() {
+        return calFlag;
+    }
 }

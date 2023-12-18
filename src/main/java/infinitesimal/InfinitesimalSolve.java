@@ -3,6 +3,9 @@ package infinitesimal;
 import com.singularsys.jep.Jep;
 import com.singularsys.jep.JepException;
 import com.singularsys.jep.ParseException;
+import com.singularsys.jep.functions.Abs;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public class InfinitesimalSolve {
     }
     public double getRes(){
         Jep jep=new Jep();
+        jep.addFunction("abs", new Abs());
         try {
             jep.addVariable("$x$");
             jep.parse(exp);
