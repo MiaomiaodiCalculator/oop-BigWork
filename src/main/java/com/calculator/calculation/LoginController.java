@@ -67,7 +67,7 @@ public class LoginController {
             stage.setScene(scene);
             scene.setCursor(cursor);
             // 改动tableView，统一前端风格
-            scene.getStylesheets().add(getClass().getResource("com/calculator/calculation/css/tableViewStyle.css").toExternalForm());
+//            scene.getStylesheets().add(getClass().getResource("com/calculator/calculation/css/tableViewStyle.css").toExternalForm());
             // 完善关闭逻辑，主舞台关闭需要把其他子舞台都关闭UI
             stage.setOnCloseRequest(event -> {
                 // 关闭所有子舞台
