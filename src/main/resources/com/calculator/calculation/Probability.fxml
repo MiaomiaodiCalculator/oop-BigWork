@@ -248,14 +248,14 @@
          </children></Pane>
        <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0">
          <children>
-             <ImageView fx:id="poissonLatex" fitHeight="45.0" fitWidth="363.0" layoutX="126.0" layoutY="467.0" pickOnBounds="true" preserveRatio="true">
+             <ImageView fx:id="poissonLatex" fitHeight="45.0" fitWidth="96.0" layoutX="163.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@images/blank.png" />
                 </image>
              </ImageView>
             <Label fx:id="pExpressionLabel1" layoutX="10.0" layoutY="479.0" text="表达式：">
                <font>
-                  <Font size="20.0" />
+                  <Font size="19.0" />
                </font>
             </Label>
             <TextField fx:id="lamda" layoutX="292.0" layoutY="11.0" onKeyPressed="#handlePossionL" prefHeight="36.0" prefWidth="194.0" promptText="输入正数后请后回车" />
