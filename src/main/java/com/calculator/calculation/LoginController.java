@@ -1,4 +1,5 @@
 package com.calculator.calculation;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -11,11 +12,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import user.User;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 import static Database.SqlUser.*;
+import static com.calculator.calculation.ProbabilityController.showAlert;
 
 /**
  * @author Bu Xinran
@@ -129,27 +132,48 @@ public class LoginController {
             String rewrite=again.getText();
             User user=new User(username,pass);
             if(checkName(username)&&checkPassword(pass)&&pass.equals(rewrite)&&!exists(user)){
-                Dialog<ButtonType> alert= new Dialog<>();
-                alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-                alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-                alert.getDialogPane().getStyleClass().add("success");
-                alert.setTitle("注册");
-                alert.setHeaderText("注册成功!");
-                alert.setContentText("用户" + username + ": 您已注册成功！");
-                alert.showAndWait();
+                showAlert("注册", "注册成功!", "用户" + username + ": 您已注册成功！", true);
                 dialog.close();
                 add(user);
             }else{
-                Dialog<ButtonType> alert= new Dialog<>();
-                alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-                alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-                alert.getDialogPane().getStyleClass().add("error");
-                alert.setTitle("注册");
-                alert.setHeaderText("注册失败!");
-                alert.setContentText("用户名或密码不合法！");
-                alert.showAndWait();
+                showAlert("注册", "注册失败!", "用户名或密码不合法！", false);
             }
         }
+    }
+    /**
+     * @Description 注册界面后续弹窗设计
+     * @param title
+     * @param message
+     * @param head
+     * @param flag
+     * @author 郑悦
+     * @date 2023/12/18 20:04
+    **/
+    public static void showAlert(String title, String message, String head, boolean flag) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(head);
+        alert.setContentText(message);
+
+        // 创建自定义图标
+        Image customIcon = new Image("right.png");
+        if (!flag) {
+            customIcon = new Image("wrong.png");
+        }
+        ImageView iconImageView = new ImageView(customIcon);
+        iconImageView.setFitWidth(48);
+        iconImageView.setFitHeight(48);
+
+        // 设置自定义图标
+        alert.getDialogPane().setGraphic(iconImageView);
+        // 设置背景为白色
+        alert.getDialogPane().setStyle("-fx-background-color: white;");
+
+        // 获取确定按钮并设置样式
+        ButtonType okButton = ButtonType.OK;
+        alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
+
+        alert.showAndWait();
     }
     /***
      * @Description  检查用户名是否合法

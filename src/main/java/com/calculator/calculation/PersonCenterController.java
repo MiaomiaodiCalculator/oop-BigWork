@@ -170,6 +170,8 @@ public class PersonCenterController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 370, 369);
         stage.setTitle("登录");
+        Image icon = new Image("icon.png");
+        stage.getIcons().add(icon);
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();

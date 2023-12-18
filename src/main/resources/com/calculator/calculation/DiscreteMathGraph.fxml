@@ -16,12 +16,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="586.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
+<AnchorPane fx:id="GraphPane" prefHeight="586.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
     <stylesheets>
         <URL value="@style/Scientific.css" />
     </stylesheets>
     <children>
-            <Canvas fx:id="CanvasShowGraph" height="242.0" layoutX="15.0" layoutY="303.0" width="460.0" />
+            <Canvas fx:id="CanvasShowGraph" height="242.0" layoutX="15.0" layoutY="296.0" width="460.0" />
             <TableView fx:id="GraphTable" layoutX="15.0" layoutY="87.0" prefHeight="182.0" prefWidth="460.0" />
             <Label layoutX="15.0" layoutY="553.0" text="最小生成树权值：">
                <font>
@@ -37,7 +37,7 @@
                <Button fx:id="ButtonGenerateGraph" layoutX="247.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleShowMTree" prefHeight="36.0" prefWidth="112.0" text="生成动画" />
             <Button fx:id="ButtonGraphDataEnter" layoutX="363.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleMTDataConfirm" prefHeight="36.0" prefWidth="112.0" text="确认构图" />
             <TextField fx:id="PointNumText" layoutX="74.0" layoutY="40.0" onKeyPressed="#handleMTPointNumKeyPressed" prefHeight="36.0" prefWidth="164.0" promptText="请输入一个数字之后回车" />
-            <Label layoutX="16.0" layoutY="48.0" text="图的点数">
+            <Label layoutX="16.0" layoutY="48.0" text="图顶点数">
                <font>
                   <Font size="14.0" />
                </font>

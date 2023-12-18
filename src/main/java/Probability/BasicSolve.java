@@ -248,6 +248,13 @@ public class BasicSolve {
             return values[index - 1] + interpolationFactor * (values[index] - values[index - 1]);
         }
     }
+    /**
+     * @Description 排序
+     * @param values
+     * @param weights
+     * @author 郑悦
+     * @date 2023/12/9 22:13
+    **/
     private static void sortData(double[] values, double[] weights) {
         int n = values.length;
 

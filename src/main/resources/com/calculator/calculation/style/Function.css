@@ -5,3 +5,10 @@
     -fx-font-weight: bold;
     -fx-stroke-width: 0;
 }
+
+.table-view {
+    -fx-selection-bar:#FF9838;
+    -fx-selection-bar-text: white;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size:15px;
+}
