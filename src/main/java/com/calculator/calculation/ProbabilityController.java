@@ -177,6 +177,7 @@ public class ProbabilityController implements Initializable {
     boolean flagHasPossion = false;
     boolean flagHasNormal = false;
     private ArrayList<InputData> list = new ArrayList<>();
+    private TableRow<InputData> lastSelectedRow;
 
     /**
      * @Description 点击图片加载历史记录页面
@@ -198,7 +199,34 @@ public class ProbabilityController implements Initializable {
 //        tableView.setItems(observableList);
         if(list==null)
             return;
-        tableView.getItems().setAll(list);
+        tableView.getItems().setAll(list);// 设置行工厂
+        tableView.setRowFactory(tv -> {
+            TableRow<InputData> row = new TableRow<>();
+
+            row.setOnMousePressed(Event -> {
+                if (row.isEmpty()) {
+                    return;
+                }
+
+                if (row == lastSelectedRow) {
+                    // 选中的是同一行，恢复原样
+                    row.setStyle("");
+                    lastSelectedRow = null;
+                } else {
+                    // 取消上一次选中行的样式
+                    if (lastSelectedRow != null) {
+                        lastSelectedRow.setStyle("");
+                    }
+
+                    // 设置当前选中行的样式
+                    row.setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
+                    lastSelectedRow = row;
+                }
+            });
+
+            return row;
+        });
+
         tableView.refresh();
     }
     public void handleReturnClick(MouseEvent mouseEvent) {
@@ -533,6 +561,27 @@ public class ProbabilityController implements Initializable {
             return;
         }
         SqlProb.add(new InputData(cntString1, cntString2));
+        for (int i = 0; i < dataNum; i++) {
+            DataToShow.add(new InputData(data1[i], data2[i]));
+            DataTable.getItems().add(new InputData(data1[i], data2[i]));
+        }
+        // 处理数字特征的显示
+        basicProb = new BasicSolve(data1, data2, true);
+        flagHasBasicSolve = true;
+        rawShowMathCharacter1(basicProb, 1);
+        rawShowMathCharacter1(basicProb, 2);
+        showRelate(basicProb);
+        // 处理完数据的显示开始重置
+        DataToShow.clear();
+        flagInput1 = false;
+    }
+    // 重载一个从历史记录返回的方法
+    private void inputListInit(boolean f) {
+        int dataNum = data1.length;
+        if (data2.length != dataNum) {
+            showAlert("错误提示", "数据数量不匹配", 2000);
+            return;
+        }
         for (int i = 0; i < dataNum; i++) {
             DataToShow.add(new InputData(data1[i], data2[i]));
             DataTable.getItems().add(new InputData(data1[i], data2[i]));
@@ -1402,17 +1451,22 @@ public class ProbabilityController implements Initializable {
             if (selectedItem != null) {
                 String data11 = selectedItem.getData1();
                 String data22 = selectedItem.getData2();
-                BasicAnalysis.setVisible(true);
-                InputData1.setText(data11);
                 try {
                     getData(data11, 1);
-                    getData(data22, 1);
+                    getData(data22, 2);
                 } catch (NotInputDataException e) {
                     // 展示javafx的即时提示词
                     showAlert("错误提示", "未输入数据", 2000);
                     return; // 不return的话catch完会继续执行方法剩下的语句
                 }
-                inputListInit();
+                HistoryPane.setVisible(false);
+                BasicAnalysis.setVisible(true);
+                InputData1.clear();
+                InputData2.clear();
+                DataTable.getItems().clear();
+                InputData1.setText(data11);
+                InputData2.setText(data22);
+                inputListInit(false);
             }
         } else if(event.getButton()==MouseButton.SECONDARY){//右键单击选择是否删除
             InputData ift = (InputData) tableView.getSelectionModel().getSelectedItem();
@@ -1428,6 +1482,12 @@ public class ProbabilityController implements Initializable {
                     getHistoryList();
                 }
             }
+        }
+    }
+    // 清空表格
+    private void clearTableData(TableView<?> tableView) {
+        for (TableColumn<?, ?> column : tableView.getColumns()) {
+            column.setCellValueFactory(null);
         }
     }
     private void getHistoryList(){
@@ -1471,4 +1531,5 @@ public class ProbabilityController implements Initializable {
             e.printStackTrace();
         }
     }
+
 }
