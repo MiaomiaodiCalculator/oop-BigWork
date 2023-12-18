@@ -43,7 +43,7 @@ public class Shift {
      * @date 2023/12/17 13:51
     **/
     public static javafx.scene.image.Image PDFExpressShift(double a,double b) throws Exception {
-        String latex="y =\\cfrac{x!}{(e^(-$a$))*($b$^x)}";
+        String latex="y =\\cfrac{e^{-$a$}*$b$^{x}}{x!}";
         latex = latex.replace("$a$", String.valueOf(a));
         latex=latex.replace("$b$",String.valueOf(b));
         BufferedImage image = (BufferedImage) image(latex);
@@ -55,7 +55,7 @@ public class Shift {
         return fxImage;
     }
     /***
-     * @Description  展示泊松分布latex表达式
+     * @Description  展示高斯分布latex表达式
      * @param a 高斯分布参数
      * @param b 高斯分布参数
      * @param c 高斯分布参数
