@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -100,10 +101,15 @@ public class InfinitesimalController {
      **/
     @FXML
     private void handleSaveClick(ActionEvent event) {
-        Dialog alert = new Dialog();
-        alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("alertFunction");
-        alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Image customIcon = new Image("wrong.png");
+        ImageView iconImageView = new ImageView(customIcon);
+        iconImageView.setFitWidth(48);
+        iconImageView.setFitHeight(48);
+        alert.getDialogPane().setGraphic(iconImageView);
+        alert.getDialogPane().setStyle("-fx-background-color: white;");
+        ButtonType okButton = ButtonType.OK;
+        alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
         alert.setTitle("出错了");
         alert.setHeaderText(null);
         String up_s=upValue.getText();
@@ -186,10 +192,15 @@ public class InfinitesimalController {
         else if(mouseEvent.getButton()==MouseButton.SECONDARY){//右键单击选择是否删除
             InfinitesimalSolve ift = (InfinitesimalSolve) (historyTableView.getSelectionModel().getSelectedItem());
             if(SqlInfinitesimal.exists(ift.getSaveTime())){
-                Dialog alert1 = new Dialog();
-                alert1.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-                alert1.getDialogPane().getStyleClass().add("alertFunction");
-                alert1.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                Image customIcon = new Image("error.png");
+                ImageView iconImageView = new ImageView(customIcon);
+                iconImageView.setFitWidth(48);
+                iconImageView.setFitHeight(48);
+                alert1.getDialogPane().setGraphic(iconImageView);
+                alert1.getDialogPane().setStyle("-fx-background-color: white;");
+                ButtonType okButton = ButtonType.OK;
+                alert1.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
                 alert1.setContentText("删除这条历史记录？");
                 Optional<ButtonType> result = alert1.showAndWait();
                 if (result.get() == ButtonType.OK){
@@ -217,13 +228,18 @@ public class InfinitesimalController {
      * @date 2023/11/28 17:23
      **/
     public void handleRowClick(MouseEvent mouseEvent) {
-        if (mouseEvent.getClickCount() == 1) {
+        if (mouseEvent.getClickCount() == 2) {
             UserFunction f = (UserFunction)(FunctionTableView.getSelectionModel().getSelectedItem());
             if(f.getParaNum()!=1){
-                Dialog alert = new Dialog();
-                alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
-                alert.getDialogPane().getStyleClass().add("alertFunction");
-                alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                Image customIcon = new Image("wrong.png");
+                ImageView iconImageView = new ImageView(customIcon);
+                iconImageView.setFitWidth(48);
+                iconImageView.setFitHeight(48);
+                alert.getDialogPane().setGraphic(iconImageView);
+                alert.getDialogPane().setStyle("-fx-background-color: white;");
+                ButtonType okButton = ButtonType.OK;
+                alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
                 alert.setTitle("出错了");
                 alert.setHeaderText(null);
                 alert.setContentText("寄蒜器只会算一重积分TvT");
