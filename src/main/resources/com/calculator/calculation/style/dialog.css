@@ -17,15 +17,16 @@
    -fx-font-size: 12px;
 }
 .dialog-pane Label{
-    -fx-font-weight: bold;
-   -fx-text-fill: #FFC187;
+   -fx-text-fill:#333333;
    -fx-cursor: hand;
+   -fx-font-size:15px;
+
 }
 .dialog-pane GridPane{
     -fx-padding: 10px 20px;
     -fx-vgap: 10px;
 }
-#success .root{
+/*#success .root{
     -fx-background-color:Gray;
 }
 #success Label{
@@ -35,10 +36,9 @@
    -fx-cursor: hand;
 }
 #success .button {
-   -fx-background-color: #FF9838;
-      -fx-text-fill: white;
-      -fx-font-weight: bold;
       -fx-border-radius: 5px;
+      -fx-background-color: #FF9838;
+      -fx-text-fill: white;
 }
 #error .root{
     -fx-background-color:Gray;
@@ -64,7 +64,7 @@
     -fx-font-weight: bold;
        -fx-text-fill: #FFC187;
        -fx-cursor: hand;
-}
+}*/
 /*#alert Label{*/
 /*    -fx-background-color:white;*/
 /*    -fx-font-weight: bold;*/
@@ -79,3 +79,10 @@
 /*    !*-fx-background-position: center;*!*/
 /*    -fx-background-repeat: no-repeat;*/
 /*}*/
+#en{
+    -fx-background-color: white;
+}
+#en .button {
+      -fx-background-color: #FF9838;
+      -fx-text-fill: white;
+}

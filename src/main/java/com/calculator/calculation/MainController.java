@@ -31,7 +31,7 @@ public class MainController implements Initializable {
     public ImageView returnMain;
     @FXML
     private StackPane cardContainer;
-    private static boolean flag=false;
+    public static boolean flag=false;
     public static String present="Scientific";
     @Override
     public void initialize(URL location, ResourceBundle resources) {

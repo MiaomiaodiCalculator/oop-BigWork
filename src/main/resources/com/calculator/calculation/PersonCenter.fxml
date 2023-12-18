@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<AnchorPane prefHeight="465.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.PersonCenterController">
+<AnchorPane prefHeight="465.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.PersonCenterController" style="-fx-background-color: white;">
    <children>
        <ImageView fx:id="avatarImageView" layoutX="115.0" layoutY="58.0" onMouseClicked="#changeAvatar" styleClass="avatar-image">
           <image>
@@ -18,13 +18,13 @@
        </ImageView>
       <Label fx:id="usernameShow" alignment="TOP_CENTER" layoutX="73.0" layoutY="212.0" prefHeight="41.0" prefWidth="212.0" text="abc">
          <font>
-            <Font name="System Bold Italic" size="28.0" />
+            <Font name="Times New Roman" size="28.0" />
          </font>
          <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
+            <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
                <stops>
                   <Stop color="BLACK" />
-                  <Stop color="WHITE" offset="1.0" />
+                  <Stop color="#0a0101" offset="1.0" />
                </stops>
             </LinearGradient>
          </textFill></Label>
