@@ -1,9 +1,7 @@
 .table-view {
-    -fx-font-size: 10pt;
-    -fx-text-fill: #000000;
-}
-
-.table-row-cell:selected {
-    -fx-background-color: #32c7f6;
+    -fx-selection-bar:#FF9838;
+    -fx-selection-bar-text: white;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size:15px;
 }
 

@@ -77,7 +77,10 @@ public class LoginController {
             });
             stage.show();
         }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            Dialog alert = new Dialog();
+            alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+            alert.getDialogPane().getStyleClass().add("success");
             alert.setTitle("错误");
             alert.setHeaderText("用户名不存在或密码错误！");
             alert.showAndWait();

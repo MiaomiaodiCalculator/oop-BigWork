@@ -100,7 +100,10 @@ public class InfinitesimalController {
      **/
     @FXML
     private void handleSaveClick(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Dialog alert = new Dialog();
+        alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("alertFunction");
+        alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
         alert.setTitle("出错了");
         alert.setHeaderText(null);
         String up_s=upValue.getText();
@@ -123,6 +126,7 @@ public class InfinitesimalController {
         }
         else if (!UserFunction.judgeFunction(exp).equals("true")) {
             alert.setContentText(UserFunction.judgeFunction(exp));
+            alert.showAndWait();
         }//判断表达式合法性
         double up_d=Double.parseDouble(up_s);
         double down_d=Double.parseDouble(down_s);
@@ -182,7 +186,10 @@ public class InfinitesimalController {
         else if(mouseEvent.getButton()==MouseButton.SECONDARY){//右键单击选择是否删除
             InfinitesimalSolve ift = (InfinitesimalSolve) (historyTableView.getSelectionModel().getSelectedItem());
             if(SqlInfinitesimal.exists(ift.getSaveTime())){
-                Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                Dialog alert1 = new Dialog();
+                alert1.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+                alert1.getDialogPane().getStyleClass().add("alertFunction");
+                alert1.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
                 alert1.setContentText("删除这条历史记录？");
                 Optional<ButtonType> result = alert1.showAndWait();
                 if (result.get() == ButtonType.OK){
@@ -213,7 +220,10 @@ public class InfinitesimalController {
         if (mouseEvent.getClickCount() == 1) {
             UserFunction f = (UserFunction)(FunctionTableView.getSelectionModel().getSelectedItem());
             if(f.getParaNum()!=1){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                Dialog alert = new Dialog();
+                alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
+                alert.getDialogPane().getStyleClass().add("alertFunction");
+                alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
                 alert.setTitle("出错了");
                 alert.setHeaderText(null);
                 alert.setContentText("寄蒜器只会算一重积分TvT");
@@ -252,6 +262,10 @@ public class InfinitesimalController {
             case "mod":
                 formula=formula+"%";
                 exp+="%";
+                break;
+            case "|x|":
+                formula=formula+"abs(";
+                exp=exp+"abs(";
                 break;
             case "log": case "sin": case "cos":case "tan": case "ln":
                 formula=formula+str+"(";
