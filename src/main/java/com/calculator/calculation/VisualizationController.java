@@ -265,6 +265,8 @@ public class VisualizationController implements Initializable {
             alertImageView.setFitWidth(48);
             alertImageView.setFitHeight(48);
             alert.getDialogPane().setGraphic(alertImageView);
+            ButtonType okButton = ButtonType.OK;
+            alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
             alert.showAndWait();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -275,6 +277,8 @@ public class VisualizationController implements Initializable {
             alertImageView.setFitWidth(48);
             alertImageView.setFitHeight(48);
             alert.getDialogPane().setGraphic(alertImageView);
+            ButtonType okButton = ButtonType.OK;
+            alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
             alert.showAndWait();
         }
     }
