@@ -7,6 +7,7 @@ import Probability.Exception.NotInputDataException;
 import Probability.InputData;
 import Probability.RegressionAnalysis;
 import Scientific.ScientificSolve;
+import com.singularsys.jep.functions.Str;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,6 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.calculator.calculation.LoginController.PrimaryStage;
 import static user.Shift.*;
 
 /**
@@ -207,7 +209,7 @@ public class ProbabilityController implements Initializable {
         PoissonDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
         HistoryPane.setVisible(false);
-        ActionName.setText("Basic Analysis");
+        ActionName.setText("基础分析");
     }
     /**
      * @Description 切换到基础数字特征计算页面        
@@ -224,8 +226,9 @@ public class ProbabilityController implements Initializable {
         GaussianDistribution.setVisible(false);
         PoissonDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
-        ActionName.setText("Basic Analysis");
+        ActionName.setText("基础分析");
         HistoryPane.setVisible(false);
+        historyImg.setVisible(true);
     }
     /**
      * @Description 切换到高斯分布页面
@@ -240,8 +243,9 @@ public class ProbabilityController implements Initializable {
         BasicAnalysis.setVisible(false);
         PoissonDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
-        ActionName.setText("Gaussian Distribution");
+        ActionName.setText("高斯分布");
         HistoryPane.setVisible(false);
+        historyImg.setVisible(false);
     }
     /**
      * @Description 切换到泊松分布页面
@@ -256,8 +260,9 @@ public class ProbabilityController implements Initializable {
         BasicAnalysis.setVisible(false);
         GaussianDistribution.setVisible(false);
         RegressionAnalysis.setVisible(false);
-        ActionName.setText("Poisson Distribution");
+        ActionName.setText("泊松分布");
         HistoryPane.setVisible(false);
+        historyImg.setVisible(false);
     }
     /**
      * @Description 切换到回归分析页面
@@ -272,8 +277,9 @@ public class ProbabilityController implements Initializable {
         BasicAnalysis.setVisible(false);
         GaussianDistribution.setVisible(false);
         PoissonDistribution.setVisible(false);
-        ActionName.setText("Regression Analysis");
+        ActionName.setText("回归分析");
         HistoryPane.setVisible(false);
+        historyImg.setVisible(false);
     }
 
     /**
@@ -363,7 +369,8 @@ public class ProbabilityController implements Initializable {
         flagRawProcess = true;
         BasicAnalysisShift();
         DataTable.setPlaceholder(new Label("表中无数据"));
-        ActionName.setText("Basic Analysis");
+//        PrimaryStage.getScene().getStylesheets().add(getClass().getResource("com/calculator/calculation/css/tableViewStyle.css").toExternalForm());
+        ActionName.setText("基础分析");
         // 建立表格各列的一一映射
         inputColumn1.setCellValueFactory(new PropertyValueFactory<>("input1"));
         inputColumn2.setCellValueFactory(new PropertyValueFactory<>("input2"));
@@ -371,6 +378,7 @@ public class ProbabilityController implements Initializable {
         inputColumn2.setText("Y");
         oneInputColumn.setCellValueFactory(new PropertyValueFactory<>("input1"));
         oneInputColumn.setText("X");
+//        PrimaryStage.getScene().getStylesheets().add(getClass().getResource("com/calculator/calculation/css/tableViewStyle.css").toExternalForm());
         // 回归的合理性参考数据的表格映射
         residual.setCellValueFactory(new PropertyValueFactory<>("residual"));
         r.setCellValueFactory(new PropertyValueFactory<>("r"));
@@ -446,7 +454,7 @@ public class ProbabilityController implements Initializable {
                 getData(input, 1);
             } catch (NotInputDataException e) {
                 // 展示javafx的即时提示词
-                showAlert("错误提示", "未输入数据", 2000);
+                showAlert("错误提示", "请正确输入数据", 2000);
                 return; // 不return的话catch完会继续执行方法剩下的语句
             }
             if (flagInput2) {
@@ -509,6 +517,9 @@ public class ProbabilityController implements Initializable {
         // 处理完数据的显示开始重置
         DataToShow.clear();
         flagInput1 = false;
+//        oneInputTable.lookup(".table-view").lookup("column-header").setStyle("-fx-background-color: #FF9838;\n" +
+//                "            /*-fx-border-radius: 5px;*/\n" +
+//                "            -fx-border-color: #FFC187;");
     }
     /**
      * @Description 处理表格中各项数据（以一行为单位的初始化）
@@ -601,13 +612,46 @@ public class ProbabilityController implements Initializable {
         numberStrings = input.split(" ");
         double[] numbers = new double[numberStrings.length];
         for (int i = 0; i < numberStrings.length; i++) {
+            if (!isDouble(numberStrings[i])) {
+                showAlert("错误提示", "请正确输入数据");
+                throw new NotInputDataException("未输入数据");
+            }
             numbers[i] = Double.parseDouble(numberStrings[i]);
+        }
+        if (flagWithProbability && ToWhich == 2) {
+            if (!checkProbLegal(numbers)) {
+                showAlert("错误提示", "请输入数据正确的概率值");
+                InputData2.clear();
+                throw new NotInputDataException("未输入数据");
+            }
         }
         switch (ToWhich) {
             case 1 -> data1 = numbers;
             case 2 -> data2 = numbers;
         }
     }
+
+    /**
+     * @Description 检查是否输入合法数据
+     * @param numbers
+     * @return boolean
+     * @author 郑悦
+     * @date 2023/12/18 16:35
+    **/
+    private boolean checkProbLegal(double[] numbers) {
+        double sum = 0.0;
+        for (int i = 0; i < numbers.length; i++) {
+            sum += numbers[i];
+            if (sum > 1) {
+                return false;
+            }
+            if (numbers[i] < 0 || numbers[i] > 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * @Description 对用户错误使用而抛出异常进行警告处理
      * @param title
@@ -622,6 +666,18 @@ public class ProbabilityController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
 
+        // 修改标题的样式
+//        Label titleLabel = (Label) alert.getDialogPane().lookup(".header-panel .header-label");
+//        titleLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 20px; -fx-text-fill: red;");
+
+        // 修改头部文本的样式
+//        Label headerLabel = (Label) alert.getDialogPane().lookup(".dialog-pane .header-text");
+//        headerLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 16px; -fx-text-fill: blue;");
+
+        // 修改内容文本的样式
+//        Label contentLabel = (Label) alert.getDialogPane().lookup(".dialog-pane .content-text");
+//        contentLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 14px; -fx-text-fill: green;");
+
         FadeTransition fadeInTransition = new FadeTransition(Duration.millis(500), alert.getDialogPane());
         fadeInTransition.setFromValue(0);
         fadeInTransition.setToValue(1);
@@ -634,6 +690,21 @@ public class ProbabilityController implements Initializable {
 
         fadeInTransition.play();
         fadeOutTransition.play();
+
+        // 创建自定义图标
+        Image customIcon = new Image("wrong.png");
+        ImageView iconImageView = new ImageView(customIcon);
+        iconImageView.setFitWidth(48);
+        iconImageView.setFitHeight(48);
+
+        // 设置自定义图标
+        alert.getDialogPane().setGraphic(iconImageView);
+        // 设置背景为白色
+        alert.getDialogPane().setStyle("-fx-background-color: white;");
+
+        // 获取确定按钮并设置样式
+        ButtonType okButton = ButtonType.OK;
+        alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
 
         alert.showAndWait();
     }
@@ -650,27 +721,18 @@ public class ProbabilityController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
 
+        Image customIcon = new Image("wrong.png");
+        ImageView iconImageView = new ImageView(customIcon);
+        iconImageView.setFitWidth(48);
+        iconImageView.setFitHeight(48);
+
+        alert.getDialogPane().setGraphic(iconImageView);
+        alert.getDialogPane().setStyle("-fx-background-color: white;");
+        ButtonType okButton = ButtonType.OK;
+        alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
+
+
         alert.showAndWait();
-    }
-    /**
-     * @Description 把获得的数据添加到数据表格中进行显示
-     * @author 郑悦
-     * @date 2023/12/3 22:15
-    **/
-    public void addDataToTable() {
-        ObservableList<Double> data = FXCollections.observableArrayList();
-        double[] dataToProcess = data1; // 创建引用对象但不实例化，只为了区分是对那个进行操作
-        TableColumn<Double, Double> column = inputColumn1;
-        for (double value : dataToProcess) {
-            data.add(value);
-        }
-        DataTable.setItems(data);
-        // 置零清空逻辑有误，要是想只换其中一组数据
-        // 处理完数据的显示开始重置
-        DataToShow.clear();
-        flagInput1 = false;
-        flagTwoInput = false;
-        // 这里处理两组数据输入的添加表格显示，注意补充一组数据的新函数（新表格）
     }
     /**
      * @Description 处理用户进行百分数读取
@@ -718,7 +780,12 @@ public class ProbabilityController implements Initializable {
         String input = Percent.getText();
         double percent = Double.parseDouble(input);
         if (!flagHasBasicSolve) {
+            showAlert("错误提示", "请先构建概率模型/输入初始数据");
             return; // 这里应该增加无数据输入想获得输出的异常
+        }
+        if (!Percent.getChildrenUnmodifiable().isEmpty()) {
+            showAlert("错误提示", "请先输入你想求得的百分位");
+            return;
         }
         // 没数据时抛出异常
         System.out.println(530);
@@ -1087,7 +1154,7 @@ public class ProbabilityController implements Initializable {
                 showDensityPDF();
             }
             else {
-                showAlert("错误提示", "请输入一个待预测自变量的值", 2400);
+                showAlert("错误提示", "请输入特征值", 2400);
             }
         }
     }
@@ -1098,7 +1165,9 @@ public class ProbabilityController implements Initializable {
     **/
     private void showDensityPDF() throws Exception {
         lineChartPossion.getData().remove(fitSeries);
+        lineChartPossion.getData().remove(dataSeries);
         lineChartGauss.getData().remove(fitSeries);
+        lineChartGauss.getData().remove(dataSeries);
         fitSeries = new XYChart.Series<>();
         dataSeries = new XYChart.Series<>();
         double y;
@@ -1180,12 +1249,26 @@ public class ProbabilityController implements Initializable {
         } else {
             getWhich = 2;
         }
+        double x;
         if (isDouble(input)) {
-            double x = Double.parseDouble(input);
+            x = Double.parseDouble(input);
             if (getWhich == 1) {
                 mean = x;
             } else {
+                if (x <= 0) {
+                    showAlert("错误提示", "请正确输入所需正态分布的标准差：正实数", 2400);
+                    u.clear();
+                    return;
+                }
                 standardDeviation = x;
+            }
+        } else {
+            if (getWhich == 1) {
+                showAlert("错误提示", "请正确输入所需正态分布的均值：实数", 2400);
+                return ;
+            } else {
+                showAlert("错误提示", "请正确输入所需正态分布的标准差：正实数", 2400);
+                return ;
             }
         }
         boolean flagHasPre = false;
@@ -1198,13 +1281,22 @@ public class ProbabilityController implements Initializable {
                 break;
         }
         if (flagHasPre) { // 两行输入都准备完毕，进行高斯分布
-            flagHasNormal = true;
             normalDistribution = new org.apache.commons.math3.distribution.NormalDistribution(mean, standardDeviation);
             if (isDouble(input)) {
+                flagHasNormal = true;
                 showDensityPDF();
             }
             else {
-                showAlert("错误提示", "请输入一个待预测自变量的值", 2400);
+                switch (getWhich) {
+                    case 1:
+                        showAlert("错误提示", "请正确输入所需正态分布的均值：实数", 2400);
+                        o.clear();
+                        break;
+                    case 2:
+                        showAlert("错误提示", "请正确输入所需正态分布的标准差：正实数", 2400);
+                        u.clear();
+                        break;
+                }
             }
         }
         else {
@@ -1234,7 +1326,7 @@ public class ProbabilityController implements Initializable {
                 double x = Double.parseDouble(input);
                 if (flagHasNormal) {
                     ans = normalDistribution.cumulativeProbability(x);
-                    pOut.setText(String.valueOf(ans));
+                    pOut.setText(String.format("%.3f", ans));
                 }
                 else {
                     showAlert("错误提示", "未输入待拟合数据", 2400);
@@ -1253,7 +1345,7 @@ public class ProbabilityController implements Initializable {
                 int x = Integer.parseInt(input);
                 if (flagHasPossion) {
                     ans = poissonDistribution.cumulativeProbability(x);
-                    pOut1.setText(String.valueOf(ans));
+                    pOut1.setText(String.format("%.3f", ans));
                 }
                 else {
                     showAlert("错误提示", "未输入待拟合数据", 2400);

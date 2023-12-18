@@ -22,7 +22,7 @@
       <Button fx:id="detail" layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#clickDetail" prefHeight="25.0" prefWidth="57.0" text="说明" />
       <TextFlow fx:id="textFlow" layoutX="86.0" layoutY="52.0" prefHeight="79.0" prefWidth="266.0" visible="false">
          <children>
-            <Text fill="#2b2424b2" strokeType="OUTSIDE" strokeWidth="0.0" text="图的点数：图的顶点个数，输入后回车确认；" wrappingWidth="303.740234375">
+            <Text fill="#2b2424b2" strokeType="OUTSIDE" strokeWidth="0.0" text="图顶点数：图的顶点个数，输入后回车确认；" wrappingWidth="303.740234375">
                <font>
                   <Font size="13.0" />
                </font>

@@ -64,7 +64,7 @@
                </Menu>
            </menus>
        </MenuBar>
-       <TextField fx:id="ActionName" editable="false" layoutX="78.0" layoutY="59.0" prefHeight="27.0" prefWidth="123.0" text="基础分析" AnchorPane.bottomAnchor="619.0" AnchorPane.leftAnchor="78.0" AnchorPane.topAnchor="59.0" />
+       <TextField fx:id="ActionName" editable="false" layoutX="78.0" layoutY="59.0" prefHeight="36.0" prefWidth="96.0" text="基础分析" AnchorPane.bottomAnchor="619.0" AnchorPane.leftAnchor="78.0" AnchorPane.topAnchor="59.0" />
        <Pane fx:id="BasicAnalysis" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
          <children>
             <ChoiceBox fx:id="choiceBox" layoutX="336.0" layoutY="7.0" onAction="#getParaNum" prefWidth="150.0" />
@@ -246,25 +246,25 @@
                   <Font size="20.0" />
                </font></Label>
          </children></Pane>
-       <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
+       <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0">
          <children>
              <ImageView fx:id="poissonLatex" fitHeight="45.0" fitWidth="96.0" layoutX="163.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@images/blank.png" />
                 </image>
              </ImageView>
-            <Label fx:id="pExpressionLabel1" layoutX="10.0" layoutY="479.0" text="泊松分布表达式：">
+            <Label fx:id="pExpressionLabel1" layoutX="10.0" layoutY="479.0" text="表达式：">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="lamda" layoutX="378.0" layoutY="19.0" onKeyPressed="#handlePossionL" prefHeight="27.0" prefWidth="108.0" promptText="输入请后回车" />
-            <Label layoutX="344.0" layoutY="14.0" prefHeight="24.0" prefWidth="69.0" text="λ = ">
+            <TextField fx:id="lamda" layoutX="292.0" layoutY="11.0" onKeyPressed="#handlePossionL" prefHeight="36.0" prefWidth="194.0" promptText="输入正数后请后回车" />
+            <Label layoutX="273.0" layoutY="14.0" prefHeight="24.0" prefWidth="69.0" text="λ = ">
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <TextField fx:id="pOut1" editable="false" layoutX="341.0" layoutY="401.0" prefHeight="36.0" prefWidth="138.0" />
-            <TextField layoutX="87.0" layoutY="402.0" onKeyPressed="#getXin1" prefHeight="36.0" prefWidth="179.0" promptText="请输入X值后回车" fx:id="xIn1" />
+            <TextField fx:id="pOut1" editable="false" layoutX="348.0" layoutY="401.0" prefHeight="36.0" prefWidth="131.0" />
+            <TextField layoutX="98.0" layoutY="402.0" onKeyPressed="#getXin1" prefHeight="36.0" prefWidth="168.0" promptText="请输入X值后回车" fx:id="xIn1" />
             <Label layoutX="10.0" layoutY="407.0" prefHeight="24.0" prefWidth="131.0" text="概率分布：x = " />
             <Label layoutX="291.0" layoutY="407.0" prefHeight="24.0" prefWidth="96.0" text="P(X≤x) = " />
             <LineChart fx:id="lineChartPossion" layoutY="63.0" prefHeight="319.0" prefWidth="500.0" title="Probability Mass Function">

@@ -354,6 +354,7 @@ public class DiscreteMathController implements Initializable {
         if(textFlow.isVisible()){
             textFlow.setVisible(false);
             detail.setText("说明");
+            loadPage("DiscreteMathGraph.fxml");
         }
         else{
             textFlow.setVisible(true);

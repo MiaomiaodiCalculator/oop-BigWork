@@ -1,0 +1,6 @@
+.alert .dialog-pane .content-label {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-text-fill: #FF9838;
+    -fx-font-weight: bold;
+}

@@ -3,3 +3,7 @@
     -fx-font-weight: bold;
     -fx-font: normal bold 16px 'serif';
 }
+
+.anchor-pane , .root{
+    -fx-background-color: white;
+}

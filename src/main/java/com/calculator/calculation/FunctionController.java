@@ -8,8 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.*;
@@ -126,6 +129,10 @@ public class FunctionController implements Initializable {
         alert.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
         alert.getDialogPane().getScene().getStylesheets().add(getClass().getResource("style/dialog.css").toExternalForm());
         alert.getDialogPane().getStyleClass().add("dialog");
+//        Image image = new Image("wrong.png");
+//        ImageView imageView = new ImageView(image);
+//        VBox content = new VBox(10, imageView);
+//        alert.getDialogPane().setContent(content); //没研究好还会缺少文字只有图片
         alert.setTitle("出错了");
         alert.setHeaderText(null);
         //判断名称合法性

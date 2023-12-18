@@ -1,10 +1,12 @@
 package com.calculator.calculation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -64,6 +66,8 @@ public class LoginController {
             ImageCursor cursor = new ImageCursor(cursorImage);
             stage.setScene(scene);
             scene.setCursor(cursor);
+            // 改动tableView，统一前端风格
+//            scene.getStylesheets().add(getClass().getResource("com/calculator/calculation/css/tableViewStyle.css").toExternalForm());
             // 完善关闭逻辑，主舞台关闭需要把其他子舞台都关闭UI
             stage.setOnCloseRequest(event -> {
                 // 关闭所有子舞台
