@@ -296,7 +296,7 @@ public class InfinitesimalController {
             case "C":
                 clear();
                 break;
-            case "x":
+            case "自变量x":
                 formula=formula+"x";
                 exp+="$x$";
                 break;
