@@ -192,8 +192,8 @@ public class EquationController implements Initializable {
                 equation = equation + "^(";
                 break;
             case "↓":
+                if(atMi)equation = equation + ")";
                 atMi = false;
-                equation = equation + ")";
                 break;
             case "C":
                 atMi = false;

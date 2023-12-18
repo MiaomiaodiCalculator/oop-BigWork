@@ -67,9 +67,9 @@ public class EquationSolve {
                 }
                 return res;
             }else if(cnt==0){
-                double a=d[0];
+                double c=d[0];
                 double b=d[1];
-                double c=d[2];
+                double a=d[2];
                 double m=b*b-4*a*c;
                 if(m<0)return res;
                 else if(m>0){
