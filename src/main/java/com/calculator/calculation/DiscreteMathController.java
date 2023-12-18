@@ -29,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -60,6 +61,8 @@ public class DiscreteMathController implements Initializable {
     public Pane ShortPathPane;
     public TextField PointNumText;
     public AnchorPane GraphPane;
+    public Button detail;
+    public TextFlow textFlow;
     @FXML
     private StackPane DiscreteMathCardContainer;
 
@@ -75,14 +78,10 @@ public class DiscreteMathController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         if(!flag) {
             flag = true;
-            GraphTheoryShift();
+            loadPage("DiscreteMathGraph.fxml");
         }
     }
-    public void GraphTheoryShift() {
-        loadPage("DiscreteMathGraph.fxml");
-        FunctionName.setText("Graph Theory");
-//        MinTreePane.setVisible(true);
-    }
+
     /**
      * @Description  加载卡片布局：fxml文件
      * @param fxmlFileName 要打开的fxml文件名称
@@ -96,12 +95,6 @@ public class DiscreteMathController implements Initializable {
         } catch (Exception e) {
             System.out.println("error");
         }
-    }
-
-    public void MinTreeShift(ActionEvent actionEvent) {
-        MinTreePane.setVisible(true);
-//        ShortPathPane.setVisible(false);
-//        CanvasShowGraph.setStyle("-fx-background-color: lightblue; -fx-border-color: #0a5469; -fx-border-width: 2px;");
     }
 
     private int getDest(String input) throws NotInputDataException {
@@ -281,7 +274,6 @@ public class DiscreteMathController implements Initializable {
             nameLabel.setTextFill(LABEL_COLOR);
             nameLabel.setLayoutX(x - nameLabel.getWidth() / 2 + 10);
             nameLabel.setLayoutY(CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + y - circle.getRadius() + 25);
-//            nameLabel.setLayoutY(CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY() + y - circle.getRadius() - nameLabel.getHeight());
             root.getChildren().add(nameLabel);
         }
 
@@ -351,6 +343,22 @@ public class DiscreteMathController implements Initializable {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
         gc.strokeLine(start.getX(), start.getY(), end.getX(), end.getY());
+    }
+/**
+ * @Description 点击说明按钮
+ * @param event
+ * @author sxq
+ * @date 2023/12/18 14:20
+**/
+    public void clickDetail(ActionEvent event) {
+        if(textFlow.isVisible()){
+            textFlow.setVisible(false);
+            detail.setText("说明");
+        }
+        else{
+            textFlow.setVisible(true);
+            detail.setText("收起");
+        }
     }
 
 

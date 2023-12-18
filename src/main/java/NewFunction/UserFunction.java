@@ -68,6 +68,7 @@ public class UserFunction {
      * @date 2023/11/26 11:11
     **/
     public static String judgeName(String _name){
+        System.out.println(_name);
         if(_name.isEmpty()){
             return "请输入函数名";
         }
@@ -77,7 +78,7 @@ public class UserFunction {
         if(_name.matches("^[a-zA-Z][a-zA-Z0-9]{0,4}$")){
             return "true";
         }
-        if(!_name.matches("[a-zA-Z0-9]")){
+        if(!_name.matches("^[a-zA-Z0-9]+$")){
            return ("函数名只能包含数字和英文字母");
         }
         if(!_name.matches("^[a-zA-Z][a-zA-Z0-9]")){

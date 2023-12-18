@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="698.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.ProbabilityController">
+<AnchorPane prefHeight="698.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.ProbabilityController">
     <stylesheets>
         <URL value="@style/Prob.css" />
     </stylesheets>
@@ -42,10 +55,7 @@
                </Menu>
            </menus>
        </MenuBar>
-       <TextField fx:id="ActionName" editable="false" layoutX="78.0" layoutY="59.0" prefHeight="27.0" prefWidth="123.0" text="Basic Analysis" AnchorPane.bottomAnchor="619.0" AnchorPane.leftAnchor="78.0" AnchorPane.topAnchor="59.0">
-         <font>
-            <Font size="10.0" />
-         </font></TextField>
+       <TextField fx:id="ActionName" editable="false" layoutX="78.0" layoutY="59.0" prefHeight="27.0" prefWidth="123.0" text="基础分析" AnchorPane.bottomAnchor="619.0" AnchorPane.leftAnchor="78.0" AnchorPane.topAnchor="59.0" />
        <Pane fx:id="BasicAnalysis" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
          <children>
             <ChoiceBox fx:id="choiceBox" layoutX="336.0" layoutY="7.0" onAction="#getParaNum" prefWidth="150.0" />
@@ -111,8 +121,8 @@
             <TextField fx:id="Range2" editable="false" layoutX="378.0" layoutY="290.0" prefHeight="36.0" prefWidth="108.0" />
             <TextField fx:id="Mean2" editable="false" layoutX="378.0" layoutY="179.0" prefHeight="36.0" prefWidth="108.0" />
             <TextField fx:id="Percentiles" editable="false" layoutX="378.0" layoutY="402.0" prefHeight="36.0" prefWidth="61.0" />
-            <TextField fx:id="InputData2" layoutX="256.0" layoutY="123.0" onKeyPressed="#handleInput2KeyPressed" prefHeight="36.0" prefWidth="235.0" promptText="data splitted with one space" />
-            <TextField fx:id="InputData1" layoutX="256.0" layoutY="87.0" onKeyPressed="#handleInput1KeyPressed" prefHeight="36.0" prefWidth="235.0" promptText="data splitted with one space" />
+            <TextField fx:id="InputData2" layoutX="256.0" layoutY="123.0" onKeyPressed="#handleInput2KeyPressed" prefHeight="36.0" prefWidth="235.0" promptText="一列数据，用一个空格分开" />
+            <TextField fx:id="InputData1" layoutX="256.0" layoutY="87.0" onKeyPressed="#handleInput1KeyPressed" prefHeight="36.0" prefWidth="235.0" promptText="一列数据，用一个空格分开" />
             <MenuButton fx:id="PercentRV" layoutX="256.0" layoutY="404.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="55.0" text="R.V." textAlignment="CENTER">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#varXPercent" text="X" />
@@ -121,6 +131,9 @@
                <font>
                   <Font size="12.0" />
                </font>
+               <tooltip>
+                  <Tooltip text="选择分析的变量" />
+               </tooltip>
             </MenuButton>
             <Text fx:id="RVX" layoutX="277.0" layoutY="173.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="变量X" textAlignment="CENTER" wrappingWidth="67.0">
                <font>
@@ -148,8 +161,14 @@
                 <NumberAxis fx:id="yExtend" side="LEFT" />
               </yAxis>
             </LineChart>
-            <TextField layoutX="90.0" layoutY="43.0" onKeyPressed="#handleIndependentVar" prefHeight="10.0" prefWidth="248.0" promptText="请用一个空格隔开输入的数据" fx:id="xInput" />
-            <TextField fx:id="yInput" layoutX="90.0" layoutY="73.0" onKeyPressed="#handleDependentVar" prefHeight="10.0" prefWidth="248.0" promptText="请用一个空格隔开输入的数据" />
+            <TextField layoutX="90.0" layoutY="43.0" onKeyPressed="#handleIndependentVar" prefHeight="10.0" prefWidth="248.0" promptText="请用一个空格隔开输入的数据" fx:id="xInput">
+               <tooltip>
+                  <Tooltip text="回车以确认输入结束" />
+               </tooltip></TextField>
+            <TextField fx:id="yInput" layoutX="90.0" layoutY="73.0" onKeyPressed="#handleDependentVar" prefHeight="10.0" prefWidth="248.0" promptText="请用一个空格隔开输入的数据">
+               <tooltip>
+                  <Tooltip text="回车以确认输入结束" />
+               </tooltip></TextField>
             <MenuButton layoutX="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="100" text="回归类型">
               <items>
                 <MenuItem fx:id="linear" mnemonicParsing="false" onAction="#linearAnalysis" text="linear regression" />
@@ -162,21 +181,27 @@
             <Button fx:id="yShow" layoutX="25.0" layoutY="73.0" mnemonicParsing="false" text="因变量" textAlignment="CENTER" />
             <TableView fx:id="TableRegression" layoutX="15.0" layoutY="545.0" prefHeight="62.0" prefWidth="471.0">
               <columns>
-                <TableColumn fx:id="residual" editable="false" prefWidth="174.00003623962402" text="Sum of Residual" />
-                <TableColumn fx:id="mse" editable="false" prefWidth="118.99998474121094" text="MSE" />
-                <TableColumn fx:id="r" editable="false" prefWidth="193.0" text="R-squared" />
+                <TableColumn fx:id="residual" editable="false" prefWidth="174.00003623962402" text="残差和" />
+                <TableColumn fx:id="mse" editable="false" prefWidth="118.99998474121094" text="均方误差" />
+                <TableColumn fx:id="r" editable="false" prefWidth="193.0" text="R²" />
               </columns>
+               <tooltip>
+                  <Tooltip text="MSE = (1/n) * Σ(yᵢ - ȳ)²" />
+               </tooltip>
             </TableView>
-            <Label layoutX="14.0" layoutY="508.0" text="regression equation">
+            <Label layoutX="70.0" layoutY="505.0" text="回归方程：">
                <font>
                   <Font size="16.0" />
                </font></Label>
             <ChoiceBox fx:id="PolyJie" layoutX="336.0" prefWidth="150.0" />
-            <TextField fx:id="newInputX" layoutX="406.0" layoutY="43.0" onKeyPressed="#getPredictedX" prefHeight="10.0" prefWidth="81.0" promptText="请输入X值" />
+            <TextField fx:id="newInputX" layoutX="406.0" layoutY="43.0" onKeyPressed="#getPredictedX" prefHeight="10.0" prefWidth="81.0" promptText="请输入X值">
+               <tooltip>
+                  <Tooltip text="回车以确认输入结束" />
+               </tooltip></TextField>
             <TextField fx:id="answerY" editable="false" layoutX="406.0" layoutY="73.0" prefHeight="10.0" prefWidth="81.0" />
             <Label layoutX="351.0" layoutY="49.0" text="待测X:" />
             <Label layoutX="351.0" layoutY="79.0" text="预测Y:" />
-            <Button fx:id="prtSc" layoutX="418.0" layoutY="117.0" mnemonicParsing="false" onAction="#PrintScreen" prefHeight="22.0" prefWidth="69.0" text="PrtSc" />
+            <Button fx:id="prtSc" layoutX="418.0" layoutY="117.0" mnemonicParsing="false" onAction="#PrintScreen" prefHeight="22.0" prefWidth="69.0" text="截图保存" />
          </children></Pane>
        <Pane fx:id="GaussianDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
          <children>
@@ -185,7 +210,10 @@
                     <Image url="@images/blank.png" />
                 </image>
              </ImageView>
-            <Label fx:id="pExpressionLabel" layoutX="20.0" layoutY="485.0" text="Expression" />
+            <Label fx:id="pExpressionLabel" layoutX="20.0" layoutY="485.0" text="表达式：">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
             <LineChart fx:id="lineChartGauss" layoutY="72.0" prefHeight="319.0" prefWidth="500.0" title="Probability Density Function">
                <xAxis>
                   <NumberAxis side="BOTTOM" fx:id="xExtend1" />
@@ -196,39 +224,39 @@
             </LineChart>
             <Label layoutX="280.0" layoutY="416.0" prefHeight="24.0" prefWidth="96.0" text="P(X≤x) = " />
             <Label layoutX="34.0" layoutY="416.0" prefHeight="24.0" prefWidth="138.0" text="概率分布：x = " />
-            <TextField layoutX="118.0" layoutY="410.0" onKeyPressed="#getXin" prefHeight="36.0" prefWidth="108.0" promptText="请输入X值" fx:id="xIn" />
+            <TextField layoutX="118.0" layoutY="410.0" onKeyPressed="#getXin" prefHeight="36.0" prefWidth="108.0" promptText="请输入X值后回车" fx:id="xIn" />
             <TextField fx:id="pOut" editable="false" layoutX="329.0" layoutY="410.0" prefHeight="36.0" prefWidth="138.0" />
             <Label layoutX="81.0" layoutY="20.0" prefHeight="24.0" prefWidth="69.0" text="μ = ">
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <TextField fx:id="u" layoutX="121.0" layoutY="14.0" onKeyPressed="#handleGaussU" prefHeight="36.0" prefWidth="108.0" />
-            <TextField fx:id="o" layoutX="332.0" layoutY="14.0" onKeyPressed="#handleGaussO" prefHeight="36.0" prefWidth="108.0" />
+            <TextField fx:id="u" layoutX="121.0" layoutY="14.0" onKeyPressed="#handleGaussU" prefHeight="36.0" prefWidth="108.0" promptText="输入后请回车" />
+            <TextField fx:id="o" layoutX="332.0" layoutY="14.0" onKeyPressed="#handleGaussO" prefHeight="36.0" prefWidth="108.0" promptText="输入后请回车" />
             <Label layoutX="292.0" layoutY="20.0" prefHeight="24.0" prefWidth="69.0" text="σ = ">
                <font>
                   <Font size="20.0" />
                </font></Label>
          </children></Pane>
-       <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0">
+       <Pane fx:id="PoissonDistribution" layoutY="98.0" prefHeight="607.0" prefWidth="500.0" visible="false">
          <children>
              <ImageView fx:id="poissonLatex" fitHeight="45.0" fitWidth="363.0" layoutX="126.0" layoutY="467.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@images/blank.png" />
                 </image>
              </ImageView>
-            <Label fx:id="pExpressionLabel1" layoutX="10.0" layoutY="479.0" text="Expression">
+            <Label fx:id="pExpressionLabel1" layoutX="10.0" layoutY="479.0" text="泊松分布表达式：">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="lamda" layoutX="378.0" layoutY="19.0" onKeyPressed="#handlePossionL" prefHeight="27.0" prefWidth="108.0" />
+            <TextField fx:id="lamda" layoutX="378.0" layoutY="19.0" onKeyPressed="#handlePossionL" prefHeight="27.0" prefWidth="108.0" promptText="输入请后回车" />
             <Label layoutX="344.0" layoutY="14.0" prefHeight="24.0" prefWidth="69.0" text="λ = ">
                <font>
                   <Font size="20.0" />
                </font></Label>
             <TextField fx:id="pOut1" editable="false" layoutX="341.0" layoutY="401.0" prefHeight="36.0" prefWidth="138.0" />
-            <TextField layoutX="87.0" layoutY="402.0" onKeyPressed="#getXin1" prefHeight="36.0" prefWidth="179.0" promptText="请输入X值" fx:id="xIn1" />
-            <Label layoutX="27.0" layoutY="407.0" prefHeight="24.0" prefWidth="131.0" text="概率分布：x = " />
+            <TextField layoutX="87.0" layoutY="402.0" onKeyPressed="#getXin1" prefHeight="36.0" prefWidth="179.0" promptText="请输入X值后回车" fx:id="xIn1" />
+            <Label layoutX="10.0" layoutY="407.0" prefHeight="24.0" prefWidth="131.0" text="概率分布：x = " />
             <Label layoutX="291.0" layoutY="407.0" prefHeight="24.0" prefWidth="96.0" text="P(X≤x) = " />
             <LineChart fx:id="lineChartPossion" layoutY="63.0" prefHeight="319.0" prefWidth="500.0" title="Probability Mass Function">
                <xAxis>
