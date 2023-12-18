@@ -111,7 +111,7 @@ public class EquationController implements Initializable {
      * @param resources 无意义，重载
      * @author Bu Xinran
      * @date 2023/11/30 15:20
-    **/
+     **/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Equations.setVisible(true);
@@ -124,7 +124,7 @@ public class EquationController implements Initializable {
      * @Description 点击跳转到多元一次方程
      * @author Bu Xinran
      * @date 2023/11/30 15:21
-    **/
+     **/
     public void shift1(){
         Equations.setVisible(true);
         Equation.setVisible(false);
@@ -150,7 +150,7 @@ public class EquationController implements Initializable {
      * @param event 鼠标点击哪个按钮
      * @author Bu Xinran
      * @date 2023/11/29 18:30
-    **/
+     **/
     public void buttonClick(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
         String buttonText = clickedButton.getText();
@@ -162,7 +162,7 @@ public class EquationController implements Initializable {
      * @param text 鼠标上的文本
      * @author Bu Xinran
      * @date 2023/11/29 18:32
-    **/
+     **/
     private void editEquation(String text) {
         switch (text) {
             case "0":
@@ -199,6 +199,8 @@ public class EquationController implements Initializable {
                 atMi = false;
                 equation = "";
                 showEquation = "";
+                calFlag=EquationError.yes;
+                answerArea.setText("");
                 break;
             default:
                 //回退
@@ -234,12 +236,12 @@ public class EquationController implements Initializable {
      * @Description  计算多次一元方程
      * @author Bu Xinran
      * @date 2023/11/29 22:43
-    **/
+     **/
     public void calculateClick() throws ParseException, EvaluationException {
         judgeIllegal();
         if(calFlag==EquationError.yes){
             answer=getAnswer(equation);
-            if(calFlag!=EquationError.notEqual){
+            if(calFlag!=EquationError.notEqual&&calFlag!=EquationError.error){
                 if(answer.isEmpty()){
                     answerArea.setText("无实根。");
                 }else{
@@ -255,9 +257,15 @@ public class EquationController implements Initializable {
             answerArea.setText("小数点重复！");
         }else if(calFlag==EquationError.symbolRepeat){
             answerArea.setText("运算符重复！");
+        }else if(calFlag==EquationError.xRepeat){
+            answerArea.setText("请直接输入幂次，不要连续输入变量x！");
+        }else if(calFlag==EquationError.cannotFindX){
+            answerArea.setText("输入的方程中不包含x！");
         }
         if(calFlag==EquationError.notEqual){
             answerArea.setText("运算式不相等！");
+        }else if(calFlag==EquationError.error){
+            answerArea.setText("运算式错误！");
         }
         EquationSolve solve=new EquationSolve(calFlag,showEquation,equation);
         historyEquation.add(solve);
@@ -266,7 +274,7 @@ public class EquationController implements Initializable {
      * @Description 判断方程式合法性
      * @author Bu Xinran
      * @date 2023/11/29 23:20
-    **/
+     **/
     protected void judgeIllegal() {
         //检查小数点连续问题。
         int len=equation.length();
@@ -293,13 +301,38 @@ public class EquationController implements Initializable {
                 return;
             }
         }
+        //检查x是否连续
+        int checkX=0;
+        for(int i=0;i<len;i++){
+            if(equation.charAt(i)=='x'){
+                checkX++;
+            }else{
+                checkX=0;
+            }
+            if(checkX>1){
+                calFlag=EquationError.xRepeat;
+                return;
+            }
+        }
+        //检查是否有x
+        int cntX=0;
+        for(int i=0;i<len;i++){
+            if(equation.charAt(i)=='x'){
+                cntX++;
+                break;
+            }
+        }
+        if(cntX==0){
+            calFlag=EquationError.cannotFindX;
+            return;
+        }
     }
     /***
      * @Description 通过点击按钮切换界面
      * @param event  鼠标点击了哪个按钮
      * @author Bu Xinran
      * @date 2023/12/1 11:13
-    **/
+     **/
     public void shift(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
         String text = clickedButton.getText();
@@ -335,7 +368,7 @@ public class EquationController implements Initializable {
      * @Description 计算得到方程组结果
      * @author Bu Xinran
      * @date 2023/12/1 11:25
-    **/
+     **/
     public void getAns() {
         if(state==2){
             tackle2();
@@ -349,7 +382,7 @@ public class EquationController implements Initializable {
      * @Description  计算二元一次方程组
      * @author Bu Xinran
      * @date 2023/12/1 11:27
-    **/
+     **/
     private void tackle2() {
         e2answerShow.setVisible(true);
         String e2X1=e2x1.getText();
@@ -380,7 +413,7 @@ public class EquationController implements Initializable {
      * @Description 计算三元一次方程组
      * @author Bu Xinran
      * @date 2023/12/1 12:58
-    **/
+     **/
     private void tackle3() {
         e3answerShow.setVisible(true);
         String e3X1=e3x1.getText();
@@ -424,7 +457,7 @@ public class EquationController implements Initializable {
      * @Description 计算四元一次方程组
      * @author Bu Xinran
      * @date 2023/12/1 12:58
-    **/
+     **/
     private void tackle4() {
         e4answerShow.setVisible(true);
         String X1=e4x1.getText();

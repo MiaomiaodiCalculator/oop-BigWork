@@ -1,3 +1,15 @@
+#text{
+     -fx-font-size: 20px;
+    -fx-font-family: "Times New Roman";
+    -fx-text-fill: #333;
+    -fx-border-color: #ffdbab;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-padding: 4px;
+    -fx-highlight-fill: transparent;
+    -fx-highlight-text-fill: transparent;
+    -fx-focus-color: #ef6c00;
+}
 #title {
     -fx-fill: #000000;
     -fx-font-size: 28px;
@@ -48,4 +60,27 @@
 #getAns:pressed {
     -fx-background-color: #ef6c00;
     -fx-text-fill: #fff;
+}
+#equationShow{
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #000000;
+    -fx-font-size: 20px;
+    -fx-padding: 5px;
+    -fx-border-color: #c0c0c0;
+    -fx-border-width: 1px;
+}
+#answerShow{
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-font-size: 20px;
+    -fx-padding: 10px;
+    -fx-border-color: #c0c0c0;
+    -fx-border-width: 1px;
+    -fx-alignment: center-right;
+    -fx-font-family: "Times New Roman";
+}
+#tips{
+    -fx-text-fill:gray;
+    -fx-font-size:10px;
+    -fx-font-family: "Times New Roman";
 }

@@ -227,14 +227,13 @@ public class ScientificController implements Initializable{
             ScientificSolve selectedItem = tableView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 String toFormula=selectedItem.getFormula();
-                String toAnswer=selectedItem.getResult();
                 exp=selectedItem.getExp();
                 Scientific.setVisible(true);
                 History.setVisible(false);
                 formula=toFormula;
                 formulaShow.setText(formula);
-                answer=toAnswer;
-                answerShow.setText(answer);
+                answerShow.setText(selectedItem.getResult());
+                calFlag=selectedItem.getCalFlag();
                 process=new ArrayList<>(selectedItem.getProcess());
                 processExp=new ArrayList<>(selectedItem.getProcessExp());
             }
@@ -282,7 +281,42 @@ public class ScientificController implements Initializable{
         editFormula(buttonText);
         formulaShow.setText(formula);
         if(!finish)checkIllegal();
+        else checkFinish();
         tackleError();
+        if(finish){
+            ScientificSolve a=new ScientificSolve(formula,answer,calFlag,process,processExp,exp);
+            a.setAnswer(a.getResult());
+            if(!list.contains(a)){
+                list.add(a);
+            }
+            SqlScientific.add(a);
+        }
+    }
+    /***
+     * @Description  计算式完成后的测试
+     * @author Bu Xinran
+     * @date 2023/12/18 11:21
+    **/
+    private void checkFinish() {
+        int checkBrack=0;
+        //运算式完成后的测试
+        for(int i=0;i < formula.length();i++) {
+            if(formula.charAt(i)=='('){
+                checkBrack+=1;
+            }else if(formula.charAt(i)==')'){
+                checkBrack-=1;
+            }
+        }
+        if(checkBrack!=0){
+            calFlag= ErrorScientific.bracket;
+            return;
+        }
+        if(formula.contains("()")||formula.contains("(())")||formula.contains("((()))")){
+            calFlag=ErrorScientific.BrackNull;
+            return ;
+        }
+        calFlag=ErrorScientific.yes;
+        return ;
     }
     /***
      * @Description  点击自定义函数，调用当前的自定义函数
@@ -307,9 +341,9 @@ public class ScientificController implements Initializable{
             setAnswer();
             if(!answer.isEmpty()){
                 double ans=Double.parseDouble(answer);
-                DecimalFormat df = new DecimalFormat("0.#######");
+                DecimalFormat df = new DecimalFormat("0.######");
                 if (ans > 1e5) {
-                    df.applyPattern("0.#######E0");
+                    df.applyPattern("0.######E0");
                 }
                 String show = df.format(ans);
                 if(show.contains("E")){
@@ -333,6 +367,11 @@ public class ScientificController implements Initializable{
             answerShow.setText("不能除以0！");
         }else if(calFlag== ErrorScientific.Illegal){
             answerShow.setText("算式非法！");
+        }else if(calFlag==ErrorScientific.BrackNull){
+            answerShow.setText("括号内为空！");
+        }
+        if(calFlag==ErrorScientific.error){
+            answerShow.setText("运算式错误！");
         }
     }
     /***
@@ -346,10 +385,16 @@ public class ScientificController implements Initializable{
         jep.addFunction("floor",new Floor());
         jep.addFunction("ceil",new Ceil());
         try{
-            jep.parse(exp);
+            String mm=exp;
+            if(exp.length()>1&&exp.charAt(exp.length()-1)=='='){
+                mm=exp.substring(0,exp.length()-1);
+            }
+            jep.parse(mm);
             answer=jep.evaluate().toString();
+            //System.out.println(answer);
         }catch(ParseException e){
-            System.out.print(" ");
+            calFlag=ErrorScientific.error;
+            if(formula.isEmpty())calFlag=ErrorScientific.yes;
         }
     }
     /***
@@ -361,7 +406,7 @@ public class ScientificController implements Initializable{
     public void editFormula(String str){
         if(!str.contains("="))finish=false;
         switch(str){
-            case "0": case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case "(":  case "+": case "-": case ".": case "!":
+            case "0": case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case "(":  case "+": case "-": case ".":
                 formula=formula+str;
                 exp=exp+str;
                 break;
@@ -375,6 +420,12 @@ public class ScientificController implements Initializable{
             case "×":
                 formula=formula+"×";
                 exp=exp+"*";
+                break;
+            case "rand":
+                Random random = new Random();
+                int randomNumber = random.nextInt(100);
+                formula=formula+randomNumber;
+                exp=exp+randomNumber;
                 break;
             case "÷":
                 formula=formula+"÷";
@@ -432,6 +483,7 @@ public class ScientificController implements Initializable{
                 formula="";
                 exp="";
                 answer="";
+                finish=false;
                 calFlag=ErrorScientific.yes;
                 answerShow.setText("");
                 process.clear();
@@ -460,12 +512,6 @@ public class ScientificController implements Initializable{
                 processExp.add(exp);
                 if(calFlag!= ErrorScientific.divideZero)checkIllegal();
                 finish=true;
-                ScientificSolve a=new ScientificSolve(formula,answer,calFlag,process,processExp,exp);
-                a.setAnswer(a.getResult());
-                if(!list.contains(a)){
-                    list.add(a);
-                }
-                SqlScientific.add(a);
                 break;
             default:
                 if(process.size()<=1){
@@ -473,6 +519,9 @@ public class ScientificController implements Initializable{
                     exp="";
                     answer="";
                     return;
+                }
+                if(!process.get(process.size() - 2).contains("=")&&process.contains("=")){
+                    finish=false;
                 }
                 formula=process.get(process.size() - 2);
                 exp=processExp.get(processExp.size() - 2);
