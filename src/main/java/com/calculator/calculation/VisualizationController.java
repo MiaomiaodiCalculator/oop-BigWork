@@ -21,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -34,10 +35,7 @@ import java.net.URL;
 import java.nio.IntBuffer;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -185,44 +183,64 @@ public class VisualizationController implements Initializable {
     }
 
     /**
-     * @Description 将所选历史记录页面显示在函数图像上
+     * @Description 将所选历史记录页面显示在函数图像上、显示提示信息、删除记录
      * @param event 记录选中的历史记录项
      * @author ZhouYH
      * @date 2023/12/9 11:09
      **/
     public void handleRowClick(MouseEvent event) throws RuntimeException {
-        // 判断是否双击行
-        if (event.getClickCount() == 2) {
-            String[] selectedItem = tableView.getSelectionModel().getSelectedItem().getItem();
-            if(selectedItem!=null) {
-                initData();
-                for (int i = 1; i <= 5; i++){
-                    unshow(i);
-                    if (selectedItem[i] != null) {
-                        funcs[i].setText(selectedItem[i]);
-                        Go(i);
+        if(event.getButton()== MouseButton.PRIMARY){
+            // 判断是否双击行
+            if (event.getClickCount() == 2) {
+                String[] selectedItem = tableView.getSelectionModel().getSelectedItem().getItem();
+                if(selectedItem!=null) {
+                    initData();
+                    for (int i = 1; i <= 5; i++){
+                        unshow(i);
+                        if (selectedItem[i] != null) {
+                            funcs[i].setText(selectedItem[i]);
+                            Go(i);
+                        }
+                        if (funcs[i].getText().equals("ERROR")) funcs[i].setText("");
                     }
-                    if (funcs[i].getText().equals("ERROR")) funcs[i].setText("");
+                }
+            }
+            String[] selectedItem = tableView.getSelectionModel().getSelectedItem().getItem();
+            String showing=(tableView.getSelectionModel().getSelectedItem().getSaveTime().toString()+"\n");
+            for(int i=1;i<=5;i++){
+                if(!selectedItem[i].equals("null")) showing=(showing+"y"+i+" = "+selectedItem[i]).intern();
+                else showing=(showing+"y"+i+" is BLANK").intern();
+                if(i!=5) showing=(showing+"\n").intern();
+            }
+            tooltip.setText(showing);
+        }else if(event.getButton()==MouseButton.SECONDARY){
+            UserData deleting = tableView.getSelectionModel().getSelectedItem();
+            if(SqlVisualize.exists(deleting)){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                Image customIcon = new Image("error.png");
+                ImageView iconImageView = new ImageView(customIcon);
+                iconImageView.setFitWidth(48);
+                iconImageView.setFitHeight(48);
+                alert.getDialogPane().setGraphic(iconImageView);
+                alert.getDialogPane().setStyle("-fx-background-color: white;");
+                ButtonType okButton = ButtonType.OK;
+                alert.getDialogPane().lookupButton(okButton).setStyle("-fx-background-color: #FF9838; -fx-text-fill: white;");
+                alert.setHeaderText("删除这条历史记录？");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    SqlVisualize.delete(deleting);
+                    handleHisImageClick();
                 }
             }
         }
-        String[] selectedItem = tableView.getSelectionModel().getSelectedItem().getItem();
-        String showing=(tableView.getSelectionModel().getSelectedItem().getSaveTime().toString()+"\n");
-        for(int i=1;i<=5;i++){
-            if(!selectedItem[i].equals("null")) showing=(showing+"y"+i+" = "+selectedItem[i]).intern();
-            else showing=(showing+"y"+i+" is BLANK").intern();
-            if(i!=5) showing=(showing+"\n").intern();
-        }
-        tooltip.setText(showing);
     }
 
     /**
      * @Description 跳转到历史记录页面
-     * @param event 无意义
      * @author ZhouYH
      * @date 2023/12/9 11:10
      **/
-    public void handleHisImageClick(MouseEvent event) {
+    public void handleHisImageClick() {
         list=SqlVisualize.getAllHis();
         tableView.getItems().setAll(list);
         Visualization.setVisible(false);
