@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="DMPane" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
+<AnchorPane fx:id="DMPane" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calculator.calculation.DiscreteMathController">
     <stylesheets>
         <URL value="@style/DM.css" />
     </stylesheets>
@@ -20,19 +25,24 @@
            </font>
        </Text>
       <Button fx:id="detail" layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#clickDetail" prefHeight="25.0" prefWidth="57.0" text="说明" />
-      <TextFlow fx:id="textFlow" layoutX="86.0" layoutY="52.0" prefHeight="79.0" prefWidth="266.0" visible="false">
+      <TextFlow fx:id="textFlow" layoutX="86.0" layoutY="52.0" prefHeight="83.0" prefWidth="386.0" visible="false">
          <children>
-            <Text fill="#2b2424b2" strokeType="OUTSIDE" strokeWidth="0.0" text="图顶点数：图的顶点个数，输入后回车确认；" wrappingWidth="303.740234375">
+            <Text fill="#2b2424b2" strokeType="OUTSIDE" strokeWidth="0.0" text="图顶点数：图的顶点个数，输入后回车确认；" wrappingWidth="360">
                <font>
                   <Font size="13.0" />
                </font>
             </Text>
+             <Text fill="#2b2424b2" strokeType="OUTSIDE" strokeWidth="0.0" text="如果想查看动态演示，图的顶点个数不宜超过200个;" wrappingWidth="360">
+                 <font>
+                     <Font size="13.0" />
+                 </font>
+             </Text>
             <Text fill="#2b2424b2" strokeType="OUTSIDE" strokeWidth="0.0" text="双击表格节点，编辑有向边权重，回车确认；">
                <font>
                   <Font size="13.0" />
                </font>
             </Text>
-            <Text fill="#2b2424b2" strokeType="OUTSIDE" strokeWidth="0.0" text="确认构图后点击按钮，再点击生成动画即可" wrappingWidth="303.740234375">
+            <Text fill="#2b2424b2" strokeType="OUTSIDE" strokeWidth="0.0" text="确认构图后点击按钮，再点击生成动画即可" wrappingWidth="360">
                <font>
                   <Font size="13.0" />
                </font>

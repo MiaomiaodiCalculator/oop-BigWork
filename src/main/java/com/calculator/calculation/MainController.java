@@ -81,6 +81,7 @@ public class MainController implements Initializable {
     private void DiscreteMathShift() {
         present="DiscreteMath";
         loadPage("DiscreteMath.fxml");
+        DiscreteMathController.flagDM = false;
     }
     /**
      * @Description 加载概率统计卡片布局
