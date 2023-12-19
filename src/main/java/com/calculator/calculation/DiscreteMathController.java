@@ -48,7 +48,7 @@ import DiscreteMath.Circle;
  */
 public class DiscreteMathController implements Initializable {
     public Label error;
-    private static boolean flag = false;
+    public static boolean flagDM = false;
     public AnchorPane DMPane;
     public Button ButtonGenerateGraph;
     @FXML
@@ -79,8 +79,8 @@ public class DiscreteMathController implements Initializable {
     **/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if(!flag) {
-            flag = true;
+        if(!flagDM) {
+            flagDM = true;
             loadPage("DiscreteMathGraph.fxml");
         }
     }
@@ -128,6 +128,12 @@ public class DiscreteMathController implements Initializable {
      * @date 2023/12/18 21:47
     **/
     public void handleMTPointNumKeyPressed(KeyEvent keyEvent) {
+        // 清空原本页面
+        GraphTable.getColumns().clear();
+        minAns.clear();
+        CanvasShowGraph.getGraphicsContext2D().clearRect(0, 0, CanvasShowGraph.getWidth(), CanvasShowGraph.getHeight());
+        circles.clear();
+        lines.clear();
         if (keyEvent.getCode() == KeyCode.ENTER) {
             String input = PointNumText.getText();
             int num;
@@ -238,6 +244,7 @@ public class DiscreteMathController implements Initializable {
 //        kminTree.printGraph();
     }
 
+    private List<Path> pathes = new ArrayList<>();
     /**
      * @Description 展示最小生成树过程
      * @param actionEvent
@@ -272,6 +279,10 @@ public class DiscreteMathController implements Initializable {
         root.getChildren().add(buttonBox);
 
         gc = CanvasShowGraph.getGraphicsContext2D();
+        // 清空
+        circles.clear();
+        pathes.clear();
+        gc.clearRect(0, 0, CanvasShowGraph.getWidth(), CanvasShowGraph.getHeight());
         gc.setFill(CIRCLE_COLOR);
         gc.setStroke(CIRCLE_COLOR);
 
@@ -280,7 +291,13 @@ public class DiscreteMathController implements Initializable {
             double x = generateRandomX(CANVAS_WIDTH);
             double y = generateRandomY(CANVAS_HEIGHT);
 
+            int count = 0;   // 防止找不到空白处陷入死循环
             while (isOverlapping(x, y)) {
+                count++;
+                if (count > 400) {
+                    showAlert("错误提示", "点数太多啦，显示失败，再试其他数据吧");
+                    return;
+                }
                 x = generateRandomX(CANVAS_WIDTH);
                 y = generateRandomY(CANVAS_HEIGHT);
             }
@@ -317,6 +334,7 @@ public class DiscreteMathController implements Initializable {
                             circles.get(cur).getCenterX() + CanvasShowGraph.getLayoutX() + GraphPane.getLayoutX(),
                             circles.get(cur).getCenterY() + CanvasShowGraph.getLayoutY() + GraphPane.getLayoutY()));
                     GraphPane.getChildren().add(path);
+                    pathes.add(path);
                     pCnt[0]++;
                 }
             }
@@ -342,7 +360,7 @@ public class DiscreteMathController implements Initializable {
      * @date 2023/12/15 21:43
      **/
     private double generateRandomY(double CANVAS_HEIGHT) {
-        return Math.random() * (CANVAS_HEIGHT - 20); // 保持一定的边距
+        return Math.random() * (CANVAS_HEIGHT - 30) + 5; // 保持一定的边距
     }
     /**
      * @Description 判断要画的位置点是否和已有点重合

@@ -247,6 +247,7 @@ public class ProbabilityController implements Initializable {
     **/
     public void BasicAnalysisShift() {
         clearPage();
+        flagInit();
         flagRawProcess = true;
         flagOneInput = false;
         flagTwoInput = true;
@@ -268,6 +269,7 @@ public class ProbabilityController implements Initializable {
     **/
     public void GaussianDistributionShift(ActionEvent actionEvent) {
         RVType = 1;
+        flagInit();
         flagHasNormal = false;
         GaussianDistribution.setVisible(true);
         BasicAnalysis.setVisible(false);
@@ -285,6 +287,7 @@ public class ProbabilityController implements Initializable {
     **/
     public void PoissonDistributionShift(ActionEvent actionEvent) {
         RVType = 2;
+        flagInit();
         flagHasPossion = false;
         PoissonDistribution.setVisible(true);
         BasicAnalysis.setVisible(false);
@@ -301,6 +304,7 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/4 9:59
     **/
     public void RegressionAnalysisShift(ActionEvent actionEvent) {
+        flagInit();
         flagHasRegress = false;
         linearAnalysis(); // 切换这个页面时以线性回归为初始化
         RegressionAnalysis.setVisible(true);
@@ -322,6 +326,8 @@ public class ProbabilityController implements Initializable {
         int num= choiceBox.getValue();
         switch (num) {
             case 1 -> {
+                clearPage();
+                returnImg.setVisible(false);
                 oneInputTable.setVisible(true);
                 DataTable.setVisible(false);
                 // 单变量把协方差和相关系数设置为不可见，以及第二个随机变量的相关数字特征不可见，其余可见
@@ -349,6 +355,8 @@ public class ProbabilityController implements Initializable {
                 flagInput2 = false;
             }
             case 2 -> {
+                clearPage();
+                returnImg.setVisible(true);
                 DataTable.setVisible(true);
                 oneInputTable.setVisible(false);
                 Cov.setVisible(true);
@@ -383,6 +391,23 @@ public class ProbabilityController implements Initializable {
         return num;
     }
     /**
+     * @Description 控制该界面的flag初始化-全部置否-true需要单独设置
+     * @author 郑悦
+     * @date 2023/12/18 19:10
+    **/
+    public void flagInit() {
+        flagTwoInput = false;
+        flagRawProcess = false;
+        flagWithProbability = false;
+        flagInput1 = false;
+        flagInput2 = false;
+        flagOneInput = false;
+        flagHasRegress = false;
+        flagHasPossion = false;
+        flagHasNormal = false;
+        flagHasBasicSolve = false;
+    }
+    /**
      * @Description 初始化概率统计功能布局
      * @param url
      * @param resourceBundle        
@@ -394,6 +419,7 @@ public class ProbabilityController implements Initializable {
         choiceBox.getItems().addAll(paraNum);
         choiceBox.setValue(2);
         choiceBox.setOnAction(this::getParaNum);
+        flagInit();
         flagTwoInput = true;
         flagRawProcess = true;
         BasicAnalysisShift();
@@ -437,6 +463,8 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/3 20:48
     **/
     public void ProcessRaw() {
+        flagInit();
+        flagTwoInput = true;
         choiceBox.setDisable(false);
         returnPage();
         processMethod.setText("原始数据");
@@ -451,6 +479,8 @@ public class ProbabilityController implements Initializable {
      * @date 2023/12/3 20:49
     **/
     public void ProcessWithProbability() {
+        flagInit();
+        clearPage();
         // 概率处理指只对一个随机变量
         choiceBox.setDisable(true);
         processMethod.setText("概率处理");
@@ -663,6 +693,7 @@ public class ProbabilityController implements Initializable {
             }
             numbers[i] = Double.parseDouble(numberStrings[i]);
         }
+        //TODO:flag未清零
         if (flagWithProbability && ToWhich == 2) {
             if (!checkProbLegal(numbers)) {
                 showAlert("错误提示", "请输入数据正确的概率值");
