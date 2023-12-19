@@ -1,5 +1,6 @@
 package Database;
 
+import Scientific.ScientificSolve;
 import Visualizing.UserData;
 import com.calculator.calculation.LoginController;
 import com.calculator.calculation.Main;
@@ -95,6 +96,26 @@ public class SqlVisualize {
         catch (SQLException e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    /***
+     * @Description 删除函数图像绘制中制定对象
+     * @param deleting   要删除的对象
+     * @author Bu Xinran
+     * @date 2023/12/9 17:04
+     **/
+    public static void delete(UserData deleting) {
+        if(exists(deleting)) {
+            try {
+                PreparedStatement del = connection.prepareStatement(delete);
+                del.setTimestamp(1, deleting.getSaveTime());
+                del.setString(2,LoginController.userName);
+                del.executeUpdate();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

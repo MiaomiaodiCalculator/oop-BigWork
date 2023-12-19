@@ -22,7 +22,7 @@
                  <items>
                      <MenuItem onAction="#VolumeShift" text="体积" />
                      <MenuItem onAction="#LengthShift" text="长度" />
-                     <MenuItem onAction="#WeightShift" text="重量" />
+                     <MenuItem onAction="#WeightShift" text="质量" />
                      <MenuItem onAction="#TemperatureShift" text="温度" />
                      <MenuItem onAction="#AreaShift" text="面积" />
                      <MenuItem onAction="#TimeShift" text="时间" />
